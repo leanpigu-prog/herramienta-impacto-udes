@@ -136,7 +136,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 
 /* Barra de progreso inline */
 .barra-wrap{display:inline-block;width:64px;height:6px;background:#dee3ec;border-radius:4px;vertical-align:middle;margin:0 4px;flex-shrink:0}
-.barra-fill{height:6px;border-radius:4px;max-width:100%}
+.barra-fill{display:block;height:6px;border-radius:4px;max-width:100%}
 .barra-g{background:var(--vd)}.barra-a{background:var(--am)}.barra-r{background:var(--ro)}.barra-az{background:var(--az3)}
 
 /* Progreso por función (Seguimiento) */
@@ -165,6 +165,33 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   padding:11px 18px;font-size:13px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.25);
   opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none;z-index:999}
 #toast.on{opacity:1;transform:translateY(0)}
+
+/* Controles PDF */
+.barra-controles{display:flex;align-items:center;gap:12px;padding:10px 16px;
+  background:#fff;border:1px solid var(--borde);border-left:3px solid var(--az);
+  border-radius:7px;margin-bottom:13px;flex-wrap:wrap}
+.sel-vr{border:1px solid var(--borde);border-radius:5px;padding:6px 10px;
+  font-size:13px;font-family:inherit;outline:none;cursor:pointer;background:#fff}
+.btn-pdf{background:var(--az);color:#fff;border:none;border-radius:6px;
+  padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer;margin-left:auto}
+.btn-pdf:hover{background:var(--az2)}
+
+/* Impresión */
+@media print{
+  .hdr{position:relative!important;box-shadow:none!important;height:auto!important;padding:10px 20px!important}
+  .tabs,.barra-controles,.hdr-auto,.hdr-sep{display:none!important}
+  .wrap{padding:10px!important;max-width:none!important}
+  .tw{max-height:none!important;overflow:visible!important;box-shadow:none!important;border-radius:0!important}
+  table.ti thead th{background:var(--az)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .nv,.seg-fn-hdr td,.row-cumplida td,.row-superada td,.row-en_proceso td,.row-sin_iniciar td{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .barra-fill,.barra-g,.barra-a,.barra-r,.sem-g,.sem-a,.sem-r,.sem-az{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  tr{page-break-inside:avoid}
+  .no-print{display:none!important}
+  .wrap::before{content:attr(data-titulo);display:block;font-size:14px;font-weight:700;
+    color:var(--az);margin-bottom:10px;border-bottom:2px solid var(--do);padding-bottom:6px}
+}
 
 @media(max-width:700px){.wrap{padding:10px}.tabs{padding:0 10px}.tab{padding:11px 14px}}
 </style>
@@ -608,7 +635,18 @@ function renderSeg(lista){
      </div>
      <div class="prog-fns">${progFns}</div>`;
 
-  document.getElementById('zona-nota').style.display='none';
+  const notaEl=document.getElementById('zona-nota');
+  notaEl.style.display='';
+  notaEl.innerHTML=`<div class="barra-controles">
+    <label style="font-size:13px;font-weight:500;color:var(--txt2)">Generar boletín:</label>
+    <select id="sel-vr" class="sel-vr">
+      <option value="">Todas las Vicerrectorías</option>
+      <option value="INV">Investigación</option>
+      <option value="ENS">Enseñanza</option>
+      <option value="EXT">Extensión</option>
+    </select>
+    <button class="btn-pdf" onclick="descargarPDF()">&#11123; Descargar PDF</button>
+  </div>`;
 
   document.getElementById('thead').innerHTML=`<tr>
     <th style="width:14px"></th>
@@ -629,7 +667,7 @@ function renderSeg(lista){
   let rows='';
   FUNCS.forEach(f=>{
     const indsF=lista.filter(i=>i.f===f);
-    rows+=`<tr class="seg-fn-hdr"><td colspan="12">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicadores</td></tr>`;
+    rows+=`<tr class="seg-fn-hdr" data-f="${f}"><td colspan="12">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicadores</td></tr>`;
     const grupos={};
     ORDEN_NIV.forEach(n=>{grupos[n]=indsF.filter(i=>i.niv===n);});
     ORDEN_NIV.forEach(niv=>{
@@ -642,7 +680,7 @@ function renderSeg(lista){
         const obs  = store[ind.id+'_o']||'';
         const pct26=calcPct(va26,ind.m26);
         const pct28=calcPct(va28,ind.m28);
-        rows+=`<tr class="${est?'row-'+est:''}">`;
+        rows+=`<tr class="${est?'row-'+est:''}" data-f="${f}">`;
         rows+=`<td style="padding:6px 8px"><span class="sem ${semCls(est)}"></span></td>`;
         rows+=`<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         if(idx===0) rows+=`<td class="nv ${CSS_NIV[niv]}" rowspan="${inds.length}">${niv}</td>`;
@@ -754,6 +792,21 @@ function toast(m){
   el.textContent=m;el.classList.add('on');
   setTimeout(()=>el.classList.remove('on'),3000);
 }
+
+function descargarPDF(){
+  const f=(document.getElementById('sel-vr')||{}).value||'';
+  const titulos={'':'Todas las Vicerrectorías',INV:'Vicerrectoría de Investigación',
+    ENS:'Vicerrectoría de Enseñanza',EXT:'Vicerrectoría de Extensión'};
+  document.querySelector('.wrap').dataset.titulo=
+    'Seguimiento de Impacto Institucional UDES 2024-2028 — '+titulos[f];
+  document.querySelectorAll('tr[data-f]').forEach(tr=>{
+    tr.classList.toggle('no-print', f!=='' && tr.dataset.f!==f);
+  });
+  window.print();
+}
+window.addEventListener('afterprint',()=>{
+  document.querySelectorAll('tr[data-f]').forEach(tr=>tr.classList.remove('no-print'));
+});
 </script>
 </body>
 </html>
