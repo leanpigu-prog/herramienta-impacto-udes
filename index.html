@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seguimiento de Impacto Institucional UDES 2024-2028</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root{
   --az:#003087;--do:#C8A951;--azl:#e8eef8;--az2:#1a4a9f;
@@ -175,6 +176,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .btn-pdf{background:var(--az);color:#fff;border:none;border-radius:6px;
   padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer;margin-left:auto}
 .btn-pdf:hover{background:var(--az2)}
+
+.tw.pdf-mode{max-height:none!important;overflow:visible!important}
 
 /* Impresión */
 @media print{
@@ -797,16 +800,44 @@ function descargarPDF(){
   const f=(document.getElementById('sel-vr')||{}).value||'';
   const titulos={'':'Todas las Vicerrectorías',INV:'Vicerrectoría de Investigación',
     ENS:'Vicerrectoría de Enseñanza',EXT:'Vicerrectoría de Extensión'};
-  document.querySelector('.wrap').dataset.titulo=
-    'Seguimiento de Impacto Institucional UDES 2024-2028 — '+titulos[f];
+  const archivos={'':'Todas-VR',INV:'Investigacion',ENS:'Ensenanza',EXT:'Extension'};
+
   document.querySelectorAll('tr[data-f]').forEach(tr=>{
-    tr.classList.toggle('no-print', f!=='' && tr.dataset.f!==f);
+    tr.style.display=(f && tr.dataset.f!==f)?'none':'';
   });
-  window.print();
+
+  const tw=document.querySelector('.tw');
+  const controles=document.querySelector('.barra-controles');
+  tw.classList.add('pdf-mode');
+  document.querySelectorAll('thead th').forEach(th=>th.style.position='relative');
+  if(controles) controles.style.display='none';
+
+  const tit=document.createElement('div');
+  tit.id='pdf-tit';
+  tit.style.cssText='font-size:13px;font-weight:700;color:#003087;margin-bottom:10px;border-bottom:2px solid #C8A951;padding-bottom:6px;padding-top:4px';
+  tit.textContent='Seguimiento de Impacto Institucional UDES 2024-2028 — '+titulos[f];
+  document.querySelector('.wrap').prepend(tit);
+
+  const btn=document.querySelector('.btn-pdf');
+  if(btn){btn.disabled=true;btn.textContent='Generando...';}
+
+  html2pdf().set({
+    margin:[6,6,6,6],
+    filename:'Boletin-Impacto-UDES-'+archivos[f]+'.pdf',
+    image:{type:'jpeg',quality:0.95},
+    html2canvas:{scale:1.5,useCORS:true,logging:false,scrollY:0},
+    jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
+    pagebreak:{mode:['avoid-all','css']}
+  }).from(document.querySelector('.wrap')).save()
+  .then(()=>{
+    tw.classList.remove('pdf-mode');
+    document.querySelectorAll('thead th').forEach(th=>th.style.position='');
+    document.querySelectorAll('tr[data-f]').forEach(tr=>tr.style.display='');
+    if(controles) controles.style.display='';
+    const t=document.getElementById('pdf-tit'); if(t) t.remove();
+    if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
+  });
 }
-window.addEventListener('afterprint',()=>{
-  document.querySelectorAll('tr[data-f]').forEach(tr=>tr.classList.remove('no-print'));
-});
 </script>
 </body>
 </html>
