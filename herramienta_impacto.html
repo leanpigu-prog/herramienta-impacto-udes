@@ -895,11 +895,6 @@ function descargarPDF(){
   h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Plan de Desarrollo Institucional 2024-2028 · ${fecha}</div>`;
   h+=`</div>`;
 
-  const tmp=document.createElement('div');
-  tmp.style.cssText='position:fixed;left:-9999px;top:0;';
-  tmp.innerHTML=h;
-  document.body.appendChild(tmp);
-
   const btn=document.querySelector('.btn-pdf');
   if(btn){btn.disabled=true;btn.textContent='Generando...';}
 
@@ -910,9 +905,8 @@ function descargarPDF(){
     html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:1050},
     jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
     pagebreak:{mode:'css',avoid:'tr'}
-  }).from(tmp).save()
+  }).from(h).save()
   .then(()=>{
-    tmp.remove();
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
 }
