@@ -817,47 +817,67 @@ function descargarPDF(){
   });
 
   const tw=document.querySelector('.tw');
-  const controles=document.querySelector('.barra-controles');
   const zonaInfo=document.getElementById('zona-info');
-  tw.classList.add('pdf-mode');
+  const zonaNotaEl=document.getElementById('zona-nota');
   tw.style.overflow='visible';
   tw.style.maxHeight='none';
   tw.style.borderRadius='0';
+  tw.style.boxShadow='none';
   document.querySelectorAll('thead th').forEach(th=>th.style.position='relative');
-  if(controles) controles.style.display='none';
   if(zonaInfo) zonaInfo.style.display='none';
+  if(zonaNotaEl) zonaNotaEl.style.display='none';
+
+  // CSS compacto solo para captura PDF (fuentes y anchos reducidos para caber en A4 landscape)
+  const pdfStyle=document.createElement('style');
+  pdfStyle.id='pdf-temp';
+  pdfStyle.textContent=
+    'table.ti{font-size:9.5px!important}'+
+    'table.ti thead th{font-size:8.5px!important;padding:5px 6px!important}'+
+    'table.ti td{padding:4px 6px!important}'+
+    '.td-ind{min-width:130px!important;max-width:155px!important}'+
+    '.celda-prog{min-width:105px!important}'+
+    '.td-val,.td-und{min-width:48px!important}'+
+    '.nv{font-size:8px!important;padding:4px 3px!important;min-width:22px!important}'+
+    '.pct{font-size:9px!important;padding:1px 5px!important;min-width:38px!important}'+
+    '.fn-b{font-size:8.5px!important}'+
+    '.barra-wrap{width:50px!important}'+
+    '.seg-fn-hdr td{font-size:9px!important;padding:4px 8px!important}'+
+    '.wrap{padding:10px 14px 20px!important}';
+  document.head.appendChild(pdfStyle);
 
   const logoImg=document.querySelector('.hdr-logo-img');
   const logoSrc=logoImg?logoImg.src:'';
   const tit=document.createElement('div');
   tit.id='pdf-tit';
-  tit.style.cssText='margin-bottom:12px;padding-top:4px';
-  tit.innerHTML=`<div style="display:flex;align-items:center;gap:14px;padding-bottom:8px;border-bottom:2px solid #C8A951">`+
-    (logoSrc?`<img src="${logoSrc}" style="height:40px;width:auto;display:block">`:'')+
-    `<div><div style="font-size:14px;font-weight:700;color:#003087;line-height:1.2">Seguimiento de Impacto Institucional UDES 2024-2028</div>`+
-    `<div style="font-size:12px;color:#546E7A;margin-top:3px">${titulos[f]}</div></div></div>`;
+  tit.style.cssText='margin-bottom:10px;padding-top:2px';
+  tit.innerHTML=`<div style="display:flex;align-items:center;gap:12px;padding-bottom:7px;border-bottom:2px solid #C8A951">`+
+    (logoSrc?`<img src="${logoSrc}" style="height:36px;width:auto;display:block">`:'')+
+    `<div><div style="font-size:13px;font-weight:700;color:#003087;line-height:1.2">Seguimiento de Impacto Institucional UDES 2024-2028</div>`+
+    `<div style="font-size:11px;color:#546E7A;margin-top:2px">${titulos[f]}</div></div></div>`;
   document.querySelector('.wrap').prepend(tit);
 
   const btn=document.querySelector('.btn-pdf');
   if(btn){btn.disabled=true;btn.textContent='Generando...';}
 
+  // windowWidth:1050 ≈ ancho útil de A4 landscape a 96dpi (evita comprimir texto al capturar)
   html2pdf().set({
     margin:[8,6,8,6],
     filename:'Boletin-Impacto-UDES-'+archivos[f]+'.pdf',
     image:{type:'jpeg',quality:0.97},
-    html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:document.documentElement.offsetWidth},
+    html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:1050},
     jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
-    pagebreak:{mode:['avoid-all','css']}
+    pagebreak:{mode:'css',avoid:'tr'}
   }).from(document.querySelector('.wrap')).save()
   .then(()=>{
-    tw.classList.remove('pdf-mode');
     tw.style.overflow='';
     tw.style.maxHeight='';
     tw.style.borderRadius='';
+    tw.style.boxShadow='';
     document.querySelectorAll('thead th').forEach(th=>th.style.position='');
     document.querySelectorAll('tr[data-f]').forEach(tr=>tr.style.display='');
-    if(controles) controles.style.display='';
     if(zonaInfo) zonaInfo.style.display='';
+    if(zonaNotaEl) zonaNotaEl.style.display='';
+    document.getElementById('pdf-temp')?.remove();
     const t=document.getElementById('pdf-tit'); if(t) t.remove();
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
