@@ -859,6 +859,24 @@ function descargarPDF(){
   const btn=document.querySelector('.btn-pdf');
   if(btn){btn.disabled=true;btn.textContent='Generando...';}
 
+  // Aplanar rowspans de columna NIVEL para evitar bloques de color cortados entre páginas
+  const rsBackups=[];
+  document.querySelectorAll('td.nv[rowspan]').forEach(cell=>{
+    const span=parseInt(cell.getAttribute('rowspan')||'1');
+    if(span<=1) return;
+    const clones=[];
+    cell.removeAttribute('rowspan');
+    let sib=cell.closest('tr').nextElementSibling;
+    for(let i=1;i<span&&sib;i++){
+      const cl=cell.cloneNode(true);
+      cl.style.borderTop='0';
+      sib.insertBefore(cl,sib.firstChild);
+      clones.push(cl);
+      sib=sib.nextElementSibling;
+    }
+    rsBackups.push({cell,span,clones});
+  });
+
   // windowWidth:1050 ≈ ancho útil de A4 landscape a 96dpi (evita comprimir texto al capturar)
   html2pdf().set({
     margin:[8,6,8,6],
@@ -879,6 +897,11 @@ function descargarPDF(){
     if(zonaNotaEl) zonaNotaEl.style.display='';
     document.getElementById('pdf-temp')?.remove();
     const t=document.getElementById('pdf-tit'); if(t) t.remove();
+    // Restaurar rowspans de columna NIVEL
+    rsBackups.forEach(({cell,span,clones})=>{
+      cell.setAttribute('rowspan',span);
+      clones.forEach(c=>c.remove());
+    });
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
 }
