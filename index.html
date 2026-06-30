@@ -834,14 +834,14 @@ function descargarPDF(){
   const pctClr=p=>p===null?'#999':p>=80?'#2E7D32':p>=50?'#E65100':'#B71C1C';
   const pctTxt=p=>p===null?'—':p+'%';
 
-  let h=`<div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#222;padding:12px 16px;max-width:1040px">`;
+  let h=`<div style="font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#222;padding:10px 14px;max-width:780px">`;
 
-  h+=`<div style="display:flex;align-items:center;gap:14px;border-bottom:2px solid #C8A951;padding-bottom:8px;margin-bottom:12px">`+
-    (logoSrc?`<img src="${logoSrc}" style="height:40px;width:auto">`:'')+
-    `<div><div style="font-size:14px;font-weight:700;color:#003087;line-height:1.2">Boletín de Seguimiento · Impacto Institucional UDES 2024-2028</div>`+
-    `<div style="font-size:10px;color:#546E7A;margin-top:2px">${titulos[f]} &nbsp;·&nbsp; Generado: ${fecha}</div></div></div>`;
+  h+=`<div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid #C8A951;padding-bottom:7px;margin-bottom:10px">`+
+    (logoSrc?`<img src="${logoSrc}" style="height:34px;width:auto">`:'')+
+    `<div><div style="font-size:13px;font-weight:700;color:#003087;line-height:1.2">Boletín de Seguimiento · Impacto Institucional UDES 2024-2028</div>`+
+    `<div style="font-size:9.5px;color:#546E7A;margin-top:2px">${titulos[f]} &nbsp;·&nbsp; Generado: ${fecha}</div></div></div>`;
 
-  h+=`<div style="display:flex;gap:10px;margin-bottom:14px">`+
+  h+=`<div style="display:flex;gap:8px;margin-bottom:12px">`+
     card('#003087',total,'Total indicadores')+
     card('#2E7D32',cumplidos,'Cumplidos / Superados')+
     card('#E65100',enProceso,'En proceso')+
@@ -851,16 +851,16 @@ function descargarPDF(){
   funciones.forEach(fn=>{
     const inds=lista.filter(i=>i.f===fn);
     if(!inds.length) return;
-    h+=`<div style="background:${FUN_COLOR[fn]};color:#fff;font-size:10px;font-weight:700;padding:5px 8px;border-radius:4px 4px 0 0;margin-top:10px">${FUN_LBL[fn]} · ${inds.length} indicadores</div>`;
-    const TH=(txt,w)=>`<th style="padding:4px 5px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:center;white-space:nowrap;${w?'min-width:'+w+'px':''}">${txt}</th>`;
-    h+=`<table style="width:100%;border-collapse:collapse;font-size:9px;margin-bottom:4px">`;
+    h+=`<div style="background:${FUN_COLOR[fn]};color:#fff;font-size:9.5px;font-weight:700;padding:4px 8px;border-radius:4px 4px 0 0;margin-top:9px">${FUN_LBL[fn]} · ${inds.length} indicadores</div>`;
+    const TH=(txt,w)=>`<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:center;white-space:nowrap;${w?'min-width:'+w+'px':''}">${txt}</th>`;
+    h+=`<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:4px">`;
     h+=`<thead><tr>`+
-      `<th style="padding:4px 5px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:170px">Indicador</th>`+
-      TH('Unidad',60)+TH('LB 2023',50)+TH('Meta 2026',52)+
-      `<th style="padding:4px 5px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:52px">Val. 2026</th>`+
-      TH('% 26',42)+TH('Meta 2028',52)+
-      `<th style="padding:4px 5px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:52px">Val. 2028</th>`+
-      TH('% 28',42)+TH('Estado',70)+
+      `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:130px">Indicador</th>`+
+      TH('Unidad',48)+TH('LB 2023',40)+TH('Meta 2026',44)+
+      `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2026</th>`+
+      TH('% 26',34)+TH('Meta 2028',44)+
+      `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2028</th>`+
+      TH('% 28',34)+TH('Estado',54)+
       `</tr></thead><tbody>`;
     ORDEN_NIV.forEach(niv=>{
       const nivinds=inds.filter(i=>i.niv===niv);
@@ -876,8 +876,8 @@ function descargarPDF(){
         const bg=ri%2===0?'#fff':'#FAFAFA';
         const TD=(txt,extra)=>`<td style="padding:4px 5px;text-align:center;${extra||''}">${txt||'—'}</td>`;
         h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
-          `<td style="padding:4px 5px;vertical-align:top">${ind.ind}</td>`+
-          `<td style="padding:4px 5px;text-align:center;color:#546E7A">${ind.und}</td>`+
+          `<td style="padding:3px 4px;vertical-align:top">${ind.ind}</td>`+
+          `<td style="padding:3px 4px;text-align:center;color:#546E7A">${ind.und}</td>`+
           TD(lb)+
           TD(ind.m26)+
           TD(va26||'—','background:#EFF6FF;font-weight:600')+
@@ -885,7 +885,7 @@ function descargarPDF(){
           TD(ind.m28)+
           TD(va28||'—','background:#EFF6FF;font-weight:600')+
           TD(`<span style="color:${pctClr(p28)};font-weight:700">${pctTxt(p28)}</span>`)+
-          `<td style="padding:4px 5px;text-align:center;font-weight:600;font-size:8.5px;white-space:nowrap;color:${EST_CLR[est]}">${EST_LBL[est]||'—'}</td>`+
+          `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[est]}">${EST_LBL[est]||'—'}</td>`+
           `</tr>`;
       });
     });
@@ -907,8 +907,8 @@ function descargarPDF(){
     margin:[8,6,8,6],
     filename:'Boletin-Impacto-UDES-'+archivos[f]+'.pdf',
     image:{type:'jpeg',quality:0.97},
-    html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:1050},
-    jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
+    html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:800},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{mode:'css',avoid:'tr'}
   }).from(h).save()
   .then(()=>{
