@@ -898,6 +898,11 @@ function descargarPDF(){
   const btn=document.querySelector('.btn-pdf');
   if(btn){btn.disabled=true;btn.textContent='Generando...';}
 
+  // Forzar el contenedor interno de html2pdf a x=0 (evita que margin:0 auto lo centre en body ancho)
+  const fixML=document.createElement('style');
+  fixML.textContent='.html2pdf__container{margin-left:0!important}';
+  document.head.appendChild(fixML);
+
   html2pdf().set({
     margin:[8,6,8,6],
     filename:'Boletin-Impacto-UDES-'+archivos[f]+'.pdf',
@@ -907,6 +912,7 @@ function descargarPDF(){
     pagebreak:{mode:'css',avoid:'tr'}
   }).from(h).save()
   .then(()=>{
+    fixML.remove();
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
 }
