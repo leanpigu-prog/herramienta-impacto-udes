@@ -811,73 +811,98 @@ function descargarPDF(){
   const titulos={'':'Todas las Vicerrectorías',INV:'Vicerrectoría de Investigación',
     ENS:'Vicerrectoría de Enseñanza',EXT:'Vicerrectoría de Extensión'};
   const archivos={'':'Todas-VR',INV:'Investigacion',ENS:'Ensenanza',EXT:'Extension'};
+  const funciones=f?[f]:['INV','ENS','EXT'];
+  const FUN_COLOR={INV:'#1565C0',ENS:'#2E7D32',EXT:'#E65100'};
+  const NIV_COLOR={Insumos:'#5C6BC0',Procesos:'#E65100',Productos:'#2E7D32','Impacto Real':'#AD1457'};
+  const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada'};
+  const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0'};
 
-  document.querySelectorAll('tr[data-f]').forEach(tr=>{
-    tr.style.display=(f && tr.dataset.f!==f)?'none':'';
+  const lista=IND.filter(i=>!f||i.f===f);
+  const total=lista.length;
+  const cumplidos=lista.filter(i=>['cumplida','superada'].includes(store[i.id+'_e'])).length;
+  const enProceso=lista.filter(i=>store[i.id+'_e']==='en_proceso').length;
+  const sinDato=lista.filter(i=>!store[i.id+'_va26']).length;
+
+  const logoSrc=(document.querySelector('.hdr-logo-img')||{}).src||'';
+  const fecha=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+
+  const card=(color,n,lbl)=>
+    `<div style="flex:1;border-left:3px solid ${color};background:${color}18;padding:7px 10px;border-radius:0 4px 4px 0">`+
+    `<div style="font-size:20px;font-weight:700;color:${color}">${n}</div>`+
+    `<div style="font-size:8.5px;color:#555;margin-top:1px">${lbl}</div></div>`;
+
+  const pctClr=p=>p===null?'#999':p>=80?'#2E7D32':p>=50?'#E65100':'#B71C1C';
+  const pctTxt=p=>p===null?'—':p+'%';
+
+  let h=`<div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#222;padding:12px 16px;max-width:1040px">`;
+
+  h+=`<div style="display:flex;align-items:center;gap:14px;border-bottom:2px solid #C8A951;padding-bottom:8px;margin-bottom:12px">`+
+    (logoSrc?`<img src="${logoSrc}" style="height:40px;width:auto">`:'')+
+    `<div><div style="font-size:14px;font-weight:700;color:#003087;line-height:1.2">Boletín de Seguimiento · Impacto Institucional UDES 2024-2028</div>`+
+    `<div style="font-size:10px;color:#546E7A;margin-top:2px">${titulos[f]} &nbsp;·&nbsp; Generado: ${fecha}</div></div></div>`;
+
+  h+=`<div style="display:flex;gap:10px;margin-bottom:14px">`+
+    card('#003087',total,'Total indicadores')+
+    card('#2E7D32',cumplidos,'Cumplidos / Superados')+
+    card('#E65100',enProceso,'En proceso')+
+    card('#B71C1C',sinDato,'Sin dato 2026')+
+    `</div>`;
+
+  funciones.forEach(fn=>{
+    const inds=lista.filter(i=>i.f===fn);
+    if(!inds.length) return;
+    h+=`<div style="background:${FUN_COLOR[fn]};color:#fff;font-size:10px;font-weight:700;padding:5px 8px;border-radius:4px 4px 0 0;margin-top:10px">${FUN_LBL[fn]} · ${inds.length} indicadores</div>`;
+    const TH=(txt,w)=>`<th style="padding:4px 5px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:center;white-space:nowrap;${w?'min-width:'+w+'px':''}">${txt}</th>`;
+    h+=`<table style="width:100%;border-collapse:collapse;font-size:9px;margin-bottom:4px">`;
+    h+=`<thead><tr>`+
+      `<th style="padding:4px 5px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:170px">Indicador</th>`+
+      TH('Unidad',60)+TH('LB 2023',50)+TH('Meta 2026',52)+
+      `<th style="padding:4px 5px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:52px">Val. 2026</th>`+
+      TH('% 26',42)+TH('Meta 2028',52)+
+      `<th style="padding:4px 5px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:52px">Val. 2028</th>`+
+      TH('% 28',42)+TH('Estado',70)+
+      `</tr></thead><tbody>`;
+    ORDEN_NIV.forEach(niv=>{
+      const nivinds=inds.filter(i=>i.niv===niv);
+      if(!nivinds.length) return;
+      h+=`<tr><td colspan="10" style="background:${NIV_COLOR[niv]}22;color:${NIV_COLOR[niv]};font-weight:700;font-size:8px;padding:3px 8px;text-transform:uppercase;border-top:2px solid ${NIV_COLOR[niv]}40">${niv}</td></tr>`;
+      nivinds.forEach((ind,ri)=>{
+        const va26=store[ind.id+'_va26']||'';
+        const va28=store[ind.id+'_va28']||'';
+        const lb=store[ind.id+'_lb']!=null?store[ind.id+'_lb']:'';
+        const est=store[ind.id+'_e']||'sin_iniciar';
+        const p26=calcPct(va26,ind.m26);
+        const p28=calcPct(va28,ind.m28);
+        const bg=ri%2===0?'#fff':'#FAFAFA';
+        const TD=(txt,extra)=>`<td style="padding:4px 5px;text-align:center;${extra||''}">${txt||'—'}</td>`;
+        h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
+          `<td style="padding:4px 5px;vertical-align:top">${ind.ind}</td>`+
+          `<td style="padding:4px 5px;text-align:center;color:#546E7A">${ind.und}</td>`+
+          TD(lb)+
+          TD(ind.m26)+
+          TD(va26||'—','background:#EFF6FF;font-weight:600')+
+          TD(`<span style="color:${pctClr(p26)};font-weight:700">${pctTxt(p26)}</span>`)+
+          TD(ind.m28)+
+          TD(va28||'—','background:#EFF6FF;font-weight:600')+
+          TD(`<span style="color:${pctClr(p28)};font-weight:700">${pctTxt(p28)}</span>`)+
+          `<td style="padding:4px 5px;text-align:center;font-weight:600;font-size:8.5px;white-space:nowrap;color:${EST_CLR[est]}">${EST_LBL[est]||'—'}</td>`+
+          `</tr>`;
+      });
+    });
+    h+=`</tbody></table>`;
   });
 
-  const tw=document.querySelector('.tw');
-  const zonaInfo=document.getElementById('zona-info');
-  const zonaNotaEl=document.getElementById('zona-nota');
-  tw.style.overflow='visible';
-  tw.style.maxHeight='none';
-  tw.style.borderRadius='0';
-  tw.style.boxShadow='none';
-  document.querySelectorAll('thead th').forEach(th=>th.style.position='relative');
-  if(zonaInfo) zonaInfo.style.display='none';
-  if(zonaNotaEl) zonaNotaEl.style.display='none';
+  h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Plan de Desarrollo Institucional 2024-2028 · ${fecha}</div>`;
+  h+=`</div>`;
 
-  // CSS compacto solo para captura PDF (fuentes y anchos reducidos para caber en A4 landscape)
-  const pdfStyle=document.createElement('style');
-  pdfStyle.id='pdf-temp';
-  pdfStyle.textContent=
-    'table.ti{font-size:9.5px!important}'+
-    'table.ti thead th{font-size:8.5px!important;padding:5px 6px!important}'+
-    'table.ti td{padding:4px 6px!important}'+
-    '.td-ind{min-width:130px!important;max-width:155px!important}'+
-    '.celda-prog{min-width:105px!important}'+
-    '.td-val,.td-und{min-width:48px!important}'+
-    '.nv{font-size:8px!important;padding:4px 3px!important;min-width:22px!important}'+
-    '.pct{font-size:9px!important;padding:1px 5px!important;min-width:38px!important}'+
-    '.fn-b{font-size:8.5px!important}'+
-    '.barra-wrap{width:50px!important}'+
-    '.seg-fn-hdr td{font-size:9px!important;padding:4px 8px!important}'+
-    '.wrap{padding:10px 14px 20px!important}';
-  document.head.appendChild(pdfStyle);
-
-  const logoImg=document.querySelector('.hdr-logo-img');
-  const logoSrc=logoImg?logoImg.src:'';
-  const tit=document.createElement('div');
-  tit.id='pdf-tit';
-  tit.style.cssText='margin-bottom:10px;padding-top:2px';
-  tit.innerHTML=`<div style="display:flex;align-items:center;gap:12px;padding-bottom:7px;border-bottom:2px solid #C8A951">`+
-    (logoSrc?`<img src="${logoSrc}" style="height:36px;width:auto;display:block">`:'')+
-    `<div><div style="font-size:13px;font-weight:700;color:#003087;line-height:1.2">Seguimiento de Impacto Institucional UDES 2024-2028</div>`+
-    `<div style="font-size:11px;color:#546E7A;margin-top:2px">${titulos[f]}</div></div></div>`;
-  document.querySelector('.wrap').prepend(tit);
+  const tmp=document.createElement('div');
+  tmp.style.cssText='position:fixed;left:-9999px;top:0;visibility:hidden';
+  tmp.innerHTML=h;
+  document.body.appendChild(tmp);
 
   const btn=document.querySelector('.btn-pdf');
   if(btn){btn.disabled=true;btn.textContent='Generando...';}
 
-  // Aplanar rowspans de columna NIVEL para evitar bloques de color cortados entre páginas
-  const rsBackups=[];
-  document.querySelectorAll('td.nv[rowspan]').forEach(cell=>{
-    const span=parseInt(cell.getAttribute('rowspan')||'1');
-    if(span<=1) return;
-    const clones=[];
-    cell.removeAttribute('rowspan');
-    let sib=cell.closest('tr').nextElementSibling;
-    for(let i=1;i<span&&sib;i++){
-      const cl=cell.cloneNode(true);
-      cl.style.borderTop='0';
-      sib.insertBefore(cl,sib.firstChild);
-      clones.push(cl);
-      sib=sib.nextElementSibling;
-    }
-    rsBackups.push({cell,span,clones});
-  });
-
-  // windowWidth:1050 ≈ ancho útil de A4 landscape a 96dpi (evita comprimir texto al capturar)
   html2pdf().set({
     margin:[8,6,8,6],
     filename:'Boletin-Impacto-UDES-'+archivos[f]+'.pdf',
@@ -885,23 +910,9 @@ function descargarPDF(){
     html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:1050},
     jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
     pagebreak:{mode:'css',avoid:'tr'}
-  }).from(document.querySelector('.wrap')).save()
+  }).from(tmp).save()
   .then(()=>{
-    tw.style.overflow='';
-    tw.style.maxHeight='';
-    tw.style.borderRadius='';
-    tw.style.boxShadow='';
-    document.querySelectorAll('thead th').forEach(th=>th.style.position='');
-    document.querySelectorAll('tr[data-f]').forEach(tr=>tr.style.display='');
-    if(zonaInfo) zonaInfo.style.display='';
-    if(zonaNotaEl) zonaNotaEl.style.display='';
-    document.getElementById('pdf-temp')?.remove();
-    const t=document.getElementById('pdf-tit'); if(t) t.remove();
-    // Restaurar rowspans de columna NIVEL
-    rsBackups.forEach(({cell,span,clones})=>{
-      cell.setAttribute('rowspan',span);
-      clones.forEach(c=>c.remove());
-    });
+    tmp.remove();
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
 }
