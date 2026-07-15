@@ -113,6 +113,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .detalle-row td{background:#F7F9FC!important;border-bottom:1px solid var(--borde);padding:10px 14px}
 .det-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px}
 .det-item{font-size:11.5px;line-height:1.4}
+.det-desc-cell{vertical-align:top}
+.det-desc-cell .det-val{text-align:justify}
 .det-lbl{display:block;font-weight:700;color:var(--az);text-transform:uppercase;font-size:9.5px;letter-spacing:.04em;margin-bottom:1px}
 .det-val{display:block;color:var(--txt2)}
 
@@ -584,7 +586,7 @@ function renderEd(lista, f){
 
   document.getElementById('thead').innerHTML=`<tr>
     <th style="min-width:28px">Nivel</th>
-    <th style="text-align:left;min-width:230px">Indicador</th>
+    <th style="text-align:left;min-width:230px">Indicador/Descripción</th>
     <th>Unidad</th>
     <th style="text-align:right;background:#dbeafe">LB 2023</th>
     <th style="text-align:right;background:#dbeafe">Valor 2026</th>
@@ -631,7 +633,9 @@ function renderEd(lista, f){
         placeholder="Observación..." onchange="setVal('${ind.id}','o',this.value)"></td>`;
       rows+='</tr>';
       rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none">`+
-        `<td></td><td colspan="11">${detalleHtml(ind)}</td></tr>`;
+        `<td class="td-ind det-desc-cell"><span class="det-lbl">Descripción / Cómo se calcula</span>`+
+        `<span class="det-val">${esc(ind.desc)||'—'}</span></td>`+
+        `<td colspan="11">${detalleHtml(ind)}</td></tr>`;
     });
   });
   document.getElementById('tbody').innerHTML=rows;
