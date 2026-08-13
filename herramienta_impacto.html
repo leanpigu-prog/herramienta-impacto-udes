@@ -228,6 +228,92 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 }
 
 @media(max-width:700px){.wrap{padding:10px}.tabs{padding:0 10px}.tab{padding:11px 14px}}
+
+#zona-mapa{
+  --bg:#f3f6fb; --surface:#ffffff; --panel:#f8fafc; --border:#dbe3ee; --border-strong:#b8c5d6;
+  --text:#1f2937; --text-secondary:#5b6677; --text-muted:#7b8796;
+  --accent:#0b5cab; --accent-strong:#003087; --gold:#c8a951; --shadow:0 10px 30px rgba(21,45,78,.08);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  background:linear-gradient(180deg,#eef4fb 0,#f7f9fc 180px,#f3f6fb 100%); color:var(--text);
+}
+#zona-mapa *{box-sizing:border-box;}
+#zona-mapa .intro-card{
+  margin:16px 24px 10px; padding:14px 16px; background:rgba(255,255,255,.92); border:1px solid var(--border);
+  border-radius:14px; box-shadow:0 4px 16px rgba(21,45,78,.05);
+}
+#zona-mapa p.sub{font-size:13px; color:var(--text-secondary); margin:0; line-height:1.55; max-width:1180px;}
+#zona-mapa .legend{display:flex; flex-wrap:wrap; gap:7px 10px; align-items:center; padding:10px 0 0;}
+#zona-mapa .legend-item{
+  display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-secondary); cursor:pointer; user-select:none;
+  padding:5px 9px; border-radius:999px; border:1px solid var(--border); background:var(--panel);
+  transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease,opacity .15s ease;
+}
+#zona-mapa .legend-item:hover{border-color:#9fb3ca; transform:translateY(-1px); box-shadow:0 3px 8px rgba(21,45,78,.08);}
+#zona-mapa .legend-item.dim{opacity:.28;}
+#zona-mapa .swatch{width:9px; height:9px; border-radius:50%; flex:none; box-shadow:0 0 0 2px rgba(255,255,255,.8);}
+#zona-mapa .swatch.sq{border-radius:3px;}
+#zona-mapa .legend-title{font-size:10.5px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; padding:0 3px; width:100%; margin-top:2px;}
+#zona-mapa .tabs{
+  display:inline-flex; gap:4px; padding:4px; margin:2px 24px 0; border:1px solid var(--border); background:#e9eef5;
+  border-radius:12px;
+}
+#zona-mapa .tab-btn{
+  font-size:12.5px; font-weight:600; padding:8px 12px; border:none; background:transparent; color:var(--text-secondary);
+  cursor:pointer; border-radius:9px; transition:all .15s ease;
+}
+#zona-mapa .tab-btn:hover{color:var(--accent-strong);}
+#zona-mapa .tab-btn.active{color:var(--accent-strong); background:#fff; box-shadow:0 2px 6px rgba(21,45,78,.09);}
+#zona-mapa .tab-btn .count{font-weight:500; color:var(--text-muted); font-size:11.5px;}
+#zona-mapa .toolbar{display:flex; align-items:center; gap:8px; padding:10px 24px 8px; flex-wrap:wrap;}
+#zona-mapa .toolbar input[type=text]{
+  flex:1; min-width:230px; max-width:430px; font-size:12.8px; padding:9px 12px; border-radius:10px;
+  border:1px solid var(--border-strong); background:#fff; color:var(--text); box-shadow:0 2px 6px rgba(21,45,78,.04);
+}
+#zona-mapa .toolbar input[type=text]:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(11,92,171,.10);}
+#zona-mapa .btn{
+  font-size:12px; font-weight:600; padding:8px 11px; border-radius:10px; border:1px solid var(--border);
+  background:#fff; color:var(--text-secondary); cursor:pointer; transition:all .15s ease;
+}
+#zona-mapa .btn:hover{border-color:#9fb3ca; color:var(--accent-strong); transform:translateY(-1px);}
+#zona-mapa .quick-stats{display:flex; flex-wrap:wrap; gap:8px; padding:0 24px 3px;}
+#zona-mapa .stat-pill{
+  display:flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.78);
+  border:1px solid var(--border); color:var(--text-secondary); font-size:11.5px;
+}
+#zona-mapa .stat-pill b{color:var(--accent-strong); font-size:12px;}
+#zona-mapa #wrap{
+  position:relative; height:590px; overflow:auto; background:#fff;
+  margin:10px 24px 16px; border:1px solid var(--border); border-top:3px solid var(--gold);
+  border-radius:16px; box-shadow:var(--shadow);
+  background-image:radial-gradient(circle at 1px 1px,rgba(0,48,135,.055) 1px,transparent 0);
+  background-size:24px 24px;
+}
+#zona-mapa #stage{transform-origin:0 0; min-width:100%; min-height:100%;}
+#zona-mapa svg{margin:auto;}
+#zona-mapa svg text{font-family:inherit;}
+#zona-mapa .t-id{font-size:10.5px; font-weight:700; fill:var(--text);}
+#zona-mapa .t-fun{font-size:14px; font-weight:800; letter-spacing:.02em; paint-order:stroke; stroke:#fff; stroke-width:4px; stroke-linejoin:round;}
+#zona-mapa .lbl-bg{fill:#fff; opacity:.9; rx:5; ry:5;}
+#zona-mapa .link{fill:none; stroke:#8ea1b7; stroke-width:1.05; opacity:.22; transition:opacity .15s,stroke .15s,stroke-width .15s;}
+#zona-mapa .link:hover{opacity:.85; stroke-width:2;}
+#zona-mapa .node-circle{stroke-width:1.6; cursor:pointer; transition:opacity .15s,r .15s,filter .15s; filter:drop-shadow(0 1px 1px rgba(0,0,0,.12));}
+#zona-mapa .node-g:hover .node-circle{r:8.2; filter:drop-shadow(0 2px 3px rgba(0,0,0,.18));}
+#zona-mapa .node-circle.pinned{stroke-width:3.2;}
+#zona-mapa .node-circle.outlier{stroke-dasharray:2,2;}
+#zona-mapa .fade{opacity:.055 !important;}
+#zona-mapa #tooltip{
+  position:fixed; pointer-events:none; background:rgba(255,255,255,.98); border:1px solid #cbd6e3;
+  border-radius:12px; padding:10px 12px; font-size:12px; color:var(--text); max-width:380px;
+  box-shadow:0 12px 30px rgba(21,45,78,.18); display:none; z-index:50; line-height:1.5;
+}
+#zona-mapa footer{padding:1px 24px 16px; font-size:11px; color:var(--text-muted); text-align:center;}
+@media (max-width:760px){
+  #zona-mapa .intro-card,#zona-mapa .tabs,#zona-mapa .toolbar,#zona-mapa #wrap{margin-left:12px; margin-right:12px;}
+  #zona-mapa .quick-stats{padding-left:12px; padding-right:12px;}
+  #zona-mapa #wrap{height:520px;}
+  #zona-mapa .toolbar input[type=text]{max-width:none; width:100%;}
+}
+
 </style>
 </head>
 <body>
@@ -270,6 +356,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   <button class="tab" onclick="irTab('ext',this)">Extensión <span class="tab-n">37</span></button>
   <button class="tab" onclick="irTab('seg',this)">Seguimiento <span class="tab-n">95</span></button>
   <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
+  <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
 </nav>
 
 <div class="wrap">
@@ -279,6 +366,43 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
     <thead id="thead"></thead>
     <tbody id="tbody"></tbody>
   </table></div>
+</div>
+
+<div id="zona-mapa" style="display:none">
+
+<div class="intro-card">
+    <p class="sub">Explora los 33 indicadores de <b>Impacto Real</b> agrupados por función sustantiva. Los puntos cercanos forman cada función y las líneas muestran relaciones por temas transversales. Pasa el cursor para explorar, haz clic en un punto para fijar sus conexiones o selecciona un tema en la leyenda.</p>
+    <div class="legend" id="legend"></div>
+  </div>
+
+<div class="tabs">
+  <button class="tab-btn active" id="tabCross">Solo cruce entre funciones <span class="count" id="countCross"></span></button>
+  <button class="tab-btn" id="tabAll">Todas las conexiones <span class="count" id="countAll"></span></button>
+</div>
+
+<div class="toolbar">
+  <input type="text" id="search" placeholder="Buscar por id o nombre (ej. I27, E17, empleabilidad)…">
+  <button class="btn" id="btnReset">Restablecer vista</button>
+  <button class="btn" id="zoomOut">−</button>
+  <button class="btn" id="zoomIn">+</button>
+</div>
+
+<div class="quick-stats" aria-label="Resumen de la red">
+  <div class="stat-pill"><b id="statNodes">33</b> indicadores</div>
+  <div class="stat-pill"><b id="statThemes">0</b> temas</div>
+  <div class="stat-pill"><b id="statCross">0</b> cruces entre funciones</div>
+  <div class="stat-pill"><b id="statLinks">0</b> conexiones totales</div>
+</div>
+
+<div id="wrap">
+  <div id="stage"></div>
+</div>
+
+<footer id="footerText"></footer>
+
+<div id="tooltip"></div>
+
+<script id="graph-data" type="application/json">{"nodos": [{"id": "I27", "f": "INV", "tema": "T1", "nombre": "Graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores vinculados al SNCTI", "desc": "Proporción de graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores que se encuentran vinculados al SNCTI en la ventana de 2 o más años posteriores a su egreso", "und": "Proporción"}, {"id": "I28", "f": "INV", "tema": "T3", "nombre": "Productos de I+D+i+c que aportan a los focos de investigación UDES (Salud Planetaria, Seguridad Alimentaria, Transición energética)", "desc": "Proporción de productos (en todas sus tipologías del modelo de reconocimiento MinCiencias) que aportan a los focos con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.", "und": "Proporción"}, {"id": "I29", "f": "INV", "tema": "T2", "nombre": "Productos de I+D+i+c transferidos a los sectores de aplicación (local, regional, nacional e internacional)", "desc": "Proporción de productos que se han transferido a través de servicios, consultorías, licencias o capacitaciones al sector externo con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.", "und": "Proporción"}, {"id": "I30", "f": "INV", "tema": "T4", "nombre": "Políticas públicas que involucran o se sustentan en productos de I+D+i+c derivados de proyectos UDES", "desc": "Políticas públicas a nivel local, regional, nacional e internacional que citan productos de I+D+i+c UDES", "und": "Número"}, {"id": "I31", "f": "INV", "tema": "T4", "nombre": "Métricas cienciométricas y posicionamiento en rankings", "desc": "Índices, indicadores y posicionamientos en sistemas de rankings cienciométricos (Scimago, WoS, QS, THE, Google Scholar, entre otros)", "und": "Índices e indicadores específicos de los diferentes rankings y agencias cienciométricas"}, {"id": "I32", "f": "INV", "tema": "T3", "nombre": "Productos de I+D+i+c que aportan a las metas de los ODS en Colombia, LAC y global", "desc": "Número y proporción de productos de I+D+i+c derivados de proyectos UDES que evidencian aportes a los ODS en función de las metas establecidas para Colombia y el mundo", "und": "Número/proporción"}, {"id": "I33", "f": "INV", "tema": "T2", "nombre": "Emprendimientos de base científica/tecnológica derivados de productos de I+D+i+c desarrollados en proyectos UDES", "desc": "Número y proporción de empresas creadas de base científica o tecnológica, spin-offs, startups, o número de empresas ya constituidas que innovan con productos o servicios derivados de la investigación UDES", "und": "Número/proporción"}, {"id": "I34", "f": "INV", "tema": "T1", "nombre": "Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)", "desc": "Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron.", "und": "Resultados estandarizados según prueba"}, {"id": "I35", "f": "INV", "tema": "T1", "nombre": "Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)", "desc": "Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores", "und": "Resultados evidenciados en estudios de graduados"}, {"id": "I36", "f": "INV", "tema": "T4", "nombre": "Índice de liderazgo y transferencia de la comunidad científica", "desc": "(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100", "und": "Porcentaje"}, {"id": "E16", "f": "ENS", "tema": "T6", "nombre": "Valor agregado académico", "desc": "Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.", "und": "Puntos de diferencia / categoría MEN"}, {"id": "E17", "f": "ENS", "tema": "T1", "nombre": "Tasa de empleabilidad de graduados", "desc": "Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.", "und": "% empleabilidad pertinente"}, {"id": "E18", "f": "ENS", "tema": "T1", "nombre": "Percepción de empleadores sobre graduados", "desc": "Calificación promedio dada por empleadores a las competencias de los graduados UDES.", "und": "Puntaje 1–5"}, {"id": "E19", "f": "ENS", "tema": "T1", "nombre": "Graduados en cargos de liderazgo", "desc": "Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.", "und": "% graduados"}, {"id": "E20", "f": "ENS", "tema": "T1", "nombre": "Impacto de la internacionalización", "desc": "Evidencias del impacto de la internacionalización en las trayectorias de los graduados", "und": "N° evidencias de impacto/año"}, {"id": "E21", "f": "ENS", "tema": "T1", "nombre": "Reconocimientos a graduados UDES", "desc": "Número de distinciones, premios o reconocimientos públicos recibidos por graduados.", "und": "N° reconocimientos/año"}, {"id": "E22", "f": "ENS", "tema": "T1", "nombre": "Tasa de vinculación efectiva en prácticas empresariales", "desc": "Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador.", "und": "% estudiantes en práctica"}, {"id": "X22", "f": "EXT", "tema": "T5", "nombre": "Percepción de cambios favorables en problemáticas atendidas", "desc": "Porcentaje de participantes que perciben cambios concretos favorables en las dinámicas o problemáticas atendidas (Indicador IMPACTA UDES - Solución de problemas)", "und": "% participantes"}, {"id": "X23", "f": "EXT", "tema": "T5", "nombre": "Satisfacción en resolución intersectorial de problemas", "desc": "Nivel de satisfacción de los participantes o comunidad frente a la resolución interinstitucional e intersectorial de problemas desde el proyecto (Indicador IMPACTA UDES - Colaboración sector productivo)", "und": "Puntaje 1-5"}, {"id": "X24", "f": "EXT", "tema": "T5", "nombre": "Fortalecimiento de capacidades para convivencia pacífica", "desc": "Porcentaje de personas, familias, grupos que expresan cambios positivos en áreas de fortalecimiento de capacidades para convivencia pacífica (Indicador IMPACTA UDES - Promoción convivencia pacífica)", "und": "% participantes"}, {"id": "X25", "f": "EXT", "tema": "T5", "nombre": "Cambios positivos en prácticas de cuidado y organización", "desc": "Porcentaje de participantes que expresan cambios positivos en prácticas de cuidado del entorno, organización o trabajo (Indicador IMPACTA - Vinculación ámbito social)", "und": "% participantes"}, {"id": "X26", "f": "EXT", "tema": "T1", "nombre": "Nuevas oportunidades educativas/laborales encontradas", "desc": "Porcentaje de participantes que encontraron nuevas oportunidades educativas, laborales, ocupacionales a partir de su participación (Indicador IMPACTA)", "und": "% participantes"}, {"id": "X27", "f": "EXT", "tema": "T5", "nombre": "Apreciación sobre aportes al bienestar", "desc": "Apreciación de los participantes sobre los aportes, aplicaciones o efectos de los resultados sobre el bienestar (Indicador IMPACTA - Solución problemas)", "und": "Puntaje 1-5"}, {"id": "X28", "f": "EXT", "tema": "T5", "nombre": "Valoración ampliación acciones interinstitucionales", "desc": "Valoración de actores clave frente a ampliación/funcionamiento de acciones interinstitucionales (Indicador IMPACTA - Desarrollo redes)", "und": "Puntaje 1-5"}, {"id": "X29", "f": "EXT", "tema": "T5", "nombre": "Pertinencia de la intervención intersectorial", "desc": "Apreciación de participantes sobre pertinencia de intervención intersectorial en cambios incorporados (Indicador IMPACTA - Adaptabilidad)", "und": "Puntaje 1-5"}, {"id": "X30", "f": "EXT", "tema": "T2", "nombre": "Calidad de servicios interinstitucionales", "desc": "Apreciación frente a calidad de servicios interinstitucionales promovidos desde el proyecto (Indicador IMPACTA - Fomento innovación)", "und": "Puntaje 1-5"}, {"id": "X31", "f": "EXT", "tema": "T3", "nombre": "Proyectos alineados a ODS y Plan Regional", "desc": "Porcentaje de proyectos que responden a ODS o prioridades del Plan de Desarrollo Departamental", "und": "% proyectos"}, {"id": "X32", "f": "EXT", "tema": "T3", "nombre": "Conservación y sostenibilidad ambiental", "desc": "Proyectos con impacto documentado en conservación, restauración o educación ambiental", "und": "N° proyectos"}, {"id": "X33", "f": "EXT", "tema": "T2", "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)", "desc": "Número de acuerdos de transferencia (licencias, cesiones, co-desarrollo, contratos con cláusula de explotación) firmados en el periodo", "und": "N° acuerdos/año"}, {"id": "X34", "f": "EXT", "tema": "T2", "nombre": "Ingresos por transferencia tecnológica (licencias/regalías)", "desc": "Ingresos anuales derivados de licencias, regalías o cesiones de tecnologías desarrolladas por la UDES a través de la Coordinación DTT", "und": "COP millones/año"}, {"id": "X35", "f": "EXT", "tema": "T2", "nombre": "Índice de sinergia territorial e innovación abierta", "desc": "(Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) * 100", "und": "Porcentaje"}, {"id": "X36", "f": "EXT", "tema": "T3", "nombre": "Tasa de sostenibilidad y apropiación comunitaria", "desc": "(Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) * 100", "und": "Porcentaje"}, {"id": "X37", "f": "EXT", "tema": "T1", "nombre": "Índice de retorno de pertinencia posgradual y movilidad profesional", "desc": "Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) * 100.", "und": "Porcentaje"}], "temas": [{"id": "T1", "nombre": "Trayectorias de vida y egresados", "color": {"fill": "#8E24AA", "stroke": "#4A148C"}}, {"id": "T2", "nombre": "Transferencia y uso del conocimiento / innovación", "color": {"fill": "#00897B", "stroke": "#004D40"}}, {"id": "T3", "nombre": "Sostenibilidad y ODS / territorio ambiental", "color": {"fill": "#C9A227", "stroke": "#7A6110"}}, {"id": "T4", "nombre": "Incidencia en política pública y posicionamiento institucional", "color": {"fill": "#C2185B", "stroke": "#6A0D3B"}}, {"id": "T5", "nombre": "Impacto territorial/comunitario (microsocial-mesosocial)", "color": {"fill": "#6D4C41", "stroke": "#3E2723"}}, {"id": "T6", "nombre": "Aprendizaje interno (sin impacto externo)", "color": {"fill": "#757575", "stroke": "#424242"}}], "funciones": {"INV": {"fill": "#3949AB", "stroke": "#1A237E", "nombre": "Investigación"}, "ENS": {"fill": "#2E7D32", "stroke": "#1B5E20", "nombre": "Enseñanza"}, "EXT": {"fill": "#E65100", "stroke": "#BF360C", "nombre": "Extensión"}}}</script>
 </div>
 
 </div>
@@ -431,6 +555,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSnZcGRWwIredY
 
 let store = {};
 let tabActual = 'inv';
+let mapaRenderizado = false;
 let tabInicial = 'inv';
 
 // ─── Login ─────────────────────────────────────────────────
@@ -464,7 +589,7 @@ function aplicarRestriccionTabs(){
   if(sesion.rol === 'admin') return;
   document.querySelectorAll('.tab').forEach(b=>{
     const m = b.getAttribute('onclick').match(/irTab\('(\w+)'/);
-    if(m && m[1] !== 'seg' && m[1] !== 'res' && m[1].toUpperCase() !== sesion.vr) b.style.display = 'none';
+    if(m && m[1] !== 'seg' && m[1] !== 'res' && m[1] !== 'mapa' && m[1].toUpperCase() !== sesion.vr) b.style.display = 'none';
   });
 }
 
@@ -539,10 +664,20 @@ window.addEventListener('load',()=>{
 
 // ─── Navegación ────────────────────────────────────────────
 function irTab(t, btn){
-  if(sesion && sesion.rol === 'vr' && t !== 'seg' && t !== 'res' && t.toUpperCase() !== sesion.vr) return;
+  if(sesion && sesion.rol === 'vr' && t !== 'seg' && t !== 'res' && t !== 'mapa' && t.toUpperCase() !== sesion.vr) return;
   tabActual = t;
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   if(btn) btn.classList.add('on');
+
+  if(t === 'mapa'){
+    document.querySelector('.wrap').style.display = 'none';
+    document.getElementById('zona-mapa').style.display = '';
+    if(!mapaRenderizado){ renderMapa(); mapaRenderizado = true; }
+    return;
+  }
+  document.querySelector('.wrap').style.display = '';
+  document.getElementById('zona-mapa').style.display = 'none';
+
   const lista = t==='inv'?IND.filter(i=>i.f==='INV')
                :t==='ens'?IND.filter(i=>i.f==='ENS')
                :t==='ext'?IND.filter(i=>i.f==='EXT')
@@ -1036,6 +1171,430 @@ function descargarPDF(){
     fixML.remove();
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
+}
+function renderMapa(){
+  const DATA = JSON.parse(document.getElementById('graph-data').textContent);
+  const TEMAS = DATA.temas;
+  const FUN_COLOR = DATA.funciones;
+  const FUNS = ['INV','ENS','EXT'];
+  const RADIUS = 7.2;
+
+  const temaById = {}; TEMAS.forEach(t=> temaById[t.id]=t);
+  const nodeById = {}; DATA.nodos.forEach(n=> nodeById[n.id]=n);
+
+  // ---------- 1. Aristas: pares que comparten tema ----------
+  const byTema = {};
+  TEMAS.forEach(t=> byTema[t.id] = []);
+  DATA.nodos.forEach(n=> byTema[n.tema].push(n));
+
+  const edgesAll = [];
+  TEMAS.forEach(t=>{
+    const group = byTema[t.id];
+    for (let i=0;i<group.length;i++){
+      for (let j=i+1;j<group.length;j++){
+        const a=group[i], b=group[j];
+        edgesAll.push({a:a.id, b:b.id, tema:t.id, cross:a.f!==b.f});
+      }
+    }
+  });
+  const edgesCross = edgesAll.filter(e=> e.cross);
+
+  const nodesWithEdges = new Set();
+  edgesAll.forEach(e=>{ nodesWithEdges.add(e.a); nodesWithEdges.add(e.b); });
+
+  // ---------- 2. Layout: triángulo de 3 clústeres por función ----------
+  const V = {
+    INV: {x:520, y:145},
+    ENS: {x:325, y:490},
+    EXT: {x:715, y:490}
+  };
+  const PUSH = 16;
+  const CELL_W = 67, CELL_H = 33;
+  const COLS = {INV:3, ENS:2, EXT:4};
+
+  const centroid = {
+    x: (V.INV.x + V.ENS.x + V.EXT.x)/3,
+    y: (V.INV.y + V.ENS.y + V.EXT.y)/3
+  };
+
+  const unit = {}, anchor = {};
+  FUNS.forEach(f=>{
+    const dx = V[f].x - centroid.x, dy = V[f].y - centroid.y;
+    const dist = Math.sqrt(dx*dx+dy*dy) || 1;
+    unit[f] = {x:dx/dist, y:dy/dist};
+    anchor[f] = {x:V[f].x + unit[f].x*PUSH, y:V[f].y + unit[f].y*PUSH};
+  });
+
+  const byFun = {INV:[], ENS:[], EXT:[]};
+  DATA.nodos.forEach(n=> byFun[n.f].push(n));
+  FUNS.forEach(f=> byFun[f].sort((a,b)=> a.id.localeCompare(b.id)));
+
+  FUNS.forEach(f=>{
+    const list = byFun[f];
+    const cols = COLS[f];
+    const rows = Math.ceil(list.length/cols);
+    list.forEach((n,i)=>{
+      const row = Math.floor(i/cols), col = i%cols;
+      const localX = (col-(cols-1)/2)*CELL_W;
+      const localY = (row-(rows-1)/2)*CELL_H;
+      n.x = anchor[f].x + localX;
+      n.y = anchor[f].y + localY;
+    });
+  });
+
+  function labelDir(n){
+    const a = anchor[n.f];
+    let dx = n.x - a.x, dy = n.y - a.y;
+    if (Math.abs(dx) < 0.01 && Math.abs(dy) < 0.01){ dx = unit[n.f].x; dy = unit[n.f].y; }
+    const dist = Math.sqrt(dx*dx+dy*dy) || 1;
+    return {x:dx/dist, y:dy/dist};
+  }
+
+  // Bounding box real (nodos + etiquetas) para fijar W,H y recentrar con margen fijo.
+  let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+  DATA.nodos.forEach(n=>{
+    const d = labelDir(n);
+    const labelW = n.id.length*7.2 + 10;
+    const lx = n.x + d.x*(RADIUS+8) + (d.x>=0 ? labelW : -labelW);
+    const ly = n.y + d.y*(RADIUS+8) + (d.y>=0 ? 10 : -10);
+    minX = Math.min(minX, n.x-RADIUS, lx); maxX = Math.max(maxX, n.x+RADIUS, lx);
+    minY = Math.min(minY, n.y-RADIUS, ly); maxY = Math.max(maxY, n.y+RADIUS, ly);
+  });
+  const MARGIN = 42;
+  const offX = MARGIN - minX, offY = MARGIN - minY;
+  DATA.nodos.forEach(n=>{ n.x += offX; n.y += offY; });
+  centroid.x += offX; centroid.y += offY;
+  FUNS.forEach(f=>{ V[f].x += offX; V[f].y += offY; anchor[f].x += offX; anchor[f].y += offY; });
+  const W = Math.ceil(maxX-minX+2*MARGIN);
+  const H = Math.ceil(maxY-minY+2*MARGIN);
+
+  document.getElementById('countCross').textContent = '(' + edgesCross.length + ')';
+  document.getElementById('countAll').textContent = '(' + edgesAll.length + ')';
+  document.getElementById('statNodes').textContent = DATA.nodos.length;
+  document.getElementById('statThemes').textContent = TEMAS.length;
+  document.getElementById('statCross').textContent = edgesCross.length;
+  document.getElementById('statLinks').textContent = edgesAll.length;
+  document.getElementById('footerText').textContent =
+    DATA.nodos.length + ' indicadores de Impacto Real (10 Investigación · 7 Enseñanza · 16 Extensión) · ' +
+    TEMAS.length + ' temas transversales · ' +
+    edgesAll.length + ' conexiones totales / ' + edgesCross.length + ' entre funciones distintas · ' +
+    (DATA.nodos.length - nodesWithEdges.size) + ' sin conexión transversal';
+
+  // ---------- 3. Render SVG ----------
+  const svgNS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs){
+    const e = document.createElementNS(svgNS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  const svg = el('svg', {width:W, height:H, viewBox:`0 0 ${W} ${H}`, style:'display:block;'});
+  const linksLayer = el('g', {id:'links-layer'});
+  const labelBgLayer = el('g', {id:'label-bg-layer'});
+  const nodesLayer = el('g', {id:'nodes-layer'});
+  const funLabelLayer = el('g', {id:'fun-label-layer'});
+  svg.appendChild(linksLayer);
+  svg.appendChild(labelBgLayer);
+  svg.appendChild(nodesLayer);
+  svg.appendChild(funLabelLayer);
+  document.getElementById('stage').appendChild(svg);
+
+  // Etiqueta de función, más allá del extremo del clúster en la dirección de "afuera".
+  FUNS.forEach(f=>{
+    const list = byFun[f];
+    const xs = list.map(n=>n.x), ys = list.map(n=>n.y);
+    const cx = (Math.min(...xs)+Math.max(...xs))/2;
+    const cy = (Math.min(...ys)+Math.max(...ys))/2;
+    const u = unit[f];
+    const extent = Math.abs(u.y) >= Math.abs(u.x)
+      ? (Math.max(...ys)-Math.min(...ys))/2
+      : (Math.max(...xs)-Math.min(...xs))/2;
+    const lx = cx + u.x*(extent+27);
+    const ly = cy + u.y*(extent+27);
+    const label = el('text', {x:lx, y:ly, class:'t-fun', 'text-anchor':'middle', fill:FUN_COLOR[f].fill});
+    label.textContent = FUN_COLOR[f].nombre;
+    funLabelLayer.appendChild(label);
+  });
+
+  function curveCross(a,b){
+    const PULL = 0.28;
+    const c1x = a.x + (centroid.x-a.x)*PULL, c1y = a.y + (centroid.y-a.y)*PULL;
+    const c2x = b.x + (centroid.x-b.x)*PULL, c2y = b.y + (centroid.y-b.y)*PULL;
+    return `M ${a.x} ${a.y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${b.x} ${b.y}`;
+  }
+  function curveIntra(a,b){
+    const u = unit[a.f];
+    const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+    const BULGE = 16;
+    const cx = mx + u.x*BULGE, cy = my + u.y*BULGE;
+    return `M ${a.x} ${a.y} Q ${cx} ${cy} ${b.x} ${b.y}`;
+  }
+  function curveFor(edge){
+    const a = nodeById[edge.a], b = nodeById[edge.b];
+    return edge.cross ? curveCross(a,b) : curveIntra(a,b);
+  }
+
+  let linkEls = {};
+  function addLink(edge){
+    const key = edge.a+'__'+edge.b;
+    const p = el('path', {d: curveFor(edge), class:'link'});
+    p.dataset.tema = edge.tema;
+    linksLayer.appendChild(p);
+    linkEls[key] = p;
+    p.addEventListener('mouseenter', (ev)=>{ if(!pinnedId) highlight(edge.a); showEdgeTooltip(ev, edge); });
+    p.addEventListener('mousemove', (ev)=> showEdgeTooltip(ev, edge));
+    p.addEventListener('mouseleave', ()=>{ if(!pinnedId) clearHighlight(); hideTooltip(); });
+    return p;
+  }
+
+  let currentEdges = edgesCross;
+  let linkList = [];
+  function rebuildLinks(edges){
+    linkList.forEach(p=> p.remove());
+    linkList = [];
+    linkEls = {};
+    edges.forEach(e=> linkList.push(addLink(e)));
+  }
+  rebuildLinks(currentEdges);
+
+  function estWidth(text, perChar){ return text.length * perChar; }
+
+  const nodeEls = {};
+  function addNode(node){
+    const fc = FUN_COLOR[node.f];
+    const isOutlier = !nodesWithEdges.has(node.id);
+    const g = el('g', {class:'node-g', style:'cursor:pointer;'});
+    const c = el('circle', {
+      cx:node.x, cy:node.y, r:RADIUS, class:'node-circle' + (isOutlier ? ' outlier' : ''),
+      fill: fc.fill, stroke: fc.stroke
+    });
+    g.appendChild(c);
+
+    const d = labelDir(node);
+    const lx = node.x + d.x*(RADIUS+8);
+    const ly = node.y + d.y*(RADIUS+8);
+    const anchorAttr = d.x > 0.15 ? 'start' : (d.x < -0.15 ? 'end' : 'middle');
+    const w = estWidth(node.id, 6.6);
+    const bgX = anchorAttr === 'end' ? lx - w - 4 : (anchorAttr === 'middle' ? lx - w/2 - 4 : lx - 4);
+    const bg = el('rect', {x:bgX, y:ly-8, width:w+8, height:16, class:'lbl-bg'});
+    labelBgLayer.appendChild(bg);
+
+    const label = el('text', {x:lx, y:ly+4, class:'t-id', 'text-anchor':anchorAttr});
+    label.textContent = node.id;
+    g.appendChild(label);
+
+    nodesLayer.appendChild(g);
+    nodeEls[node.id] = {circle:c, label:label, bg:bg, node:node};
+    g.addEventListener('mouseenter', ()=>{ if(!pinnedId) highlight(node.id); });
+    g.addEventListener('mouseleave', ()=>{ if(!pinnedId){ clearHighlight(); } hideTooltip(); });
+    g.addEventListener('mousemove', (ev)=> showTooltip(ev, node));
+    g.addEventListener('click', (ev)=>{
+      ev.stopPropagation();
+      if (pinnedId === node.id){ pinnedId = null; clearHighlight(); }
+      else { pinnedId = node.id; highlight(node.id); }
+      updatePinnedClass();
+    });
+    return g;
+  }
+  DATA.nodos.forEach(addNode);
+
+  let pinnedId = null;
+  function updatePinnedClass(){
+    for (const nid in nodeEls) nodeEls[nid].circle.classList.toggle('pinned', nid === pinnedId);
+  }
+
+  function relatedSet(id){
+    const nodes = new Set([id]);
+    const links = new Set();
+    currentEdges.forEach(e=>{
+      if (e.a === id){ nodes.add(e.b); links.add(e.a+'__'+e.b); }
+      else if (e.b === id){ nodes.add(e.a); links.add(e.a+'__'+e.b); }
+    });
+    return {nodes, links};
+  }
+
+  function highlight(id){
+    const {nodes, links} = relatedSet(id);
+    for (const key in linkEls){
+      const p = linkEls[key];
+      const related = links.has(key);
+      p.classList.toggle('fade', !related);
+      p.style.stroke = related ? temaById[p.dataset.tema].color.fill : '';
+    }
+    for (const nid in nodeEls){
+      const info = nodeEls[nid];
+      const dim = !nodes.has(nid);
+      info.circle.classList.toggle('fade', dim);
+      info.label.classList.toggle('fade', dim);
+      info.bg.classList.toggle('fade', dim);
+    }
+  }
+  function clearHighlight(){
+    for (const key in linkEls){ linkEls[key].classList.remove('fade'); linkEls[key].style.stroke=''; }
+    for (const nid in nodeEls){
+      nodeEls[nid].circle.classList.remove('fade');
+      nodeEls[nid].label.classList.remove('fade');
+      nodeEls[nid].bg.classList.remove('fade');
+    }
+  }
+
+  const tooltip = document.getElementById('tooltip');
+  function placeTooltip(ev){
+    const pad = 14;
+    tooltip.style.left = (ev.clientX + pad) + 'px';
+    tooltip.style.top = (ev.clientY + pad) + 'px';
+    requestAnimationFrame(()=>{
+      const r = tooltip.getBoundingClientRect();
+      if (r.right > window.innerWidth - 8) tooltip.style.left = Math.max(8, ev.clientX - r.width - pad) + 'px';
+      if (r.bottom > window.innerHeight - 8) tooltip.style.top = Math.max(8, ev.clientY - r.height - pad) + 'px';
+    });
+  }
+  function showTooltip(ev, node){
+    const isOutlier = !nodesWithEdges.has(node.id);
+    const t = temaById[node.tema];
+    tooltip.style.display = 'block';
+    placeTooltip(ev);
+    tooltip.innerHTML = `<b>${node.id} · ${node.nombre}</b><br>${node.desc}<br>` +
+      `<span style="color:var(--text-muted)">Unidad: ${node.und} · Función: ${FUN_COLOR[node.f].nombre}</span><br>` +
+      `<b>Tema: ${t.id} · ${t.nombre}</b>` +
+      (isOutlier ? '<br><span style="color:var(--text-muted)">Sin conexión transversal en este conjunto.</span>' : '');
+  }
+  function showEdgeTooltip(ev, edge){
+    const a = nodeById[edge.a], b = nodeById[edge.b];
+    const t = temaById[edge.tema];
+    tooltip.style.display = 'block';
+    placeTooltip(ev);
+    tooltip.innerHTML = `<b>${a.id} ↔ ${b.id}</b><br>${a.nombre}<br>${b.nombre}<br>` +
+      `<span style="color:var(--text-muted)">${FUN_COLOR[a.f].nombre} ↔ ${FUN_COLOR[b.f].nombre}</span><br>` +
+      `<b>Tema compartido: ${t.id} · ${t.nombre}</b>`;
+  }
+  function hideTooltip(){ tooltip.style.display = 'none'; }
+
+  const legendDiv = document.getElementById('legend');
+  let activeTema = null;
+  const funTitle = document.createElement('div');
+  funTitle.className = 'legend-title'; funTitle.textContent = 'Función (color de nodo)';
+  legendDiv.appendChild(funTitle);
+  const funRow = document.createElement('div');
+  funRow.style.display='flex'; funRow.style.gap='14px'; funRow.style.marginBottom='6px';
+  FUNS.forEach(f=>{
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.style.cursor = 'default';
+    item.innerHTML = `<span class="swatch sq" style="background:${FUN_COLOR[f].fill}"></span>${FUN_COLOR[f].nombre}`;
+    funRow.appendChild(item);
+  });
+  legendDiv.appendChild(funRow);
+
+  const temaTitle = document.createElement('div');
+  temaTitle.className = 'legend-title'; temaTitle.textContent = 'Tema (aparece al seleccionar una relación) — clic para resaltar';
+  legendDiv.appendChild(temaTitle);
+  const temaRow = document.createElement('div');
+  temaRow.style.display='flex'; temaRow.style.flexWrap='wrap'; temaRow.style.gap='6px 14px';
+  TEMAS.forEach(t=>{
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="swatch" style="background:${t.color.fill}"></span>${t.id} · ${t.nombre}`;
+    item.addEventListener('click', ()=>{
+      pinnedId = null; updatePinnedClass();
+      if (activeTema === t.id){
+        activeTema = null; clearHighlight();
+        document.querySelectorAll('.legend-item').forEach(x=>x.classList.remove('dim'));
+      } else {
+        activeTema = t.id;
+        const nodes = new Set(); const links = new Set();
+        currentEdges.filter(e=>e.tema===t.id).forEach(e=>{ nodes.add(e.a); nodes.add(e.b); links.add(e.a+'__'+e.b); });
+        DATA.nodos.filter(n=>n.tema===t.id).forEach(n=> nodes.add(n.id));
+        for (const key in linkEls){
+          const p = linkEls[key];
+          const related = links.has(key);
+          p.classList.toggle('fade', !related);
+          p.style.stroke = related ? t.color.fill : '';
+        }
+        for (const nid in nodeEls){
+          const dim = !nodes.has(nid);
+          nodeEls[nid].circle.classList.toggle('fade', dim);
+          nodeEls[nid].label.classList.toggle('fade', dim);
+          nodeEls[nid].bg.classList.toggle('fade', dim);
+        }
+        document.querySelectorAll('.legend-item').forEach(x=>x.classList.remove('dim'));
+        item.classList.remove('dim');
+        Array.from(temaRow.children).forEach(c=>{ if(c!==item) c.classList.add('dim'); });
+      }
+    });
+    temaRow.appendChild(item);
+  });
+  legendDiv.appendChild(temaRow);
+
+  const search = document.getElementById('search');
+  search.addEventListener('input', ()=>{
+    pinnedId = null; updatePinnedClass();
+    const q = search.value.trim().toLowerCase();
+    if (!q){ clearHighlight(); return; }
+    const nodes = new Set(); const links = new Set();
+    DATA.nodos.forEach(n=>{
+      if (n.id.toLowerCase().includes(q) || n.nombre.toLowerCase().includes(q)){
+        const rs = relatedSet(n.id);
+        rs.nodes.forEach(x=>nodes.add(x));
+        rs.links.forEach(x=>links.add(x));
+      }
+    });
+    for (const key in linkEls) linkEls[key].classList.toggle('fade', !links.has(key));
+    for (const nid in nodeEls){
+      const dim = !nodes.has(nid);
+      nodeEls[nid].circle.classList.toggle('fade', dim && nodes.size>0);
+      nodeEls[nid].label.classList.toggle('fade', dim && nodes.size>0);
+      nodeEls[nid].bg.classList.toggle('fade', dim && nodes.size>0);
+    }
+  });
+
+  const wrap = document.getElementById('wrap');
+  const stage = document.getElementById('stage');
+  let scale = 1;
+  function applyScale(){
+    stage.style.transform = `scale(${scale})`;
+    stage.style.width = (W * scale) + 'px';
+    stage.style.height = (H * scale) + 'px';
+  }
+  function fitView(){
+    const availableW = Math.max(320, wrap.clientWidth - 24);
+    const availableH = Math.max(320, wrap.clientHeight - 24);
+    scale = Math.min(1.08, availableW / W, availableH / H);
+    scale = Math.max(.62, scale);
+    applyScale();
+    wrap.scrollLeft = Math.max(0, (W*scale - wrap.clientWidth)/2);
+    wrap.scrollTop = Math.max(0, (H*scale - wrap.clientHeight)/2);
+  }
+  fitView();
+  document.getElementById('zoomIn').addEventListener('click', ()=>{ scale = Math.min(scale*1.2, 3); applyScale(); });
+  document.getElementById('zoomOut').addEventListener('click', ()=>{ scale = Math.max(scale/1.2, 0.25); applyScale(); });
+  document.getElementById('btnReset').addEventListener('click', ()=>{
+    fitView();
+    activeTema = null; pinnedId = null; updatePinnedClass(); search.value=''; clearHighlight();
+    document.querySelectorAll('.legend-item').forEach(x=>x.classList.remove('dim'));
+  });
+  wrap.addEventListener('wheel', (ev)=>{
+    if (!ev.ctrlKey) return;
+    ev.preventDefault();
+    scale = Math.min(3, Math.max(0.25, scale + (ev.deltaY<0? 0.1 : -0.1)));
+    applyScale();
+  }, {passive:false});
+  wrap.addEventListener('click', ()=>{ pinnedId = null; updatePinnedClass(); clearHighlight(); });
+
+  const tabCross = document.getElementById('tabCross');
+  const tabAll = document.getElementById('tabAll');
+  function switchTab(tab){
+    currentEdges = tab==='cross' ? edgesCross : edgesAll;
+    tabCross.classList.toggle('active', tab==='cross');
+    tabAll.classList.toggle('active', tab==='all');
+    rebuildLinks(currentEdges);
+    pinnedId = null; activeTema = null; search.value = '';
+    clearHighlight();
+    document.querySelectorAll('.legend-item').forEach(x=>x.classList.remove('dim'));
+  }
+  tabCross.addEventListener('click', ()=> switchTab('cross'));
+  tabAll.addEventListener('click', ()=> switchTab('all'));
+
 }
 </script>
 </body>
