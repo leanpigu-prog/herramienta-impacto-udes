@@ -3,71 +3,100 @@
 // ================================================================
 // PASOS PARA ACTIVAR:
 // 1. En la Google Sheet "SeguimientoImpacto_UDES":
-//    - Renombra la primera hoja como "Datos"
-//    - Fila 1: id | funcion | lb | va26 | va28 | estado | observaciones | timestamp
+//    - Hoja "Datos" (ya existe): id | funcion | lb | va26 | va28 | estado | observaciones | timestamp
+//    - Crear hoja nueva "Indicadores_Programa" con fila 1:
+//      id | id_padre | funcion | programa | sede | director | nombre | desc | und | meta | valor_actual | evidencia | estado | timestamp
+//    - Crear hoja nueva "Programas" con fila 1:
+//      codigo | nombre_programa | sede | director | funciones | clave
+//      (piloto: 3 filas para Bacteriología — BAC-BGA/BAC-CUC/BAC-VLL, funciones="INV,ENS,EXT")
+//    Las hojas nuevas se crean solas como listas vacías si aún no existen — readSheet() no falla,
+//    pero doPost sí necesita que la hoja de destino ya exista para poder escribir en ella.
 // 2. Abre Extensiones > Apps Script y pega este código.
 // 3. Guarda (Ctrl+S).
-// 4. Implementar > Nueva implementación
+// 4. Implementar > Nueva implementación (o "Gestionar implementaciones" > editar la existente)
 //    Tipo: Aplicación web | Ejecutar como: Yo | Acceso: Cualquier persona
 // 5. Autoriza los permisos cuando los pida.
 // 6. Copia la URL de la implementación (empieza con https://script.google.com/macros/s/...)
-//    y pégala en herramienta_impacto.html como valor de APPS_SCRIPT_URL.
+//    y pégala en herramienta_impacto.html como valor de APPS_SCRIPT_URL (si cambia).
 // ================================================================
 
-const SHEET_ID   = '15HpVcXgHatswxIAj62v8Hi7xlFsse09xaR9p6yNxozY';
-const SHEET_NAME = 'Datos';
-const HEADERS    = ['id','funcion','lb','va26','va28','estado','observaciones','timestamp'];
+const SHEET_ID = '15HpVcXgHatswxIAj62v8Hi7xlFsse09xaR9p6yNxozY';
 
-// GET → devuelve todos los registros guardados
+const SHEET_NAME          = 'Datos';
+const HEADERS             = ['id','funcion','lb','va26','va28','estado','observaciones','timestamp'];
+
+const SHEET_NAME_PROGRAMA = 'Indicadores_Programa';
+const HEADERS_PROGRAMA    = ['id','id_padre','funcion','programa','sede','director','nombre','desc','und','meta','valor_actual','evidencia','estado','timestamp'];
+
+const SHEET_NAME_CATALOGO = 'Programas';
+const HEADERS_CATALOGO    = ['codigo','nombre_programa','sede','director','funciones','clave'];
+
+// Lee una hoja completa y la devuelve como array de objetos, usando la fila 1 como cabeceras.
+// Si la hoja no existe todavía, devuelve [] en vez de fallar (permite desplegar el backend
+// antes de crear manualmente las hojas nuevas).
+function readSheet(ss, sheetName, fallbackHeaders) {
+  const ws = ss.getSheetByName(sheetName);
+  if (!ws) return [];
+  const rows = ws.getDataRange().getValues();
+  if (rows.length <= 1) return [];
+  const hdr = rows[0][0] ? rows[0] : fallbackHeaders;
+  return rows.slice(1)
+    .filter(r => r.some(v => v !== ''))
+    .map(r => Object.fromEntries(hdr.map((h, i) => [h, r[i]])));
+}
+
+// Hace upsert por id (columna 1) sobre una hoja dada. Crea la fila de cabeceras si hace falta.
+function upsertRows(ws, headers, rows, idField) {
+  if (!ws) throw new Error('La hoja de destino no existe. Créala primero en el Spreadsheet.');
+  const all = ws.getDataRange().getValues();
+  if (all.length === 0 || all[0][0] !== headers[0]) {
+    ws.getRange(1, 1, 1, headers.length).setValues([headers]);
+    all.length = 0; // forzar reindexación
+  }
+  rows.forEach(row => {
+    const ts = new Date().toISOString();
+    const fila = headers.map(h => h === 'timestamp' ? ts : (row[h] ?? ''));
+    const idx = all.findIndex((r, i) => i > 0 && String(r[0]) === String(row[idField]));
+    if (idx > 0) {
+      ws.getRange(idx + 1, 1, 1, fila.length).setValues([fila]);
+    } else {
+      ws.appendRow(fila);
+    }
+  });
+}
+
+// GET → devuelve los 3 datasets combinados: indicadores institucionales (Datos), indicadores
+// de programa (Indicadores_Programa) y el catálogo de programas/directores (Programas).
 function doGet(e) {
   try {
-    const ws   = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-    const rows = ws.getDataRange().getValues();
-    if (rows.length <= 1) return resp({ ok: true, data: [] });
-    const hdr  = rows[0];
-    const data = rows.slice(1).map(r =>
-      Object.fromEntries(hdr.map((h, i) => [h, r[i]]))
-    );
-    return resp({ ok: true, data });
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    return resp({
+      ok: true,
+      data: readSheet(ss, SHEET_NAME, HEADERS),
+      data_programa: readSheet(ss, SHEET_NAME_PROGRAMA, HEADERS_PROGRAMA),
+      programas: readSheet(ss, SHEET_NAME_CATALOGO, HEADERS_CATALOGO)
+    });
   } catch (err) {
     return resp({ ok: false, error: err.message });
   }
 }
 
-// POST → guarda / actualiza registros (upsert por id)
+// POST → guarda / actualiza registros (upsert por id). payload.entity decide la hoja destino:
+//   'indicador_programa' → Indicadores_Programa (id_padre vincula con un id de IND del front)
+//   default / 'indicador_vr' → Datos (comportamiento original, sin cambios)
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents);
     if (payload.action !== 'upsert') return resp({ ok: false, error: 'acción desconocida' });
 
-    const ws  = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-    const all = ws.getDataRange().getValues();
-
-    // Asegurar cabeceras en fila 1
-    if (all.length === 0 || all[0][0] !== 'id') {
-      ws.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
-      all.length = 0; // forzar reindexación
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    if (payload.entity === 'indicador_programa') {
+      upsertRows(ss.getSheetByName(SHEET_NAME_PROGRAMA), HEADERS_PROGRAMA, payload.rows, 'id');
+    } else {
+      // renombrar 'obs' -> 'observaciones' para que coincida con HEADERS, igual que antes
+      const rows = payload.rows.map(r => ({ ...r, observaciones: r.obs ?? r.observaciones }));
+      upsertRows(ss.getSheetByName(SHEET_NAME), HEADERS, rows, 'id');
     }
-
-    payload.rows.forEach(row => {
-      const ts = new Date().toISOString();
-      const fila = [
-        row.id       ?? '',
-        row.funcion  ?? '',
-        row.lb       ?? '',
-        row.va26     ?? '',
-        row.va28     ?? '',
-        row.estado   ?? '',
-        row.obs      ?? '',
-        ts
-      ];
-      const idx = all.findIndex((r, i) => i > 0 && String(r[0]) === String(row.id));
-      if (idx > 0) {
-        ws.getRange(idx + 1, 1, 1, fila.length).setValues([fila]);
-      } else {
-        ws.appendRow(fila);
-      }
-    });
 
     return resp({ ok: true });
   } catch (err) {

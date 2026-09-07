@@ -281,6 +281,36 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   border:1px solid var(--border); color:var(--text-secondary); font-size:11.5px;
 }
 #zona-mapa .stat-pill b{color:var(--accent-strong); font-size:12px;}
+#zona-mapa .nota-normativa{
+  margin:0 24px 10px; padding:10px 14px; background:#FFFBEA; border:1px solid #E9D9A0;
+  border-radius:10px; font-size:12px; color:#6B5B10; line-height:1.5;
+}
+#zona-mapa .nota-normativa b{color:#7A6110;}
+
+#zona-prog .prog-form-card{
+  background:#fff;border-radius:10px;box-shadow:var(--sombra);padding:16px 18px;margin-bottom:16px;
+}
+#zona-prog .prog-form-card h3{font-size:14px;color:var(--az);margin-bottom:10px}
+#zona-prog .prog-form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 14px}
+#zona-prog label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
+#zona-prog label.prog-full{margin-top:10px}
+#zona-prog input[type=text],#zona-prog select,#zona-prog textarea{
+  border:1px solid var(--borde);border-radius:6px;padding:7px 9px;font-size:12.5px;
+  font-family:inherit;color:var(--txt);background:#fff;
+}
+#zona-prog input[type=text]:focus,#zona-prog select:focus,#zona-prog textarea:focus{outline:none;border-color:var(--az)}
+#zona-prog textarea{resize:vertical}
+#zona-prog .prog-form-actions{display:flex;align-items:center;gap:10px;margin-top:12px}
+#zona-prog .btn-cancelar{background:#fff;border:1px solid var(--borde);color:var(--txt2);
+  border-radius:6px;padding:9px 14px;font-size:12.5px;font-family:inherit;cursor:pointer}
+#zona-prog .btn-cancelar:hover{border-color:var(--gr)}
+#zona-prog #prog-form-msg{font-size:12px;color:var(--vd)}
+#zona-prog .btn-del{background:none;border:1px solid var(--rol);color:var(--ro);border-radius:5px;
+  padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit}
+#zona-prog .btn-del:hover{background:var(--rol)}
+#zona-prog .btn-edit{background:none;border:1px solid var(--borde);color:var(--txt2);border-radius:5px;
+  padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit;margin-right:5px}
+#zona-prog .btn-edit:hover{border-color:var(--az)}
 #zona-mapa #wrap{
   position:relative; height:590px; overflow:auto; background:#fff;
   margin:10px 24px 16px; border:1px solid var(--border); border-top:3px solid var(--gold);
@@ -345,6 +375,9 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <option value="ensenanza">Enseñanza</option>
       <option value="extension">Extensión</option>
       <option value="admin">Planeación (Admin)</option>
+      <option value="bac-bga">Bacteriología — Bucaramanga (Director de Programa)</option>
+      <option value="bac-cuc">Bacteriología — Cúcuta (Director de Programa)</option>
+      <option value="bac-vll">Bacteriología — Valledupar (Director de Programa)</option>
     </select>
     <input id="login-pass" type="password" placeholder="Contraseña" autocomplete="current-password"
       onkeydown="if(event.key==='Enter')intentarLogin()">
@@ -375,6 +408,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   <button class="tab" onclick="irTab('seg',this)">Seguimiento <span class="tab-n">95</span></button>
   <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
   <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
+  <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Mi Programa</button>
 </nav>
 
 <div class="wrap">
@@ -412,6 +446,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   <div class="stat-pill"><b id="statLinks">0</b> conexiones totales</div>
 </div>
 
+<div id="notaNormativa" class="nota-normativa" style="display:none"></div>
+
 <div id="wrap">
   <div id="stage"></div>
 </div>
@@ -420,7 +456,65 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 
 <div id="tooltip"></div>
 
-<script id="graph-data" type="application/json">{"nodos": [{"id": "I27", "f": "INV", "tema": "T1", "nombre": "Graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores vinculados al SNCTI", "desc": "Proporción de graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores que se encuentran vinculados al SNCTI en la ventana de 2 o más años posteriores a su egreso", "und": "Proporción"}, {"id": "I28", "f": "INV", "tema": "T3", "nombre": "Productos de I+D+i+c que aportan a los focos de investigación UDES (Salud Planetaria, Seguridad Alimentaria, Transición energética)", "desc": "Proporción de productos (en todas sus tipologías del modelo de reconocimiento MinCiencias) que aportan a los focos con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.", "und": "Proporción"}, {"id": "I29", "f": "INV", "tema": "T2", "nombre": "Productos de I+D+i+c transferidos a los sectores de aplicación (local, regional, nacional e internacional)", "desc": "Proporción de productos que se han transferido a través de servicios, consultorías, licencias o capacitaciones al sector externo con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.", "und": "Proporción"}, {"id": "I30", "f": "INV", "tema": "T4", "nombre": "Políticas públicas que involucran o se sustentan en productos de I+D+i+c derivados de proyectos UDES", "desc": "Políticas públicas a nivel local, regional, nacional e internacional que citan productos de I+D+i+c UDES", "und": "Número"}, {"id": "I31", "f": "INV", "tema": "T4", "nombre": "Métricas cienciométricas y posicionamiento en rankings", "desc": "Índices, indicadores y posicionamientos en sistemas de rankings cienciométricos (Scimago, WoS, QS, THE, Google Scholar, entre otros)", "und": "Índices e indicadores específicos de los diferentes rankings y agencias cienciométricas"}, {"id": "I32", "f": "INV", "tema": "T3", "nombre": "Productos de I+D+i+c que aportan a las metas de los ODS en Colombia, LAC y global", "desc": "Número y proporción de productos de I+D+i+c derivados de proyectos UDES que evidencian aportes a los ODS en función de las metas establecidas para Colombia y el mundo", "und": "Número/proporción"}, {"id": "I33", "f": "INV", "tema": "T2", "nombre": "Emprendimientos de base científica/tecnológica derivados de productos de I+D+i+c desarrollados en proyectos UDES", "desc": "Número y proporción de empresas creadas de base científica o tecnológica, spin-offs, startups, o número de empresas ya constituidas que innovan con productos o servicios derivados de la investigación UDES", "und": "Número/proporción"}, {"id": "I34", "f": "INV", "tema": "T1", "nombre": "Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)", "desc": "Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron.", "und": "Resultados estandarizados según prueba"}, {"id": "I35", "f": "INV", "tema": "T1", "nombre": "Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)", "desc": "Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores", "und": "Resultados evidenciados en estudios de graduados"}, {"id": "I36", "f": "INV", "tema": "T4", "nombre": "Índice de liderazgo y transferencia de la comunidad científica", "desc": "(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100", "und": "Porcentaje"}, {"id": "E16", "f": "ENS", "tema": "T6", "nombre": "Valor agregado académico", "desc": "Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.", "und": "Puntos de diferencia / categoría MEN"}, {"id": "E17", "f": "ENS", "tema": "T1", "nombre": "Tasa de empleabilidad de graduados", "desc": "Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.", "und": "% empleabilidad pertinente"}, {"id": "E18", "f": "ENS", "tema": "T1", "nombre": "Percepción de empleadores sobre graduados", "desc": "Calificación promedio dada por empleadores a las competencias de los graduados UDES.", "und": "Puntaje 1–5"}, {"id": "E19", "f": "ENS", "tema": "T1", "nombre": "Graduados en cargos de liderazgo", "desc": "Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.", "und": "% graduados"}, {"id": "E20", "f": "ENS", "tema": "T1", "nombre": "Impacto de la internacionalización", "desc": "Evidencias del impacto de la internacionalización en las trayectorias de los graduados", "und": "N° evidencias de impacto/año"}, {"id": "E21", "f": "ENS", "tema": "T1", "nombre": "Reconocimientos a graduados UDES", "desc": "Número de distinciones, premios o reconocimientos públicos recibidos por graduados.", "und": "N° reconocimientos/año"}, {"id": "E22", "f": "ENS", "tema": "T1", "nombre": "Tasa de vinculación efectiva en prácticas empresariales", "desc": "Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador.", "und": "% estudiantes en práctica"}, {"id": "X22", "f": "EXT", "tema": "T5", "nombre": "Percepción de cambios favorables en problemáticas atendidas", "desc": "Porcentaje de participantes que perciben cambios concretos favorables en las dinámicas o problemáticas atendidas (Indicador IMPACTA UDES - Solución de problemas)", "und": "% participantes"}, {"id": "X23", "f": "EXT", "tema": "T5", "nombre": "Satisfacción en resolución intersectorial de problemas", "desc": "Nivel de satisfacción de los participantes o comunidad frente a la resolución interinstitucional e intersectorial de problemas desde el proyecto (Indicador IMPACTA UDES - Colaboración sector productivo)", "und": "Puntaje 1-5"}, {"id": "X24", "f": "EXT", "tema": "T5", "nombre": "Fortalecimiento de capacidades para convivencia pacífica", "desc": "Porcentaje de personas, familias, grupos que expresan cambios positivos en áreas de fortalecimiento de capacidades para convivencia pacífica (Indicador IMPACTA UDES - Promoción convivencia pacífica)", "und": "% participantes"}, {"id": "X25", "f": "EXT", "tema": "T5", "nombre": "Cambios positivos en prácticas de cuidado y organización", "desc": "Porcentaje de participantes que expresan cambios positivos en prácticas de cuidado del entorno, organización o trabajo (Indicador IMPACTA - Vinculación ámbito social)", "und": "% participantes"}, {"id": "X26", "f": "EXT", "tema": "T1", "nombre": "Nuevas oportunidades educativas/laborales encontradas", "desc": "Porcentaje de participantes que encontraron nuevas oportunidades educativas, laborales, ocupacionales a partir de su participación (Indicador IMPACTA)", "und": "% participantes"}, {"id": "X27", "f": "EXT", "tema": "T5", "nombre": "Apreciación sobre aportes al bienestar", "desc": "Apreciación de los participantes sobre los aportes, aplicaciones o efectos de los resultados sobre el bienestar (Indicador IMPACTA - Solución problemas)", "und": "Puntaje 1-5"}, {"id": "X28", "f": "EXT", "tema": "T5", "nombre": "Valoración ampliación acciones interinstitucionales", "desc": "Valoración de actores clave frente a ampliación/funcionamiento de acciones interinstitucionales (Indicador IMPACTA - Desarrollo redes)", "und": "Puntaje 1-5"}, {"id": "X29", "f": "EXT", "tema": "T5", "nombre": "Pertinencia de la intervención intersectorial", "desc": "Apreciación de participantes sobre pertinencia de intervención intersectorial en cambios incorporados (Indicador IMPACTA - Adaptabilidad)", "und": "Puntaje 1-5"}, {"id": "X30", "f": "EXT", "tema": "T2", "nombre": "Calidad de servicios interinstitucionales", "desc": "Apreciación frente a calidad de servicios interinstitucionales promovidos desde el proyecto (Indicador IMPACTA - Fomento innovación)", "und": "Puntaje 1-5"}, {"id": "X31", "f": "EXT", "tema": "T3", "nombre": "Proyectos alineados a ODS y Plan Regional", "desc": "Porcentaje de proyectos que responden a ODS o prioridades del Plan de Desarrollo Departamental", "und": "% proyectos"}, {"id": "X32", "f": "EXT", "tema": "T3", "nombre": "Conservación y sostenibilidad ambiental", "desc": "Proyectos con impacto documentado en conservación, restauración o educación ambiental", "und": "N° proyectos"}, {"id": "X33", "f": "EXT", "tema": "T2", "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)", "desc": "Número de acuerdos de transferencia (licencias, cesiones, co-desarrollo, contratos con cláusula de explotación) firmados en el periodo", "und": "N° acuerdos/año"}, {"id": "X34", "f": "EXT", "tema": "T2", "nombre": "Ingresos por transferencia tecnológica (licencias/regalías)", "desc": "Ingresos anuales derivados de licencias, regalías o cesiones de tecnologías desarrolladas por la UDES a través de la Coordinación DTT", "und": "COP millones/año"}, {"id": "X35", "f": "EXT", "tema": "T2", "nombre": "Índice de sinergia territorial e innovación abierta", "desc": "(Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) * 100", "und": "Porcentaje"}, {"id": "X36", "f": "EXT", "tema": "T3", "nombre": "Tasa de sostenibilidad y apropiación comunitaria", "desc": "(Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) * 100", "und": "Porcentaje"}, {"id": "X37", "f": "EXT", "tema": "T1", "nombre": "Índice de retorno de pertinencia posgradual y movilidad profesional", "desc": "Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) * 100.", "und": "Porcentaje"}], "temas": [{"id": "T1", "nombre": "Trayectorias de vida y egresados", "color": {"fill": "#8E24AA", "stroke": "#4A148C"}}, {"id": "T2", "nombre": "Transferencia y uso del conocimiento / innovación", "color": {"fill": "#00897B", "stroke": "#004D40"}}, {"id": "T3", "nombre": "Sostenibilidad y ODS / territorio ambiental", "color": {"fill": "#C9A227", "stroke": "#7A6110"}}, {"id": "T4", "nombre": "Incidencia en política pública y posicionamiento institucional", "color": {"fill": "#C2185B", "stroke": "#6A0D3B"}}, {"id": "T5", "nombre": "Impacto territorial/comunitario (microsocial-mesosocial)", "color": {"fill": "#6D4C41", "stroke": "#3E2723"}}, {"id": "T6", "nombre": "Aprendizaje interno (sin impacto externo)", "color": {"fill": "#757575", "stroke": "#424242"}}], "funciones": {"INV": {"fill": "#3949AB", "stroke": "#1A237E", "nombre": "Investigación"}, "ENS": {"fill": "#2E7D32", "stroke": "#1B5E20", "nombre": "Enseñanza"}, "EXT": {"fill": "#E65100", "stroke": "#BF360C", "nombre": "Extensión"}}}</script>
+<div id="zona-prog" style="display:none">
+  <div class="wrap">
+    <div id="prog-info"></div>
+
+    <div class="prog-form-card">
+      <h3 id="prog-form-title">Nuevo indicador de programa</h3>
+      <input type="hidden" id="prog-edit-id" value="">
+      <div class="prog-form-grid">
+        <label>Indicador institucional al que aporta
+          <select id="prog-id-padre"></select>
+        </label>
+        <label>Nombre del indicador propio
+          <input type="text" id="prog-nombre" placeholder="Ej. Brigadas de bacteriología clínica en zona rural">
+        </label>
+        <label>Unidad de medida
+          <input type="text" id="prog-und" placeholder="Ej. Número, Porcentaje...">
+        </label>
+        <label>Meta
+          <input type="text" id="prog-meta" placeholder="Ej. 4 brigadas/año">
+        </label>
+        <label>Valor actual
+          <input type="text" id="prog-valor" placeholder="Valor reportado">
+        </label>
+        <label>Estado
+          <select id="prog-estado"></select>
+        </label>
+      </div>
+      <label class="prog-full">Descripción / cómo se calcula
+        <textarea id="prog-desc" rows="2"></textarea>
+      </label>
+      <label class="prog-full">Evidencia / fuente de verificación
+        <input type="text" id="prog-evidencia" placeholder="Ej. Informe de brigada, registro fotográfico, acta...">
+      </label>
+      <div class="prog-form-actions">
+        <button class="btn-pdf" onclick="guardarIndicadorPrograma()">Guardar indicador</button>
+        <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cancelarEdicionPrograma()">Cancelar edición</button>
+        <span id="prog-form-msg"></span>
+      </div>
+    </div>
+
+    <div class="tw">
+      <table class="ti" id="tabla-prog">
+        <thead><tr>
+          <th style="text-align:left">Indicador institucional (padre)</th>
+          <th style="text-align:left">Indicador propio del programa</th>
+          <th>Unidad</th>
+          <th>Meta</th>
+          <th>Valor actual</th>
+          <th>Estado</th>
+          <th style="text-align:left">Evidencia</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="prog-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script id="graph-data" type="application/json">{"nodos":[{"id":"I27","f":"INV","tema":"T1","nombre":"Graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores vinculados al SNCTI","desc":"Proporción de graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores que se encuentran vinculados al SNCTI en la ventana de 2 o más años posteriores a su egreso","und":"Proporción"},{"id":"I28","f":"INV","tema":"T3","nombre":"Productos de I+D+i+c que aportan a los focos de investigación UDES (Salud Planetaria, Seguridad Alimentaria, Transición energética)","desc":"Proporción de productos (en todas sus tipologías del modelo de reconocimiento MinCiencias) que aportan a los focos con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.","und":"Proporción"},{"id":"I29","f":"INV","tema":"T2","nombre":"Productos de I+D+i+c transferidos a los sectores de aplicación (local, regional, nacional e internacional)","desc":"Proporción de productos que se han transferido a través de servicios, consultorías, licencias o capacitaciones al sector externo con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.","und":"Proporción"},{"id":"I30","f":"INV","tema":"T4","nombre":"Políticas públicas que involucran o se sustentan en productos de I+D+i+c derivados de proyectos UDES","desc":"Políticas públicas a nivel local, regional, nacional e internacional que citan productos de I+D+i+c UDES","und":"Número"},{"id":"I31","f":"INV","tema":"T4","nombre":"Métricas cienciométricas y posicionamiento en rankings","desc":"Índices, indicadores y posicionamientos en sistemas de rankings cienciométricos (Scimago, WoS, QS, THE, Google Scholar, entre otros)","und":"Índices e indicadores específicos de los diferentes rankings y agencias cienciométricas"},{"id":"I32","f":"INV","tema":"T3","nombre":"Productos de I+D+i+c que aportan a las metas de los ODS en Colombia, LAC y global","desc":"Número y proporción de productos de I+D+i+c derivados de proyectos UDES que evidencian aportes a los ODS en función de las metas establecidas para Colombia y el mundo","und":"Número/proporción"},{"id":"I33","f":"INV","tema":"T2","nombre":"Emprendimientos de base científica/tecnológica derivados de productos de I+D+i+c desarrollados en proyectos UDES","desc":"Número y proporción de empresas creadas de base científica o tecnológica, spin-offs, startups, o número de empresas ya constituidas que innovan con productos o servicios derivados de la investigación UDES","und":"Número/proporción"},{"id":"I34","f":"INV","tema":"T1","nombre":"Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)","desc":"Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron.","und":"Resultados estandarizados según prueba"},{"id":"I35","f":"INV","tema":"T1","nombre":"Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)","desc":"Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores","und":"Resultados evidenciados en estudios de graduados"},{"id":"I36","f":"INV","tema":"T4","nombre":"Índice de liderazgo y transferencia de la comunidad científica","desc":"(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100","und":"Porcentaje"},{"id":"E16","f":"ENS","tema":"T6","nombre":"Valor agregado académico","desc":"Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.","und":"Puntos de diferencia / categoría MEN"},{"id":"E17","f":"ENS","tema":"T1","nombre":"Tasa de empleabilidad de graduados","desc":"Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.","und":"% empleabilidad pertinente"},{"id":"E18","f":"ENS","tema":"T1","nombre":"Percepción de empleadores sobre graduados","desc":"Calificación promedio dada por empleadores a las competencias de los graduados UDES.","und":"Puntaje 1–5"},{"id":"E19","f":"ENS","tema":"T1","nombre":"Graduados en cargos de liderazgo","desc":"Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.","und":"% graduados"},{"id":"E20","f":"ENS","tema":"T1","nombre":"Impacto de la internacionalización","desc":"Evidencias del impacto de la internacionalización en las trayectorias de los graduados","und":"N° evidencias de impacto/año"},{"id":"E21","f":"ENS","tema":"T1","nombre":"Reconocimientos a graduados UDES","desc":"Número de distinciones, premios o reconocimientos públicos recibidos por graduados.","und":"N° reconocimientos/año"},{"id":"E22","f":"ENS","tema":"T1","nombre":"Tasa de vinculación efectiva en prácticas empresariales","desc":"Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador.","und":"% estudiantes en práctica"},{"id":"X22","f":"EXT","tema":"T5","nombre":"Percepción de cambios favorables en problemáticas atendidas","desc":"Porcentaje de participantes que perciben cambios concretos favorables en las dinámicas o problemáticas atendidas (Indicador IMPACTA UDES - Solución de problemas)","und":"% participantes"},{"id":"X23","f":"EXT","tema":"T5","nombre":"Satisfacción en resolución intersectorial de problemas","desc":"Nivel de satisfacción de los participantes o comunidad frente a la resolución interinstitucional e intersectorial de problemas desde el proyecto (Indicador IMPACTA UDES - Colaboración sector productivo)","und":"Puntaje 1-5"},{"id":"X24","f":"EXT","tema":"T5","nombre":"Fortalecimiento de capacidades para convivencia pacífica","desc":"Porcentaje de personas, familias, grupos que expresan cambios positivos en áreas de fortalecimiento de capacidades para convivencia pacífica (Indicador IMPACTA UDES - Promoción convivencia pacífica)","und":"% participantes"},{"id":"X25","f":"EXT","tema":"T5","nombre":"Cambios positivos en prácticas de cuidado y organización","desc":"Porcentaje de participantes que expresan cambios positivos en prácticas de cuidado del entorno, organización o trabajo (Indicador IMPACTA - Vinculación ámbito social)","und":"% participantes"},{"id":"X26","f":"EXT","tema":"T1","nombre":"Nuevas oportunidades educativas/laborales encontradas","desc":"Porcentaje de participantes que encontraron nuevas oportunidades educativas, laborales, ocupacionales a partir de su participación (Indicador IMPACTA)","und":"% participantes"},{"id":"X27","f":"EXT","tema":"T5","nombre":"Apreciación sobre aportes al bienestar","desc":"Apreciación de los participantes sobre los aportes, aplicaciones o efectos de los resultados sobre el bienestar (Indicador IMPACTA - Solución problemas)","und":"Puntaje 1-5"},{"id":"X28","f":"EXT","tema":"T5","nombre":"Valoración ampliación acciones interinstitucionales","desc":"Valoración de actores clave frente a ampliación/funcionamiento de acciones interinstitucionales (Indicador IMPACTA - Desarrollo redes)","und":"Puntaje 1-5"},{"id":"X29","f":"EXT","tema":"T5","nombre":"Pertinencia de la intervención intersectorial","desc":"Apreciación de participantes sobre pertinencia de intervención intersectorial en cambios incorporados (Indicador IMPACTA - Adaptabilidad)","und":"Puntaje 1-5"},{"id":"X30","f":"EXT","tema":"T2","nombre":"Calidad de servicios interinstitucionales","desc":"Apreciación frente a calidad de servicios interinstitucionales promovidos desde el proyecto (Indicador IMPACTA - Fomento innovación)","und":"Puntaje 1-5"},{"id":"X31","f":"EXT","tema":"T3","nombre":"Proyectos alineados a ODS y Plan Regional","desc":"Porcentaje de proyectos que responden a ODS o prioridades del Plan de Desarrollo Departamental","und":"% proyectos"},{"id":"X32","f":"EXT","tema":"T3","nombre":"Conservación y sostenibilidad ambiental","desc":"Proyectos con impacto documentado en conservación, restauración o educación ambiental","und":"N° proyectos"},{"id":"X33","f":"EXT","tema":"T2","nombre":"Acuerdos de transferencia tecnológica formalizados (DTT)","desc":"Número de acuerdos de transferencia (licencias, cesiones, co-desarrollo, contratos con cláusula de explotación) firmados en el periodo","und":"N° acuerdos/año"},{"id":"X34","f":"EXT","tema":"T2","nombre":"Ingresos por transferencia tecnológica (licencias/regalías)","desc":"Ingresos anuales derivados de licencias, regalías o cesiones de tecnologías desarrolladas por la UDES a través de la Coordinación DTT","und":"COP millones/año"},{"id":"X35","f":"EXT","tema":"T2","nombre":"Índice de sinergia territorial e innovación abierta","desc":"(Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) * 100","und":"Porcentaje"},{"id":"X36","f":"EXT","tema":"T3","nombre":"Tasa de sostenibilidad y apropiación comunitaria","desc":"(Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) * 100","und":"Porcentaje"},{"id":"X37","f":"EXT","tema":"T1","nombre":"Índice de retorno de pertinencia posgradual y movilidad profesional","desc":"Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) * 100.","und":"Porcentaje"}],"temas":[{"id":"T1","nombre":"Trayectorias de vida y egresados","color":{"fill":"#8E24AA","stroke":"#4A148C"}},{"id":"T2","nombre":"Transferencia y uso del conocimiento / innovación","color":{"fill":"#00897B","stroke":"#004D40"}},{"id":"T3","nombre":"Sostenibilidad y ODS / territorio ambiental","color":{"fill":"#C9A227","stroke":"#7A6110"},"normativa":["Característica 7 (Factor 3) — Administración y gestión sostenible: sin indicador institucional UDES asociado (brecha)","Característica 10 (Factor 3) — Infraestructura y recursos con desarrollo sostenible: sin indicador institucional UDES asociado (brecha)","Característica 22 (Factor 6) — compromiso institucional con una sociedad ambientalmente sostenible","Característica 23 (Factor 7) — Visibilidad de las contribuciones al desarrollo sostenible, económico, ambiental, tecnológico, social y cultural del entorno"],"brecha":"Acuerdo 01/2025 CESU: las Características 7 y 10 (gestión institucional y de infraestructura sostenible) no tienen ningún indicador UDES asociado hoy. Las Características 44 y 48 (Capítulo III, nivel de programa académico) son el puente normativo para que un programa reporte sostenibilidad de sus propios recursos y su sostenibilidad financiera. Enseñanza (E01-E22) no tiene ningún indicador con el pilar oficial \"5. Sostenibilidad\", y se confirmó revisando el Acuerdo 01/2025 completo que tampoco existe un vínculo normativo entre sostenibilidad y la función de enseñanza — es una brecha real del marco vigente, no un vacío de la matriz UDES.","candidatoInterpretativo":{"id":"E20","nota":"E20 (Impacto de la internacionalización) es el único indicador de Enseñanza con una posible relación temática indirecta con sostenibilidad (cooperación internacional / marcos ODS), pero se revisó el Acuerdo 01/2025 y los Lineamientos CESU de diciembre 2025 completos y NO existe ningún vínculo normativo confirmado entre sostenibilidad y la función de enseñanza — tampoco tiene el pilar oficial \"5. Sostenibilidad\" en la matriz UDES. No se agrega como nodo de este tema; se referencia aquí solo como el candidato más cercano dentro de una brecha real."}},{"id":"T4","nombre":"Incidencia en política pública y posicionamiento institucional","color":{"fill":"#C2185B","stroke":"#6A0D3B"}},{"id":"T5","nombre":"Impacto territorial/comunitario (microsocial-mesosocial)","color":{"fill":"#6D4C41","stroke":"#3E2723"}},{"id":"T6","nombre":"Aprendizaje interno (sin impacto externo)","color":{"fill":"#757575","stroke":"#424242"}}],"funciones":{"INV":{"fill":"#3949AB","stroke":"#1A237E","nombre":"Investigación"},"ENS":{"fill":"#2E7D32","stroke":"#1B5E20","nombre":"Enseñanza"},"EXT":{"fill":"#E65100","stroke":"#BF360C","nombre":"Extensión"}}}</script>
 </div>
 
 </div>
@@ -569,7 +663,7 @@ const ESTADOS   = {'':['Sin dato',''],sin_iniciar:['Sin iniciar','var(--ro)'],
   superada:['Superada','var(--az3)']};
 
 // ─── Store ─────────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSnZcGRWwIredYFRPY1Np9jtb_TCyhdGx430N6QbAPuHvU84w5PoLmyVLuAGIxvQ6eIA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzt3ppkbH2Qj5Ly_otck0zyfirv2fn7dnE9GO1kcAejhvXXryk4tO9TTFCmwWHuvZ73CA/exec';
 
 let store = {};
 let tabActual = 'inv';
@@ -585,15 +679,58 @@ const USERS = {
 };
 let sesion = null;
 
-function intentarLogin(){
+// ─── Catálogo de programas — piloto Director de Programa (Bacteriología, 3 sedes) ──
+// Se hidrata desde la hoja "Programas" del mismo Spreadsheet (vía doGet). No reemplaza a
+// USERS: es un segundo mecanismo de login para roles que no son vicerrectoría/admin.
+let PROGRAMAS = {};      // "<codigo-en-minúsculas>" -> {codigo, programa, sedeCod, sede, nombre_programa, director, clave, funciones:[...]}
+let IND_PROGRAMA = [];   // indicadores creados por directores de programa — nunca se escribe en IND
+let catalogoCargado = false;
+
+function hidratarCatalogo(res){
+  if(!res || !res.ok) return;
+  (res.programas||[]).forEach(p=>{
+    const partes = String(p.codigo||'').split('-');
+    PROGRAMAS[String(p.codigo||'').toLowerCase()] = {
+      codigo: p.codigo, programa: partes[0]||p.codigo, sedeCod: partes[1]||'',
+      sede: p.sede, nombre_programa: p.nombre_programa, director: p.director, clave: p.clave,
+      funciones: String(p.funciones||'').split(',').map(s=>s.trim()).filter(Boolean)
+    };
+  });
+  if(res.data_programa && res.data_programa.length){
+    // Normaliza los nombres de campo del Sheet (p.ej. "funcion") a los usados en memoria ("f"),
+    // igual que los registros creados localmente en guardarIndicadorPrograma().
+    IND_PROGRAMA = res.data_programa.map(r=>({
+      id:r.id, id_padre:r.id_padre, f:r.funcion, programa:r.programa, sede:r.sede,
+      director:r.director, nombre:r.nombre, desc:r.desc, und:r.und, meta:r.meta,
+      valor_actual:r.valor_actual, evidencia:r.evidencia, estado:r.estado
+    }));
+    localStorage.setItem('imp_ind_programa', JSON.stringify(IND_PROGRAMA));
+  }
+  catalogoCargado = true;
+}
+
+async function cargarCatalogoPrograma(){
+  if(catalogoCargado) return;
+  try{ hidratarCatalogo(await fetch(APPS_SCRIPT_URL).then(r=>r.json())); }catch(e){}
+}
+
+async function intentarLogin(){
   const u = document.getElementById('login-user').value.trim().toLowerCase();
   const p = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
   const cfg = USERS[u];
-  if(!cfg || cfg.pass !== p){
-    document.getElementById('login-error').textContent = 'Usuario o contraseña incorrectos';
-    return;
+  if(cfg){
+    if(cfg.pass !== p){ errEl.textContent = 'Usuario o contraseña incorrectos'; return; }
+    sesion = {usuario:u, vr:cfg.vr, rol:cfg.rol, nombre:cfg.nombre, ts:Date.now()};
+  } else {
+    errEl.textContent = 'Verificando…';
+    await cargarCatalogoPrograma();
+    const prog = PROGRAMAS[u];
+    if(!prog || prog.clave !== p){ errEl.textContent = 'Usuario o contraseña incorrectos'; return; }
+    sesion = {usuario:u, rol:'director_programa', programa:prog.programa, sedeCod:prog.sedeCod,
+      sede:prog.sede, funciones:prog.funciones, nombre:prog.nombre_programa+' — '+prog.sede, ts:Date.now()};
   }
-  sesion = {usuario:u, vr:cfg.vr, rol:cfg.rol, nombre:cfg.nombre, ts:Date.now()};
+  errEl.textContent = '';
   localStorage.setItem('imp_session', JSON.stringify(sesion));
   iniciarApp();
 }
@@ -604,10 +741,16 @@ function cerrarSesion(){
 }
 
 function aplicarRestriccionTabs(){
+  const tabProg = document.getElementById('tab-prog');
+  if(tabProg) tabProg.style.display = sesion.rol === 'director_programa' ? '' : 'none';
   if(sesion.rol === 'admin') return;
   document.querySelectorAll('.tab').forEach(b=>{
     const m = b.getAttribute('onclick').match(/irTab\('(\w+)'/);
-    if(m && m[1] !== 'seg' && m[1] !== 'res' && m[1] !== 'mapa' && m[1].toUpperCase() !== sesion.vr) b.style.display = 'none';
+    if(!m) return;
+    const t = m[1];
+    if(t === 'seg' || t === 'res' || t === 'mapa' || t === 'prog') return;
+    if(sesion.rol === 'director_programa'){ b.style.display = 'none'; return; }
+    if(t.toUpperCase() !== sesion.vr) b.style.display = 'none';
   });
 }
 
@@ -617,9 +760,11 @@ function iniciarApp(){
   aplicarRestriccionTabs();
   document.getElementById('hdr-user').innerHTML =
     sesion.nombre + ' <button onclick="cerrarSesion()">Cerrar sesión</button>';
-  tabInicial = sesion.rol === 'admin' ? 'seg' : sesion.vr.toLowerCase();
+  tabInicial = sesion.rol === 'admin' ? 'seg' : sesion.rol === 'director_programa' ? 'prog' : sesion.vr.toLowerCase();
   const g = localStorage.getItem('imp_store');
   if(g) try{store=JSON.parse(g);}catch(e){}
+  const gp = localStorage.getItem('imp_ind_programa');
+  if(gp) try{IND_PROGRAMA=JSON.parse(gp);}catch(e){}
   cargarDeSheets();
 }
 
@@ -641,7 +786,7 @@ function cargarDeSheets(){
   fetch(APPS_SCRIPT_URL)
     .then(r=>r.json())
     .then(res=>{
-      if(res.ok && res.data.length){
+      if(res.ok && res.data && res.data.length){
         res.data.forEach(row=>{
           if(row.lb)     store[row.id+'_lb']=String(row.lb);
           if(row.va26)   store[row.id+'_va26']=String(row.va26);
@@ -654,6 +799,7 @@ function cargarDeSheets(){
       } else {
         hdr.textContent='Cambios guardados automáticamente';
       }
+      hidratarCatalogo(res);
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
       irTab(tabInicial, document.querySelector(`.tab[onclick*="'${tabInicial}'"]`));
     })
@@ -667,7 +813,8 @@ function cargarDeSheets(){
 window.addEventListener('load',()=>{
   const s = localStorage.getItem('imp_session');
   if(s){ try{ sesion = JSON.parse(s); }catch(e){} }
-  if(sesion && USERS[sesion.usuario]){
+  const sesionValida = sesion && (USERS[sesion.usuario] || sesion.rol === 'director_programa');
+  if(sesionValida){
     iniciarApp();
   } else {
     const logo = document.querySelector('.hdr-logo-box img');
@@ -683,6 +830,7 @@ window.addEventListener('load',()=>{
 // ─── Navegación ────────────────────────────────────────────
 function irTab(t, btn){
   if(sesion && sesion.rol === 'vr' && t !== 'seg' && t !== 'res' && t !== 'mapa' && t.toUpperCase() !== sesion.vr) return;
+  if(sesion && sesion.rol === 'director_programa' && (t==='inv'||t==='ens'||t==='ext')) return;
   tabActual = t;
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   if(btn) btn.classList.add('on');
@@ -690,11 +838,20 @@ function irTab(t, btn){
   if(t === 'mapa'){
     document.querySelector('.wrap').style.display = 'none';
     document.getElementById('zona-mapa').style.display = '';
+    document.getElementById('zona-prog').style.display = 'none';
     if(!mapaRenderizado){ renderMapa(); mapaRenderizado = true; }
+    return;
+  }
+  if(t === 'prog'){
+    document.querySelector('.wrap').style.display = 'none';
+    document.getElementById('zona-mapa').style.display = 'none';
+    document.getElementById('zona-prog').style.display = '';
+    renderPrograma();
     return;
   }
   document.querySelector('.wrap').style.display = '';
   document.getElementById('zona-mapa').style.display = 'none';
+  document.getElementById('zona-prog').style.display = 'none';
 
   const lista = t==='inv'?IND.filter(i=>i.f==='INV')
                :t==='ens'?IND.filter(i=>i.f==='ENS')
@@ -794,8 +951,51 @@ function renderEd(lista, f){
   document.getElementById('tbody').innerHTML=rows;
 }
 
+// Correspondencia normativa con el Acuerdo 01/2025 CESU (modelo institucional, Cap. V),
+// transcrita de generar_diagnostico_acuerdo2025.py (33 indicadores de "Impacto Real") y
+// generar_diagnostico_sostenibilidad.py (X07, nivel Procesos, etiquetado pilar Sostenibilidad).
+// Referencia, no se usa para persistencia — no altera IND.
+const CARACTERISTICAS_CESU_2025 = {
+  C1:'Característica 1 (Factor 1. Identidad institucional)',
+  C3:'Característica 3 (Factor 1. Identidad institucional)',
+  C4:'Característica 4 (Factor 2. Gobierno institucional)',
+  C12:'Característica 12 (Factor 4. Sistema Interno de Aseguramiento de la Calidad)',
+  C18:'Característica 18 (Factor 5. Estructura y procesos académicos)',
+  C22:'Característica 22 (Factor 6. Investigación, innovación y desarrollo tecnológico)',
+  C23:'Característica 23 (Factor 7. Extensión, proyección e impacto social)',
+  C24:'Característica 24 (Factor 7. Extensión, proyección e impacto social)',
+  C25:'Característica 25 (Factor 7. Impacto social, cultural y artístico)',
+  C26:'Característica 26 (Factor 8. Visibilidad regional, nacional e internacional)',
+  C37:'Característica 37 (Factor 11. Comunidad de estudiantes)',
+  C39:'Característica 39 (Factor 12. Comunidad de egresados)',
+  C40:'Característica 40 (Factor 12. Comunidad de egresados)'
+};
+const MAPEO_CESU_2025 = {
+  I27:['C22','C39','C40'], I28:['C22','C23'], I29:['C22','C23','C26'], I30:['C22','C23','C26'],
+  I31:['C22','C26'], I32:['C22','C23','C24'], I33:['C22','C23'], I35:['C22','C39','C40'],
+  I36:['C22','C23','C26'],
+  E17:['C23','C39','C40'], E18:['C39','C40'], E19:['C26','C39','C40'], E20:['C23','C26','C40'],
+  E21:['C39','C40'], E22:['C23','C37'],
+  X07:['C23'],
+  X22:['C23','C24'], X23:['C23','C26'], X24:['C23','C24'], X25:['C23','C24'], X26:['C23','C24'],
+  X27:['C23'], X28:['C23','C26'], X29:['C23','C26'], X30:['C23','C26'], X31:['C23','C24'],
+  X32:['C23','C24'], X33:['C22','C23'], X34:['C22','C23'], X35:['C23','C26'], X36:['C23','C24'],
+  X37:['C39','C40']
+};
+
 function detalleHtml(ind){
   const campo=(lbl,val)=>`<div class="det-item"><span class="det-lbl">${lbl}</span><span class="det-val">${esc(val)||'—'}</span></div>`;
+  const refsCesu = MAPEO_CESU_2025[ind.id];
+  const cesuHtml = refsCesu
+    ? campo('Correspondencia normativa CESU/CNA (Acuerdo 01/2025)', refsCesu.map(c=>CARACTERISTICAS_CESU_2025[c]||c).join(' · '))
+    : '';
+  // Aportes de programas académicos (piloto Director de Programa): 100% derivado en runtime
+  // desde IND_PROGRAMA — nunca se escribe nada dentro de IND.
+  const aportes = IND_PROGRAMA.filter(p=>p.id_padre===ind.id && p.estado!=='eliminado');
+  const aportesHtml = aportes.length
+    ? campo('Aportes de programas académicos ('+aportes.length+')',
+        aportes.map(a=>`${esc(a.sede)} — ${esc(a.nombre)} (${(ESTADOS[a.estado]||ESTADOS[''])[0]})`).join(' · '))
+    : '';
   return `<div class="det-grid">`+
     campo('Responsable', ind.resp)+
     campo('Fuente de verificación', ind.fuente)+
@@ -803,6 +1003,8 @@ function detalleHtml(ind){
     campo('Dimensión de impacto', ind.dimension)+
     campo('Proyectos estratégicos', ind.proyectos)+
     campo('ODS alineados', ind.ods)+
+    cesuHtml+
+    aportesHtml+
     `</div>`;
 }
 
@@ -1005,6 +1207,194 @@ function fmtM(v){
 }
 function esc(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Director de Programa (piloto Bacteriología) — CRUD de indicadores propios ──
+// IND_PROGRAMA es un array totalmente separado de IND: nunca se escribe dentro de IND.
+// Cada registro se vincula a un indicador institucional existente vía id_padre.
+function indicadoresPropios(){
+  const prefijo = 'P_' + sesion.programa + sesion.sedeCod + '_';
+  return IND_PROGRAMA.filter(p=>p.id && p.id.startsWith(prefijo) && p.estado!=='eliminado');
+}
+
+function renderPrograma(){
+  document.getElementById('prog-info').innerHTML =
+    `<div class="cards">
+       <div class="card ct"><div class="n">${indicadoresPropios().length}</div><div class="l">Indicadores propios registrados</div></div>
+     </div>
+     <div class="nota" style="margin-bottom:14px">Programa: <b>${esc(sesion.nombre)}</b> — registra aquí indicadores propios del programa. No modifican la matriz oficial de 95 indicadores: quedan vinculados al indicador institucional que elijas y aparecen como "aporte" en su detalle (visible para Vicerrectoría/Admin en las pestañas Investigación, Enseñanza y Extensión).</div>`;
+
+  const selPadre = document.getElementById('prog-id-padre');
+  selPadre.innerHTML = '<option value="">— Selecciona —</option>' +
+    ['INV','ENS','EXT'].map(f=>
+      `<optgroup label="${FUN_LBL[f]}">` +
+      IND.filter(i=>i.f===f).map(i=>`<option value="${i.id}">${i.id} · ${esc(i.ind)}</option>`).join('') +
+      `</optgroup>`
+    ).join('');
+
+  document.getElementById('prog-estado').innerHTML =
+    Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}">${l}</option>`).join('');
+
+  renderTablaPrograma();
+  cancelarEdicionPrograma();
+}
+
+function renderTablaPrograma(){
+  const propios = indicadoresPropios();
+  const tbody = document.getElementById('prog-tbody');
+  if(!propios.length){
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = propios.map(p=>{
+    const padre = IND.find(i=>i.id===p.id_padre);
+    return `<tr>
+      <td class="td-ind">${p.id_padre}${padre?' · '+esc(padre.ind):''}</td>
+      <td class="td-ind">${esc(p.nombre)}</td>
+      <td class="td-und">${esc(p.und)||'—'}</td>
+      <td>${esc(p.meta)||'—'}</td>
+      <td>${esc(p.valor_actual)||'—'}</td>
+      <td><select class="sel-e" onchange="cambiarEstadoPrograma('${p.id}',this.value)">
+        ${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}
+      </select></td>
+      <td style="font-size:11.5px;color:var(--txt2)">${esc(p.evidencia)||'—'}</td>
+      <td style="white-space:nowrap"><button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function limpiarFormPrograma(){
+  document.getElementById('prog-edit-id').value = '';
+  document.getElementById('prog-id-padre').value = '';
+  document.getElementById('prog-nombre').value = '';
+  document.getElementById('prog-und').value = '';
+  document.getElementById('prog-meta').value = '';
+  document.getElementById('prog-valor').value = '';
+  document.getElementById('prog-desc').value = '';
+  document.getElementById('prog-evidencia').value = '';
+  document.getElementById('prog-estado').value = 'sin_iniciar';
+}
+
+function cancelarEdicionPrograma(){
+  limpiarFormPrograma();
+  document.getElementById('prog-form-title').textContent = 'Nuevo indicador de programa';
+  document.getElementById('prog-btn-cancelar').style.display = 'none';
+  document.getElementById('prog-form-msg').textContent = '';
+}
+
+function editarIndicadorPrograma(id){
+  const p = IND_PROGRAMA.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('prog-edit-id').value = p.id;
+  document.getElementById('prog-id-padre').value = p.id_padre;
+  document.getElementById('prog-nombre').value = p.nombre||'';
+  document.getElementById('prog-und').value = p.und||'';
+  document.getElementById('prog-meta').value = p.meta||'';
+  document.getElementById('prog-valor').value = p.valor_actual||'';
+  document.getElementById('prog-desc').value = p.desc||'';
+  document.getElementById('prog-evidencia').value = p.evidencia||'';
+  document.getElementById('prog-estado').value = p.estado||'sin_iniciar';
+  document.getElementById('prog-form-title').textContent = 'Editar indicador de programa';
+  document.getElementById('prog-btn-cancelar').style.display = '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function generarIdPrograma(){
+  const prefijo = 'P_' + sesion.programa + sesion.sedeCod + '_';
+  let n = 1;
+  IND_PROGRAMA.forEach(p=>{
+    if(p.id && p.id.startsWith(prefijo)){
+      const num = parseInt(p.id.slice(prefijo.length), 10);
+      if(!isNaN(num) && num >= n) n = num + 1;
+    }
+  });
+  return prefijo + String(n).padStart(3,'0');
+}
+
+function guardarIndicadorPrograma(){
+  const idPadre = document.getElementById('prog-id-padre').value;
+  const nombre = document.getElementById('prog-nombre').value.trim();
+  const msg = document.getElementById('prog-form-msg');
+  if(!idPadre || !nombre){
+    msg.style.color = 'var(--ro)';
+    msg.textContent = 'Selecciona el indicador institucional y escribe un nombre.';
+    return;
+  }
+  const padre = IND.find(i=>i.id===idPadre);
+  const editId = document.getElementById('prog-edit-id').value;
+  const registro = {
+    id: editId || generarIdPrograma(),
+    id_padre: idPadre,
+    f: padre ? padre.f : '',
+    programa: sesion.programa,
+    sede: sesion.sede,
+    director: sesion.usuario,
+    nombre: nombre,
+    desc: document.getElementById('prog-desc').value.trim(),
+    und: document.getElementById('prog-und').value.trim(),
+    meta: document.getElementById('prog-meta').value.trim(),
+    valor_actual: document.getElementById('prog-valor').value.trim(),
+    evidencia: document.getElementById('prog-evidencia').value.trim(),
+    estado: document.getElementById('prog-estado').value
+  };
+  const idx = IND_PROGRAMA.findIndex(p=>p.id===registro.id);
+  if(idx>=0) IND_PROGRAMA[idx] = {...IND_PROGRAMA[idx], ...registro};
+  else IND_PROGRAMA.push(registro);
+  savePrograma();
+  renderTablaPrograma();
+  cancelarEdicionPrograma();
+  msg.style.color = 'var(--vd)';
+  msg.textContent = 'Guardado ✓';
+  setTimeout(()=>{ if(msg.textContent==='Guardado ✓') msg.textContent=''; }, 2500);
+}
+
+function cambiarEstadoPrograma(id, val){
+  const p = IND_PROGRAMA.find(x=>x.id===id);
+  if(!p) return;
+  p.estado = val;
+  savePrograma();
+}
+
+function eliminarIndicadorPrograma(id){
+  const p = IND_PROGRAMA.find(x=>x.id===id);
+  if(!p) return;
+  p.estado = 'eliminado'; // borrado suave: no quita la fila del Sheet, se filtra en el front
+  savePrograma();
+  renderTablaPrograma();
+  toast('Indicador eliminado');
+}
+
+function buildRowsPrograma(){
+  return IND_PROGRAMA.filter(p=>p.programa && p.id).map(p=>({
+    id: p.id, id_padre: p.id_padre, funcion: p.f, programa: p.programa, sede: p.sede,
+    director: p.director, nombre: p.nombre, desc: p.desc, und: p.und, meta: p.meta,
+    valor_actual: p.valor_actual, evidencia: p.evidencia, estado: p.estado
+  }));
+}
+
+function savePrograma(){
+  localStorage.setItem('imp_ind_programa', JSON.stringify(IND_PROGRAMA));
+  const hdr=document.getElementById('hdr-auto');
+  hdr.textContent='Guardado localmente ✓';
+  clearTimeout(savePrograma._t);
+  savePrograma._t=setTimeout(()=>{
+    const rows=buildRowsPrograma();
+    if(!rows.length){ hdr.textContent='Cambios guardados automáticamente'; return; }
+    hdr.textContent='Sincronizando con Sheets...';
+    fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      body:JSON.stringify({action:'upsert', entity:'indicador_programa', rows})
+    })
+    .then(r=>r.json())
+    .then(res=>{
+      hdr.textContent=res.ok?'Guardado en Sheets ✓':'Error al guardar en Sheets';
+      setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
+    })
+    .catch(()=>{
+      hdr.textContent='Sin conexión — guardado solo local';
+      setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
+    });
+  },3000);
 }
 
 // ─── Guardar en store ──────────────────────────────────────
@@ -1298,6 +1688,15 @@ function renderMapa(){
     edgesAll.length + ' conexiones totales / ' + edgesCross.length + ' entre funciones distintas · ' +
     (DATA.nodos.length - nodesWithEdges.size) + ' sin conexión transversal';
 
+  const temasConBrecha = TEMAS.filter(t=>t.brecha);
+  const notaNormativa = document.getElementById('notaNormativa');
+  if (temasConBrecha.length){
+    notaNormativa.style.display = 'block';
+    notaNormativa.innerHTML = temasConBrecha.map(t=>
+      `<b>${t.id} · ${t.nombre}:</b> ${t.brecha}`
+    ).join('<br><br>');
+  }
+
   // ---------- 3. Render SVG ----------
   const svgNS = 'http://www.w3.org/2000/svg';
   function el(tag, attrs){
@@ -1470,11 +1869,17 @@ function renderMapa(){
   function showTooltip(ev, node){
     const isOutlier = !nodesWithEdges.has(node.id);
     const t = temaById[node.tema];
+    // Candidato interpretativo: un nodo puede citarse en la brecha de OTRO tema (ej. E20 y
+    // Sostenibilidad/T3) sin pertenecer a ese tema — se revisó el marco normativo completo y
+    // no hay vínculo confirmado, se deja solo como referencia transparente en el tooltip.
+    const temaCandidato = TEMAS.find(x => x.candidatoInterpretativo && x.candidatoInterpretativo.id === node.id);
     tooltip.style.display = 'block';
     placeTooltip(ev);
     tooltip.innerHTML = `<b>${node.id} · ${node.nombre}</b><br>${node.desc}<br>` +
       `<span style="color:var(--text-muted)">Unidad: ${node.und} · Función: ${FUN_COLOR[node.f].nombre}</span><br>` +
       `<b>Tema: ${t.id} · ${t.nombre}</b>` +
+      (t.normativa ? `<br><span style="color:var(--text-muted)">Normativa: ${t.normativa.join(' · ')}</span>` : '') +
+      (temaCandidato ? `<br><span style="color:var(--text-muted)">Nota (${temaCandidato.id} · ${temaCandidato.nombre}): ${temaCandidato.candidatoInterpretativo.nota}</span>` : '') +
       (isOutlier ? '<br><span style="color:var(--text-muted)">Sin conexión transversal en este conjunto.</span>' : '');
   }
   function showEdgeTooltip(ev, edge){
@@ -1513,6 +1918,7 @@ function renderMapa(){
     const item = document.createElement('div');
     item.className = 'legend-item';
     item.innerHTML = `<span class="swatch" style="background:${t.color.fill}"></span>${t.id} · ${t.nombre}`;
+    if (t.normativa) item.title = 'Normativa (Acuerdo 01/2025 CESU): ' + t.normativa.join(' · ');
     item.addEventListener('click', ()=>{
       pinnedId = null; updatePinnedClass();
       if (activeTema === t.id){
