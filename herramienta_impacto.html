@@ -102,6 +102,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   padding:3px 7px;white-space:nowrap}
 .nv-i{background:#5C6BC0}.nv-p{background:#00897B}
 .nv-pr{background:#F57C00}.nv-ir{background:#C62828}
+.nv-gr{background:#78909C}
 
 /* Indicador */
 .td-ind{min-width:220px;max-width:280px}
@@ -476,9 +477,9 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 
 <nav class="tabs">
   <button class="tab on" onclick="irTab('inv',this)">Investigación <span class="tab-n">37</span></button>
-  <button class="tab" onclick="irTab('ens',this)">Enseñanza <span class="tab-n">29</span></button>
+  <button class="tab" onclick="irTab('ens',this)">Enseñanza <span class="tab-n">26</span></button>
   <button class="tab" onclick="irTab('ext',this)">Extensión <span class="tab-n">42</span></button>
-  <button class="tab" onclick="irTab('seg',this)">Seguimiento de Indicadores Globales <span class="tab-n">108</span></button>
+  <button class="tab" onclick="irTab('seg',this)">Seguimiento de Indicadores Globales <span class="tab-n">105</span></button>
   <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
   <button class="tab" id="tab-cadena" style="display:none" onclick="irTab('cadena',this)">Cadena de Valor</button>
   <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Indicadores de Mi Programa</button>
@@ -627,7 +628,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// DATOS — 108 indicadores (95 de la matriz oficial UDES "final" 14/07/2026 + 13 nuevos "Impacto Real (Sugerido)" incorporados desde vr7/Acuerdo 01/2025, ver campo origen)
+// DATOS — 105 indicadores (95 de la matriz oficial UDES "final" 14/07/2026 + 13 nuevos "Impacto Real (Sugerido)" incorporados desde vr7/Acuerdo 01/2025 - 3 retirados de Enseñanza por no existir en vr7: E08, E09, E15, ver comentarios junto a E10/E14)
 // f: INV | ENS | EXT   niv: nivel de impacto
 // lb: línea base 2023 (por definir en la fuente)
 // m26: meta intermedia (fuente: META 2025 en INV/EXT, META 2026 en ENS)
@@ -688,14 +689,18 @@ const IND = [
   // este indicador compuesto (und:"% docentes evaluados / Puntaje promedio") — pendiente de decidir
   // si se agrega un tercer componente o un indicador aparte. Ver diff_vr7_vs_html.md sección 6.
   {id:"E07",f:"ENS",niv:"Procesos",ind:"Autoevaluacion y evaluacion profesoral",desc:"Porcentaje de profesores evaluados por estudiantes, pares académicos y autoevaluación con resultados documentados y planes de mejoramiento implementados por período.",und:"% docentes evaluados / Puntaje promedio",lb:null,m26:"100% / ≥4.0",m28:"100% / ≥4.3",resp:"Vicerrectoría Enseñanza / Desarrollo Profesoral",fuente:"Sistema de evaluación profesoral UDES",pilares:"1. Personalización 4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas",lbRef:4.7},
-  {id:"E08",f:"ENS",niv:"Procesos",ind:"Capacitación pedagógica recibidas por profesores",desc:"Horas de formación docente en didáctica, metodologías activas, evaluación del aprendizaje, uso de TIC en el aula, y competencias pedagógicas por docente por año académico.",und:"Horas/docente/año",lb:null,m26:"≥30 horas",m28:"≥50 horas",resp:"Vicerrectoría Enseñanza / RRHH / Desarrollo profesoral",fuente:"Sistema de registro capacitaciones UDES / Certificados",pilares:"1. Personalización 4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas"},
-  {id:"E09",f:"ENS",niv:"Procesos",ind:"Índice de eficiencia del impacto institucional en la gestión estratégica",desc:"Metas de impacto del PDI alcanzadas con nivel satisfactorio / Presupuesto institucional total invertido en las funciones sustantivas en el periodo.",und:"Índice",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / Planeación Institucional",fuente:"Sistema de seguimiento PDI / Presupuesto institucional",pilares:"4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 2 Proyecto 3",ods:"ODS 16: Paz, justicia e instituciones sólidas"},
+  // E08 y E09 se retiraron el 2026-09 (decisión de la usuaria): no aparecen como fila en la hoja
+  // "2. ENSEÑANZA" de vr7 (Capacitación pedagógica recibidas por profesores / Índice de eficiencia
+  // del impacto institucional en la gestión estratégica) — si vr7 vuelve a incluirlos, reincorporar
+  // con nuevos IDs (no reutilizar E08/E09).
   {id:"E10",f:"ENS",niv:"Productos",ind:"Tasa de graduación oportuna",desc:"Porcentaje de estudiantes que se gradúan respecto a los que ingresaron en la cohorte.",und:"% graduación",lb:null,m26:"+2 pp vs LB",m28:"+2 pp vs LB",resp:"Vicerrectoría Enseñanza / Registro y Control Académico",fuente:"SNIES – MEN / Sistema de Información UDES",pilares:"1. Personalización",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad",lbRef:0.36},
   {id:"E11",f:"ENS",niv:"Productos",ind:"Resultados Saber Pro",desc:"Desempeño promedio de los estudiantes UDES en Pruebas Saber Pro vs. referente nacional.",und:"Puntaje / posición nacional",lb:null,m26:"Sobre la media nacional",m28:"Sobre la media nacional",resp:"Vicerrectoría Enseñanza/Desarrollo Estudiantil",fuente:"ICFES – Saber Pro",pilares:"1. Personalización",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad",lbRef:141},
   {id:"E12",f:"ENS",niv:"Productos",ind:"Programas académicos con acreditación CNA",desc:"Número de programas académicos con acreditación de alta calidad vigente del CNA / N° de programas acreditables",und:"Proporción de acreditados de acreditables",lb:null,m26:0.22,m28:0.25,resp:"Vicerrectoría Enseñanza / Autoevaluación",fuente:"CNA – MEN",pilares:"4. Gobernanza para el buen gobierno 1. Personalización",dimension:"Aprendizaje",proyectos:"Proyecto 4 Proyecto 1",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas",lbRef:0.15},
   {id:"E13",f:"ENS",niv:"Productos",ind:"Oferta de educación continuada y posgrado",desc:"Número de programas de educación continua, diplomados y posgrados activos.",und:"N° programas",lb:null,m26:"+10% anual",m28:"+30% vs LB",resp:"Vicerrectoría Posgrado / Enseñanza",fuente:"Sistema UDES / OLE",pilares:"1. Personalización 6. Apropiación social",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente"},
   {id:"E14",f:"ENS",niv:"Productos",ind:"Innovaciones pedagógicas implementadas y documentadas",desc:"Número de innovaciones pedagógicas (estrategias didácticas, metodologías activas, uso de TIC en aula, proyectos interdisciplinares) formalmente documentadas, evaluadas y socializadas.",und:"N° innovaciones/año",lb:null,m26:"≥10/año",m28:"≥25/año",resp:"Vicerrectoría Enseñanza / Desarrollo Profesoral/Innovación educativa",fuente:"Repositorio institucional / Sistema de información desarrollo profesoral",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 9: Industria, innovación e infraestructura",lbRef:0},
-  {id:"E15",f:"ENS",niv:"Productos",ind:"Índice de inserción científica Global",desc:"N° de tesis de posgrado sustentadas que cuentan con co-director internacional ó publicación conjunta en Scopus-WoS / Total de tesis de posgrado aprobadas en el período) * 100",und:"N° de tesis posgrados",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / Vicerrectoría Investigación/Vicerrectoria de posgrados",fuente:"SIGIIP / Vicerrectoria de Posgrados",pilares:"2. Ambiente Tecnológico 6. Apropiación social",dimension:"Aprendizaje",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 17: Alianzas"},
+  // E15 se retiró el 2026-09 (decisión de la usuaria): no aparece como fila en la hoja
+  // "2. ENSEÑANZA" de vr7 (Índice de inserción científica Global) — si vr7 vuelve a incluirlo,
+  // reincorporar con un nuevo ID (no reutilizar E15).
   {id:"E16",f:"ENS",niv:"Impacto Real",ind:"Valor agregado académico",desc:"Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.",und:"Puntos de diferencia / categoría MEN",lb:null,m26:"Categoría Media-Alta",m28:"Categoría Alta",resp:"Vicerrectoría Enseñanza / Planeación Institucional",fuente:"ICFES Saber Pro y Saber 11 / Modelo valor agregado MEN",pilares:"1. Personalización",dimension:"Permanencia",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad"},
   {id:"E17",f:"ENS",niv:"Impacto Real",ind:"Tasa de empleabilidad de graduados",desc:"Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.",und:"% empleabilidad pertinente",lb:null,m26:"≥ 80%",m28:"≥ 85%",resp:"Vicerrectoría de Extensión / Vicerrectoría de Enseñanza.",fuente:"Seguimiento a graduados UDES / OLE",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Permanencia",proyectos:"Proyecto 7",ods:"ODS 4 – Educación de calidad ODS 8 – Trabajo decente y crecimiento económico",lbRef:0.75},
   {id:"E18",f:"ENS",niv:"Impacto Real",ind:"Percepción de empleadores sobre graduados",desc:"Calificación promedio dada por empleadores a las competencias de los graduados UDES.",und:"Puntaje 1–5",lb:null,m26:"≥ 4.0",m28:"≥ 4.3",resp:"Vicerrectoría Enseñanza / Graduados /Autorregulación",fuente:"Encuesta sistemática a empleadores seguimiento graduados o encuentas con fines de acreditación",pilares:"1. Personalización 6. Apropiación social",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente",lbRef:4},
@@ -873,7 +878,7 @@ function aplicarRestriccionTabs(){
     if(!m) return;
     const t = m[1];
     // Director de Programa: ve "Mi Programa" (editable, propio) + Seguimiento y Mapa de Red
-    // (solo lectura, los 108 indicadores institucionales completos) + Cadena de Valor (selección
+    // (solo lectura, los 105 indicadores institucionales completos) + Cadena de Valor (selección
     // guiada de indicadores para adoptar) — no ve inv/ens/ext/res.
     if(sesion.rol === 'director_programa'){ if(t !== 'prog' && t !== 'seg' && t !== 'mapa' && t !== 'cadena') b.style.display = 'none'; return; }
     if(t === 'seg' || t === 'res' || t === 'mapa' || t === 'prog') return;
@@ -1294,7 +1299,7 @@ function renderResumen(lista){
   const notaEl=document.getElementById('zona-nota');
   notaEl.style.display='';
   notaEl.innerHTML='Selección curada de indicadores estratégicos (hoja "4. CONSOLIDADO" de la matriz oficial UDES),'+
-    ' vista de solo lectura para tablero ejecutivo. El seguimiento detallado de los 108 indicadores completos'+
+    ' vista de solo lectura para tablero ejecutivo. El seguimiento detallado de los 105 indicadores completos'+
     ' está en la pestaña "Seguimiento".';
 
   document.getElementById('thead').innerHTML=`<tr>
@@ -1417,9 +1422,9 @@ const CADENA_INTERPRETATIVA = {
   E20:{fusionaCon:'Experiencia del Estudiante', nota:'El impacto de la internacionalización tiene su antecedente directo en E06 (Movilidad académica), dentro de esta dimensión.'},
   E28:{fusionaCon:'Permanencia', nota:'Mide el efecto de mecanismos de permanencia, el mismo tema que Permanencia ya cubre en Procesos (E03-E05).'},
   E29:{fusionaCon:'Permanencia', nota:'Mide el efecto de becas/estímulos en permanencia, el mismo tema que Permanencia ya cubre en Procesos (E03-E05).'},
-  E24:{fusionaCon:'Práctica Profesoral', nota:'Gobierno académico se asocia con E09 (eficiencia del impacto institucional en gestión estratégica), dentro de esta dimensión.'},
-  E25:{fusionaCon:'Práctica Profesoral', nota:'Autoevaluación institucional se asocia con E09 (eficiencia del impacto institucional en gestión estratégica), dentro de esta dimensión.'},
-  E27:{fusionaCon:'Práctica Profesoral', nota:'Estabilidad de planta profesoral se asocia directamente con esta dimensión (E01/E02 Insumos, E07-E09 Procesos).'},
+  E24:{fusionaCon:'Práctica Profesoral', nota:'Gobierno académico se asocia con la gestión estratégica institucional que esta dimensión ya cubre en Procesos (E07).'},
+  E25:{fusionaCon:'Práctica Profesoral', nota:'Autoevaluación institucional se asocia con la gestión estratégica institucional que esta dimensión ya cubre en Procesos (E07).'},
+  E27:{fusionaCon:'Práctica Profesoral', nota:'Estabilidad de planta profesoral se asocia directamente con esta dimensión (E01/E02 Insumos, E07 Procesos).'},
   E26:{fusionaCon:'Experiencia del Estudiante', nota:'Programas/proyectos inter-transdisciplinares son afines a E13 (oferta de educación continuada y posgrado).'},
   X31:{fusionaCon:'Mesosocial Intersectorial', nota:'Alineación a ODS/Plan Regional es la escala ampliada de las alianzas intersectoriales que esta dimensión ya mide.'},
   X32:{fusionaCon:'Mesosocial Intersectorial', nota:'Sostenibilidad ambiental es la escala ampliada de las alianzas intersectoriales que esta dimensión ya mide.'},
@@ -1560,8 +1565,14 @@ function renderTablaPrograma(){
     const indsF = propios.filter(p=>p.f===f);
     if(!indsF.length) return;
     rows += `<tr class="seg-fn-hdr"><td colspan="15">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicador${indsF.length===1?'':'es'}</td></tr>`;
-    CV_NIVELES.forEach(niv=>{
-      const inds = indsF.filter(p=>p.niv===niv);
+    // Los 4 niveles reconocidos, en orden; cualquier registro con un `niv` que no coincida con
+    // ninguno (ej. cargado desde Sheets antes de migrar la hoja Indicadores_Programa al esquema
+    // nuevo, sin columna niv todavía) cae en "Sin clasificar" — nunca desaparece de la tabla.
+    const nivelesConCatchAll = [...CV_NIVELES, 'Sin clasificar'];
+    nivelesConCatchAll.forEach(niv=>{
+      const inds = niv==='Sin clasificar'
+        ? indsF.filter(p=>CV_NIVELES.indexOf(p.niv)===-1)
+        : indsF.filter(p=>p.niv===niv);
       if(!inds.length) return;
       inds.forEach(p=>{
         const pct26 = calcPct(p.va26, p.m26);
@@ -1569,7 +1580,7 @@ function renderTablaPrograma(){
         const padre = p.id_padre ? IND.find(i=>i.id===p.id_padre) : null;
         rows += `<tr class="${p.estado?'row-'+p.estado:''}" id="rowprog-${p.id}">`;
         rows += `<td style="padding:6px 8px"><span class="sem ${semCls(p.estado)}"></span></td>`;
-        rows += `<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
+        rows += `<td><span class="nv ${CSS_NIV[niv]||'nv-gr'}" title="${niv==='Sin clasificar'?'Falta clasificar el nivel (edítalo con el botón Editar)':''}">${niv}</span></td>`;
         rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
           `<span class="chev" id="chev-${p.id}">▸</span> ${esc(p.nombre)}</td>`;
