@@ -812,6 +812,27 @@ let PROGRAMAS = {};      // "<codigo-en-minúsculas>" -> {codigo, programa, sede
 let IND_PROGRAMA = [];   // indicadores creados por directores de programa — nunca se escribe en IND
 let catalogoCargado = false;
 
+// Migración automática (sin intervención manual): registros creados antes de que "Mi Programa"
+// tuviera el campo `niv` (o cargados desde Sheets mientras la hoja Indicadores_Programa aún no
+// tenía esa columna) llegan sin nivel. Si el registro tiene id_padre, se hereda el nivel del
+// indicador institucional correspondiente — igual que hace toggleAdopcionIndicador() al adoptar
+// uno nuevo. Se llama al cargar IND_PROGRAMA (localStorage e hidratarCatalogo) para que la
+// reclasificación quede resuelta sola, sin depender de que el usuario abra "Editar".
+function migrarNivLegacy(){
+  let migrados = 0;
+  IND_PROGRAMA.forEach(p=>{
+    if(CV_NIVELES.indexOf(p.niv) !== -1) return; // ya tiene un nivel válido (CV_NIVELES definida más abajo, ya inicializada para cuando esto se ejecuta)
+    const padre = p.id_padre ? IND.find(i=>i.id===p.id_padre) : null;
+    if(padre){
+      p.niv = padre.niv.indexOf('Impacto Real')===0 ? 'Impacto Real' : padre.niv;
+      migrados++;
+    }
+    // Sin id_padre no hay de dónde inferir el nivel — se queda "Sin clasificar" hasta que el
+    // director lo edite manualmente (es un indicador 100% libre, no vinculado al catálogo).
+  });
+  if(migrados) savePrograma(); // persiste la reclasificación (localStorage + Sheets) una sola vez
+}
+
 function hidratarCatalogo(res){
   if(!res || !res.ok) return;
   (res.programas||[]).forEach(p=>{
@@ -831,6 +852,7 @@ function hidratarCatalogo(res){
       lb:r.lb, m26:r.m26, va26:r.va26, m28:r.m28, va28:r.va28,
       evidencia:r.evidencia, estado:r.estado
     }));
+    migrarNivLegacy();
     localStorage.setItem('imp_ind_programa', JSON.stringify(IND_PROGRAMA));
   }
   catalogoCargado = true;
@@ -897,6 +919,7 @@ function iniciarApp(){
   if(g) try{store=JSON.parse(g);}catch(e){}
   const gp = localStorage.getItem('imp_ind_programa');
   if(gp) try{IND_PROGRAMA=JSON.parse(gp);}catch(e){}
+  migrarNivLegacy();
   cargarDeSheets();
 }
 
@@ -1369,6 +1392,7 @@ function indicadoresPropios(){
 }
 
 function renderMiPrograma(){
+  migrarNivLegacy(); // red de seguridad extra: idempotente, no hace nada si ya todo tiene niv
   document.getElementById('prog-info').innerHTML =
     `<div class="cards">
        <div class="card ct"><div class="n">${indicadoresPropios().length}</div><div class="l">Indicadores propios registrados</div></div>
