@@ -95,10 +95,11 @@ table.ti td{border-bottom:1px solid var(--borde);padding:7px 10px;vertical-align
 table.ti tbody tr:last-child td{border-bottom:none}
 table.ti tbody tr:hover td{background:var(--azl)!important}
 
-/* Nivel */
-.nv{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-  color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;
-  padding:8px 5px;white-space:nowrap;min-width:28px}
+/* Nivel — pastilla horizontal compacta (una por fila, no rowspan: evita que una fila de detalle
+   oculta/visible desincronice el conteo de filas que cubre y tape el contenido) */
+.nv{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
+  color:#fff;text-align:center;border-radius:4px;display:inline-block;
+  padding:3px 7px;white-space:nowrap}
 .nv-i{background:#5C6BC0}.nv-p{background:#00897B}
 .nv-pr{background:#F57C00}.nv-ir{background:#C62828}
 
@@ -371,6 +372,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-cadena .cv-chip.cv-chip-on{border-color:var(--vd)}
 #zona-cadena .cv-chip.cv-chip-on .cv-chip-add{background:var(--vdl);color:var(--vd)}
 #zona-cadena .cv-chip-sug{border-left:3px solid #D4AF37}
+#zona-cadena .cv-chip-interp{border-style:dashed;border-color:#8E24AA}
+#zona-cadena .cv-chip-interp .cv-chip-nom{color:#8E24AA}
+#zona-cadena .cv-cadena-hub{border:1px dashed var(--do);background:#FFFBEF}
+#zona-cadena .cv-hub-nota{font-size:11px;color:var(--txt2);margin:0 0 8px;line-height:1.4}
 @media(max-width:900px){
   #zona-cadena .cv-etapas-mini{flex-direction:column}
   #zona-cadena .cv-conector-mini{transform:rotate(90deg);padding:2px 0}
@@ -473,11 +478,11 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   <button class="tab on" onclick="irTab('inv',this)">Investigación <span class="tab-n">37</span></button>
   <button class="tab" onclick="irTab('ens',this)">Enseñanza <span class="tab-n">29</span></button>
   <button class="tab" onclick="irTab('ext',this)">Extensión <span class="tab-n">42</span></button>
-  <button class="tab" onclick="irTab('seg',this)">Seguimiento <span class="tab-n">108</span></button>
+  <button class="tab" onclick="irTab('seg',this)">Seguimiento de Indicadores Globales <span class="tab-n">108</span></button>
   <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
-  <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
   <button class="tab" id="tab-cadena" style="display:none" onclick="irTab('cadena',this)">Cadena de Valor</button>
-  <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Mi Programa</button>
+  <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Indicadores de Mi Programa</button>
+  <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
 </nav>
 
 <div class="wrap">
@@ -539,11 +544,18 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
     <div class="tw">
       <table class="ti" id="tabla-prog">
         <thead><tr>
-          <th style="text-align:left">Indicador institucional (padre)</th>
-          <th style="text-align:left">Indicador propio del programa</th>
+          <th style="width:14px"></th>
+          <th style="min-width:70px">Nivel</th>
+          <th>Func.</th>
+          <th style="text-align:left;min-width:200px">Indicador</th>
           <th>Unidad</th>
-          <th>Meta</th>
-          <th>Valor actual</th>
+          <th style="text-align:right;background:#dbeafe">LB 2023</th>
+          <th style="text-align:right;background:#dbeafe">Valor 2026</th>
+          <th style="text-align:right">Meta 2026</th>
+          <th style="text-align:center">% 2026</th>
+          <th style="text-align:right;background:#dbeafe">Valor 2028</th>
+          <th style="text-align:right">Meta 2028</th>
+          <th style="text-align:center">% 2028</th>
           <th>Estado</th>
           <th style="text-align:left">Evidencia</th>
           <th></th>
@@ -562,8 +574,20 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <h3 id="prog-form-title">Nuevo indicador de programa</h3>
       <input type="hidden" id="prog-edit-id" value="">
       <div class="prog-form-grid">
-        <label>Indicador institucional al que aporta (opcional — ya elegiste uno desde "Cadena de Valor" no necesitas repetirlo aquí)
-          <select id="prog-id-padre"></select>
+        <label>Función
+          <select id="prog-f">
+            <option value="INV">Investigación</option>
+            <option value="ENS">Enseñanza</option>
+            <option value="EXT">Extensión</option>
+          </select>
+        </label>
+        <label>Nivel
+          <select id="prog-niv">
+            <option value="Insumos">Insumos</option>
+            <option value="Procesos">Procesos</option>
+            <option value="Productos">Productos</option>
+            <option value="Impacto Real">Impacto Real</option>
+          </select>
         </label>
         <label>Nombre del indicador propio
           <input type="text" id="prog-nombre" placeholder="Ej. Brigadas de bacteriología clínica en zona rural">
@@ -571,22 +595,11 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
         <label>Unidad de medida
           <input type="text" id="prog-und" placeholder="Ej. Número, Porcentaje...">
         </label>
-        <label>Meta
-          <input type="text" id="prog-meta" placeholder="Ej. 4 brigadas/año">
-        </label>
-        <label>Valor actual
-          <input type="text" id="prog-valor" placeholder="Valor reportado">
-        </label>
-        <label>Estado
-          <select id="prog-estado"></select>
-        </label>
       </div>
       <label class="prog-full">Descripción / cómo se calcula
         <textarea id="prog-desc" rows="2"></textarea>
       </label>
-      <label class="prog-full">Evidencia / fuente de verificación
-        <input type="text" id="prog-evidencia" placeholder="Ej. Informe de brigada, registro fotográfico, acta...">
-      </label>
+      <p class="nota" style="margin-top:10px">La línea base, las metas 2026/2028, los valores reales y la evidencia se registran después, directamente en la tabla — igual que en Seguimiento.</p>
       <div class="prog-form-actions">
         <button class="btn-pdf" onclick="guardarIndicadorPrograma()">Guardar indicador</button>
         <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cerrarModalPrograma()">Cancelar edición</button>
@@ -808,9 +821,10 @@ function hidratarCatalogo(res){
     // Normaliza los nombres de campo del Sheet (p.ej. "funcion") a los usados en memoria ("f"),
     // igual que los registros creados localmente en guardarIndicadorPrograma().
     IND_PROGRAMA = res.data_programa.map(r=>({
-      id:r.id, id_padre:r.id_padre, f:r.funcion, programa:r.programa, sede:r.sede,
-      director:r.director, nombre:r.nombre, desc:r.desc, und:r.und, meta:r.meta,
-      valor_actual:r.valor_actual, evidencia:r.evidencia, estado:r.estado
+      id:r.id, id_padre:r.id_padre, f:r.funcion, niv:r.niv, programa:r.programa, sede:r.sede,
+      director:r.director, nombre:r.nombre, desc:r.desc, und:r.und,
+      lb:r.lb, m26:r.m26, va26:r.va26, m28:r.m28, va28:r.va28,
+      evidencia:r.evidencia, estado:r.estado
     }));
     localStorage.setItem('imp_ind_programa', JSON.stringify(IND_PROGRAMA));
   }
@@ -961,7 +975,7 @@ function irTab(t, btn){
     document.getElementById('zona-mapa').style.display = 'none';
     document.getElementById('zona-prog').style.display = '';
     document.getElementById('zona-cadena').style.display = 'none';
-    renderPrograma();
+    renderMiPrograma();
     return;
   }
   if(t === 'cadena'){
@@ -1046,7 +1060,7 @@ function renderEd(lista, f){
       const est  = store[ind.id+'_e']    ?? '';
       const obs  = store[ind.id+'_o']    ?? '';
       rows+=`<tr class="${est?'row-'+est:''}" id="row-${ind.id}">`;
-      if(idx===0) rows+=`<td class="nv ${CSS_NIV[niv]}" rowspan="${inds.length}">${niv}</td>`;
+      rows+=`<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
       const badgeNuevo = ind.origen ? `<span class="badge-nuevo" title="${esc(ind.origen)}">Sugerido · Brecha CESU</span>` : '';
       rows+=`<td class="td-ind"><span class="i-nom i-nom-tog" title="${esc(ind.desc)}" onclick="toggleDetalle('${ind.id}')">`+
         `<span class="chev" id="chev-${ind.id}">▸</span> ${esc(ind.ind)} ${badgeNuevo}</span></td>`;
@@ -1210,8 +1224,8 @@ function renderSeg(lista){
 
   document.getElementById('thead').innerHTML=`<tr>
     <th style="width:14px"></th>
+    <th style="min-width:70px">Nivel</th>
     <th>Func.</th>
-    <th style="min-width:28px">Nivel</th>
     <th style="text-align:left;min-width:200px">Indicador</th>
     <th>Unidad</th>
     <th style="text-align:right">LB 2023</th>
@@ -1243,8 +1257,8 @@ function renderSeg(lista){
         const pct28=calcPct(va28,ind.m28);
         rows+=`<tr class="${est?'row-'+est:''}" data-f="${f}">`;
         rows+=`<td style="padding:6px 8px"><span class="sem ${semCls(est)}"></span></td>`;
+        rows+=`<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
         rows+=`<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
-        if(idx===0) rows+=`<td class="nv ${CSS_NIV[niv]}" rowspan="${inds.length}">${niv}</td>`;
         const badgeNuevoSeg = ind.origen ? `<span class="badge-nuevo" title="${esc(ind.origen)}">Sugerido · Brecha CESU</span>` : '';
         rows+=`<td class="td-ind seg-ind-nom i-nom-tog" onclick="toggleDetalle('${ind.id}')" title="${esc(ind.desc)}">`+
           `<span class="chev" id="chev-${ind.id}">▸</span> ${esc(ind.ind)} ${badgeNuevoSeg}</td>`;
@@ -1349,28 +1363,12 @@ function indicadoresPropios(){
   return IND_PROGRAMA.filter(p=>p.id && p.id.startsWith(prefijo) && p.estado!=='eliminado');
 }
 
-function renderPrograma(){
+function renderMiPrograma(){
   document.getElementById('prog-info').innerHTML =
     `<div class="cards">
        <div class="card ct"><div class="n">${indicadoresPropios().length}</div><div class="l">Indicadores propios registrados</div></div>
      </div>
      <div class="nota" style="margin-bottom:14px">Programa: <b>${esc(sesion.nombre)}</b></div>`;
-
-  const selPadre = document.getElementById('prog-id-padre');
-  selPadre.innerHTML = '<option value="">— Selecciona —</option>' +
-    ['INV','ENS','EXT'].map(f=>
-      ORDEN_NIV.map(niv=>{
-        const items = IND.filter(i=>i.f===f && i.niv===niv);
-        if(!items.length) return '';
-        return `<optgroup label="${FUN_LBL[f]} · ${niv}">` +
-          items.map(i=>`<option value="${i.id}">${i.id} · ${esc(i.ind)}</option>`).join('') +
-        `</optgroup>`;
-      }).join('')
-    ).join('');
-
-  document.getElementById('prog-estado').innerHTML =
-    Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}">${l}</option>`).join('');
-
   renderTablaPrograma();
   cancelarEdicionPrograma();
 }
@@ -1387,6 +1385,43 @@ function renderPrograma(){
 // libre); un clic en uno ya adoptado lo quita (borrado suave, reutiliza eliminarIndicadorPrograma).
 const CV_NIVELES = ['Insumos','Procesos','Productos','Impacto Real'];
 
+// Asociación INTERPRETATIVA (modelo propio UDES, no un dato de la matriz oficial vr7): indicadores
+// de Impacto Real cuya `dimension` no define ningún Insumo/Proceso/Producto antecedente. Confirmado
+// con la usuaria: el Acuerdo 01/2025 exige que el modelo de impacto esté articulado en cadena, así
+// que ningún Impacto Real debe quedar sin antecedente — donde la matriz oficial no lo define, se
+// declara aquí la dimensión existente más afín POR CONTENIDO REAL del indicador (no por el campo
+// `dimension`, que para estos casos es "Por definir" o define un grupo sin cobertura). Cada
+// indicador fusionado así se marca siempre con "🔗 asociación interpretativa" en el chip, para no
+// confundirlo con una asociación oficial derivada de `dimension`. No toca el array IND.
+const CADENA_INTERPRETATIVA = {
+  I27:{fusionaCon:'Formación Investigativa', nota:'Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación Investigativa ya cubre en Insumos/Procesos/Productos.'},
+  I34:{fusionaCon:'Formación Investigativa', nota:'Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación Investigativa ya cubre en Insumos/Procesos/Productos.'},
+  I35:{fusionaCon:'Formación Investigativa', nota:'Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación Investigativa ya cubre en Insumos/Procesos/Productos.'},
+  I28:{fusionaCon:'Nuevo Conocimiento', nota:'Mide el efecto externo de los productos I+D+i+c que Nuevo Conocimiento ya produce en Productos.'},
+  I30:{fusionaCon:'Nuevo Conocimiento', nota:'Mide el efecto externo de los productos I+D+i+c que Nuevo Conocimiento ya produce en Productos.'},
+  I32:{fusionaCon:'Nuevo Conocimiento', nota:'Mide el efecto externo de los productos I+D+i+c que Nuevo Conocimiento ya produce en Productos.'},
+  I31:{fusionaCon:'Capacidad Investigativa Institucional', nota:'Rankings y liderazgo científico son la proyección externa de la capacidad instalada (profesores/grupos categorizados).'},
+  I36:{fusionaCon:'Capacidad Investigativa Institucional', nota:'Rankings y liderazgo científico son la proyección externa de la capacidad instalada (profesores/grupos categorizados).'},
+  E20:{fusionaCon:'Experiencia del Estudiante', nota:'El impacto de la internacionalización tiene su antecedente directo en E06 (Movilidad académica), dentro de esta dimensión.'},
+  E28:{fusionaCon:'Permanencia', nota:'Mide el efecto de mecanismos de permanencia, el mismo tema que Permanencia ya cubre en Procesos (E03-E05).'},
+  E29:{fusionaCon:'Permanencia', nota:'Mide el efecto de becas/estímulos en permanencia, el mismo tema que Permanencia ya cubre en Procesos (E03-E05).'},
+  E24:{fusionaCon:'Práctica Profesoral', nota:'Gobierno académico se asocia con E09 (eficiencia del impacto institucional en gestión estratégica), dentro de esta dimensión.'},
+  E25:{fusionaCon:'Práctica Profesoral', nota:'Autoevaluación institucional se asocia con E09 (eficiencia del impacto institucional en gestión estratégica), dentro de esta dimensión.'},
+  E27:{fusionaCon:'Práctica Profesoral', nota:'Estabilidad de planta profesoral se asocia directamente con esta dimensión (E01/E02 Insumos, E07-E09 Procesos).'},
+  E26:{fusionaCon:'Experiencia del Estudiante', nota:'Programas/proyectos inter-transdisciplinares son afines a E13 (oferta de educación continuada y posgrado).'},
+  X31:{fusionaCon:'Mesosocial Intersectorial', nota:'Alineación a ODS/Plan Regional es la escala ampliada de las alianzas intersectoriales que esta dimensión ya mide.'},
+  X32:{fusionaCon:'Mesosocial Intersectorial', nota:'Sostenibilidad ambiental es la escala ampliada de las alianzas intersectoriales que esta dimensión ya mide.'},
+  X35:{fusionaCon:'Mesosocial Intersectorial', nota:'Sinergia territorial es la escala ampliada de las alianzas intersectoriales que esta dimensión ya mide.'},
+  X39:{fusionaCon:'Microsocial Territorial', nota:'Patrimonio cultural/artístico es impacto a nivel de participante/comunidad, igual que esta dimensión.'},
+  X40:{fusionaCon:'Microsocial Territorial', nota:'Bienestar en calidad de vida es impacto a nivel de participante/comunidad, igual que esta dimensión.'},
+  X41:{fusionaCon:'Institucional Formativo', nota:'Acompañamiento psicosocial es un proceso interno institucional, junto a X37 (retorno pertinencia posgradual), ya en esta dimensión.'},
+  X42:{fusionaCon:'Institucional Formativo', nota:'Vinculación de egresados es un proceso interno institucional, junto a X37 (retorno pertinencia posgradual), ya en esta dimensión.'},
+};
+// El indicador compartido (I37/E23/X38) queda exento: su naturaleza es transversal a las 3
+// funciones, no propia de una — ya tiene una asociación REAL (no interpretativa) vía el nodo
+// central del Mapa de Red, que lo conecta con los 33 indicadores oficiales de Impacto Real.
+const INDICADORES_HUB_CADENA = new Set(['I37','E23','X38']);
+
 function renderCadenaValor(){
   const propios = indicadoresPropios();
   const adoptadosIds = new Set(propios.map(p=>p.id_padre));
@@ -1398,12 +1433,15 @@ function renderCadenaValor(){
   funciones.forEach(f=>{
     const items = IND.filter(i=>i.f===f);
     const porDim = {};
+    const hubItems = [];
     items.forEach(i=>{
-      const dim = i.dimension && i.dimension !== 'Por definir' ? i.dimension : 'Sin dimensión definida (vr7)';
+      if(INDICADORES_HUB_CADENA.has(i.id)){ hubItems.push(i); return; }
+      const interp = CADENA_INTERPRETATIVA[i.id];
+      const dim = interp ? interp.fusionaCon : (i.dimension && i.dimension !== 'Por definir' ? i.dimension : 'Sin dimensión definida (vr7)');
       const col = i.niv.indexOf('Impacto Real')===0 ? 'Impacto Real' : i.niv;
       if(CV_NIVELES.indexOf(col)===-1) return; // por si algún niv no encaja en el modelo de 4 etapas
       (porDim[dim] ||= {});
-      (porDim[dim][col] ||= []).push(i);
+      (porDim[dim][col] ||= []).push(interp ? {...i, _interpretativo:true, _notaInterp:interp.nota} : i);
     });
 
     out += `<div class="cv-fun-block"><h3 class="cv-fun-title">${FUN_LBL[f]}</h3>`;
@@ -1417,6 +1455,11 @@ function renderCadenaValor(){
           `</div></div>`;
       });
       out += `</div></div>`;
+    });
+    hubItems.forEach(h=>{
+      out += `<div class="cv-cadena-card cv-cadena-hub"><div class="cv-cadena-titulo">🔗 Indicador transversal (nodo central)</div>`+
+        `<p class="cv-hub-nota">No tiene un antecedente propio dentro de ${esc(FUN_LBL[f])} porque su naturaleza es transversal a las 3 funciones sustantivas. Asociado a los 33 indicadores oficiales de Impacto Real a través del nodo central dorado del <b>Mapa de Red</b>.</p>`+
+        `<div class="cv-chips">${chipIndicador(h, adoptadosIds)}</div></div>`;
     });
     out += `</div>`;
   });
@@ -1434,12 +1477,14 @@ function truncar(txt, n){
 function chipIndicador(i, adoptadosIds){
   const adoptado = adoptadosIds.has(i.id);
   const sug = i.origen ? ' cv-chip-sug' : '';
+  const interp = i._interpretativo ? ' cv-chip-interp' : '';
   const nivCls = CSS_NIV[i.niv] || 'nv-ir';
-  return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}" data-id="${i.id}">`+
-    `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}')" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}">`+
-    `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}</button>`+
+  const tituloInterp = i._interpretativo ? ` — 🔗 Asociación interpretativa (modelo propio UDES): ${i._notaInterp||''}` : '';
+  return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}${interp}" data-id="${i.id}">`+
+    `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}')" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}${esc(tituloInterp)}">`+
+    `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}${i._interpretativo?' 🔗':''}</button>`+
     `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
-    `title="${adoptado?'Quitar de Mi Programa':'Agregar a Mi Programa'}">${adoptado?'✓':'+'}</button>`+
+    `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`+
     `</span>`;
 }
 
@@ -1474,53 +1519,110 @@ function toggleAdopcionIndicador(idPadre){
       id: generarIdPrograma(),
       id_padre: idPadre,
       f: padre.f,
+      niv: padre.niv.indexOf('Impacto Real')===0 ? 'Impacto Real' : padre.niv,
       programa: sesion.programa,
       sede: sesion.sede,
       director: sesion.usuario,
       nombre: padre.ind,
       desc: padre.desc || '',
       und: padre.und || '',
-      meta: '', valor_actual: '', evidencia: '',
+      evidencia: '',
       estado: 'sin_iniciar'
     });
   }
   renderCadenaValor();
 }
 
+// Misma estructura visual/de columnas que Seguimiento (Nivel, Función, LB, Valor/Meta 2026-2028,
+// %, Estado) pero editable: el director coloca su propia línea base y metas, no solo el valor real.
 function renderTablaPrograma(){
   const propios = indicadoresPropios();
   const tbody = document.getElementById('prog-tbody');
   if(!propios.length){
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
     return;
   }
-  tbody.innerHTML = propios.map(p=>{
-    const padre = IND.find(i=>i.id===p.id_padre);
-    return `<tr>
-      <td class="td-ind">${p.id_padre ? p.id_padre+(padre?' · '+esc(padre.ind):'') : '<span style="color:#aaa">— (sin vínculo institucional)</span>'}</td>
-      <td class="td-ind">${esc(p.nombre)}</td>
-      <td class="td-und">${esc(p.und)||'—'}</td>
-      <td>${esc(p.meta)||'—'}</td>
-      <td>${esc(p.valor_actual)||'—'}</td>
-      <td><select class="sel-e" onchange="cambiarEstadoPrograma('${p.id}',this.value)">
-        ${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}
-      </select></td>
-      <td style="font-size:11.5px;color:var(--txt2)">${esc(p.evidencia)||'—'}</td>
-      <td style="white-space:nowrap"><button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button></td>
-    </tr>`;
-  }).join('');
+  const funciones = (sesion.funciones && sesion.funciones.length) ? sesion.funciones : ['INV','ENS','EXT'];
+  let rows = '';
+  funciones.forEach(f=>{
+    const indsF = propios.filter(p=>p.f===f);
+    if(!indsF.length) return;
+    rows += `<tr class="seg-fn-hdr"><td colspan="15">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicador${indsF.length===1?'':'es'}</td></tr>`;
+    CV_NIVELES.forEach(niv=>{
+      const inds = indsF.filter(p=>p.niv===niv);
+      if(!inds.length) return;
+      inds.forEach(p=>{
+        const pct26 = calcPct(p.va26, p.m26);
+        const pct28 = calcPct(p.va28, p.m28);
+        const padre = p.id_padre ? IND.find(i=>i.id===p.id_padre) : null;
+        rows += `<tr class="${p.estado?'row-'+p.estado:''}" id="rowprog-${p.id}">`;
+        rows += `<td style="padding:6px 8px"><span class="sem ${semCls(p.estado)}"></span></td>`;
+        rows += `<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
+        rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
+        rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
+          `<span class="chev" id="chev-${p.id}">▸</span> ${esc(p.nombre)}</td>`;
+        rows += `<td class="td-und">${esc(p.und)||'—'}</td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
+          `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va26||'')}" `+
+          `onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026"></td>`;
+        rows += `<td><input class="inp-v" type="text" value="${esc(p.m26||'')}" `+
+          `onchange="setValPrograma('${p.id}','m26',this.value)" title="Meta 2026 (definida por el programa)"></td>`;
+        rows += `<td style="text-align:center" id="pctprog26-${p.id}">${pctHtml(pct26)}</td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va28||'')}" `+
+          `onchange="setValPrograma('${p.id}','va28',this.value)" title="Valor real 2028"></td>`;
+        rows += `<td><input class="inp-v" type="text" value="${esc(p.m28||'')}" `+
+          `onchange="setValPrograma('${p.id}','m28',this.value)" title="Meta 2028 (definida por el programa)"></td>`;
+        rows += `<td style="text-align:center" id="pctprog28-${p.id}">${pctHtml(pct28)}</td>`;
+        rows += `<td><select class="sel-e" onchange="setEstPrograma('${p.id}',this.value)">`+
+          `${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}</select></td>`;
+        rows += `<td><input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" `+
+          `placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)"></td>`;
+        rows += `<td style="white-space:nowrap"><button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button>`+
+          `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button></td>`;
+        rows += `</tr>`;
+        rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="15">`+
+          `<span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span>`+
+          (padre ? `<div class="det-item" style="margin-top:6px"><span class="det-lbl">Indicador institucional relacionado</span>`+
+            `<span class="det-val">${esc(padre.id)} · ${esc(padre.ind)}</span></div>` : '')+
+          `</td></tr>`;
+      });
+    });
+  });
+  tbody.innerHTML = rows;
+}
+
+function setValPrograma(id, campo, val){
+  const p = IND_PROGRAMA.find(x=>x.id===id);
+  if(!p) return;
+  p[campo] = val;
+  savePrograma();
+  if(campo==='va26'||campo==='m26'){
+    const el=document.getElementById('pctprog26-'+id);
+    if(el) el.innerHTML=pctHtml(calcPct(p.va26,p.m26));
+  }
+  if(campo==='va28'||campo==='m28'){
+    const el=document.getElementById('pctprog28-'+id);
+    if(el) el.innerHTML=pctHtml(calcPct(p.va28,p.m28));
+  }
+}
+
+function setEstPrograma(id, val){
+  const p = IND_PROGRAMA.find(x=>x.id===id);
+  if(!p) return;
+  p.estado = val;
+  savePrograma();
+  const fila=document.getElementById('rowprog-'+id);
+  if(fila) fila.className=val?'row-'+val:'';
 }
 
 function limpiarFormPrograma(){
   document.getElementById('prog-edit-id').value = '';
-  document.getElementById('prog-id-padre').value = '';
+  document.getElementById('prog-f').value = 'INV';
+  document.getElementById('prog-niv').value = 'Insumos';
   document.getElementById('prog-nombre').value = '';
   document.getElementById('prog-und').value = '';
-  document.getElementById('prog-meta').value = '';
-  document.getElementById('prog-valor').value = '';
   document.getElementById('prog-desc').value = '';
-  document.getElementById('prog-evidencia').value = '';
-  document.getElementById('prog-estado').value = 'sin_iniciar';
 }
 
 function cancelarEdicionPrograma(){
@@ -1534,14 +1636,11 @@ function editarIndicadorPrograma(id){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
   document.getElementById('prog-edit-id').value = p.id;
-  document.getElementById('prog-id-padre').value = p.id_padre;
+  document.getElementById('prog-f').value = p.f||'INV';
+  document.getElementById('prog-niv').value = p.niv||'Insumos';
   document.getElementById('prog-nombre').value = p.nombre||'';
   document.getElementById('prog-und').value = p.und||'';
-  document.getElementById('prog-meta').value = p.meta||'';
-  document.getElementById('prog-valor').value = p.valor_actual||'';
   document.getElementById('prog-desc').value = p.desc||'';
-  document.getElementById('prog-evidencia').value = p.evidencia||'';
-  document.getElementById('prog-estado').value = p.estado||'sin_iniciar';
   document.getElementById('prog-form-title').textContent = 'Editar indicador de programa';
   document.getElementById('prog-btn-cancelar').style.display = '';
   abrirModalPrograma();
@@ -1569,7 +1668,8 @@ function generarIdPrograma(){
 }
 
 function guardarIndicadorPrograma(){
-  const idPadre = document.getElementById('prog-id-padre').value;
+  const f = document.getElementById('prog-f').value;
+  const niv = document.getElementById('prog-niv').value;
   const nombre = document.getElementById('prog-nombre').value.trim();
   const msg = document.getElementById('prog-form-msg');
   if(!nombre){
@@ -1577,22 +1677,20 @@ function guardarIndicadorPrograma(){
     msg.textContent = 'Escribe un nombre para el indicador.';
     return;
   }
-  const padre = IND.find(i=>i.id===idPadre);
   const editId = document.getElementById('prog-edit-id').value;
+  const existente = editId ? IND_PROGRAMA.find(p=>p.id===editId) : null;
   const registro = {
     id: editId || generarIdPrograma(),
-    id_padre: idPadre,
-    f: padre ? padre.f : '',
+    id_padre: existente ? existente.id_padre : '', // solo se completa al adoptar desde Cadena de Valor
+    f: f,
+    niv: niv,
     programa: sesion.programa,
     sede: sesion.sede,
     director: sesion.usuario,
     nombre: nombre,
     desc: document.getElementById('prog-desc').value.trim(),
     und: document.getElementById('prog-und').value.trim(),
-    meta: document.getElementById('prog-meta').value.trim(),
-    valor_actual: document.getElementById('prog-valor').value.trim(),
-    evidencia: document.getElementById('prog-evidencia').value.trim(),
-    estado: document.getElementById('prog-estado').value
+    estado: existente ? existente.estado : 'sin_iniciar'
   };
   persistirIndicadorPrograma(registro);
   cerrarModalPrograma();
@@ -1609,13 +1707,6 @@ function persistirIndicadorPrograma(registro){
   renderTablaPrograma();
 }
 
-function cambiarEstadoPrograma(id, val){
-  const p = IND_PROGRAMA.find(x=>x.id===id);
-  if(!p) return;
-  p.estado = val;
-  savePrograma();
-}
-
 function eliminarIndicadorPrograma(id){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
@@ -1627,9 +1718,10 @@ function eliminarIndicadorPrograma(id){
 
 function buildRowsPrograma(){
   return IND_PROGRAMA.filter(p=>p.programa && p.id).map(p=>({
-    id: p.id, id_padre: p.id_padre, funcion: p.f, programa: p.programa, sede: p.sede,
-    director: p.director, nombre: p.nombre, desc: p.desc, und: p.und, meta: p.meta,
-    valor_actual: p.valor_actual, evidencia: p.evidencia, estado: p.estado
+    id: p.id, id_padre: p.id_padre, funcion: p.f, niv: p.niv, programa: p.programa, sede: p.sede,
+    director: p.director, nombre: p.nombre, desc: p.desc, und: p.und,
+    lb: p.lb, m26: p.m26, va26: p.va26, m28: p.m28, va28: p.va28,
+    evidencia: p.evidencia, estado: p.estado
   }));
 }
 
@@ -1855,6 +1947,7 @@ function descargarPDFPrograma(){
     `<div style="flex:1;border-left:3px solid ${color};background:${color}18;padding:7px 10px;border-radius:0 4px 4px 0">`+
     `<div style="font-size:20px;font-weight:700;color:${color}">${n}</div>`+
     `<div style="font-size:8.5px;color:#555;margin-top:1px">${lbl}</div></div>`;
+  const pctClrProg=p=>p===null?'#999':p>=80?'#2E7D32':p>=50?'#E65100':'#B71C1C';
 
   const cumplidos = propios.filter(p=>['cumplida','superada'].includes(p.estado)).length;
   const enProceso = propios.filter(p=>p.estado==='en_proceso').length;
@@ -1872,28 +1965,42 @@ function descargarPDFPrograma(){
     `</div>`;
 
   const TH=(txt,w)=>`<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:center;white-space:nowrap;${w?'min-width:'+w+'px':''}">${txt}</th>`;
+  const NIV_COLOR_PROG={Insumos:'#5C6BC0',Procesos:'#E65100',Productos:'#2E7D32','Impacto Real':'#AD1457'};
   h+=`<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:4px">`;
   h+=`<thead><tr>`+
-    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador institucional (padre)</th>`+
-    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador propio</th>`+
-    TH('Unidad',48)+TH('Meta',50)+TH('Valor actual',50)+TH('Estado',54)+
-    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:100px">Evidencia</th>`+
+    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador</th>`+
+    TH('Func.',34)+TH('Unidad',48)+TH('LB 2023',40)+TH('Meta 2026',44)+
+    `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2026</th>`+
+    TH('% 26',34)+TH('Meta 2028',44)+
+    `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2028</th>`+
+    TH('% 28',34)+TH('Estado',54)+
     `</tr></thead><tbody>`;
   if(!propios.length){
-    h+=`<tr><td colspan="7" style="padding:10px;text-align:center;color:#999">Aún no hay indicadores propios registrados.</td></tr>`;
+    h+=`<tr><td colspan="11" style="padding:10px;text-align:center;color:#999">Aún no hay indicadores propios registrados.</td></tr>`;
   }
-  propios.forEach((p,ri)=>{
-    const padre = IND.find(i=>i.id===p.id_padre);
-    const bg=ri%2===0?'#fff':'#FAFAFA';
-    h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
-      `<td style="padding:3px 4px;vertical-align:top">${p.id_padre ? esc(p.id_padre)+(padre?' · '+esc(padre.ind):'') : '—'}</td>`+
-      `<td style="padding:3px 4px;vertical-align:top">${esc(p.nombre)}</td>`+
-      `<td style="padding:3px 4px;text-align:center;color:#546E7A">${esc(p.und)||'—'}</td>`+
-      `<td style="padding:3px 4px;text-align:center">${esc(p.meta)||'—'}</td>`+
-      `<td style="padding:3px 4px;text-align:center;background:#EFF6FF;font-weight:600">${esc(p.valor_actual)||'—'}</td>`+
-      `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[p.estado]||'#666'}">${EST_LBL[p.estado]||'—'}</td>`+
-      `<td style="padding:3px 4px;font-size:8px;color:#546E7A">${esc(p.evidencia)||'—'}</td>`+
-      `</tr>`;
+  CV_NIVELES.forEach(niv=>{
+    const nivinds = propios.filter(p=>p.niv===niv);
+    if(!nivinds.length) return;
+    h+=`<tr><td colspan="11" style="background:${NIV_COLOR_PROG[niv]}22;color:${NIV_COLOR_PROG[niv]};font-weight:700;font-size:8px;padding:3px 8px;text-transform:uppercase;border-top:2px solid ${NIV_COLOR_PROG[niv]}40">${niv}</td></tr>`;
+    nivinds.forEach((p,ri)=>{
+      const pct26 = calcPct(p.va26, p.m26);
+      const pct28 = calcPct(p.va28, p.m28);
+      const bg=ri%2===0?'#fff':'#FAFAFA';
+      const TD=(txt,extra)=>`<td style="padding:4px 5px;text-align:center;${extra||''}">${txt||'—'}</td>`;
+      h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
+        `<td style="padding:3px 4px;vertical-align:top">${esc(p.nombre)}</td>`+
+        `<td style="padding:3px 4px;text-align:center;color:#546E7A">${p.f}</td>`+
+        `<td style="padding:3px 4px;text-align:center;color:#546E7A">${esc(p.und)||'—'}</td>`+
+        TD(esc(p.lb)||'')+
+        TD(esc(p.m26)||'')+
+        TD(esc(p.va26)||'—','background:#EFF6FF;font-weight:600')+
+        TD(`<span style="color:${pctClrProg(pct26)};font-weight:700">${pct26===null?'—':pct26+'%'}</span>`)+
+        TD(esc(p.m28)||'')+
+        TD(esc(p.va28)||'—','background:#EFF6FF;font-weight:600')+
+        TD(`<span style="color:${pctClrProg(pct28)};font-weight:700">${pct28===null?'—':pct28+'%'}</span>`)+
+        `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[p.estado]||'#666'}">${EST_LBL[p.estado]||'—'}</td>`+
+        `</tr>`;
+    });
   });
   h+=`</tbody></table>`;
   h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Plan de Desarrollo Institucional 2024-2028 · ${fecha}</div>`;
