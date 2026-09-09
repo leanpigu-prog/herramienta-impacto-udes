@@ -313,40 +313,67 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit;margin-right:5px}
 #zona-prog .btn-edit:hover{border-color:var(--az)}
 
-/* Toggle Lista / Cadena de Valor */
-#zona-prog .prog-view-toggle{
-  display:inline-flex;gap:4px;padding:4px;margin:0 0 14px;border:1px solid var(--borde);background:var(--azl);
-  border-radius:12px;
-}
-#zona-prog .tab-btn{
-  font-size:12.5px;font-weight:600;padding:8px 14px;border:none;background:transparent;color:var(--txt2);
-  cursor:pointer;border-radius:9px;transition:all .15s ease;font-family:inherit;
-}
-#zona-prog .tab-btn:hover{color:var(--az)}
-#zona-prog .tab-btn.active{color:var(--az);background:#fff;box-shadow:var(--sombra)}
+/* Mi Programa: barra de acciones (antes formulario siempre visible) */
+#zona-prog .prog-toolbar{display:flex;gap:10px;margin-bottom:14px}
 
-/* Vista Cadena de Valor */
-#prog-cadena-valor .cv-etapas{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
-#prog-cadena-valor .cv-etapa{
-  flex:1 1 200px;min-width:200px;background:#fff;border-radius:10px;box-shadow:var(--sombra);padding:12px 14px;
+/* Modal "+ Nuevo indicador" */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(26,35,64,.45);z-index:900;
+  display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;
 }
-#prog-cadena-valor .cv-etapa h4{font-size:12.5px;color:var(--az);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
-#prog-cadena-valor .cv-conector{
-  display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--do);font-weight:700;
-  padding:0 2px;
+.modal-card{
+  position:relative;background:#fff;border-radius:12px;box-shadow:var(--sombra);
+  max-width:640px;width:100%;padding:26px 24px 20px;
 }
-#prog-cadena-valor .cv-chips{display:flex;flex-wrap:wrap;gap:6px}
-#prog-cadena-valor .cv-chip{
-  font-size:11px;font-family:inherit;padding:5px 9px;border-radius:14px;border:1px solid var(--borde);
-  background:var(--bg);color:var(--txt2);cursor:pointer;transition:all .15s ease;
+.modal-close{
+  position:absolute;top:10px;right:12px;background:none;border:none;font-size:22px;line-height:1;
+  color:var(--txt2);cursor:pointer;padding:4px 8px;border-radius:6px;
 }
-#prog-cadena-valor .cv-chip:hover{border-color:var(--az);color:var(--az)}
-#prog-cadena-valor .cv-chip.cv-chip-on{background:var(--vdl);border-color:var(--vd);color:var(--vd);font-weight:600}
-#prog-cadena-valor .cv-chip-sug{border-left:3px solid #D4AF37}
-#prog-cadena-valor .cv-chip.cv-chip-on.cv-chip-sug{border-left-color:#D4AF37}
+.modal-close:hover{background:var(--bg);color:var(--txt)}
+
+/* Cadena de Valor — pestaña propia */
+#zona-cadena .cv-toolbar{margin-bottom:14px}
+#zona-cadena .cv-fun-block{margin-bottom:22px}
+#zona-cadena .cv-fun-title{
+  font-size:13px;color:var(--az);text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;
+  padding-bottom:6px;border-bottom:2px solid var(--azl);
+}
+#zona-cadena .cv-cadena-card{
+  background:#fff;border-radius:10px;box-shadow:var(--sombra);padding:12px 14px;margin-bottom:10px;
+  transition:opacity .15s ease,box-shadow .15s ease;
+}
+#zona-cadena .cv-cadena-card.cv-card-dim{opacity:.35}
+#zona-cadena .cv-cadena-card.cv-card-activa{box-shadow:0 0 0 2px var(--do), var(--sombra)}
+#zona-cadena .cv-cadena-titulo{font-size:12px;font-weight:700;color:var(--txt);margin-bottom:8px}
+#zona-cadena .cv-etapas-mini{display:flex;align-items:stretch;gap:4px;flex-wrap:wrap}
+#zona-cadena .cv-etapa-mini{flex:1 1 160px;min-width:160px}
+#zona-cadena .cv-etapa-mini h5{font-size:10px;color:var(--txt2);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px;font-weight:600}
+#zona-cadena .cv-conector-mini{
+  display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--do);font-weight:700;
+  padding:14px 0 0;
+}
+#zona-cadena .cv-vacio{color:#b8bfc9;font-size:11px}
+#zona-cadena .cv-chips{display:flex;flex-direction:column;gap:5px}
+#zona-cadena .cv-chip{
+  display:flex;align-items:stretch;gap:0;border-radius:8px;border:1px solid var(--borde);
+  background:var(--bg);overflow:hidden;transition:all .15s ease;
+}
+#zona-cadena .cv-chip-nom{
+  flex:1;text-align:left;font-size:11px;font-family:inherit;padding:5px 8px;border:none;background:transparent;
+  color:var(--txt2);cursor:pointer;
+}
+#zona-cadena .cv-chip-nom:hover{color:var(--az)}
+#zona-cadena .cv-chip-add{
+  flex:0 0 auto;width:26px;font-size:13px;font-weight:700;font-family:inherit;border:none;border-left:1px solid var(--borde);
+  background:#fff;color:var(--txt2);cursor:pointer;transition:all .15s ease;
+}
+#zona-cadena .cv-chip-add:hover{background:var(--azl);color:var(--az)}
+#zona-cadena .cv-chip.cv-chip-on{border-color:var(--vd)}
+#zona-cadena .cv-chip.cv-chip-on .cv-chip-add{background:var(--vdl);color:var(--vd)}
+#zona-cadena .cv-chip-sug{border-left:3px solid #D4AF37}
 @media(max-width:900px){
-  #prog-cadena-valor .cv-etapas{flex-direction:column}
-  #prog-cadena-valor .cv-conector{transform:rotate(90deg);padding:2px 0}
+  #zona-cadena .cv-etapas-mini{flex-direction:column}
+  #zona-cadena .cv-conector-mini{transform:rotate(90deg);padding:2px 0}
 }
 #zona-mapa #wrap{
   position:relative; height:590px; overflow:auto; background:#fff;
@@ -449,6 +476,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   <button class="tab" onclick="irTab('seg',this)">Seguimiento <span class="tab-n">108</span></button>
   <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
   <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
+  <button class="tab" id="tab-cadena" style="display:none" onclick="irTab('cadena',this)">Cadena de Valor</button>
   <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Mi Programa</button>
 </nav>
 
@@ -502,19 +530,39 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 </div>
 
 <div id="zona-prog" style="display:none">
-  <div class="prog-view-toggle">
-    <button class="tab-btn active" id="btn-progViewLista" onclick="cambiarVistaPrograma('lista')">Lista de indicadores</button>
-    <button class="tab-btn" id="btn-progViewCadena" onclick="cambiarVistaPrograma('cadena')">Cadena de Valor</button>
-  </div>
 
   <div class="wrap">
     <div id="prog-info"></div>
 
-    <div class="prog-form-card">
+    <div class="prog-toolbar"><button class="btn-pdf" onclick="abrirModalPrograma()">+ Nuevo indicador</button><button class="btn-pdf" id="btn-descargar-pdf-prog" onclick="descargarPDFPrograma()">&#11123; Descargar PDF</button></div>
+
+    <div class="tw">
+      <table class="ti" id="tabla-prog">
+        <thead><tr>
+          <th style="text-align:left">Indicador institucional (padre)</th>
+          <th style="text-align:left">Indicador propio del programa</th>
+          <th>Unidad</th>
+          <th>Meta</th>
+          <th>Valor actual</th>
+          <th>Estado</th>
+          <th style="text-align:left">Evidencia</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="prog-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div id="modal-nuevo-indicador" class="modal-overlay" style="display:none" onclick="if(event.target===this) cerrarModalPrograma()">
+  <div class="modal-card">
+    <button type="button" class="modal-close" onclick="cerrarModalPrograma()" aria-label="Cerrar">&times;</button>
+    <div class="prog-form-card" style="box-shadow:none;padding:0;margin-bottom:0">
       <h3 id="prog-form-title">Nuevo indicador de programa</h3>
       <input type="hidden" id="prog-edit-id" value="">
       <div class="prog-form-grid">
-        <label>Indicador institucional al que aporta
+        <label>Indicador institucional al que aporta (opcional — ya elegiste uno desde "Cadena de Valor" no necesitas repetirlo aquí)
           <select id="prog-id-padre"></select>
         </label>
         <label>Nombre del indicador propio
@@ -541,55 +589,24 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       </label>
       <div class="prog-form-actions">
         <button class="btn-pdf" onclick="guardarIndicadorPrograma()">Guardar indicador</button>
-        <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cancelarEdicionPrograma()">Cancelar edición</button>
+        <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cerrarModalPrograma()">Cancelar edición</button>
         <span id="prog-form-msg"></span>
       </div>
     </div>
-
-    <div class="tw">
-      <table class="ti" id="tabla-prog">
-        <thead><tr>
-          <th style="text-align:left">Indicador institucional (padre)</th>
-          <th style="text-align:left">Indicador propio del programa</th>
-          <th>Unidad</th>
-          <th>Meta</th>
-          <th>Valor actual</th>
-          <th>Estado</th>
-          <th style="text-align:left">Evidencia</th>
-          <th></th>
-        </tr></thead>
-        <tbody id="prog-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div id="prog-cadena-valor" class="wrap" style="display:none">
-    <div class="cv-etapas">
-      <div class="cv-etapa" data-niv="Insumos">
-        <h4>Insumos</h4>
-        <div class="cv-chips" id="cv-chips-insumos"></div>
-      </div>
-      <div class="cv-conector">&rarr;</div>
-      <div class="cv-etapa" data-niv="Procesos">
-        <h4>Procesos</h4>
-        <div class="cv-chips" id="cv-chips-procesos"></div>
-      </div>
-      <div class="cv-conector">&rarr;</div>
-      <div class="cv-etapa" data-niv="Productos">
-        <h4>Productos</h4>
-        <div class="cv-chips" id="cv-chips-productos"></div>
-      </div>
-      <div class="cv-conector">&rarr;</div>
-      <div class="cv-etapa" data-niv="Impacto Real">
-        <h4>Impacto Real</h4>
-        <div class="cv-chips" id="cv-chips-impacto"></div>
-      </div>
-    </div>
-    <p class="nota">Flujo conceptual del PDI: Insumos&rarr;Procesos&rarr;Productos&rarr;Impacto Real. No representa
-      dependencias específicas entre indicadores (la matriz no las define), solo el orden general del modelo.
-      Haz clic en un indicador institucional para adoptarlo como propio (o para quitarlo, si ya lo adoptaste).</p>
   </div>
 </div>
+
+<div id="zona-cadena" style="display:none">
+  <div class="wrap">
+    <div class="cv-toolbar"><button type="button" class="btn" onclick="verTodasCadenas()">Ver todas</button></div>
+    <p class="nota">Cada tarjeta agrupa los indicadores institucionales que miden una misma <b>dimensión</b> del
+      PDI a lo largo de la cadena Insumos&rarr;Procesos&rarr;Productos&rarr;Impacto Real. Un guion (—) significa
+      que esa dimensión aún no tiene ningún indicador institucional medido en esa etapa (brecha real de la matriz,
+      no un error). Haz clic en un indicador para adoptarlo como propio (o para quitarlo, si ya lo adoptaste).</p>
+    <div id="cv-cadenas"></div>
+    </div>
+</div>
+
 
 </div>
 
@@ -834,14 +851,17 @@ function cerrarSesion(){
 function aplicarRestriccionTabs(){
   const tabProg = document.getElementById('tab-prog');
   if(tabProg) tabProg.style.display = sesion.rol === 'director_programa' ? '' : 'none';
+  const tabCadena = document.getElementById('tab-cadena');
+  if(tabCadena) tabCadena.style.display = sesion.rol === 'director_programa' ? '' : 'none';
   if(sesion.rol === 'admin') return;
   document.querySelectorAll('.tab').forEach(b=>{
     const m = b.getAttribute('onclick').match(/irTab\('(\w+)'/);
     if(!m) return;
     const t = m[1];
-    // Director de Programa: interfaz mínima, solo ve "Mi Programa" (ninguna otra pestaña,
-    // ni siquiera las de solo lectura que sí ven los roles 'vr').
-    if(sesion.rol === 'director_programa'){ if(t !== 'prog') b.style.display = 'none'; return; }
+    // Director de Programa: ve "Mi Programa" (editable, propio) + Seguimiento y Mapa de Red
+    // (solo lectura, los 108 indicadores institucionales completos) + Cadena de Valor (selección
+    // guiada de indicadores para adoptar) — no ve inv/ens/ext/res.
+    if(sesion.rol === 'director_programa'){ if(t !== 'prog' && t !== 'seg' && t !== 'mapa' && t !== 'cadena') b.style.display = 'none'; return; }
     if(t === 'seg' || t === 'res' || t === 'mapa' || t === 'prog') return;
     if(t.toUpperCase() !== sesion.vr) b.style.display = 'none';
   });
@@ -923,7 +943,7 @@ window.addEventListener('load',()=>{
 // ─── Navegación ────────────────────────────────────────────
 function irTab(t, btn){
   if(sesion && sesion.rol === 'vr' && t !== 'seg' && t !== 'res' && t !== 'mapa' && t.toUpperCase() !== sesion.vr) return;
-  if(sesion && sesion.rol === 'director_programa' && t !== 'prog') return;
+  if(sesion && sesion.rol === 'director_programa' && t !== 'prog' && t !== 'seg' && t !== 'mapa' && t !== 'cadena') return;
   tabActual = t;
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   if(btn) btn.classList.add('on');
@@ -932,6 +952,7 @@ function irTab(t, btn){
     document.querySelector('.wrap').style.display = 'none';
     document.getElementById('zona-mapa').style.display = '';
     document.getElementById('zona-prog').style.display = 'none';
+    document.getElementById('zona-cadena').style.display = 'none';
     if(!mapaRenderizado){ renderMapa(); mapaRenderizado = true; }
     return;
   }
@@ -939,12 +960,22 @@ function irTab(t, btn){
     document.querySelector('.wrap').style.display = 'none';
     document.getElementById('zona-mapa').style.display = 'none';
     document.getElementById('zona-prog').style.display = '';
+    document.getElementById('zona-cadena').style.display = 'none';
     renderPrograma();
+    return;
+  }
+  if(t === 'cadena'){
+    document.querySelector('.wrap').style.display = 'none';
+    document.getElementById('zona-mapa').style.display = 'none';
+    document.getElementById('zona-prog').style.display = 'none';
+    document.getElementById('zona-cadena').style.display = '';
+    renderCadenaValor();
     return;
   }
   document.querySelector('.wrap').style.display = '';
   document.getElementById('zona-mapa').style.display = 'none';
   document.getElementById('zona-prog').style.display = 'none';
+  document.getElementById('zona-cadena').style.display = 'none';
 
   const lista = t==='inv'?IND.filter(i=>i.f==='INV')
                :t==='ens'?IND.filter(i=>i.f==='ENS')
@@ -1174,7 +1205,7 @@ function renderSeg(lista){
       <option value="ENS">Enseñanza</option>
       <option value="EXT">Extensión</option>
     </select>
-    <button class="btn-pdf" onclick="descargarPDF()">&#11123; Descargar PDF</button>
+    <button class="btn-pdf" id="btn-descargar-pdf-seg" onclick="descargarPDF()">&#11123; Descargar PDF</button>
   </div>`;
 
   document.getElementById('thead').innerHTML=`<tr>
@@ -1214,7 +1245,9 @@ function renderSeg(lista){
         rows+=`<td style="padding:6px 8px"><span class="sem ${semCls(est)}"></span></td>`;
         rows+=`<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         if(idx===0) rows+=`<td class="nv ${CSS_NIV[niv]}" rowspan="${inds.length}">${niv}</td>`;
-        rows+=`<td class="td-ind seg-ind-nom" title="${esc(ind.desc)}">${esc(ind.ind)}</td>`;
+        const badgeNuevoSeg = ind.origen ? `<span class="badge-nuevo" title="${esc(ind.origen)}">Sugerido · Brecha CESU</span>` : '';
+        rows+=`<td class="td-ind seg-ind-nom i-nom-tog" onclick="toggleDetalle('${ind.id}')" title="${esc(ind.desc)}">`+
+          `<span class="chev" id="chev-${ind.id}">▸</span> ${esc(ind.ind)} ${badgeNuevoSeg}</td>`;
         rows+=`<td class="td-und">${ind.und}</td>`;
         rows+=`<td class="td-val">${lbDisp!==''?`<span style="font-weight:500">${lbDisp}</span>`:'<span style="color:#aaa">—</span>'}</td>`;
         rows+=`<td class="celda-prog">${barraHtml(va26,ind.m26)}</td>`;
@@ -1224,6 +1257,9 @@ function renderSeg(lista){
         rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
         rows+=`<td style="font-size:11px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
         rows+='</tr>';
+        rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="12">`+
+          `<span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(ind.desc)||'—'}</span>`+
+          detalleHtml(ind)+`</td></tr>`;
       });
     });
   });
@@ -1336,48 +1372,94 @@ function renderPrograma(){
     Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}">${l}</option>`).join('');
 
   renderTablaPrograma();
-  renderCadenaValor();
   cancelarEdicionPrograma();
 }
 
-// Toggle entre la vista "Lista" (formulario + tabla, ya existente) y "Cadena de Valor" (nueva).
-// Alterna solo visibilidad — ambas vistas leen del mismo IND_PROGRAMA/IND, sin estado propio.
-function cambiarVistaPrograma(vista){
-  document.getElementById('prog-cadena-valor').style.display = vista==='cadena' ? '' : 'none';
-  document.querySelector('#zona-prog .wrap').style.display = vista==='cadena' ? 'none' : '';
-  document.getElementById('btn-progViewLista').classList.toggle('active', vista==='lista');
-  document.getElementById('btn-progViewCadena').classList.toggle('active', vista==='cadena');
-}
+// Vista "Cadena de Valor" (pestaña propia): subconjuntos REALES de indicadores relacionados, no las 4 columnas
+// genéricas de antes. Cada "cadena" es un grupo de indicadores que comparten el mismo campo
+// `dimension` (único campo de la matriz con esa intención) dentro de UNA función — ej. en
+// Investigación, "Formación Investigativa" agrupa I01/I02/I05/I08 (Insumos), I13/I14 (Procesos),
+// I23 (Productos); no llega a Impacto Real, y esa columna se muestra vacía ("—") en vez de
+// omitirse, para que la brecha real de la matriz quede visible, no oculta (mismo criterio que las
+// brechas normativas ya documentadas en el Mapa de Red). "Impacto Real" e "Impacto Real (Sugerido)"
+// comparten la misma columna visual — el segundo trae el badge "★ Sugerido · Brecha CESU".
+// Un clic en un indicador aún no adoptado crea un IND_PROGRAMA (mismo patrón que el formulario
+// libre); un clic en uno ya adoptado lo quita (borrado suave, reutiliza eliminarIndicadorPrograma).
+const CV_NIVELES = ['Insumos','Procesos','Productos','Impacto Real'];
 
-// Vista "Cadena de Valor": los 4 niveles institucionales como chips seleccionables. Un clic en un
-// indicador aún no adoptado crea un IND_PROGRAMA (mismo patrón que el formulario libre); un clic en
-// uno ya adoptado lo quita (borrado suave, reutiliza eliminarIndicadorPrograma). "Impacto Real" y
-// "Impacto Real (Sugerido)" comparten la misma etapa visual: ambos son, conceptualmente, el mismo
-// nivel del PDI — solo el segundo trae el badge "Sugerido · Brecha CESU" en el resto de la herramienta.
 function renderCadenaValor(){
   const propios = indicadoresPropios();
   const adoptadosIds = new Set(propios.map(p=>p.id_padre));
-  const NIVEL_TO_ELID = {
-    'Insumos':'cv-chips-insumos', 'Procesos':'cv-chips-procesos', 'Productos':'cv-chips-productos'
-  };
-  Object.entries(NIVEL_TO_ELID).forEach(([niv, elId])=>{
-    pintarChipsNivel(elId, IND.filter(i=>['INV','ENS','EXT'].includes(i.f) && i.niv===niv), adoptadosIds);
+  const funciones = (sesion.funciones && sesion.funciones.length) ? sesion.funciones : ['INV','ENS','EXT'];
+  const cont = document.getElementById('cv-cadenas');
+  if(!cont) return;
+
+  let out = '';
+  funciones.forEach(f=>{
+    const items = IND.filter(i=>i.f===f);
+    const porDim = {};
+    items.forEach(i=>{
+      const dim = i.dimension && i.dimension !== 'Por definir' ? i.dimension : 'Sin dimensión definida (vr7)';
+      const col = i.niv.indexOf('Impacto Real')===0 ? 'Impacto Real' : i.niv;
+      if(CV_NIVELES.indexOf(col)===-1) return; // por si algún niv no encaja en el modelo de 4 etapas
+      (porDim[dim] ||= {});
+      (porDim[dim][col] ||= []).push(i);
+    });
+
+    out += `<div class="cv-fun-block"><h3 class="cv-fun-title">${FUN_LBL[f]}</h3>`;
+    Object.entries(porDim).forEach(([dim, cols])=>{
+      out += `<div class="cv-cadena-card"><div class="cv-cadena-titulo">${esc(dim)}</div><div class="cv-etapas-mini">`;
+      CV_NIVELES.forEach((niv, idx)=>{
+        if(idx>0) out += `<div class="cv-conector-mini">&rarr;</div>`;
+        const grupo = cols[niv] || [];
+        out += `<div class="cv-etapa-mini"><h5>${niv}</h5><div class="cv-chips">`+
+          (grupo.length ? grupo.map(i=>chipIndicador(i, adoptadosIds)).join('') : '<span class="cv-vacio">—</span>')+
+          `</div></div>`;
+      });
+      out += `</div></div>`;
+    });
+    out += `</div>`;
   });
-  pintarChipsNivel('cv-chips-impacto',
-    IND.filter(i=>['INV','ENS','EXT'].includes(i.f) && i.niv.indexOf('Impacto Real')===0),
-    adoptadosIds);
+  cont.innerHTML = out;
 }
 
-function pintarChipsNivel(elId, items, adoptadosIds){
-  const el = document.getElementById(elId);
-  if(!el) return;
-  el.innerHTML = items.map(i=>{
-    const adoptado = adoptadosIds.has(i.id);
-    const sug = i.origen ? ' cv-chip-sug' : '';
-    return `<button type="button" class="cv-chip${adoptado?' cv-chip-on':''}${sug}" `+
-      `onclick="toggleAdopcionIndicador('${i.id}')" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}">`+
-      `${adoptado?'✓ ':''}${i.id}${i.origen?' ★':''}</button>`;
-  }).join('');
+function truncar(txt, n){
+  txt = txt || '';
+  return txt.length > n ? txt.slice(0, n - 1) + '…' : txt;
+}
+
+// El chip separa 2 acciones: clic en el nombre = SELECCIONAR (resalta su cadena completa, no
+// adopta nada); clic en el botón +/✓ = ADOPTAR/QUITAR de "Mi Programa". `data-id` en el <span>
+// contenedor es lo que usa seleccionarCadena() para ubicar la tarjeta que lo contiene.
+function chipIndicador(i, adoptadosIds){
+  const adoptado = adoptadosIds.has(i.id);
+  const sug = i.origen ? ' cv-chip-sug' : '';
+  const nivCls = CSS_NIV[i.niv] || 'nv-ir';
+  return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}" data-id="${i.id}">`+
+    `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}')" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}">`+
+    `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}</button>`+
+    `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
+    `title="${adoptado?'Quitar de Mi Programa':'Agregar a Mi Programa'}">${adoptado?'✓':'+'}</button>`+
+    `</span>`;
+}
+
+// Selección: resalta la tarjeta completa del indicador clicado (su cadena real: Insumos/Procesos/
+// Productos/Impacto Real de la misma dimensión) y atenúa las demás — mismo patrón visual que ya
+// usa el Mapa de Red al hacer clic en un nodo (highlight/fade).
+function seleccionarCadena(id){
+  const chipSel = document.querySelector(`#cv-cadenas .cv-chip[data-id="${id}"]`);
+  const cardSel = chipSel ? chipSel.closest('.cv-cadena-card') : null;
+  document.querySelectorAll('#cv-cadenas .cv-cadena-card').forEach(c=>{
+    c.classList.toggle('cv-card-activa', c === cardSel);
+    c.classList.toggle('cv-card-dim', c !== cardSel);
+  });
+  if(cardSel) cardSel.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function verTodasCadenas(){
+  document.querySelectorAll('#cv-cadenas .cv-cadena-card').forEach(c=>{
+    c.classList.remove('cv-card-activa','cv-card-dim');
+  });
 }
 
 function toggleAdopcionIndicador(idPadre){
@@ -1415,7 +1497,7 @@ function renderTablaPrograma(){
   tbody.innerHTML = propios.map(p=>{
     const padre = IND.find(i=>i.id===p.id_padre);
     return `<tr>
-      <td class="td-ind">${p.id_padre}${padre?' · '+esc(padre.ind):''}</td>
+      <td class="td-ind">${p.id_padre ? p.id_padre+(padre?' · '+esc(padre.ind):'') : '<span style="color:#aaa">— (sin vínculo institucional)</span>'}</td>
       <td class="td-ind">${esc(p.nombre)}</td>
       <td class="td-und">${esc(p.und)||'—'}</td>
       <td>${esc(p.meta)||'—'}</td>
@@ -1462,7 +1544,16 @@ function editarIndicadorPrograma(id){
   document.getElementById('prog-estado').value = p.estado||'sin_iniciar';
   document.getElementById('prog-form-title').textContent = 'Editar indicador de programa';
   document.getElementById('prog-btn-cancelar').style.display = '';
-  window.scrollTo({top:0,behavior:'smooth'});
+  abrirModalPrograma();
+}
+
+function abrirModalPrograma(){
+  document.getElementById('modal-nuevo-indicador').style.display = 'flex';
+}
+
+function cerrarModalPrograma(){
+  document.getElementById('modal-nuevo-indicador').style.display = 'none';
+  cancelarEdicionPrograma();
 }
 
 function generarIdPrograma(){
@@ -1481,9 +1572,9 @@ function guardarIndicadorPrograma(){
   const idPadre = document.getElementById('prog-id-padre').value;
   const nombre = document.getElementById('prog-nombre').value.trim();
   const msg = document.getElementById('prog-form-msg');
-  if(!idPadre || !nombre){
+  if(!nombre){
     msg.style.color = 'var(--ro)';
-    msg.textContent = 'Selecciona el indicador institucional y escribe un nombre.';
+    msg.textContent = 'Escribe un nombre para el indicador.';
     return;
   }
   const padre = IND.find(i=>i.id===idPadre);
@@ -1504,10 +1595,8 @@ function guardarIndicadorPrograma(){
     estado: document.getElementById('prog-estado').value
   };
   persistirIndicadorPrograma(registro);
-  cancelarEdicionPrograma();
-  msg.style.color = 'var(--vd)';
-  msg.textContent = 'Guardado ✓';
-  setTimeout(()=>{ if(msg.textContent==='Guardado ✓') msg.textContent=''; }, 2500);
+  cerrarModalPrograma();
+  toast('Indicador guardado ✓');
 }
 
 // Cola de persistencia común, reutilizada por el formulario libre (guardarIndicadorPrograma)
@@ -1731,7 +1820,7 @@ function descargarPDF(){
   h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Plan de Desarrollo Institucional 2024-2028 · ${fecha}</div>`;
   h+=`</div>`;
 
-  const btn=document.querySelector('.btn-pdf');
+  const btn=document.getElementById('btn-descargar-pdf-seg');
   if(btn){btn.disabled=true;btn.textContent='Generando...';}
 
   // Forzar el contenedor interno de html2pdf a x=0 (evita que margin:0 auto lo centre en body ancho)
@@ -1752,6 +1841,85 @@ function descargarPDF(){
     if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
   });
 }
+
+// Boletín PDF de "Mi Programa" — mismo patrón que descargarPDF(), pero con IND_PROGRAMA/
+// indicadoresPropios() en vez de IND/store (formato libre: sin LB/2026/2028/% de avance).
+function descargarPDFPrograma(){
+  const propios = indicadoresPropios();
+  const logoSrc=(document.querySelector('.hdr-logo-img')||{}).src||'';
+  const fecha=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+  const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada'};
+  const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0'};
+
+  const card=(color,n,lbl)=>
+    `<div style="flex:1;border-left:3px solid ${color};background:${color}18;padding:7px 10px;border-radius:0 4px 4px 0">`+
+    `<div style="font-size:20px;font-weight:700;color:${color}">${n}</div>`+
+    `<div style="font-size:8.5px;color:#555;margin-top:1px">${lbl}</div></div>`;
+
+  const cumplidos = propios.filter(p=>['cumplida','superada'].includes(p.estado)).length;
+  const enProceso = propios.filter(p=>p.estado==='en_proceso').length;
+
+  let h=`<div style="font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#222;padding:10px 14px;max-width:780px">`;
+  h+=`<div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid #C8A951;padding-bottom:7px;margin-bottom:10px">`+
+    (logoSrc?`<img src="${logoSrc}" style="height:34px;width:auto">`:'')+
+    `<div><div style="font-size:13px;font-weight:700;color:#003087;line-height:1.2">Matriz de Indicadores Propios · ${esc(sesion.nombre)}</div>`+
+    `<div style="font-size:9.5px;color:#546E7A;margin-top:2px">Plan de Desarrollo Institucional UDES 2024-2028 &nbsp;·&nbsp; Generado: ${fecha}</div></div></div>`;
+
+  h+=`<div style="display:flex;gap:8px;margin-bottom:12px">`+
+    card('#003087',propios.length,'Indicadores propios')+
+    card('#2E7D32',cumplidos,'Cumplidos / Superados')+
+    card('#E65100',enProceso,'En proceso')+
+    `</div>`;
+
+  const TH=(txt,w)=>`<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:center;white-space:nowrap;${w?'min-width:'+w+'px':''}">${txt}</th>`;
+  h+=`<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:4px">`;
+  h+=`<thead><tr>`+
+    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador institucional (padre)</th>`+
+    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador propio</th>`+
+    TH('Unidad',48)+TH('Meta',50)+TH('Valor actual',50)+TH('Estado',54)+
+    `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:100px">Evidencia</th>`+
+    `</tr></thead><tbody>`;
+  if(!propios.length){
+    h+=`<tr><td colspan="7" style="padding:10px;text-align:center;color:#999">Aún no hay indicadores propios registrados.</td></tr>`;
+  }
+  propios.forEach((p,ri)=>{
+    const padre = IND.find(i=>i.id===p.id_padre);
+    const bg=ri%2===0?'#fff':'#FAFAFA';
+    h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
+      `<td style="padding:3px 4px;vertical-align:top">${p.id_padre ? esc(p.id_padre)+(padre?' · '+esc(padre.ind):'') : '—'}</td>`+
+      `<td style="padding:3px 4px;vertical-align:top">${esc(p.nombre)}</td>`+
+      `<td style="padding:3px 4px;text-align:center;color:#546E7A">${esc(p.und)||'—'}</td>`+
+      `<td style="padding:3px 4px;text-align:center">${esc(p.meta)||'—'}</td>`+
+      `<td style="padding:3px 4px;text-align:center;background:#EFF6FF;font-weight:600">${esc(p.valor_actual)||'—'}</td>`+
+      `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[p.estado]||'#666'}">${EST_LBL[p.estado]||'—'}</td>`+
+      `<td style="padding:3px 4px;font-size:8px;color:#546E7A">${esc(p.evidencia)||'—'}</td>`+
+      `</tr>`;
+  });
+  h+=`</tbody></table>`;
+  h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Plan de Desarrollo Institucional 2024-2028 · ${fecha}</div>`;
+  h+=`</div>`;
+
+  const btn=document.getElementById('btn-descargar-pdf-prog');
+  if(btn){btn.disabled=true;btn.textContent='Generando...';}
+
+  const fixML=document.createElement('style');
+  fixML.textContent='.html2pdf__container{margin-left:0!important}';
+  document.head.appendChild(fixML);
+
+  html2pdf().set({
+    margin:[8,6,8,6],
+    filename:'Boletin-MiPrograma-'+sesion.programa+sesion.sedeCod+'.pdf',
+    image:{type:'jpeg',quality:0.97},
+    html2canvas:{scale:2,useCORS:true,logging:false,scrollY:0,windowWidth:800},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:'css',avoid:'tr'}
+  }).from(h).save()
+  .then(()=>{
+    fixML.remove();
+    if(btn){btn.disabled=false;btn.innerHTML='&#11123; Descargar PDF';}
+  });
+}
+
 function renderMapa(){
   const DATA = JSON.parse(document.getElementById('graph-data').textContent);
   const TEMAS = DATA.temas;
