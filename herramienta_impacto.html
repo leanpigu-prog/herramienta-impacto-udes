@@ -108,6 +108,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .i-sub{display:block;font-size:10px;color:var(--txt2);margin-top:2px;font-style:italic}
 .i-nom-tog{cursor:pointer}
 .chev{display:inline-block;width:10px;color:var(--az);font-weight:700}
+.badge-nuevo{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.02em;color:#7A6110;background:#FBF0C9;border:1px solid #D4AF37;border-radius:8px;padding:1px 6px;margin-left:4px;vertical-align:middle;cursor:help}
 
 /* Detalle expandible por indicador */
 .detalle-row td{background:#F7F9FC!important;border-bottom:1px solid var(--borde);padding:10px 14px}
@@ -311,6 +312,42 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-prog .btn-edit{background:none;border:1px solid var(--borde);color:var(--txt2);border-radius:5px;
   padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit;margin-right:5px}
 #zona-prog .btn-edit:hover{border-color:var(--az)}
+
+/* Toggle Lista / Cadena de Valor */
+#zona-prog .prog-view-toggle{
+  display:inline-flex;gap:4px;padding:4px;margin:0 0 14px;border:1px solid var(--borde);background:var(--azl);
+  border-radius:12px;
+}
+#zona-prog .tab-btn{
+  font-size:12.5px;font-weight:600;padding:8px 14px;border:none;background:transparent;color:var(--txt2);
+  cursor:pointer;border-radius:9px;transition:all .15s ease;font-family:inherit;
+}
+#zona-prog .tab-btn:hover{color:var(--az)}
+#zona-prog .tab-btn.active{color:var(--az);background:#fff;box-shadow:var(--sombra)}
+
+/* Vista Cadena de Valor */
+#prog-cadena-valor .cv-etapas{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+#prog-cadena-valor .cv-etapa{
+  flex:1 1 200px;min-width:200px;background:#fff;border-radius:10px;box-shadow:var(--sombra);padding:12px 14px;
+}
+#prog-cadena-valor .cv-etapa h4{font-size:12.5px;color:var(--az);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
+#prog-cadena-valor .cv-conector{
+  display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--do);font-weight:700;
+  padding:0 2px;
+}
+#prog-cadena-valor .cv-chips{display:flex;flex-wrap:wrap;gap:6px}
+#prog-cadena-valor .cv-chip{
+  font-size:11px;font-family:inherit;padding:5px 9px;border-radius:14px;border:1px solid var(--borde);
+  background:var(--bg);color:var(--txt2);cursor:pointer;transition:all .15s ease;
+}
+#prog-cadena-valor .cv-chip:hover{border-color:var(--az);color:var(--az)}
+#prog-cadena-valor .cv-chip.cv-chip-on{background:var(--vdl);border-color:var(--vd);color:var(--vd);font-weight:600}
+#prog-cadena-valor .cv-chip-sug{border-left:3px solid #D4AF37}
+#prog-cadena-valor .cv-chip.cv-chip-on.cv-chip-sug{border-left-color:#D4AF37}
+@media(max-width:900px){
+  #prog-cadena-valor .cv-etapas{flex-direction:column}
+  #prog-cadena-valor .cv-conector{transform:rotate(90deg);padding:2px 0}
+}
 #zona-mapa #wrap{
   position:relative; height:590px; overflow:auto; background:#fff;
   margin:10px 24px 16px; border:1px solid var(--border); border-top:3px solid var(--gold);
@@ -330,6 +367,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-mapa .node-g:hover .node-circle{r:8.2; filter:drop-shadow(0 2px 3px rgba(0,0,0,.18));}
 #zona-mapa .node-circle.pinned{stroke-width:3.2;}
 #zona-mapa .node-circle.outlier{stroke-dasharray:2,2;}
+#zona-mapa .link-hub{stroke:#D4AF37; stroke-dasharray:3,3; opacity:.30;}
+#zona-mapa .link-hub:hover{opacity:.9; stroke-width:2.2;}
+#zona-mapa .node-circle.node-hub{stroke-width:2.4;}
+#zona-mapa .node-g:hover .node-circle.node-hub{r:14.8;}
 #zona-mapa .fade{opacity:.055 !important;}
 #zona-mapa #tooltip{
   position:fixed; pointer-events:none; background:rgba(255,255,255,.98); border:1px solid #cbd6e3;
@@ -375,8 +416,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <option value="ensenanza">Enseñanza</option>
       <option value="extension">Extensión</option>
       <option value="admin">Planeación (Admin)</option>
-      <option value="bac-bga">Bacteriología — Bucaramanga (Director de Programa)</option>
-      <option value="bac-cuc">Bacteriología — Cúcuta (Director de Programa)</option>
+      <option value="fis-bga">Fisioterapia — Bucaramanga (Director de Programa)</option>
+      <option value="to-cuc">Terapia Ocupacional — Cúcuta (Director de Programa)</option>
       <option value="bac-vll">Bacteriología — Valledupar (Director de Programa)</option>
     </select>
     <input id="login-pass" type="password" placeholder="Contraseña" autocomplete="current-password"
@@ -402,10 +443,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 </header>
 
 <nav class="tabs">
-  <button class="tab on" onclick="irTab('inv',this)">Investigación <span class="tab-n">36</span></button>
-  <button class="tab" onclick="irTab('ens',this)">Enseñanza <span class="tab-n">22</span></button>
-  <button class="tab" onclick="irTab('ext',this)">Extensión <span class="tab-n">37</span></button>
-  <button class="tab" onclick="irTab('seg',this)">Seguimiento <span class="tab-n">95</span></button>
+  <button class="tab on" onclick="irTab('inv',this)">Investigación <span class="tab-n">37</span></button>
+  <button class="tab" onclick="irTab('ens',this)">Enseñanza <span class="tab-n">29</span></button>
+  <button class="tab" onclick="irTab('ext',this)">Extensión <span class="tab-n">42</span></button>
+  <button class="tab" onclick="irTab('seg',this)">Seguimiento <span class="tab-n">108</span></button>
   <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
   <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
   <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Mi Programa</button>
@@ -423,7 +464,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 <div id="zona-mapa" style="display:none">
 
 <div class="intro-card">
-    <p class="sub">Explora los 33 indicadores de <b>Impacto Real</b> agrupados por función sustantiva. Los puntos cercanos forman cada función y las líneas muestran relaciones por temas transversales. Pasa el cursor para explorar, haz clic en un punto para fijar sus conexiones o selecciona un tema en la leyenda.</p>
+    <p class="sub">Explora los 33 indicadores oficiales de <b>Impacto Real</b> agrupados por función sustantiva, más 1 nodo central dorado (indicador compartido por las 3 funciones, incorporado desde el diagnóstico de brechas del Acuerdo 01/2025) que recibe conexión de los 33. Los puntos cercanos forman cada función y las líneas muestran relaciones por temas transversales. Pasa el cursor para explorar, haz clic en un punto para fijar sus conexiones o selecciona un tema en la leyenda.</p>
     <div class="legend" id="legend"></div>
   </div>
 
@@ -457,10 +498,15 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 <div id="tooltip"></div>
 
 
-<script id="graph-data" type="application/json">{"nodos":[{"id":"I27","f":"INV","tema":"T1","nombre":"Graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores vinculados al SNCTI","desc":"Proporción de graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores que se encuentran vinculados al SNCTI en la ventana de 2 o más años posteriores a su egreso","und":"Proporción"},{"id":"I28","f":"INV","tema":"T3","nombre":"Productos de I+D+i+c que aportan a los focos de investigación UDES (Salud Planetaria, Seguridad Alimentaria, Transición energética)","desc":"Proporción de productos (en todas sus tipologías del modelo de reconocimiento MinCiencias) que aportan a los focos con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.","und":"Proporción"},{"id":"I29","f":"INV","tema":"T2","nombre":"Productos de I+D+i+c transferidos a los sectores de aplicación (local, regional, nacional e internacional)","desc":"Proporción de productos que se han transferido a través de servicios, consultorías, licencias o capacitaciones al sector externo con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.","und":"Proporción"},{"id":"I30","f":"INV","tema":"T4","nombre":"Políticas públicas que involucran o se sustentan en productos de I+D+i+c derivados de proyectos UDES","desc":"Políticas públicas a nivel local, regional, nacional e internacional que citan productos de I+D+i+c UDES","und":"Número"},{"id":"I31","f":"INV","tema":"T4","nombre":"Métricas cienciométricas y posicionamiento en rankings","desc":"Índices, indicadores y posicionamientos en sistemas de rankings cienciométricos (Scimago, WoS, QS, THE, Google Scholar, entre otros)","und":"Índices e indicadores específicos de los diferentes rankings y agencias cienciométricas"},{"id":"I32","f":"INV","tema":"T3","nombre":"Productos de I+D+i+c que aportan a las metas de los ODS en Colombia, LAC y global","desc":"Número y proporción de productos de I+D+i+c derivados de proyectos UDES que evidencian aportes a los ODS en función de las metas establecidas para Colombia y el mundo","und":"Número/proporción"},{"id":"I33","f":"INV","tema":"T2","nombre":"Emprendimientos de base científica/tecnológica derivados de productos de I+D+i+c desarrollados en proyectos UDES","desc":"Número y proporción de empresas creadas de base científica o tecnológica, spin-offs, startups, o número de empresas ya constituidas que innovan con productos o servicios derivados de la investigación UDES","und":"Número/proporción"},{"id":"I34","f":"INV","tema":"T1","nombre":"Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)","desc":"Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron.","und":"Resultados estandarizados según prueba"},{"id":"I35","f":"INV","tema":"T1","nombre":"Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)","desc":"Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores","und":"Resultados evidenciados en estudios de graduados"},{"id":"I36","f":"INV","tema":"T4","nombre":"Índice de liderazgo y transferencia de la comunidad científica","desc":"(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100","und":"Porcentaje"},{"id":"E16","f":"ENS","tema":"T6","nombre":"Valor agregado académico","desc":"Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.","und":"Puntos de diferencia / categoría MEN"},{"id":"E17","f":"ENS","tema":"T1","nombre":"Tasa de empleabilidad de graduados","desc":"Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.","und":"% empleabilidad pertinente"},{"id":"E18","f":"ENS","tema":"T1","nombre":"Percepción de empleadores sobre graduados","desc":"Calificación promedio dada por empleadores a las competencias de los graduados UDES.","und":"Puntaje 1–5"},{"id":"E19","f":"ENS","tema":"T1","nombre":"Graduados en cargos de liderazgo","desc":"Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.","und":"% graduados"},{"id":"E20","f":"ENS","tema":"T1","nombre":"Impacto de la internacionalización","desc":"Evidencias del impacto de la internacionalización en las trayectorias de los graduados","und":"N° evidencias de impacto/año"},{"id":"E21","f":"ENS","tema":"T1","nombre":"Reconocimientos a graduados UDES","desc":"Número de distinciones, premios o reconocimientos públicos recibidos por graduados.","und":"N° reconocimientos/año"},{"id":"E22","f":"ENS","tema":"T1","nombre":"Tasa de vinculación efectiva en prácticas empresariales","desc":"Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador.","und":"% estudiantes en práctica"},{"id":"X22","f":"EXT","tema":"T5","nombre":"Percepción de cambios favorables en problemáticas atendidas","desc":"Porcentaje de participantes que perciben cambios concretos favorables en las dinámicas o problemáticas atendidas (Indicador IMPACTA UDES - Solución de problemas)","und":"% participantes"},{"id":"X23","f":"EXT","tema":"T5","nombre":"Satisfacción en resolución intersectorial de problemas","desc":"Nivel de satisfacción de los participantes o comunidad frente a la resolución interinstitucional e intersectorial de problemas desde el proyecto (Indicador IMPACTA UDES - Colaboración sector productivo)","und":"Puntaje 1-5"},{"id":"X24","f":"EXT","tema":"T5","nombre":"Fortalecimiento de capacidades para convivencia pacífica","desc":"Porcentaje de personas, familias, grupos que expresan cambios positivos en áreas de fortalecimiento de capacidades para convivencia pacífica (Indicador IMPACTA UDES - Promoción convivencia pacífica)","und":"% participantes"},{"id":"X25","f":"EXT","tema":"T5","nombre":"Cambios positivos en prácticas de cuidado y organización","desc":"Porcentaje de participantes que expresan cambios positivos en prácticas de cuidado del entorno, organización o trabajo (Indicador IMPACTA - Vinculación ámbito social)","und":"% participantes"},{"id":"X26","f":"EXT","tema":"T1","nombre":"Nuevas oportunidades educativas/laborales encontradas","desc":"Porcentaje de participantes que encontraron nuevas oportunidades educativas, laborales, ocupacionales a partir de su participación (Indicador IMPACTA)","und":"% participantes"},{"id":"X27","f":"EXT","tema":"T5","nombre":"Apreciación sobre aportes al bienestar","desc":"Apreciación de los participantes sobre los aportes, aplicaciones o efectos de los resultados sobre el bienestar (Indicador IMPACTA - Solución problemas)","und":"Puntaje 1-5"},{"id":"X28","f":"EXT","tema":"T5","nombre":"Valoración ampliación acciones interinstitucionales","desc":"Valoración de actores clave frente a ampliación/funcionamiento de acciones interinstitucionales (Indicador IMPACTA - Desarrollo redes)","und":"Puntaje 1-5"},{"id":"X29","f":"EXT","tema":"T5","nombre":"Pertinencia de la intervención intersectorial","desc":"Apreciación de participantes sobre pertinencia de intervención intersectorial en cambios incorporados (Indicador IMPACTA - Adaptabilidad)","und":"Puntaje 1-5"},{"id":"X30","f":"EXT","tema":"T2","nombre":"Calidad de servicios interinstitucionales","desc":"Apreciación frente a calidad de servicios interinstitucionales promovidos desde el proyecto (Indicador IMPACTA - Fomento innovación)","und":"Puntaje 1-5"},{"id":"X31","f":"EXT","tema":"T3","nombre":"Proyectos alineados a ODS y Plan Regional","desc":"Porcentaje de proyectos que responden a ODS o prioridades del Plan de Desarrollo Departamental","und":"% proyectos"},{"id":"X32","f":"EXT","tema":"T3","nombre":"Conservación y sostenibilidad ambiental","desc":"Proyectos con impacto documentado en conservación, restauración o educación ambiental","und":"N° proyectos"},{"id":"X33","f":"EXT","tema":"T2","nombre":"Acuerdos de transferencia tecnológica formalizados (DTT)","desc":"Número de acuerdos de transferencia (licencias, cesiones, co-desarrollo, contratos con cláusula de explotación) firmados en el periodo","und":"N° acuerdos/año"},{"id":"X34","f":"EXT","tema":"T2","nombre":"Ingresos por transferencia tecnológica (licencias/regalías)","desc":"Ingresos anuales derivados de licencias, regalías o cesiones de tecnologías desarrolladas por la UDES a través de la Coordinación DTT","und":"COP millones/año"},{"id":"X35","f":"EXT","tema":"T2","nombre":"Índice de sinergia territorial e innovación abierta","desc":"(Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) * 100","und":"Porcentaje"},{"id":"X36","f":"EXT","tema":"T3","nombre":"Tasa de sostenibilidad y apropiación comunitaria","desc":"(Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) * 100","und":"Porcentaje"},{"id":"X37","f":"EXT","tema":"T1","nombre":"Índice de retorno de pertinencia posgradual y movilidad profesional","desc":"Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) * 100.","und":"Porcentaje"}],"temas":[{"id":"T1","nombre":"Trayectorias de vida y egresados","color":{"fill":"#8E24AA","stroke":"#4A148C"}},{"id":"T2","nombre":"Transferencia y uso del conocimiento / innovación","color":{"fill":"#00897B","stroke":"#004D40"}},{"id":"T3","nombre":"Sostenibilidad y ODS / territorio ambiental","color":{"fill":"#C9A227","stroke":"#7A6110"},"normativa":["Característica 7 (Factor 3) — Administración y gestión sostenible: sin indicador institucional UDES asociado (brecha)","Característica 10 (Factor 3) — Infraestructura y recursos con desarrollo sostenible: sin indicador institucional UDES asociado (brecha)","Característica 22 (Factor 6) — compromiso institucional con una sociedad ambientalmente sostenible","Característica 23 (Factor 7) — Visibilidad de las contribuciones al desarrollo sostenible, económico, ambiental, tecnológico, social y cultural del entorno"],"brecha":"Acuerdo 01/2025 CESU: las Características 7 y 10 (gestión institucional y de infraestructura sostenible) no tienen ningún indicador UDES asociado hoy. Las Características 44 y 48 (Capítulo III, nivel de programa académico) son el puente normativo para que un programa reporte sostenibilidad de sus propios recursos y su sostenibilidad financiera. Enseñanza (E01-E22) no tiene ningún indicador con el pilar oficial \"5. Sostenibilidad\", y se confirmó revisando el Acuerdo 01/2025 completo que tampoco existe un vínculo normativo entre sostenibilidad y la función de enseñanza — es una brecha real del marco vigente, no un vacío de la matriz UDES.","candidatoInterpretativo":{"id":"E20","nota":"E20 (Impacto de la internacionalización) es el único indicador de Enseñanza con una posible relación temática indirecta con sostenibilidad (cooperación internacional / marcos ODS), pero se revisó el Acuerdo 01/2025 y los Lineamientos CESU de diciembre 2025 completos y NO existe ningún vínculo normativo confirmado entre sostenibilidad y la función de enseñanza — tampoco tiene el pilar oficial \"5. Sostenibilidad\" en la matriz UDES. No se agrega como nodo de este tema; se referencia aquí solo como el candidato más cercano dentro de una brecha real."}},{"id":"T4","nombre":"Incidencia en política pública y posicionamiento institucional","color":{"fill":"#C2185B","stroke":"#6A0D3B"}},{"id":"T5","nombre":"Impacto territorial/comunitario (microsocial-mesosocial)","color":{"fill":"#6D4C41","stroke":"#3E2723"}},{"id":"T6","nombre":"Aprendizaje interno (sin impacto externo)","color":{"fill":"#757575","stroke":"#424242"}}],"funciones":{"INV":{"fill":"#3949AB","stroke":"#1A237E","nombre":"Investigación"},"ENS":{"fill":"#2E7D32","stroke":"#1B5E20","nombre":"Enseñanza"},"EXT":{"fill":"#E65100","stroke":"#BF360C","nombre":"Extensión"}}}</script>
+<script id="graph-data" type="application/json">{"nodos":[{"id":"I27","f":"INV","tema":"T1","nombre":"Graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores vinculados al SNCTI","desc":"Proporción de graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores que se encuentran vinculados al SNCTI en la ventana de 2 o más años posteriores a su egreso","und":"Proporción"},{"id":"I28","f":"INV","tema":"T3","nombre":"Productos de I+D+i+c que aportan a los focos de investigación UDES (Salud Planetaria, Seguridad Alimentaria, Transición energética)","desc":"Proporción de productos (en todas sus tipologías del modelo de reconocimiento MinCiencias) que aportan a los focos con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.","und":"Proporción"},{"id":"I29","f":"INV","tema":"T2","nombre":"Productos de I+D+i+c transferidos a los sectores de aplicación (local, regional, nacional e internacional)","desc":"Proporción de productos que se han transferido a través de servicios, consultorías, licencias o capacitaciones al sector externo con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada.","und":"Proporción"},{"id":"I30","f":"INV","tema":"T4","nombre":"Políticas públicas que involucran o se sustentan en productos de I+D+i+c derivados de proyectos UDES","desc":"Políticas públicas a nivel local, regional, nacional e internacional que citan productos de I+D+i+c UDES","und":"Número"},{"id":"I31","f":"INV","tema":"T4","nombre":"Métricas cienciométricas y posicionamiento en rankings","desc":"Índices, indicadores y posicionamientos en sistemas de rankings cienciométricos (Scimago, WoS, QS, THE, Google Scholar, entre otros)","und":"Índices e indicadores específicos de los diferentes rankings y agencias cienciométricas"},{"id":"I32","f":"INV","tema":"T3","nombre":"Productos de I+D+i+c que aportan a las metas de los ODS en Colombia, LAC y global","desc":"Número y proporción de productos de I+D+i+c derivados de proyectos UDES que evidencian aportes a los ODS en función de las metas establecidas para Colombia y el mundo","und":"Número/proporción"},{"id":"I33","f":"INV","tema":"T2","nombre":"Emprendimientos de base científica/tecnológica derivados de productos de I+D+i+c desarrollados en proyectos UDES","desc":"Número y proporción de empresas creadas de base científica o tecnológica, spin-offs, startups, o número de empresas ya constituidas que innovan con productos o servicios derivados de la investigación UDES","und":"Número/proporción"},{"id":"I34","f":"INV","tema":"T1","nombre":"Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)","desc":"Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron.","und":"Resultados estandarizados según prueba"},{"id":"I35","f":"INV","tema":"T1","nombre":"Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)","desc":"Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores","und":"Resultados evidenciados en estudios de graduados"},{"id":"I36","f":"INV","tema":"T4","nombre":"Índice de liderazgo y transferencia de la comunidad científica","desc":"(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100","und":"Porcentaje"},{"id":"E16","f":"ENS","tema":"T6","nombre":"Valor agregado académico","desc":"Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.","und":"Puntos de diferencia / categoría MEN"},{"id":"E17","f":"ENS","tema":"T1","nombre":"Tasa de empleabilidad de graduados","desc":"Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.","und":"% empleabilidad pertinente"},{"id":"E18","f":"ENS","tema":"T1","nombre":"Percepción de empleadores sobre graduados","desc":"Calificación promedio dada por empleadores a las competencias de los graduados UDES.","und":"Puntaje 1–5"},{"id":"E19","f":"ENS","tema":"T1","nombre":"Graduados en cargos de liderazgo","desc":"Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.","und":"% graduados"},{"id":"E20","f":"ENS","tema":"T1","nombre":"Impacto de la internacionalización","desc":"Evidencias del impacto de la internacionalización en las trayectorias de los graduados","und":"N° evidencias de impacto/año"},{"id":"E21","f":"ENS","tema":"T1","nombre":"Reconocimientos a graduados UDES","desc":"Número de distinciones, premios o reconocimientos públicos recibidos por graduados.","und":"N° reconocimientos/año"},{"id":"E22","f":"ENS","tema":"T1","nombre":"Tasa de vinculación efectiva en prácticas empresariales","desc":"Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador.","und":"% estudiantes en práctica"},{"id":"X22","f":"EXT","tema":"T5","nombre":"Percepción de cambios favorables en problemáticas atendidas","desc":"Porcentaje de participantes que perciben cambios concretos favorables en las dinámicas o problemáticas atendidas (Indicador IMPACTA UDES - Solución de problemas)","und":"% participantes"},{"id":"X23","f":"EXT","tema":"T5","nombre":"Satisfacción en resolución intersectorial de problemas","desc":"Nivel de satisfacción de los participantes o comunidad frente a la resolución interinstitucional e intersectorial de problemas desde el proyecto (Indicador IMPACTA UDES - Colaboración sector productivo)","und":"Puntaje 1-5"},{"id":"X24","f":"EXT","tema":"T5","nombre":"Fortalecimiento de capacidades para convivencia pacífica","desc":"Porcentaje de personas, familias, grupos que expresan cambios positivos en áreas de fortalecimiento de capacidades para convivencia pacífica (Indicador IMPACTA UDES - Promoción convivencia pacífica)","und":"% participantes"},{"id":"X25","f":"EXT","tema":"T5","nombre":"Cambios positivos en prácticas de cuidado y organización","desc":"Porcentaje de participantes que expresan cambios positivos en prácticas de cuidado del entorno, organización o trabajo (Indicador IMPACTA - Vinculación ámbito social)","und":"% participantes"},{"id":"X26","f":"EXT","tema":"T1","nombre":"Nuevas oportunidades educativas/laborales encontradas","desc":"Porcentaje de participantes que encontraron nuevas oportunidades educativas, laborales, ocupacionales a partir de su participación (Indicador IMPACTA)","und":"% participantes"},{"id":"X27","f":"EXT","tema":"T5","nombre":"Apreciación sobre aportes al bienestar","desc":"Apreciación de los participantes sobre los aportes, aplicaciones o efectos de los resultados sobre el bienestar (Indicador IMPACTA - Solución problemas)","und":"Puntaje 1-5"},{"id":"X28","f":"EXT","tema":"T5","nombre":"Valoración ampliación acciones interinstitucionales","desc":"Valoración de actores clave frente a ampliación/funcionamiento de acciones interinstitucionales (Indicador IMPACTA - Desarrollo redes)","und":"Puntaje 1-5"},{"id":"X29","f":"EXT","tema":"T5","nombre":"Pertinencia de la intervención intersectorial","desc":"Apreciación de participantes sobre pertinencia de intervención intersectorial en cambios incorporados (Indicador IMPACTA - Adaptabilidad)","und":"Puntaje 1-5"},{"id":"X30","f":"EXT","tema":"T2","nombre":"Calidad de servicios interinstitucionales","desc":"Apreciación frente a calidad de servicios interinstitucionales promovidos desde el proyecto (Indicador IMPACTA - Fomento innovación)","und":"Puntaje 1-5"},{"id":"X31","f":"EXT","tema":"T3","nombre":"Proyectos alineados a ODS y Plan Regional","desc":"Porcentaje de proyectos que responden a ODS o prioridades del Plan de Desarrollo Departamental","und":"% proyectos"},{"id":"X32","f":"EXT","tema":"T3","nombre":"Conservación y sostenibilidad ambiental","desc":"Proyectos con impacto documentado en conservación, restauración o educación ambiental","und":"N° proyectos"},{"id":"X33","f":"EXT","tema":"T2","nombre":"Acuerdos de transferencia tecnológica formalizados (DTT)","desc":"Número de acuerdos de transferencia (licencias, cesiones, co-desarrollo, contratos con cláusula de explotación) firmados en el periodo","und":"N° acuerdos/año"},{"id":"X34","f":"EXT","tema":"T2","nombre":"Ingresos por transferencia tecnológica (licencias/regalías)","desc":"Ingresos anuales derivados de licencias, regalías o cesiones de tecnologías desarrolladas por la UDES a través de la Coordinación DTT","und":"COP millones/año"},{"id":"X35","f":"EXT","tema":"T2","nombre":"Índice de sinergia territorial e innovación abierta","desc":"(Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) * 100","und":"Porcentaje"},{"id":"X36","f":"EXT","tema":"T3","nombre":"Tasa de sostenibilidad y apropiación comunitaria","desc":"(Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) * 100","und":"Porcentaje"},{"id":"X37","f":"EXT","tema":"T1","nombre":"Índice de retorno de pertinencia posgradual y movilidad profesional","desc":"Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) * 100.","und":"Porcentaje"},{"id":"HUB_IDENTIDAD","f":"HUB","tema":"T0","central":true,"nombre":"Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar","desc":"Indicador transversal que reúne el seguimiento de I37 (Investigación), E23 (Enseñanza) y X38 (Extensión) — Factor 1 · Característica 3 · Aspecto 4 del Acuerdo 01/2025 CESU. Recibe conexión de los 33 indicadores oficiales de Impacto Real por ser, según su naturaleza, el meta-indicador que atraviesa las 3 funciones sustantivas.","und":"Puntaje 1-5","compone":["I37","E23","X38"]}],"temas":[{"id":"T1","nombre":"Trayectorias de vida y egresados","color":{"fill":"#8E24AA","stroke":"#4A148C"}},{"id":"T2","nombre":"Transferencia y uso del conocimiento / innovación","color":{"fill":"#00897B","stroke":"#004D40"}},{"id":"T3","nombre":"Sostenibilidad y ODS / territorio ambiental","color":{"fill":"#C9A227","stroke":"#7A6110"},"normativa":["Característica 7 (Factor 3) — Administración y gestión sostenible: sin indicador institucional UDES asociado (brecha)","Característica 10 (Factor 3) — Infraestructura y recursos con desarrollo sostenible: sin indicador institucional UDES asociado (brecha)","Característica 22 (Factor 6) — compromiso institucional con una sociedad ambientalmente sostenible","Característica 23 (Factor 7) — Visibilidad de las contribuciones al desarrollo sostenible, económico, ambiental, tecnológico, social y cultural del entorno"],"brecha":"Acuerdo 01/2025 CESU: las Características 7 y 10 (gestión institucional y de infraestructura sostenible) no tienen ningún indicador UDES asociado hoy. Las Características 44 y 48 (Capítulo III, nivel de programa académico) son el puente normativo para que un programa reporte sostenibilidad de sus propios recursos y su sostenibilidad financiera. Enseñanza (E01-E22) no tiene ningún indicador con el pilar oficial \"5. Sostenibilidad\", y se confirmó revisando el Acuerdo 01/2025 completo que tampoco existe un vínculo normativo entre sostenibilidad y la función de enseñanza — es una brecha real del marco vigente, no un vacío de la matriz UDES.","candidatoInterpretativo":{"id":"E20","nota":"E20 (Impacto de la internacionalización) es el único indicador de Enseñanza con una posible relación temática indirecta con sostenibilidad (cooperación internacional / marcos ODS), pero se revisó el Acuerdo 01/2025 y los Lineamientos CESU de diciembre 2025 completos y NO existe ningún vínculo normativo confirmado entre sostenibilidad y la función de enseñanza — tampoco tiene el pilar oficial \"5. Sostenibilidad\" en la matriz UDES. No se agrega como nodo de este tema; se referencia aquí solo como el candidato más cercano dentro de una brecha real."}},{"id":"T4","nombre":"Incidencia en política pública y posicionamiento institucional","color":{"fill":"#C2185B","stroke":"#6A0D3B"}},{"id":"T5","nombre":"Impacto territorial/comunitario (microsocial-mesosocial)","color":{"fill":"#6D4C41","stroke":"#3E2723"}},{"id":"T6","nombre":"Aprendizaje interno (sin impacto externo)","color":{"fill":"#757575","stroke":"#424242"}},{"id":"T0","nombre":"Coherencia e identidad institucional (nodo central)","color":{"fill":"#D4AF37","stroke":"#7A6110"},"hub":true}],"funciones":{"INV":{"fill":"#3949AB","stroke":"#1A237E","nombre":"Investigación"},"ENS":{"fill":"#2E7D32","stroke":"#1B5E20","nombre":"Enseñanza"},"EXT":{"fill":"#E65100","stroke":"#BF360C","nombre":"Extensión"},"HUB":{"fill":"#D4AF37","stroke":"#7A6110","nombre":"Coherencia institucional"}}}</script>
 </div>
 
 <div id="zona-prog" style="display:none">
+  <div class="prog-view-toggle">
+    <button class="tab-btn active" id="btn-progViewLista" onclick="cambiarVistaPrograma('lista')">Lista de indicadores</button>
+    <button class="tab-btn" id="btn-progViewCadena" onclick="cambiarVistaPrograma('cadena')">Cadena de Valor</button>
+  </div>
+
   <div class="wrap">
     <div id="prog-info"></div>
 
@@ -516,6 +562,33 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       </table>
     </div>
   </div>
+
+  <div id="prog-cadena-valor" class="wrap" style="display:none">
+    <div class="cv-etapas">
+      <div class="cv-etapa" data-niv="Insumos">
+        <h4>Insumos</h4>
+        <div class="cv-chips" id="cv-chips-insumos"></div>
+      </div>
+      <div class="cv-conector">&rarr;</div>
+      <div class="cv-etapa" data-niv="Procesos">
+        <h4>Procesos</h4>
+        <div class="cv-chips" id="cv-chips-procesos"></div>
+      </div>
+      <div class="cv-conector">&rarr;</div>
+      <div class="cv-etapa" data-niv="Productos">
+        <h4>Productos</h4>
+        <div class="cv-chips" id="cv-chips-productos"></div>
+      </div>
+      <div class="cv-conector">&rarr;</div>
+      <div class="cv-etapa" data-niv="Impacto Real">
+        <h4>Impacto Real</h4>
+        <div class="cv-chips" id="cv-chips-impacto"></div>
+      </div>
+    </div>
+    <p class="nota">Flujo conceptual del PDI: Insumos&rarr;Procesos&rarr;Productos&rarr;Impacto Real. No representa
+      dependencias específicas entre indicadores (la matriz no las define), solo el orden general del modelo.
+      Haz clic en un indicador institucional para adoptarlo como propio (o para quitarlo, si ya lo adoptaste).</p>
+  </div>
 </div>
 
 </div>
@@ -524,7 +597,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// DATOS — 95 indicadores (matriz oficial UDES "final", 14/07/2026)
+// DATOS — 108 indicadores (95 de la matriz oficial UDES "final" 14/07/2026 + 13 nuevos "Impacto Real (Sugerido)" incorporados desde vr7/Acuerdo 01/2025, ver campo origen)
 // f: INV | ENS | EXT   niv: nivel de impacto
 // lb: línea base 2023 (por definir en la fuente)
 // m26: meta intermedia (fuente: META 2025 en INV/EXT, META 2026 en ENS)
@@ -572,29 +645,41 @@ const IND = [
   {id:"I34",f:"INV",niv:"Impacto Real",ind:"Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)",desc:"Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron.",und:"Resultados estandarizadossegún prueba",lb:null,m26:null,m28:null,resp:"VI",fuente:"VI",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Impacto en Trayectorias de Vida",proyectos:"Pr1: Transformación curricular Pr4: Universidad creativa y emprendedora Pr6: Impacto social integrando la enseñanza, investigación y extensión",ods:"ODS 4: Educación de calidad ODS 9: Industria, innovación e infraestructura"},
   {id:"I35",f:"INV",niv:"Impacto Real",ind:"Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)",desc:"Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores",und:"Resultados evidenciados en estudios de graduados",lb:null,m26:null,m28:null,resp:"VI",fuente:"VI",pilares:"1. Personalización 6. Apropiación social",dimension:"Impacto en Trayectorias de Vida",proyectos:"Pr1: Transformación curricular Pr6: Impacto social integrando la enseñanza, investigación y extensión",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente y crecimiento económico"},
   {id:"I36",f:"INV",niv:"Impacto Real",ind:"Índice de liderazgo y transferencia de la comunidad científica",desc:"(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100",und:"Porcentaje",lb:null,m26:null,m28:"VI",resp:"VI",fuente:"VI",pilares:"3. Entorno emprendedor 4. Gobernanza para el buen gobierno",dimension:"Posicionamiento Institucional",proyectos:"Pr3: Gobierno Institucional y transparencia Pr4: Universidad creativa y emprendedora Pr6: Impacto social integrando la enseñanza, investigación y extensión",ods:"ODS 9: Industria, innovación e infraestructura ODS 17: Alianzas para lograr los objetivos"},
+  {id:"I37",f:"INV",niv:"Impacto Real (Sugerido)",ind:"Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar",desc:"Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar.",und:"Puntaje 1-5",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectorías de Enseñanza, Extensión e Investigaciones/Dirección de Autorregulación",fuente:"Encuesta institucional de percepción / Informes de autoevaluación institucional",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional",compartido:"IDENTIDAD_COHERENCIA"},
   // ENS
-  {id:"E01",f:"ENS",niv:"Insumos",ind:"Profesores con título de posgrado",desc:"Porcentaje del cuerpo docente con título de especialización, maestría o doctorado.",und:"% docentes",lb:null,m26:"80%",m28:"90%",resp:"Vicerrectoría Enseñanza / RRHH",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad"},
-  {id:"E02",f:"ENS",niv:"Insumos",ind:"Perfil Profesor de Posgrados",desc:"(N° Profesores con Ph.D. o Subespecialidad / Total Profesores Posgrado) × 100",und:"% docentes",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / RRHH / Vicerrectoria de Posgrados",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 5",ods:"ODS 4: Educación de calidad"},
-  {id:"E03",f:"ENS",niv:"Procesos",ind:"Estudiantes beneficiados por programa de acompañamiento institucional",desc:"Número de estudiantes que participan en programas de tutoría académica, asesorías psicopedagógicas, nivelación y apoyo integral por período académico.",und:"N° estudiantes/semestre",lb:null,m26:"+20% vs LB",m28:"+50% vs LB",resp:"Vicerrectoría Enseñanza / Bienestar Institucional",fuente:"Informes de desarrollo estudiantil / Informes Bienestar",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades"},
-  {id:"E04",f:"ENS",niv:"Procesos",ind:"Tasa de retención estudiantil",desc:"Porcentaje de estudiantes que permanecen en el programa de un semestre a otro.",und:"% retención",lb:null,m26:"+3 pp vs LB",m28:"+8 pp vs LB",resp:"Vicerrectoría Enseñanza / Bienestar",fuente:"Sistema SPADIES / Sistema de información UDES",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades"},
-  {id:"E05",f:"ENS",niv:"Procesos",ind:"Tasa de deserción acumulada",desc:"Porcentaje acumulado de estudiantes que abandonan el programa antes de graduarse.",und:"% deserción",lb:null,m26:"Reducir 10%",m28:"Reducir 25%",resp:"Vicerrectoría Enseñanza",fuente:"SPADIES – MEN / UDES",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades"},
+  {id:"E01",f:"ENS",niv:"Insumos",ind:"Profesores con título de Maestría y Doctorado",desc:"Porcentaje del cuerpo docente con título de especialización, maestría o doctorado.",und:"% docentes",lb:null,m26:"80%",m28:"90%",resp:"Vicerrectoría Enseñanza / RRHH",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad",lbRef:0.69},
+  {id:"E02",f:"ENS",niv:"Insumos",ind:"Perfil Profesor de Posgrados",desc:"(N° Profesores con Ph.D. o Subespecialidad / Total Profesores Posgrado) × 100",und:"% docentes",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / RRHH / Vicerrectoria de Posgrados",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 5",ods:"ODS 4: Educación de calidad",lbRef:0.16},
+  {id:"E03",f:"ENS",niv:"Procesos",ind:"Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE)",desc:"Número de estudiantes que participan en programas de tutoría académica, asesorías psicopedagógicas, nivelación y apoyo integral por período académico.",und:"N° estudiantes/semestre",lb:null,m26:"+20% vs LB",m28:"+50% vs LB",resp:"Vicerrectoría Enseñanza / Bienestar Institucional",fuente:"Informes de desarrollo estudiantil / Informes Bienestar",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades"},
+  {id:"E04",f:"ENS",niv:"Procesos",ind:"Tasa de retención estudiantil",desc:"Porcentaje de estudiantes que permanecen en el programa de un semestre a otro.",und:"% retención",lb:null,m26:"+3 pp vs LB",m28:"+8 pp vs LB",resp:"Vicerrectoría Enseñanza / Bienestar",fuente:"Sistema SPADIES / Sistema de información UDES",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades",lbRef:0.94},
+  {id:"E05",f:"ENS",niv:"Procesos",ind:"Tasa de deserción acumulada",desc:"Porcentaje acumulado de estudiantes que abandonan el programa antes de graduarse.",und:"% deserción",lb:null,m26:"Reducir 10%",m28:"Reducir 25%",resp:"Vicerrectoría Enseñanza",fuente:"SPADIES – MEN / UDES",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades",lbRef:0.48},
   {id:"E06",f:"ENS",niv:"Procesos",ind:"Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización",desc:"Número de estudiantes y docentes en intercambios nacionales e internacionales por período.",und:"N° personas/año",lb:null,m26:"+20% anual",m28:"Triplicar vs LB",resp:"Vicerrectoría Enseñanza / Dirección de relacionaes nacionales e internacionales",fuente:"Dirección de Relaciones Nacionales e Internacionales",pilares:"1. Personalización 6. Apropiación social",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 17: Alianzas"},
-  {id:"E07",f:"ENS",niv:"Procesos",ind:"Autoevaluacion y evaluacion profesoral",desc:"Porcentaje de profesores evaluados por estudiantes, pares académicos y autoevaluación con resultados documentados y planes de mejoramiento implementados por período.",und:"% docentes evaluados / Puntaje promedio",lb:null,m26:"100% / ≥4.0",m28:"100% / ≥4.3",resp:"Vicerrectoría Enseñanza / Desarrollo Profesoral",fuente:"Sistema de evaluación profesoral UDES",pilares:"1. Personalización 4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas"},
+  // NOTA vr7 (2026-09): además de lbRef (4.7, parte "Puntaje promedio"), vr7 reporta un valor
+  // separado "Promedio de horas de formación profesoral" = ≥13 horas, sin campo dedicado hoy en
+  // este indicador compuesto (und:"% docentes evaluados / Puntaje promedio") — pendiente de decidir
+  // si se agrega un tercer componente o un indicador aparte. Ver diff_vr7_vs_html.md sección 6.
+  {id:"E07",f:"ENS",niv:"Procesos",ind:"Autoevaluacion y evaluacion profesoral",desc:"Porcentaje de profesores evaluados por estudiantes, pares académicos y autoevaluación con resultados documentados y planes de mejoramiento implementados por período.",und:"% docentes evaluados / Puntaje promedio",lb:null,m26:"100% / ≥4.0",m28:"100% / ≥4.3",resp:"Vicerrectoría Enseñanza / Desarrollo Profesoral",fuente:"Sistema de evaluación profesoral UDES",pilares:"1. Personalización 4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas",lbRef:4.7},
   {id:"E08",f:"ENS",niv:"Procesos",ind:"Capacitación pedagógica recibidas por profesores",desc:"Horas de formación docente en didáctica, metodologías activas, evaluación del aprendizaje, uso de TIC en el aula, y competencias pedagógicas por docente por año académico.",und:"Horas/docente/año",lb:null,m26:"≥30 horas",m28:"≥50 horas",resp:"Vicerrectoría Enseñanza / RRHH / Desarrollo profesoral",fuente:"Sistema de registro capacitaciones UDES / Certificados",pilares:"1. Personalización 4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas"},
   {id:"E09",f:"ENS",niv:"Procesos",ind:"Índice de eficiencia del impacto institucional en la gestión estratégica",desc:"Metas de impacto del PDI alcanzadas con nivel satisfactorio / Presupuesto institucional total invertido en las funciones sustantivas en el periodo.",und:"Índice",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / Planeación Institucional",fuente:"Sistema de seguimiento PDI / Presupuesto institucional",pilares:"4. Gobernanza para el buen gobierno",dimension:"Práctica Profesoral",proyectos:"Proyecto 2 Proyecto 3",ods:"ODS 16: Paz, justicia e instituciones sólidas"},
-  {id:"E10",f:"ENS",niv:"Productos",ind:"Tasa de graduación",desc:"Porcentaje de estudiantes que se gradúan respecto a los que ingresaron en la cohorte.",und:"% graduación",lb:null,m26:"+5 pp vs LB",m28:"+12 pp vs LB",resp:"Vicerrectoría Enseñanza / Registro y Control Académico",fuente:"SNIES – MEN / Sistema de Información UDES",pilares:"1. Personalización",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad"},
-  {id:"E11",f:"ENS",niv:"Productos",ind:"Resultados Saber Pro",desc:"Desempeño promedio de los estudiantes UDES en Pruebas Saber Pro vs. referente nacional.",und:"Puntaje / posición nacional",lb:null,m26:"Por encima media nacional",m28:"Cuartil superior nacional",resp:"Vicerrectoría Enseñanza/Desarrollo Estudiantil",fuente:"ICFES – Saber Pro",pilares:"1. Personalización",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad"},
-  {id:"E12",f:"ENS",niv:"Productos",ind:"Programas académicos con acreditación CNA",desc:"Número de programas académicos con acreditación de alta calidad vigente del CNA / N° de programas acreditables",und:"Proporción de acreditados de acreditables",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / Autoevaluación",fuente:"CNA – MEN",pilares:"4. Gobernanza para el buen gobierno 1. Personalización",dimension:"Aprendizaje",proyectos:"Proyecto 4 Proyecto 1",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas"},
+  {id:"E10",f:"ENS",niv:"Productos",ind:"Tasa de graduación oportuna",desc:"Porcentaje de estudiantes que se gradúan respecto a los que ingresaron en la cohorte.",und:"% graduación",lb:null,m26:"+5 pp vs LB",m28:"+12 pp vs LB",resp:"Vicerrectoría Enseñanza / Registro y Control Académico",fuente:"SNIES – MEN / Sistema de Información UDES",pilares:"1. Personalización",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad",lbRef:0.36},
+  {id:"E11",f:"ENS",niv:"Productos",ind:"Resultados Saber Pro",desc:"Desempeño promedio de los estudiantes UDES en Pruebas Saber Pro vs. referente nacional.",und:"Puntaje / posición nacional",lb:null,m26:"Por encima media nacional",m28:"Cuartil superior nacional",resp:"Vicerrectoría Enseñanza/Desarrollo Estudiantil",fuente:"ICFES – Saber Pro",pilares:"1. Personalización",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad",lbRef:141},
+  {id:"E12",f:"ENS",niv:"Productos",ind:"Programas académicos con acreditación CNA",desc:"Número de programas académicos con acreditación de alta calidad vigente del CNA / N° de programas acreditables",und:"Proporción de acreditados de acreditables",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / Autoevaluación",fuente:"CNA – MEN",pilares:"4. Gobernanza para el buen gobierno 1. Personalización",dimension:"Aprendizaje",proyectos:"Proyecto 4 Proyecto 1",ods:"ODS 4: Educación de calidad ODS 16: Paz, justicia e instituciones sólidas",lbRef:0.15},
   {id:"E13",f:"ENS",niv:"Productos",ind:"Oferta de educación continuada y posgrado",desc:"Número de programas de educación continua, diplomados y posgrados activos.",und:"N° programas",lb:null,m26:"+10% anual",m28:"+30% vs LB",resp:"Vicerrectoría Posgrado / Enseñanza",fuente:"Sistema UDES / OLE",pilares:"1. Personalización 6. Apropiación social",dimension:"Experiencia del Estudiante",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente"},
-  {id:"E14",f:"ENS",niv:"Productos",ind:"Innovaciones pedagógicas implementadas y documentadas",desc:"Número de innovaciones pedagógicas (estrategias didácticas, metodologías activas, uso de TIC en aula, proyectos interdisciplinares) formalmente documentadas, evaluadas y socializadas.",und:"N° innovaciones/año",lb:null,m26:"≥10/año",m28:"≥25/año",resp:"Vicerrectoría Enseñanza / Desarrollo Profesoral/Innovación educativa",fuente:"Repositorio institucional / Sistema de información desarrollo profesoral",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 9: Industria, innovación e infraestructura"},
+  {id:"E14",f:"ENS",niv:"Productos",ind:"Innovaciones pedagógicas implementadas y documentadas",desc:"Número de innovaciones pedagógicas (estrategias didácticas, metodologías activas, uso de TIC en aula, proyectos interdisciplinares) formalmente documentadas, evaluadas y socializadas.",und:"N° innovaciones/año",lb:null,m26:"≥10/año",m28:"≥25/año",resp:"Vicerrectoría Enseñanza / Desarrollo Profesoral/Innovación educativa",fuente:"Repositorio institucional / Sistema de información desarrollo profesoral",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 9: Industria, innovación e infraestructura",lbRef:0},
   {id:"E15",f:"ENS",niv:"Productos",ind:"Índice de inserción científica Global",desc:"N° de tesis de posgrado sustentadas que cuentan con co-director internacional ó publicación conjunta en Scopus-WoS / Total de tesis de posgrado aprobadas en el período) * 100",und:"N° de tesis posgrados",lb:null,m26:null,m28:null,resp:"Vicerrectoría Enseñanza / Vicerrectoría Investigación/Vicerrectoria de posgrados",fuente:"SIGIIP / Vicerrectoria de Posgrados",pilares:"2. Ambiente Tecnológico 6. Apropiación social",dimension:"Aprendizaje",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 17: Alianzas"},
   {id:"E16",f:"ENS",niv:"Impacto Real",ind:"Valor agregado académico",desc:"Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada.",und:"Puntos de diferencia / categoría MEN",lb:null,m26:"Categoría Media-Alta",m28:"Categoría Alta",resp:"Vicerrectoría Enseñanza / Planeación Institucional",fuente:"ICFES Saber Pro y Saber 11 / Modelo valor agregado MEN",pilares:"1. Personalización",dimension:"Permanencia",proyectos:"Proyecto 1",ods:"ODS 4: Educación de calidad"},
-  {id:"E17",f:"ENS",niv:"Impacto Real",ind:"Tasa de empleabilidad de graduados",desc:"Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.",und:"% empleabilidad pertinente",lb:null,m26:"≥ 60%",m28:"≥ 70%",resp:"Vicerrectoría de Extensión / Vicerrectoría de Enseñanza.",fuente:"Seguimiento a graduados UDES / OLE",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Permanencia",proyectos:"Proyecto 7",ods:"ODS 4 – Educación de calidad ODS 8 – Trabajo decente y crecimiento económico"},
-  {id:"E18",f:"ENS",niv:"Impacto Real",ind:"Percepción de empleadores sobre graduados",desc:"Calificación promedio dada por empleadores a las competencias de los graduados UDES.",und:"Puntaje 1–5",lb:null,m26:"≥ 4.0",m28:"≥ 4.3",resp:"Vicerrectoría Enseñanza / Graduados /Autorregulación",fuente:"Encuesta sistemática a empleadores seguimiento graduados o encuentas con fines de acreditación",pilares:"1. Personalización 6. Apropiación social",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente"},
-  {id:"E19",f:"ENS",niv:"Impacto Real",ind:"Graduados en cargos de liderazgo",desc:"Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.",und:"% graduados",lb:null,m26:"+5 pp vs LB",m28:"+12 pp vs LB",resp:"Vicerrectoría Enseñanza / Graduados",fuente:"OLE / Encuesta egresados",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 8: Trabajo decente ODS 5: Igualdad de género"},
+  {id:"E17",f:"ENS",niv:"Impacto Real",ind:"Tasa de empleabilidad de graduados",desc:"Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación.",und:"% empleabilidad pertinente",lb:null,m26:"≥ 60%",m28:"≥ 70%",resp:"Vicerrectoría de Extensión / Vicerrectoría de Enseñanza.",fuente:"Seguimiento a graduados UDES / OLE",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Permanencia",proyectos:"Proyecto 7",ods:"ODS 4 – Educación de calidad ODS 8 – Trabajo decente y crecimiento económico",lbRef:0.75},
+  {id:"E18",f:"ENS",niv:"Impacto Real",ind:"Percepción de empleadores sobre graduados",desc:"Calificación promedio dada por empleadores a las competencias de los graduados UDES.",und:"Puntaje 1–5",lb:null,m26:"≥ 4.0",m28:"≥ 4.3",resp:"Vicerrectoría Enseñanza / Graduados /Autorregulación",fuente:"Encuesta sistemática a empleadores seguimiento graduados o encuentas con fines de acreditación",pilares:"1. Personalización 6. Apropiación social",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente",lbRef:4},
+  {id:"E19",f:"ENS",niv:"Impacto Real",ind:"Graduados en cargos de liderazgo",desc:"Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones.",und:"% graduados",lb:null,m26:"+5 pp vs LB",m28:"+12 pp vs LB",resp:"Vicerrectoría Enseñanza / Graduados",fuente:"OLE / Encuesta egresados",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 8: Trabajo decente ODS 5: Igualdad de género",lbRef:0.07},
   {id:"E20",f:"ENS",niv:"Impacto Real",ind:"Impacto de la internacionalización",desc:"Evidencias del impacto de la internacionalización en las trayectorias de los graduados",und:"N° evidencias de impacto/año",lb:null,m26:"≥15 evidencias",m28:"≥40 evidencias",resp:"Vicerrectoría Enseñanza / Oficina de Relaciones Nacionales e Internacionales",fuente:"Repositorio institucional / Publicaciones / Informes de movilidad / Encuestas de impacto / Convenios",pilares:"1. Personalización 6. Apropiación social",dimension:"Experiencia del Estudiante/ Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 17: Alianzas para lograr los objetivos ODS 10: Reducción de las desigualdades"},
   {id:"E21",f:"ENS",niv:"Impacto Real",ind:"Reconocimientos a graduados UDES",desc:"Número de distinciones, premios o reconocimientos públicos recibidos por graduados.",und:"N° reconocimientos/año",lb:null,m26:"Registro sistemático",m28:"Banco de casos",resp:"Vicerrectoría Enseñanza / Comunicaciones",fuente:"Informes de gestión / Medios",pilares:"6. Apropiación social",dimension:"Permanencia",proyectos:"Proyecto 7",ods:"ODS 4: Educación de calidad"},
   {id:"E22",f:"ENS",niv:"Impacto Real",ind:"Tasa de vinculación efectiva en prácticas empresariales",desc:"Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador.",und:"% estudiantes en práctica",lb:null,m26:"≥ 80%",m28:"≥ 90%",resp:"Vicerrectoría de Extensión / Vicerrectoría de Enseñanza.",fuente:"Convenios activos empresa–universidad Evaluaciones de desempeño del practicante",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Permanencia",proyectos:"Proyecto 7",ods:"ODS 4 – Educación de calidad ODS 8 – Trabajo decente y crecimiento económico"},
+  {id:"E23",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar",desc:"Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar.",und:"Puntaje 1-5",lb:null,m26:"≥ 4,0",m28:"≥ 4,0",resp:"Autorregulación Institucional/Bienestar Institucional",fuente:"Encuesta institucional de percepción / Informes de autoevaluación institucional",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional",compartido:"IDENTIDAD_COHERENCIA",lbRef:4.0},
+  {id:"E24",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos.",desc:"(N° de sesiones realizadas con participación de representantes de estamentos / N° total de sesiones ejecutadas) × 100.",und:"Porcentaje",lb:null,m26:1,m28:1,resp:"Vicerrectoría de Enseñanza / Secretaría General",fuente:"Actas del máximo órgano de gobierno / Informes de seguimiento a la implementación de decisiones",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional",lbRef:1},
+  {id:"E25",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto",desc:"(N° de planes de mejoramiento derivados de la autoevaluación institucional con evidencia documentada / N° total de planes de mejoramiento formulados) × 100.",und:"Porcentaje",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectoría de Enseñanza / Dirección de Autorregulación",fuente:"Informes de autoevaluación institucional / Planes de mejoramiento y reportes de seguimiento",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"E26",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto",desc:"Número de programas o proyectos académicos de carácter inter o transdisciplinar implementados en el periodo, con evidencia de la necesidad del contexto que atienden y de los resultados obtenidos.",und:"N° programas o proyectos/año",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectoría de Enseñanza / UPARC / Planeación Institucional",fuente:"Actos de creación y aprobación de programas y proyectos / Informes de gestión académica / Estudios de contexto",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"E27",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Incidencia de la estabilidad y renovación de la planta profesoral en los resultados institucionales de docencia, investigación y extensión",desc:"Relación entre los indicadores de estabilidad y renovación de la planta profesoral (permanencia, tipo de vinculación, relevo generacional) y los resultados institucionales de docencia, investigación y extensión en el periodo.",und:"Índice / Análisis de correlación",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectoría de Enseñanza / Gestión Humana",fuente:"Sistema de información de talento humano / Informes de gestión de las tres funciones sustantivas",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"E28",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Efecto de los mecanismos de permanencia estudiantil en las tasas de permanencia y graduación",desc:"No. de estudiantes que permanecieron y se graduaron luego de aplicárseles mecanismos de permanencia (Programas de acompañamiento institucional, transferencias, homologaciones) / No. de estudiantes a los que se les aplicaron mecanismos de permanencia (Programas de acompañamiento institucional, transferencias, homologaciones) * 100",und:"Porcentaje",lb:null,m26:"Por definir",m28:1,resp:"Vicerrectoría de Enseñanza / Registro y Control Académico",fuente:"Sistema de información académica / SPADIES / Informes de permanencia y graduación",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"E29",f:"ENS",niv:"Impacto Real (Sugerido)",ind:"Efecto de becas o estímulos en la permanencia y graduación de estudiantes, desagregado por tipo de beca.",desc:"No. de estudiantes que reciben becas o estimulos y permanecieron y se graduaron / No. de estudiantes que recibieron becas o estímulos * 100",und:"Porcentaje",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectoría de Enseñanza / Bienestar Institucional / Crédito y Cartera",fuente:"Registros de becas y estímulos / Sistema de información académica / Caracterización estudiantil",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
   // EXT
   {id:"X01",f:"EXT",niv:"Insumos",ind:"Convenios activos con sector externo",desc:"Número de convenios vigentes con entidades públicas, empresas, comunidades y ONG para desarrollo regional",und:"N° convenios",lb:null,m26:"≥ 20% activos/año",m28:"+50% vs LB",resp:"Vicerrectoría Extensión",fuente:"Sistema de convenios UDES / Jurídica",pilares:"3. Entorno emprendedor 6. Apropiación social",dimension:"Institucional Formativo",proyectos:"Proyecto 8",ods:"ODS 17: Alianzas ODS 8: Trabajo decente"},
   {id:"X02",f:"EXT",niv:"Insumos",ind:"Presupuesto destinado a extensión",desc:"Porcentaje del presupuesto institucional asignado a proyectos de extensión y proyección social",und:"% presupuesto",lb:null,m26:"+5% anual",m28:"Aumentar 20%",resp:"Vicerrectoría Extensión / Planeación",fuente:"Presupuesto institucional",pilares:"4. Gobernanza",dimension:"Mesosocial Intersectorial",proyectos:"Proyecto 4",ods:"ODS 17: Alianzas"},
@@ -633,6 +718,11 @@ const IND = [
   {id:"X35",f:"EXT",niv:"Impacto Real",ind:"Índice de sinergia territorial e innovación abierta",desc:"(Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) * 100",und:"Porcentaje",lb:null,m26:null,m28:null,resp:"Vicerrectoría Extensión / Planeación",fuente:"Sistema de convenios UDES / Informes de proyectos",pilares:"5. Sostenibilidad 6. Apropiación social",dimension:"Macrosocial Contextual",proyectos:"Proyecto 5 Proyecto 6",ods:"ODS 11: Ciudades sostenibles ODS 17: Alianzas"},
   {id:"X36",f:"EXT",niv:"Impacto Real",ind:"Tasa de sostenibilidad y apropiación comunitaria",desc:"(Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) * 100",und:"Porcentaje",lb:null,m26:null,m28:null,resp:"Vicerrectoría Extensión",fuente:"Informes de proyectos / Seguimiento post-intervención",pilares:"6. Apropiación social 5. Sostenibilidad",dimension:"Microsocial Territorial",proyectos:"Proyecto 6 Proyecto 7",ods:"ODS 1: Fin de la pobreza ODS 11: Ciudades sostenibles"},
   {id:"X37",f:"EXT",niv:"Impacto Real",ind:"Índice de retorno de pertinencia posgradual y movilidad profesional",desc:"Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) * 100.",und:"Porcentaje",lb:null,m26:null,m28:null,resp:"Vicerrectoría Extensión / Vicerrectoría Enseñanza",fuente:"Encuesta a graduados UDES / Sistema institucional de seguimiento a graduados",pilares:"1. Personalización 3. Entorno emprendedor",dimension:"Institucional Formativo",proyectos:"Proyecto 1 Proyecto 7",ods:"ODS 4: Educación de calidad ODS 8: Trabajo decente"},
+  {id:"X38",f:"EXT",niv:"Impacto Real (Sugerido)",ind:"Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar",desc:"Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar.",und:"Puntaje 1-5",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectorías de Enseñanza, Extensión e Investigaciones / Bienestar Institucional",fuente:"Encuesta institucional de percepción / Informes de autoevaluación institucional",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional",compartido:"IDENTIDAD_COHERENCIA"},
+  {id:"X39",f:"EXT",niv:"Impacto Real (Sugerido)",ind:"Proyectos de extensión con componente de patrimonio cultural/artístico y su impacto documentado",desc:"Número y proporción de proyectos de extensión con componente de patrimonio cultural o artístico que cuentan con evidencia documentada de su impacto social, cultural y artístico en el territorio.",und:"N° proyectos / proporción",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectoría de Extensión y Bienestar Institucional",fuente:"Banco de proyectos de extensión / Informes de impacto / Registros de actividades culturales y artísticas",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"X40",f:"EXT",niv:"Impacto Real (Sugerido)",ind:"Índice de impacto de los programas de bienestar institucional en la calidad de vida de estudiantes, profesores y personal administrativo",desc:"Índice compuesto construido a partir de la medición de calidad de vida percibida y de la participación en políticas, programas y actividades de bienestar, aplicado a estudiantes, profesores y personal administrativo.",und:"Índice / Puntaje 1-5",lb:null,m26:"Por definir",m28:"Por definir",resp:"Bienestar Institucional",fuente:"Encuesta de calidad de vida y clima institucional / Registros de participación en programas de bienestar",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"X41",f:"EXT",niv:"Impacto Real (Sugerido)",ind:"Efecto de los programas de acompañamiento psicosocial y académico en la permanencia y graduación oportuna",desc:"Diferencia en las tasas de permanencia y graduación oportuna entre estudiantes que participaron en los programas de acompañamiento académico, psicosocial y económico y quienes no participaron.",und:"Puntos porcentuales de diferencia",lb:null,m26:"Por definir",m28:"Por definir",resp:"Bienestar Institucional / Vicerrectoría de Enseñanza/Desarrollo Estudiantil",fuente:"Registros de los programas de acompañamiento / Sistema de información académica / SPADIES",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
+  {id:"X42",f:"EXT",niv:"Impacto Real (Sugerido)",ind:"Participación de egresados en programas de educación continua o posgrado UDES derivada de las estrategias de vinculación con egresados",desc:"(N° de egresados que se matriculan en programas de educación continua o posgrado UDES a partir de las estrategias de vinculación / N° total de egresados alcanzados por dichas estrategias) × 100.",und:"Porcentaje / N° egresados/año",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectoría de Extensión / Oficina de Graduados",fuente:"Sistema de información de egresados / Registros de matrícula de educación continua y posgrado",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional"},
 ];
 
 const CONSOLIDADO = [
@@ -655,8 +745,8 @@ const CONSOLIDADO = [
 
 
 // ─── Config ────────────────────────────────────────────────
-const ORDEN_NIV = ['Insumos','Procesos','Productos','Impacto Real'];
-const CSS_NIV   = {Insumos:'nv-i',Procesos:'nv-p',Productos:'nv-pr','Impacto Real':'nv-ir'};
+const ORDEN_NIV = ['Insumos','Procesos','Productos','Impacto Real','Impacto Real (Sugerido)'];
+const CSS_NIV   = {Insumos:'nv-i',Procesos:'nv-p',Productos:'nv-pr','Impacto Real':'nv-ir','Impacto Real (Sugerido)':'nv-ir'};
 const FUN_LBL   = {INV:'Investigación',ENS:'Enseñanza',EXT:'Extensión'};
 const FUN_CSS   = {INV:'fn-inv',ENS:'fn-ens',EXT:'fn-ext'};
 const ESTADOS   = {'':['Sin dato',''],sin_iniciar:['Sin iniciar','var(--ro)'],
@@ -680,7 +770,7 @@ const USERS = {
 };
 let sesion = null;
 
-// ─── Catálogo de programas — piloto Director de Programa (Bacteriología, 3 sedes) ──
+// ─── Catálogo de programas — piloto Director de Programa (Fisioterapia BGA, Terapia Ocupacional CUC, Bacteriología VLL) ──
 // Se hidrata desde la hoja "Programas" del mismo Spreadsheet (vía doGet). No reemplaza a
 // USERS: es un segundo mecanismo de login para roles que no son vicerrectoría/admin.
 let PROGRAMAS = {};      // "<codigo-en-minúsculas>" -> {codigo, programa, sedeCod, sede, nombre_programa, director, clave, funciones:[...]}
@@ -926,11 +1016,14 @@ function renderEd(lista, f){
       const obs  = store[ind.id+'_o']    ?? '';
       rows+=`<tr class="${est?'row-'+est:''}" id="row-${ind.id}">`;
       if(idx===0) rows+=`<td class="nv ${CSS_NIV[niv]}" rowspan="${inds.length}">${niv}</td>`;
+      const badgeNuevo = ind.origen ? `<span class="badge-nuevo" title="${esc(ind.origen)}">Sugerido · Brecha CESU</span>` : '';
       rows+=`<td class="td-ind"><span class="i-nom i-nom-tog" title="${esc(ind.desc)}" onclick="toggleDetalle('${ind.id}')">`+
-        `<span class="chev" id="chev-${ind.id}">▸</span> ${esc(ind.ind)}</span></td>`;
+        `<span class="chev" id="chev-${ind.id}">▸</span> ${esc(ind.ind)} ${badgeNuevo}</span></td>`;
       rows+=`<td class="td-und">${ind.und}</td>`;
+      const placeholderLB = lbVal !== '' ? '—' : (ind.lbRef!=null ? `Sugerido: ${ind.lbRef}` : '—');
+      const titleLB = ind.lbRef!=null ? `Línea Base 2023 (sugerida por matriz vr7: ${ind.lbRef}, sin confirmar)` : 'Línea Base 2023';
       rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(lbVal))}"
-        onchange="setVal('${ind.id}','lb',this.value)" placeholder="—" title="Línea Base 2023"></td>`;
+        onchange="setVal('${ind.id}','lb',this.value)" placeholder="${esc(placeholderLB)}" title="${esc(titleLB)}"></td>`;
       rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(va26)}"
         onchange="setVal('${ind.id}','va26',this.value)" title="Valor real 2026"></td>`;
       rows+=`<td class="td-meta">${fmtM(ind.m26)}</td>`;
@@ -1151,7 +1244,7 @@ function renderResumen(lista){
   const notaEl=document.getElementById('zona-nota');
   notaEl.style.display='';
   notaEl.innerHTML='Selección curada de indicadores estratégicos (hoja "4. CONSOLIDADO" de la matriz oficial UDES),'+
-    ' vista de solo lectura para tablero ejecutivo. El seguimiento detallado de los 95 indicadores completos'+
+    ' vista de solo lectura para tablero ejecutivo. El seguimiento detallado de los 108 indicadores completos'+
     ' está en la pestaña "Seguimiento".';
 
   document.getElementById('thead').innerHTML=`<tr>
@@ -1212,7 +1305,7 @@ function esc(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ─── Director de Programa (piloto Bacteriología) — CRUD de indicadores propios ──
+// ─── Director de Programa (piloto Fisioterapia/Terapia Ocupacional/Bacteriología) — CRUD de indicadores propios ──
 // IND_PROGRAMA es un array totalmente separado de IND: nunca se escribe dentro de IND.
 // Cada registro se vincula a un indicador institucional existente vía id_padre.
 function indicadoresPropios(){
@@ -1230,16 +1323,86 @@ function renderPrograma(){
   const selPadre = document.getElementById('prog-id-padre');
   selPadre.innerHTML = '<option value="">— Selecciona —</option>' +
     ['INV','ENS','EXT'].map(f=>
-      `<optgroup label="${FUN_LBL[f]}">` +
-      IND.filter(i=>i.f===f).map(i=>`<option value="${i.id}">${i.id} · ${esc(i.ind)}</option>`).join('') +
-      `</optgroup>`
+      ORDEN_NIV.map(niv=>{
+        const items = IND.filter(i=>i.f===f && i.niv===niv);
+        if(!items.length) return '';
+        return `<optgroup label="${FUN_LBL[f]} · ${niv}">` +
+          items.map(i=>`<option value="${i.id}">${i.id} · ${esc(i.ind)}</option>`).join('') +
+        `</optgroup>`;
+      }).join('')
     ).join('');
 
   document.getElementById('prog-estado').innerHTML =
     Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}">${l}</option>`).join('');
 
   renderTablaPrograma();
+  renderCadenaValor();
   cancelarEdicionPrograma();
+}
+
+// Toggle entre la vista "Lista" (formulario + tabla, ya existente) y "Cadena de Valor" (nueva).
+// Alterna solo visibilidad — ambas vistas leen del mismo IND_PROGRAMA/IND, sin estado propio.
+function cambiarVistaPrograma(vista){
+  document.getElementById('prog-cadena-valor').style.display = vista==='cadena' ? '' : 'none';
+  document.querySelector('#zona-prog .wrap').style.display = vista==='cadena' ? 'none' : '';
+  document.getElementById('btn-progViewLista').classList.toggle('active', vista==='lista');
+  document.getElementById('btn-progViewCadena').classList.toggle('active', vista==='cadena');
+}
+
+// Vista "Cadena de Valor": los 4 niveles institucionales como chips seleccionables. Un clic en un
+// indicador aún no adoptado crea un IND_PROGRAMA (mismo patrón que el formulario libre); un clic en
+// uno ya adoptado lo quita (borrado suave, reutiliza eliminarIndicadorPrograma). "Impacto Real" y
+// "Impacto Real (Sugerido)" comparten la misma etapa visual: ambos son, conceptualmente, el mismo
+// nivel del PDI — solo el segundo trae el badge "Sugerido · Brecha CESU" en el resto de la herramienta.
+function renderCadenaValor(){
+  const propios = indicadoresPropios();
+  const adoptadosIds = new Set(propios.map(p=>p.id_padre));
+  const NIVEL_TO_ELID = {
+    'Insumos':'cv-chips-insumos', 'Procesos':'cv-chips-procesos', 'Productos':'cv-chips-productos'
+  };
+  Object.entries(NIVEL_TO_ELID).forEach(([niv, elId])=>{
+    pintarChipsNivel(elId, IND.filter(i=>['INV','ENS','EXT'].includes(i.f) && i.niv===niv), adoptadosIds);
+  });
+  pintarChipsNivel('cv-chips-impacto',
+    IND.filter(i=>['INV','ENS','EXT'].includes(i.f) && i.niv.indexOf('Impacto Real')===0),
+    adoptadosIds);
+}
+
+function pintarChipsNivel(elId, items, adoptadosIds){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  el.innerHTML = items.map(i=>{
+    const adoptado = adoptadosIds.has(i.id);
+    const sug = i.origen ? ' cv-chip-sug' : '';
+    return `<button type="button" class="cv-chip${adoptado?' cv-chip-on':''}${sug}" `+
+      `onclick="toggleAdopcionIndicador('${i.id}')" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}">`+
+      `${adoptado?'✓ ':''}${i.id}${i.origen?' ★':''}</button>`;
+  }).join('');
+}
+
+function toggleAdopcionIndicador(idPadre){
+  const propios = indicadoresPropios();
+  const existente = propios.find(p=>p.id_padre===idPadre);
+  if(existente){
+    eliminarIndicadorPrograma(existente.id); // borrado suave, ya llama renderTablaPrograma()
+  }else{
+    const padre = IND.find(i=>i.id===idPadre);
+    if(!padre) return;
+    persistirIndicadorPrograma({
+      id: generarIdPrograma(),
+      id_padre: idPadre,
+      f: padre.f,
+      programa: sesion.programa,
+      sede: sesion.sede,
+      director: sesion.usuario,
+      nombre: padre.ind,
+      desc: padre.desc || '',
+      und: padre.und || '',
+      meta: '', valor_actual: '', evidencia: '',
+      estado: 'sin_iniciar'
+    });
+  }
+  renderCadenaValor();
 }
 
 function renderTablaPrograma(){
@@ -1340,15 +1503,21 @@ function guardarIndicadorPrograma(){
     evidencia: document.getElementById('prog-evidencia').value.trim(),
     estado: document.getElementById('prog-estado').value
   };
+  persistirIndicadorPrograma(registro);
+  cancelarEdicionPrograma();
+  msg.style.color = 'var(--vd)';
+  msg.textContent = 'Guardado ✓';
+  setTimeout(()=>{ if(msg.textContent==='Guardado ✓') msg.textContent=''; }, 2500);
+}
+
+// Cola de persistencia común, reutilizada por el formulario libre (guardarIndicadorPrograma)
+// y por la adopción con un clic desde la vista Cadena de Valor (toggleAdopcionIndicador).
+function persistirIndicadorPrograma(registro){
   const idx = IND_PROGRAMA.findIndex(p=>p.id===registro.id);
   if(idx>=0) IND_PROGRAMA[idx] = {...IND_PROGRAMA[idx], ...registro};
   else IND_PROGRAMA.push(registro);
   savePrograma();
   renderTablaPrograma();
-  cancelarEdicionPrograma();
-  msg.style.color = 'var(--vd)';
-  msg.textContent = 'Guardado ✓';
-  setTimeout(()=>{ if(msg.textContent==='Guardado ✓') msg.textContent=''; }, 2500);
 }
 
 function cambiarEstadoPrograma(id, val){
@@ -1480,7 +1649,7 @@ function descargarPDF(){
   const archivos={'':'Todas-VR',INV:'Investigacion',ENS:'Ensenanza',EXT:'Extension'};
   const funciones=f?[f]:['INV','ENS','EXT'];
   const FUN_COLOR={INV:'#1565C0',ENS:'#2E7D32',EXT:'#E65100'};
-  const NIV_COLOR={Insumos:'#5C6BC0',Procesos:'#E65100',Productos:'#2E7D32','Impacto Real':'#AD1457'};
+  const NIV_COLOR={Insumos:'#5C6BC0',Procesos:'#E65100',Productos:'#2E7D32','Impacto Real':'#AD1457','Impacto Real (Sugerido)':'#AD1457'};
   const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada'};
   const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0'};
 
@@ -1593,10 +1762,15 @@ function renderMapa(){
   const temaById = {}; TEMAS.forEach(t=> temaById[t.id]=t);
   const nodeById = {}; DATA.nodos.forEach(n=> nodeById[n.id]=n);
 
+  // Nodo(s) central(es) (hub): reciben conexión de los 33 indicadores oficiales de Impacto Real,
+  // se excluyen del agrupamiento automático por tema y del grid por función (layout aparte, ver abajo).
+  const nodosNormales = DATA.nodos.filter(n=>!n.central);
+  const nodosHub = DATA.nodos.filter(n=>n.central);
+
   // ---------- 1. Aristas: pares que comparten tema ----------
   const byTema = {};
   TEMAS.forEach(t=> byTema[t.id] = []);
-  DATA.nodos.forEach(n=> byTema[n.tema].push(n));
+  nodosNormales.forEach(n=> byTema[n.tema].push(n));
 
   const edgesAll = [];
   TEMAS.forEach(t=>{
@@ -1607,6 +1781,13 @@ function renderMapa(){
         edgesAll.push({a:a.id, b:b.id, tema:t.id, cross:a.f!==b.f});
       }
     }
+  });
+  // Aristas explícitas del hub: conecta cada nodo central con los 33 indicadores oficiales de
+  // Impacto Real (siempre cross:true, ya que f difiere), con tema:'T0' para reusar el filtro de leyenda.
+  nodosHub.forEach(h=>{
+    nodosNormales.forEach(n=>{
+      edgesAll.push({a:n.id, b:h.id, tema:'T0', cross:true, hub:true});
+    });
   });
   const edgesCross = edgesAll.filter(e=> e.cross);
 
@@ -1637,7 +1818,7 @@ function renderMapa(){
   });
 
   const byFun = {INV:[], ENS:[], EXT:[]};
-  DATA.nodos.forEach(n=> byFun[n.f].push(n));
+  nodosNormales.forEach(n=> byFun[n.f].push(n));
   FUNS.forEach(f=> byFun[f].sort((a,b)=> a.id.localeCompare(b.id)));
 
   FUNS.forEach(f=>{
@@ -1653,7 +1834,11 @@ function renderMapa(){
     });
   });
 
+  // El/los nodo(s) central(es) se posicionan en el centroide exacto del triángulo.
+  nodosHub.forEach(h=>{ h.x = centroid.x; h.y = centroid.y; });
+
   function labelDir(n){
+    if (n.central) return {x:0, y:-1}; // etiqueta del hub siempre arriba
     const a = anchor[n.f];
     let dx = n.x - a.x, dy = n.y - a.y;
     if (Math.abs(dx) < 0.01 && Math.abs(dy) < 0.01){ dx = unit[n.f].x; dy = unit[n.f].y; }
@@ -1686,7 +1871,8 @@ function renderMapa(){
   document.getElementById('statCross').textContent = edgesCross.length;
   document.getElementById('statLinks').textContent = edgesAll.length;
   document.getElementById('footerText').textContent =
-    DATA.nodos.length + ' indicadores de Impacto Real (10 Investigación · 7 Enseñanza · 16 Extensión) · ' +
+    DATA.nodos.length + ' nodos (33 indicadores oficiales de Impacto Real: 10 Investigación · 7 Enseñanza · 16 Extensión' +
+    (nodosHub.length ? ' + ' + nodosHub.length + ' nodo central de coherencia institucional' : '') + ') · ' +
     TEMAS.length + ' temas transversales · ' +
     edgesAll.length + ' conexiones totales / ' + edgesCross.length + ' entre funciones distintas · ' +
     (DATA.nodos.length - nodesWithEdges.size) + ' sin conexión transversal';
@@ -1757,7 +1943,7 @@ function renderMapa(){
   let linkEls = {};
   function addLink(edge){
     const key = edge.a+'__'+edge.b;
-    const p = el('path', {d: curveFor(edge), class:'link'});
+    const p = el('path', {d: curveFor(edge), class:'link' + (edge.hub ? ' link-hub' : '')});
     p.dataset.tema = edge.tema;
     linksLayer.appendChild(p);
     linkEls[key] = p;
@@ -1783,16 +1969,17 @@ function renderMapa(){
   function addNode(node){
     const fc = FUN_COLOR[node.f];
     const isOutlier = !nodesWithEdges.has(node.id);
+    const r = node.central ? RADIUS*1.8 : RADIUS;
     const g = el('g', {class:'node-g', style:'cursor:pointer;'});
     const c = el('circle', {
-      cx:node.x, cy:node.y, r:RADIUS, class:'node-circle' + (isOutlier ? ' outlier' : ''),
+      cx:node.x, cy:node.y, r:r, class:'node-circle' + (isOutlier ? ' outlier' : '') + (node.central ? ' node-hub' : ''),
       fill: fc.fill, stroke: fc.stroke
     });
     g.appendChild(c);
 
     const d = labelDir(node);
-    const lx = node.x + d.x*(RADIUS+8);
-    const ly = node.y + d.y*(RADIUS+8);
+    const lx = node.x + d.x*(r+8);
+    const ly = node.y + d.y*(r+8);
     const anchorAttr = d.x > 0.15 ? 'start' : (d.x < -0.15 ? 'end' : 'middle');
     const w = estWidth(node.id, 6.6);
     const bgX = anchorAttr === 'end' ? lx - w - 4 : (anchorAttr === 'middle' ? lx - w/2 - 4 : lx - 4);
