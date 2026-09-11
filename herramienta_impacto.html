@@ -163,10 +163,12 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .row-en_proceso  td{background:var(--aml)!important}
 .row-cumplida    td{background:var(--vdl)!important}
 .row-superada    td{background:var(--azl3)!important}
-/* Resaltado temporal de indicador recién creado en "Mi Programa" (reutiliza el dorado
-   institucional --do, ya usado en el header y en cv-card-activa, en vez de un color nuevo) */
-.row-nueva td{background:color-mix(in srgb, var(--do) 22%, #fff)!important;transition:background 2.5s ease}
-.row-nueva td:first-child{box-shadow:inset 3px 0 0 var(--do)}
+/* Resaltado temporal de indicador recién creado en "Mi Programa" — amarillo franco (no el
+   dorado sutil --do, que se perdía contra el fondo rojizo de estado "sin_iniciar"; #FFEB3B es
+   un amarillo estándar de "recién agregado", con buen contraste). Sin color-mix() para no
+   depender de soporte de navegador. */
+.row-nueva td{background:#FFF59D!important;transition:background 2.5s ease}
+.row-nueva td:first-child{box-shadow:inset 3px 0 0 #F9A825}
 
 /* Semáforo circular (Seguimiento) */
 .sem{width:13px;height:13px;border-radius:50%;display:inline-block;vertical-align:middle;flex-shrink:0}
@@ -615,7 +617,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <label class="prog-full">Descripción / cómo se calcula
         <textarea id="prog-desc" rows="2"></textarea>
       </label>
-      <p class="nota" style="margin-top:10px">La línea base, las metas 2026/2028, los valores reales y la evidencia se registran después, directamente en la tabla — igual que en Seguimiento.</p>
+      <p class="nota" style="margin-top:10px">La línea base, las metas 2026/2028, los valores reales y la evidencia se registran después, directamente en la tabla — igual que en Seguimiento. Al guardar, tu nuevo indicador aparecerá resaltado en <b style="color:#8a6d00">amarillo</b> unos segundos en la tabla para que lo encuentres fácil.</p>
       <div class="prog-form-actions">
         <button class="btn-pdf" onclick="guardarIndicadorPrograma()">Guardar indicador</button>
         <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cerrarModalPrograma()">Cancelar edición</button>
@@ -1884,15 +1886,15 @@ function persistirIndicadorPrograma(registro){
 }
 
 // Resalta brevemente la fila recién creada en la tabla de "Mi Programa" para que sea fácil de
-// encontrar entre las demás filas repintadas. Se apaga sola a los 6s si el usuario no interactúa,
-// o al primer clic sobre la fila.
+// encontrar entre las demás filas repintadas. Bug corregido (2026-09-11): antes se quitaba con
+// el primer clic dentro de la fila — pero lo primero que hace la usuaria tras crear un indicador
+// es justamente hacer clic en un input para escribir línea base/meta, así que el resaltado
+// desaparecía antes de que lo notara. Ahora solo se apaga sola, con temporizador.
 function resaltarFilaNueva(id){
   const fila = document.getElementById('rowprog-'+id);
   if(!fila) return;
   fila.classList.add('row-nueva');
-  const quitar = ()=>{ fila.classList.remove('row-nueva'); };
-  fila.addEventListener('click', quitar, {once:true});
-  setTimeout(quitar, 6000);
+  setTimeout(()=>{ fila.classList.remove('row-nueva'); }, 10000);
 }
 
 function eliminarIndicadorPrograma(id){
