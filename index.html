@@ -145,7 +145,6 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .inp-obs{width:170px;border:1px solid var(--borde);border-radius:5px;padding:5px 7px;
   font-size:12px;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
 .inp-obs:focus{border-color:var(--az)}
-.val-ro{display:inline-block;padding:5px 2px;font-size:12.5px;color:var(--txt2);font-style:italic}
 
 /* % Avance */
 .pct{display:inline-block;border-radius:12px;padding:2px 9px;font-size:12px;font-weight:600;min-width:50px;text-align:center}
@@ -699,7 +698,7 @@ const IND = [
   {id:"I36",f:"INV",niv:"Impacto Real",ind:"Índice de liderazgo y transferencia de la comunidad científica",desc:"(N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) * 100",und:"Porcentaje",lb:null,m26:null,m28:"VI",resp:"VI",fuente:"VI",pilares:"3. Entorno emprendedor 4. Gobernanza para el buen gobierno",dimension:"Posicionamiento Institucional",proyectos:"Pr3: Gobierno Institucional y transparencia Pr4: Universidad creativa y emprendedora Pr6: Impacto social integrando la enseñanza, investigación y extensión",ods:"ODS 9: Industria, innovación e infraestructura ODS 17: Alianzas para lograr los objetivos"},
   {id:"I37",f:"INV",niv:"Impacto Real (Sugerido)",ind:"Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar",desc:"Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar.",und:"Puntaje 1-5",lb:null,m26:"Por definir",m28:"Por definir",resp:"Vicerrectorías de Enseñanza, Extensión e Investigaciones/Dirección de Autorregulación",fuente:"Encuesta institucional de percepción / Informes de autoevaluación institucional",pilares:"Por definir",dimension:"Por definir",proyectos:"Por definir",ods:"Por definir",origen:"Brecha Acuerdo 01/2025 – Diagnóstico de Impacto Institucional",compartido:"IDENTIDAD_COHERENCIA"},
   // ENS
-  {id:"E01",f:"ENS",niv:"Insumos",ind:"Profesores con título de Maestría y Doctorado",desc:"Porcentaje del cuerpo docente con título de especialización, maestría o doctorado.",und:"% docentes",lb:null,m26:"80%",m28:"90%",resp:"Vicerrectoría Enseñanza / RRHH",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad",lbRef:0.69},
+  {id:"E01",f:"ENS",niv:"Insumos",ind:"Profesores con título de Maestría y Doctorado",desc:"Porcentaje del cuerpo docente con título de especialización, maestría o doctorado.",und:"% docentes",lb:null,m26:"72%",m28:"75%",resp:"Vicerrectoría Enseñanza / RRHH",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 4",ods:"ODS 4: Educación de calidad",lbRef:0.69},
   {id:"E02",f:"ENS",niv:"Insumos",ind:"Perfil Profesor de Posgrados",desc:"(N° Profesores con Ph.D. o Subespecialidad / Total Profesores Posgrado) × 100",und:"% docentes",lb:null,m26:"≥+2% vs LB",m28:"≥+3% vs LB",resp:"Vicerrectoría Enseñanza / RRHH / Vicerrectoria de Posgrados",fuente:"Sistema de información UDES",pilares:"1. Personalización 4. Gobernanza",dimension:"Práctica Profesoral",proyectos:"Proyecto 1 Proyecto 5",ods:"ODS 4: Educación de calidad",lbRef:0.16},
   {id:"E03",f:"ENS",niv:"Procesos",ind:"Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE)",desc:"Número de estudiantes que participan en programas de tutoría académica, asesorías psicopedagógicas, nivelación y apoyo integral por período académico.",und:"N° estudiantes/semestre",lb:null,m26:"+20% vs LB",m28:"+50% vs LB",resp:"Vicerrectoría Enseñanza / Bienestar Institucional",fuente:"Informes de desarrollo estudiantil / Informes Bienestar",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades"},
   {id:"E04",f:"ENS",niv:"Procesos",ind:"Tasa de retención estudiantil",desc:"Porcentaje de estudiantes que permanecen en el programa de un semestre a otro.",und:"% retención",lb:null,m26:"+1 pp vs LB",m28:"+2 pp vs LB",resp:"Vicerrectoría Enseñanza / Bienestar",fuente:"Sistema SPADIES / Sistema de información UDES",pilares:"1. Personalización 2. Ambiente Tecnológico",dimension:"Permanencia",proyectos:"Proyecto 1 Proyecto 3",ods:"ODS 4: Educación de calidad ODS 10: Reducción de las desigualdades",lbRef:0.94},
@@ -816,6 +815,29 @@ let store = {};
 let tabActual = 'inv';
 let mapaRenderizado = false;
 let tabInicial = 'inv';
+
+// Líneas base 2023 reales de Enseñanza, tomadas de UDES_Matriz_Impacto_Institucional_vr7.xlsx
+// (hoja "2. ENSEÑANZA"), verificadas 2026-09-11 contra los 26 indicadores ENS vigentes por
+// coincidencia exacta de texto (ratio 1.0). Solo las 13 filas con un valor real y un match
+// confiable — el resto de ENS sigue "Por definir" en la fuente. Se aplican como valores por
+// defecto en iniciarApp() (ver seedLineaBaseENS()), nunca sobrescriben un valor que el
+// vicerrector ya haya guardado (en localStorage o en Sheets). No confundir con `ind.lbRef`
+// (el campo de sugerencia sin confirmar que ya usaba renderEd() como placeholder) — aquí, a
+// pedido explícito de la usuaria, se cargan como el dato real de la herramienta, igual que ya
+// ocurre con las metas m26/m28 (que no requieren confirmación adicional del VR para mostrarse).
+// Pendiente: E07 queda fuera — vr7 trae 2 filas de Procesos ("Evaluación profesoral" LB=4.7 y
+// "Promedio de horas de formación profesoral" LB="≥13 horas") que no calzan de forma confiable
+// con el único indicador E07 del HTML ("Autoevaluación y evaluación profesoral"); requiere que
+// la usuaria decida si se debe dividir en 2 indicadores o elegir uno de los dos valores.
+const LB_ENS_VR7 = {
+  E01:'69%', E02:'16%', E04:'94%', E05:'48%', E10:'36%', E11:'141', E12:'0.15',
+  E14:'0', E17:'75%', E18:'4.0', E19:'7%', E23:'4,0', E24:'1'
+};
+function seedLineaBaseENS(){
+  Object.entries(LB_ENS_VR7).forEach(([id,val])=>{
+    if(store[id+'_lb']===undefined || store[id+'_lb']==='') store[id+'_lb']=val;
+  });
+}
 
 // ─── Login ─────────────────────────────────────────────────
 const USERS = {
@@ -938,6 +960,7 @@ function iniciarApp(){
   tabInicial = sesion.rol === 'admin' ? 'seg' : sesion.rol === 'director_programa' ? 'prog' : sesion.vr.toLowerCase();
   const g = localStorage.getItem('imp_store');
   if(g) try{store=JSON.parse(g);}catch(e){}
+  seedLineaBaseENS();
   const gp = localStorage.getItem('imp_ind_programa');
   if(gp) try{IND_PROGRAMA=JSON.parse(gp);}catch(e){}
   migrarNivLegacy();
@@ -1699,36 +1722,35 @@ function renderTablaPrograma(){
         const pct26 = calcPct(p.va26, p.m26);
         const pct28 = calcPct(p.va28, p.m28);
         const padre = p.id_padre ? IND.find(i=>i.id===p.id_padre) : null;
-        // Decisión usuaria (2026-09-11): un indicador ADOPTADO desde Cadena de Valor (tiene
-        // id_padre) queda de solo lectura en esta tabla — se muestra como texto plano, no como
-        // input/select, para que no se confunda con un indicador propio libremente editable. Nota:
-        // toggleAdopcionIndicador() no copia lb/va26/m26/va28/m28 del padre al adoptar, así que
-        // estos campos se ven "—" salvo que en el futuro se decida poblarlos desde `store`.
+        // Decisión usuaria (2026-09-11, corregida el mismo día): un indicador ADOPTADO desde
+        // Cadena de Valor (tiene id_padre) solo pierde el botón "Editar" — el que permitía cambiar
+        // el nombre/unidad/descripción traídos de la bandeja de 95 indicadores institucionales.
+        // Los datos propios del programa (línea base, valores, metas, estado, evidencia) SIGUEN
+        // siendo editables aquí igual que en un indicador libre — cada programa registra los suyos.
         const soloLectura = !!p.id_padre;
-        const ro = (val, ph)=> `<span class="val-ro">${esc(val)||ph||'—'}</span>`;
         rows += `<tr class="${p.estado?'row-'+p.estado:''}${soloLectura?' row-adoptado':''}" id="rowprog-${p.id}">`;
         rows += `<td style="padding:6px 8px"><span class="sem ${semCls(p.estado)}"></span></td>`;
         rows += `<td><span class="nv ${CSS_NIV[niv]||'nv-gr'}" title="${niv==='Sin clasificar'?'Falta clasificar el nivel (edítalo con el botón Editar)':''}">${niv}</span></td>`;
         rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
-          `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔒 ':''}${esc(p.nombre)}</td>`;
+          `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔗 ':''}${esc(p.nombre)}</td>`;
         rows += `<td class="td-und">${esc(p.und)||'—'}</td>`;
-        rows += `<td style="background:#f0f5ff">${soloLectura?ro(p.lb):
-          `<input class="inp-v" type="text" value="${esc(p.lb||'')}" onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023">`}</td>`;
-        rows += `<td style="background:#f0f5ff">${soloLectura?ro(p.va26):
-          `<input class="inp-v" type="text" value="${esc(p.va26||'')}" onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026">`}</td>`;
-        rows += `<td>${soloLectura?ro(p.m26):
-          `<input class="inp-v" type="text" value="${esc(p.m26||'')}" onchange="setValPrograma('${p.id}','m26',this.value)" title="Meta 2026 (definida por el programa)">`}</td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
+          `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va26||'')}" `+
+          `onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026"></td>`;
+        rows += `<td><input class="inp-v" type="text" value="${esc(p.m26||'')}" `+
+          `onchange="setValPrograma('${p.id}','m26',this.value)" title="Meta 2026 (definida por el programa)"></td>`;
         rows += `<td style="text-align:center" id="pctprog26-${p.id}">${pctHtml(pct26)}</td>`;
-        rows += `<td style="background:#f0f5ff">${soloLectura?ro(p.va28):
-          `<input class="inp-v" type="text" value="${esc(p.va28||'')}" onchange="setValPrograma('${p.id}','va28',this.value)" title="Valor real 2028">`}</td>`;
-        rows += `<td>${soloLectura?ro(p.m28):
-          `<input class="inp-v" type="text" value="${esc(p.m28||'')}" onchange="setValPrograma('${p.id}','m28',this.value)" title="Meta 2028 (definida por el programa)">`}</td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va28||'')}" `+
+          `onchange="setValPrograma('${p.id}','va28',this.value)" title="Valor real 2028"></td>`;
+        rows += `<td><input class="inp-v" type="text" value="${esc(p.m28||'')}" `+
+          `onchange="setValPrograma('${p.id}','m28',this.value)" title="Meta 2028 (definida por el programa)"></td>`;
         rows += `<td style="text-align:center" id="pctprog28-${p.id}">${pctHtml(pct28)}</td>`;
-        rows += `<td>${soloLectura?ro(ESTADOS[p.estado]?ESTADOS[p.estado][0]:p.estado):
-          `<select class="sel-e" onchange="setEstPrograma('${p.id}',this.value)">${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}</select>`}</td>`;
-        rows += `<td>${soloLectura?ro(p.evidencia):
-          `<input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)">`}</td>`;
+        rows += `<td><select class="sel-e" onchange="setEstPrograma('${p.id}',this.value)">`+
+          `${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}</select></td>`;
+        rows += `<td><input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" `+
+          `placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)"></td>`;
         rows += `<td style="white-space:nowrap">${soloLectura
           ? `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')" title="Quitar de mis indicadores (también puedes hacerlo desde Cadena de Valor)">Quitar</button>`
           : `<button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button>`}</td>`;
