@@ -145,6 +145,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .inp-obs{width:170px;border:1px solid var(--borde);border-radius:5px;padding:5px 7px;
   font-size:12px;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
 .inp-obs:focus{border-color:var(--az)}
+.val-ro{display:inline-block;padding:5px 2px;font-size:12.5px;color:var(--txt2);font-style:italic}
 
 /* % Avance */
 .pct{display:inline-block;border-radius:12px;padding:2px 9px;font-size:12px;font-weight:600;min-width:50px;text-align:center}
@@ -163,6 +164,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .row-en_proceso  td{background:var(--aml)!important}
 .row-cumplida    td{background:var(--vdl)!important}
 .row-superada    td{background:var(--azl3)!important}
+/* Resaltado temporal de indicador recién creado en "Mi Programa" (reutiliza el dorado
+   institucional --do, ya usado en el header y en cv-card-activa, en vez de un color nuevo) */
+.row-nueva td{background:color-mix(in srgb, var(--do) 22%, #fff)!important;transition:background 2.5s ease}
+.row-nueva td:first-child{box-shadow:inset 3px 0 0 var(--do)}
 
 /* Semáforo circular (Seguimiento) */
 .sem{width:13px;height:13px;border-radius:50%;display:inline-block;vertical-align:middle;flex-shrink:0}
@@ -316,7 +321,13 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-prog .btn-edit:hover{border-color:var(--az)}
 
 /* Mi Programa: barra de acciones (antes formulario siempre visible) */
-#zona-prog .prog-toolbar{display:flex;gap:10px;margin-bottom:14px}
+#zona-prog .prog-toolbar{display:flex;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+/* Vista previa del título/subtítulo exacto que traerá el PDF, para verificarlo sin descargar */
+#zona-prog .pdf-preview-box{background:#fff;border:1px dashed var(--azl3);border-left:3px solid var(--az3);
+  border-radius:6px;padding:8px 12px;margin:0 0 14px}
+#zona-prog .pdf-preview-lbl{font-size:10.5px;color:var(--txt2);margin-bottom:3px}
+#zona-prog .pdf-preview-titulo{font-size:13px;font-weight:700;color:var(--az)}
+#zona-prog .pdf-preview-sub{font-size:10px;color:#546E7A;margin-top:2px}
 
 /* Modal "+ Nuevo indicador" */
 .modal-overlay{
@@ -375,6 +386,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-cadena .cv-chip-sug{border-left:3px solid #D4AF37}
 #zona-cadena .cv-chip-interp{border-style:dashed;border-color:#8E24AA}
 #zona-cadena .cv-chip-interp .cv-chip-nom{color:#8E24AA}
+#zona-cadena .cv-chip-ref{border-style:dotted;border-color:#00897B}
+#zona-cadena .cv-chip-ref .cv-chip-nom{color:#00897B}
+#zona-cadena .cv-brecha-real{color:var(--ro);background:var(--rol);border:1px dashed var(--ro);
+  border-radius:4px;padding:3px 6px;font-size:10.5px;display:inline-block}
 #zona-cadena .cv-cadena-hub{border:1px dashed var(--do);background:#FFFBEF}
 #zona-cadena .cv-hub-nota{font-size:11px;color:var(--txt2);margin:0 0 8px;line-height:1.4}
 @media(max-width:900px){
@@ -541,6 +556,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
     <div id="prog-info"></div>
 
     <div class="prog-toolbar"><button class="btn-pdf" onclick="abrirModalPrograma()">+ Nuevo indicador</button><button class="btn-pdf" id="btn-descargar-pdf-prog" onclick="descargarPDFPrograma()">&#11123; Descargar PDF</button></div>
+    <div id="prog-pdf-preview" class="pdf-preview-box"></div>
 
     <div class="tw">
       <table class="ti" id="tabla-prog">
@@ -613,8 +629,13 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 <div id="zona-cadena" style="display:none">
   <div class="wrap">
     <div class="cv-toolbar"><button type="button" class="btn" onclick="verTodasCadenas()">Ver todas</button></div>
-    <p class="nota">Cada tarjeta agrupa los indicadores institucionales que miden una misma <b>dimensión</b> del
-      PDI a lo largo de la cadena Insumos&rarr;Procesos&rarr;Productos&rarr;Impacto Real. Un guion (—) significa
+    <p class="nota"><b>¿Qué es una cadena de valor?</b> Es un modelo que organiza los indicadores institucionales en
+      eslabones sucesivos para verificar que cada resultado tenga un antecedente medible, sin dejar ningún eslabón
+      desconectado (Departamento Nacional de Planeación, <i>Guía para la construcción y estandarización de la
+      Cadena de Valor</i>, 2019; concepto de "eslabones" originado en Michael Porter, <i>Competitive Advantage</i>,
+      1985). Aquí se compone de 4 eslabones — Insumos&rarr;Procesos&rarr;Productos&rarr;Impacto Real.<br>
+      Cada tarjeta agrupa los indicadores institucionales que miden una misma <b>dimensión</b> del
+      PDI a lo largo de esa cadena. Un guion (—) significa
       que esa dimensión aún no tiene ningún indicador institucional medido en esa etapa (brecha real de la matriz,
       no un error). Haz clic en un indicador para adoptarlo como propio (o para quitarlo, si ya lo adoptaste).</p>
     <div id="cv-cadenas"></div>
@@ -1398,18 +1419,26 @@ function renderMiPrograma(){
        <div class="card ct"><div class="n">${indicadoresPropios().length}</div><div class="l">Indicadores propios registrados</div></div>
      </div>
      <div class="nota" style="margin-bottom:14px">Programa: <b>${esc(sesion.nombre)}</b></div>`;
+  // Vista previa del título/subtítulo exacto que traerá el PDF (misma fuente de verdad que
+  // descargarPDFPrograma(), ver tituloPDFPrograma()) para poder verificarlo antes de descargar.
+  const {titulo, subtitulo} = tituloPDFPrograma();
+  document.getElementById('prog-pdf-preview').innerHTML =
+    `<div class="pdf-preview-lbl">Así se verá el título del PDF que vas a descargar:</div>`+
+    `<div class="pdf-preview-titulo">${esc(titulo)}</div>`+
+    `<div class="pdf-preview-sub">${subtitulo}</div>`;
   renderTablaPrograma();
   cancelarEdicionPrograma();
 }
 
 // Vista "Cadena de Valor" (pestaña propia): subconjuntos REALES de indicadores relacionados, no las 4 columnas
 // genéricas de antes. Cada "cadena" es un grupo de indicadores que comparten el mismo campo
-// `dimension` (único campo de la matriz con esa intención) dentro de UNA función — ej. en
-// Investigación, "Formación Investigativa" agrupa I01/I02/I05/I08 (Insumos), I13/I14 (Procesos),
-// I23 (Productos); no llega a Impacto Real, y esa columna se muestra vacía ("—") en vez de
-// omitirse, para que la brecha real de la matriz quede visible, no oculta (mismo criterio que las
-// brechas normativas ya documentadas en el Mapa de Red). "Impacto Real" e "Impacto Real (Sugerido)"
-// comparten la misma columna visual — el segundo trae el badge "★ Sugerido · Brecha CESU".
+// `dimension` (único campo de la matriz con esa intención) dentro de UNA función. Una columna sin
+// indicadores propios se muestra vacía ("—"), o con el badge "⚠ brecha real" si CADENA_BRECHA_REAL
+// la declara así, para que la brecha real de la matriz quede visible, no oculta (mismo criterio que
+// las brechas normativas ya documentadas en el Mapa de Red) — ver CADENA_REFERENCIA_CRUZADA para
+// las celdas que sí se cierran con un indicador de otra dimensión, a modo de antecedente honesto.
+// "Impacto Real" e "Impacto Real (Sugerido)" comparten la misma columna visual — el segundo trae
+// el badge "★ Sugerido · Brecha CESU".
 // Un clic en un indicador aún no adoptado crea un IND_PROGRAMA (mismo patrón que el formulario
 // libre); un clic en uno ya adoptado lo quita (borrado suave, reutiliza eliminarIndicadorPrograma).
 const CV_NIVELES = ['Insumos','Procesos','Productos','Impacto Real'];
@@ -1463,6 +1492,44 @@ const CADENA_INTERPRETATIVA = {
 // central del Mapa de Red, que lo conecta con los 33 indicadores oficiales de Impacto Real.
 const INDICADORES_HUB_CADENA = new Set(['I37','E23','X38']);
 
+// Referencia CRUZADA (distinta de CADENA_INTERPRETATIVA): el indicador NO se reasigna, se sigue
+// viendo en su dimensión real (la que define `dimension`, o su asociación interpretativa vigente
+// si la tiene) — aquí solo se declara que ADEMÁS se muestra como antecedente en la fase de otra
+// dimensión que hoy no tiene ningún indicador propio, para cerrar visualmente su cadena de valor
+// sin abrir un hueco nuevo en la dimensión de origen del indicador prestado.
+// Metodología: DNP Colombia, "Guía para la construcción y estandarización de la Cadena de Valor"
+// (2019) — el objetivo de modelar Insumos→Procesos→Productos→Impactos es precisamente identificar
+// y cerrar estos "cuellos de botella"; el concepto de eslabones es de M. Porter ("Competitive
+// Advantage", 1985), pero la adaptación a política pública es la pertinente aquí.
+// Auditoría real sobre el array IND vigente (2026-09-11): 8 tarjetas de dimensión con huecos, 10
+// celdas vacías, todas cerradas aquí con referencia cruzada honesta (ver CADENA_BRECHA_REAL, hoy
+// vacío, para el mecanismo de brecha declarada si en el futuro aparece un hueco sin candidato).
+const CADENA_REFERENCIA_CRUZADA = {
+  I07:[{dimension:'Nuevo Conocimiento', niv:'Insumos', nota:'El presupuesto institucional para Actividades de Ciencia, Tecnología e Innovación es el recurso financiero que habilita directamente la formulación y presentación de proyectos a convocatorias (I10-I12).'}],
+  I09:[{dimension:'Apropiación Social del Conocimiento', niv:'Insumos', nota:'La propiedad intelectual protegida (patentes, registros de software, secretos industriales) es el activo previo necesario para transferir productos vía licencias (I29) y para crear emprendimientos de base científica/tecnológica (I33).'}],
+  I21:[{dimension:'Capacidad Investigativa Institucional', niv:'Productos', nota:'Los productos de nuevo conocimiento (artículos, capítulos, libros) son la manifestación tangible de la capacidad instalada que esta dimensión mide en profesores (I03/I04), grupos (I06) y presupuesto (I07).'}],
+  I17:[{dimension:'Apropiación Social del Conocimiento', niv:'Procesos', nota:'Verificar el impacto en el sector externo antes de cerrar un proyecto es el paso previo lógico a los productos de apropiación social (I22, I24-I26): sin ese impacto verificado no hay insumo real para divulgarlo o socializarlo.'}],
+  E14:[{dimension:'Práctica Profesoral', niv:'Productos', nota:'El campo `dimension` original de E14 en la matriz oficial es precisamente "Práctica Profesoral"; se reclasificó interpretativamente a Experiencia del Estudiante, pero como producto sigue siendo evidencia directa de la práctica profesoral que esta dimensión mide en Insumos (E01/E02) y Procesos (E07).'}],
+  E10:[{dimension:'Permanencia', niv:'Productos', nota:'La graduación oportuna es el resultado, a nivel de producto, de los procesos de retención y reducción de deserción que esta dimensión mide (E03-E05).'}],
+  E01:[
+    {dimension:'Experiencia del Estudiante', niv:'Insumos', nota:'La cualificación docente (Maestría/Doctorado) es el insumo institucional que sostiene la calidad de la movilidad académica (E06) y los productos de esta dimensión (E10-E14).'},
+    {dimension:'Permanencia', niv:'Insumos', nota:'La cualificación docente sostiene la calidad del proceso formativo, reflejada primero en el valor agregado académico (E16) y, en cadena, en la trayectoria laboral de los graduados (E17-E22). Único indicador de Insumos disponible en Enseñanza además de E02 (específico de posgrado).'}
+  ],
+  X13:[{dimension:'Mesosocial Intersectorial', niv:'Productos', nota:'Los espacios de participación y transferencia social (ferias, ruedas de negocio, foros) son el resultado tangible de las alianzas intersectoriales que esta dimensión mide en Procesos (X08-X10).'}],
+  X01:[{dimension:'Microsocial Territorial', niv:'Insumos', nota:'Los convenios activos con el sector externo son el insumo que habilita los procesos de desarrollo y validación tecnológica territorial (X11-X12) y sus productos derivados (X16, X18-X21).'}],
+};
+
+// Brecha REAL declarada: fases sin ningún indicador oficial ni asociación interpretativa honesta
+// disponible en la matriz vigente — se documentan aquí en vez de forzar una referencia cruzada que
+// no correspondería por contenido real. Clave: "FUNCIÓN::Dimensión".
+// Ninguna brecha real declarada (actualizado 2026-09-11): las 2 que existían al cerrar la Cadena de
+// Valor por primera vez (INV/Apropiación Social del Conocimiento/Insumos, ENS/Permanencia/Insumos)
+// se cerraron con referencia cruzada (I09 y E01 respectivamente) a pedido de la usuaria. Se deja el
+// mecanismo vacío, no eliminado, por si en el futuro aparece un hueco genuinamente sin candidato
+// honesto disponible en la matriz.
+const CADENA_BRECHA_REAL = {
+};
+
 function renderCadenaValor(){
   const propios = indicadoresPropios();
   const adoptadosIds = new Set(propios.map(p=>p.id_padre));
@@ -1483,6 +1550,15 @@ function renderCadenaValor(){
       if(CV_NIVELES.indexOf(col)===-1) return; // por si algún niv no encaja en el modelo de 4 etapas
       (porDim[dim] ||= {});
       (porDim[dim][col] ||= []).push(interp ? {...i, _interpretativo:true, _notaInterp:interp.nota} : i);
+
+      // Referencia cruzada (ver comentario junto a CADENA_REFERENCIA_CRUZADA): el indicador queda
+      // arriba en su dimensión real (dim/col) Y ADEMÁS se pinta una copia "de solo referencia" en
+      // la fase de otra dimensión, sin abrir un hueco nuevo en la dimensión de origen.
+      const refs = CADENA_REFERENCIA_CRUZADA[i.id];
+      if(refs) refs.forEach(ref=>{
+        (porDim[ref.dimension] ||= {});
+        (porDim[ref.dimension][ref.niv] ||= []).push({...i, _refCruzada:true, _notaRef:ref.nota, _dimOrigen:dim});
+      });
     });
 
     out += `<div class="cv-fun-block"><h3 class="cv-fun-title">${FUN_LBL[f]}</h3>`;
@@ -1491,8 +1567,12 @@ function renderCadenaValor(){
       CV_NIVELES.forEach((niv, idx)=>{
         if(idx>0) out += `<div class="cv-conector-mini">&rarr;</div>`;
         const grupo = cols[niv] || [];
+        const brecha = CADENA_BRECHA_REAL[`${f}::${dim}`];
+        const esBrechaReal = !grupo.length && brecha && brecha.includes(niv);
         out += `<div class="cv-etapa-mini"><h5>${niv}</h5><div class="cv-chips">`+
-          (grupo.length ? grupo.map(i=>chipIndicador(i, adoptadosIds)).join('') : '<span class="cv-vacio">—</span>')+
+          (grupo.length ? grupo.map(i=>chipIndicador(i, adoptadosIds)).join('')
+            : esBrechaReal ? `<span class="cv-vacio cv-brecha-real" title="No existe hoy un indicador oficial ni una asociación interpretativa honesta para esta fase.">⚠ Sin indicador oficial en esta fase — brecha real de la matriz institucional</span>`
+            : '<span class="cv-vacio">—</span>')+
           `</div></div>`;
       });
       out += `</div></div>`;
@@ -1513,17 +1593,22 @@ function truncar(txt, n){
 }
 
 // El chip separa 2 acciones: clic en el nombre = SELECCIONAR (resalta su cadena completa, no
-// adopta nada); clic en el botón +/✓ = ADOPTAR/QUITAR de "Mi Programa". `data-id` en el <span>
-// contenedor es lo que usa seleccionarCadena() para ubicar la tarjeta que lo contiene.
+// adopta nada); clic en el botón +/✓ = ADOPTAR/QUITAR de "Mi Programa". seleccionarCadena() recibe
+// el botón clicado (`this`) para ubicar la tarjeta contenedora — necesario porque con referencia
+// cruzada (CADENA_REFERENCIA_CRUZADA) un mismo id puede repetirse en más de un chip/tarjeta, y
+// buscar solo por `data-id` (que sigue en el <span> contenedor, como fallback) resolvería siempre
+// a la primera coincidencia sin importar cuál se clicó.
 function chipIndicador(i, adoptadosIds){
   const adoptado = adoptadosIds.has(i.id);
   const sug = i.origen ? ' cv-chip-sug' : '';
   const interp = i._interpretativo ? ' cv-chip-interp' : '';
+  const refCruzada = i._refCruzada ? ' cv-chip-ref' : '';
   const nivCls = CSS_NIV[i.niv] || 'nv-ir';
   const tituloInterp = i._interpretativo ? ` — 🔗 Asociación interpretativa (modelo propio UDES): ${i._notaInterp||''}` : '';
-  return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}${interp}" data-id="${i.id}">`+
-    `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}')" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}${esc(tituloInterp)}">`+
-    `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}${i._interpretativo?' 🔗':''}</button>`+
+  const tituloRef = i._refCruzada ? ` — 🔁 Referencia cruzada: clasificado principalmente en "${i._dimOrigen||''}"; se referencia aquí porque ${i._notaRef||''}` : '';
+  return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}${interp}${refCruzada}" data-id="${i.id}">`+
+    `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}', this)" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}${esc(tituloInterp)}${esc(tituloRef)}">`+
+    `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}${i._interpretativo?' 🔗':''}${i._refCruzada?' 🔁':''}</button>`+
     `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
     `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`+
     `</span>`;
@@ -1532,14 +1617,26 @@ function chipIndicador(i, adoptadosIds){
 // Selección: resalta la tarjeta completa del indicador clicado (su cadena real: Insumos/Procesos/
 // Productos/Impacto Real de la misma dimensión) y atenúa las demás — mismo patrón visual que ya
 // usa el Mapa de Red al hacer clic en un nodo (highlight/fade).
-function seleccionarCadena(id){
-  const chipSel = document.querySelector(`#cv-cadenas .cv-chip[data-id="${id}"]`);
-  const cardSel = chipSel ? chipSel.closest('.cv-cadena-card') : null;
+// `btnEl` es el botón concreto clicado (pasado como `this` desde chipIndicador): con referencias
+// cruzadas (CADENA_REFERENCIA_CRUZADA) un mismo id puede repetirse en más de una tarjeta, así que
+// localizar por btnEl.closest(...) evita activar siempre la primera tarjeta que matchea el id, sin
+// importar cuál chip se clicó realmente. Se mantiene el fallback por data-id por compatibilidad.
+// Fix deselección: si la tarjeta clicada YA estaba activa, un segundo clic vuelve al estado neutro
+// (mismo efecto que "Ver todas") en vez de forzar siempre "activa" en la clicada.
+function seleccionarCadena(id, btnEl){
+  const cardSel = btnEl
+    ? btnEl.closest('.cv-cadena-card')
+    : (document.querySelector(`#cv-cadenas .cv-chip[data-id="${id}"]`) || {}).closest?.('.cv-cadena-card');
+  if(!cardSel) return;
+  if(cardSel.classList.contains('cv-card-activa')){
+    verTodasCadenas();
+    return;
+  }
   document.querySelectorAll('#cv-cadenas .cv-cadena-card').forEach(c=>{
     c.classList.toggle('cv-card-activa', c === cardSel);
     c.classList.toggle('cv-card-dim', c !== cardSel);
   });
-  if(cardSel) cardSel.scrollIntoView({behavior:'smooth', block:'center'});
+  cardSel.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
 function verTodasCadenas(){
@@ -1602,31 +1699,39 @@ function renderTablaPrograma(){
         const pct26 = calcPct(p.va26, p.m26);
         const pct28 = calcPct(p.va28, p.m28);
         const padre = p.id_padre ? IND.find(i=>i.id===p.id_padre) : null;
-        rows += `<tr class="${p.estado?'row-'+p.estado:''}" id="rowprog-${p.id}">`;
+        // Decisión usuaria (2026-09-11): un indicador ADOPTADO desde Cadena de Valor (tiene
+        // id_padre) queda de solo lectura en esta tabla — se muestra como texto plano, no como
+        // input/select, para que no se confunda con un indicador propio libremente editable. Nota:
+        // toggleAdopcionIndicador() no copia lb/va26/m26/va28/m28 del padre al adoptar, así que
+        // estos campos se ven "—" salvo que en el futuro se decida poblarlos desde `store`.
+        const soloLectura = !!p.id_padre;
+        const ro = (val, ph)=> `<span class="val-ro">${esc(val)||ph||'—'}</span>`;
+        rows += `<tr class="${p.estado?'row-'+p.estado:''}${soloLectura?' row-adoptado':''}" id="rowprog-${p.id}">`;
         rows += `<td style="padding:6px 8px"><span class="sem ${semCls(p.estado)}"></span></td>`;
         rows += `<td><span class="nv ${CSS_NIV[niv]||'nv-gr'}" title="${niv==='Sin clasificar'?'Falta clasificar el nivel (edítalo con el botón Editar)':''}">${niv}</span></td>`;
         rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
-          `<span class="chev" id="chev-${p.id}">▸</span> ${esc(p.nombre)}</td>`;
+          `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔒 ':''}${esc(p.nombre)}</td>`;
         rows += `<td class="td-und">${esc(p.und)||'—'}</td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
-          `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va26||'')}" `+
-          `onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026"></td>`;
-        rows += `<td><input class="inp-v" type="text" value="${esc(p.m26||'')}" `+
-          `onchange="setValPrograma('${p.id}','m26',this.value)" title="Meta 2026 (definida por el programa)"></td>`;
+        rows += `<td style="background:#f0f5ff">${soloLectura?ro(p.lb):
+          `<input class="inp-v" type="text" value="${esc(p.lb||'')}" onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023">`}</td>`;
+        rows += `<td style="background:#f0f5ff">${soloLectura?ro(p.va26):
+          `<input class="inp-v" type="text" value="${esc(p.va26||'')}" onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026">`}</td>`;
+        rows += `<td>${soloLectura?ro(p.m26):
+          `<input class="inp-v" type="text" value="${esc(p.m26||'')}" onchange="setValPrograma('${p.id}','m26',this.value)" title="Meta 2026 (definida por el programa)">`}</td>`;
         rows += `<td style="text-align:center" id="pctprog26-${p.id}">${pctHtml(pct26)}</td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va28||'')}" `+
-          `onchange="setValPrograma('${p.id}','va28',this.value)" title="Valor real 2028"></td>`;
-        rows += `<td><input class="inp-v" type="text" value="${esc(p.m28||'')}" `+
-          `onchange="setValPrograma('${p.id}','m28',this.value)" title="Meta 2028 (definida por el programa)"></td>`;
+        rows += `<td style="background:#f0f5ff">${soloLectura?ro(p.va28):
+          `<input class="inp-v" type="text" value="${esc(p.va28||'')}" onchange="setValPrograma('${p.id}','va28',this.value)" title="Valor real 2028">`}</td>`;
+        rows += `<td>${soloLectura?ro(p.m28):
+          `<input class="inp-v" type="text" value="${esc(p.m28||'')}" onchange="setValPrograma('${p.id}','m28',this.value)" title="Meta 2028 (definida por el programa)">`}</td>`;
         rows += `<td style="text-align:center" id="pctprog28-${p.id}">${pctHtml(pct28)}</td>`;
-        rows += `<td><select class="sel-e" onchange="setEstPrograma('${p.id}',this.value)">`+
-          `${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}</select></td>`;
-        rows += `<td><input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" `+
-          `placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)"></td>`;
-        rows += `<td style="white-space:nowrap"><button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button>`+
-          `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button></td>`;
+        rows += `<td>${soloLectura?ro(ESTADOS[p.estado]?ESTADOS[p.estado][0]:p.estado):
+          `<select class="sel-e" onchange="setEstPrograma('${p.id}',this.value)">${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}</select>`}</td>`;
+        rows += `<td>${soloLectura?ro(p.evidencia):
+          `<input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)">`}</td>`;
+        rows += `<td style="white-space:nowrap">${soloLectura
+          ? `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')" title="Quitar de mis indicadores (también puedes hacerlo desde Cadena de Valor)">Quitar</button>`
+          : `<button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button>`}</td>`;
         rows += `</tr>`;
         rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="15">`+
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span></div>`+
@@ -1740,6 +1845,10 @@ function guardarIndicadorPrograma(){
     estado: existente ? existente.estado : 'sin_iniciar'
   };
   persistirIndicadorPrograma(registro);
+  // Solo se resalta cuando es un indicador nuevo y libre (sin id_padre): ni al editar uno
+  // existente ni al adoptar desde Cadena de Valor (eso pasa por toggleAdopcionIndicador, que
+  // llama a persistirIndicadorPrograma directamente, no a esta función).
+  if(!editId && !registro.id_padre) resaltarFilaNueva(registro.id);
   cerrarModalPrograma();
   toast('Indicador guardado ✓');
 }
@@ -1752,6 +1861,18 @@ function persistirIndicadorPrograma(registro){
   else IND_PROGRAMA.push(registro);
   savePrograma();
   renderTablaPrograma();
+}
+
+// Resalta brevemente la fila recién creada en la tabla de "Mi Programa" para que sea fácil de
+// encontrar entre las demás filas repintadas. Se apaga sola a los 6s si el usuario no interactúa,
+// o al primer clic sobre la fila.
+function resaltarFilaNueva(id){
+  const fila = document.getElementById('rowprog-'+id);
+  if(!fila) return;
+  fila.classList.add('row-nueva');
+  const quitar = ()=>{ fila.classList.remove('row-nueva'); };
+  fila.addEventListener('click', quitar, {once:true});
+  setTimeout(quitar, 6000);
 }
 
 function eliminarIndicadorPrograma(id){
@@ -1981,12 +2102,25 @@ function descargarPDF(){
   });
 }
 
+// Fuente ÚNICA de verdad para el título/subtítulo del PDF de "Mi Programa": la usa tanto
+// descargarPDFPrograma() (el PDF real) como renderMiPrograma() (la vista previa en pantalla,
+// #prog-pdf-preview), para que la usuaria pueda cerciorarse ANTES de descargar de que dirá
+// exactamente esto.
+function tituloPDFPrograma(){
+  const fecha = new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+  return {
+    titulo: `Matriz de Indicadores de Seguimiento del Programa: ${sesion.nombre}`,
+    subtitulo: `Modelo de Impacto UDES &nbsp;·&nbsp; Planeación Institucional &nbsp;·&nbsp; Generado: ${fecha}`
+  };
+}
+
 // Boletín PDF de "Mi Programa" — mismo patrón que descargarPDF(), pero con IND_PROGRAMA/
 // indicadoresPropios() en vez de IND/store (formato libre: sin LB/2026/2028/% de avance).
 function descargarPDFPrograma(){
   const propios = indicadoresPropios();
   const logoSrc=(document.querySelector('.hdr-logo-img')||{}).src||'';
   const fecha=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+  const {titulo, subtitulo} = tituloPDFPrograma();
   const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada'};
   const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0'};
 
@@ -2002,8 +2136,8 @@ function descargarPDFPrograma(){
   let h=`<div style="font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#222;padding:10px 14px;max-width:780px">`;
   h+=`<div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid #C8A951;padding-bottom:7px;margin-bottom:10px">`+
     (logoSrc?`<img src="${logoSrc}" style="height:34px;width:auto">`:'')+
-    `<div><div style="font-size:13px;font-weight:700;color:#003087;line-height:1.2">Matriz de Seguimiento de Indicadores del Programa: ${esc(sesion.nombre)}</div>`+
-    `<div style="font-size:9.5px;color:#546E7A;margin-top:2px">Plan de Desarrollo Institucional UDES 2024-2028 &nbsp;·&nbsp; Generado: ${fecha}</div></div></div>`;
+    `<div><div style="font-size:13px;font-weight:700;color:#003087;line-height:1.2">${esc(titulo)}</div>`+
+    `<div style="font-size:9.5px;color:#546E7A;margin-top:2px">${subtitulo}</div></div></div>`;
 
   h+=`<div style="display:flex;gap:8px;margin-bottom:12px">`+
     card('#003087',propios.length,'Indicadores propios')+
@@ -2050,7 +2184,7 @@ function descargarPDFPrograma(){
     });
   });
   h+=`</tbody></table>`;
-  h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Plan de Desarrollo Institucional 2024-2028 · ${fecha}</div>`;
+  h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Planeación Institucional · ${fecha}</div>`;
   h+=`</div>`;
 
   const btn=document.getElementById('btn-descargar-pdf-prog');
