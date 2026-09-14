@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seguimiento de Impacto Institucional UDES 2024-2028</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&display=block" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root{
@@ -13,6 +14,11 @@
   --ro:#B71C1C;--rol:#FFEBEE;--az3:#1565C0;--azl3:#E3F2FD;
   --gr:#546E7A;--grl:#ECEFF1;--borde:#DDE3ED;--bg:#F4F6FB;
   --txt:#1A2340;--txt2:#4A5568;--sombra:0 2px 8px rgba(0,48,135,.09);
+  --nvi:#3949AB;--nvil:#E8EAF6;
+  --nvp:#00796B;--nvpl:#E0F2F1;
+  --nvpr:#8D6E00;--nvprl:#FFF8DE;
+  --nvir:#8E244D;--nvirl:#FCE4EC;
+  --nvgr:#546E7A;--nvgrl:#ECEFF1;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
@@ -57,6 +63,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .tab-n{display:inline-block;background:var(--azl);color:var(--az);border-radius:10px;
   font-size:10px;font-weight:700;padding:1px 6px;margin-left:5px;vertical-align:middle}
 
+/* Iconos (Material Symbols Outlined) */
+.material-symbols-outlined{
+  font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;
+  display:inline-block;line-height:1;white-space:nowrap;word-wrap:normal;direction:ltr;
+  -webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;
+}
+.tab .material-symbols-outlined{font-size:16px;vertical-align:-3px;margin-right:4px}
+
 /* Layout */
 .wrap{max-width:1400px;margin:0 auto;padding:18px 20px 40px}
 
@@ -98,11 +112,13 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 /* Nivel — pastilla horizontal compacta (una por fila, no rowspan: evita que una fila de detalle
    oculta/visible desincronice el conteo de filas que cubre y tape el contenido) */
 .nv{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
-  color:#fff;text-align:center;border-radius:4px;display:inline-block;
+  text-align:center;border-radius:4px;display:inline-block;
   padding:3px 7px;white-space:nowrap}
-.nv-i{background:#5C6BC0}.nv-p{background:#00897B}
-.nv-pr{background:#F57C00}.nv-ir{background:#C62828}
-.nv-gr{background:#78909C}
+.nv-i{background:var(--nvil);color:var(--nvi)}
+.nv-p{background:var(--nvpl);color:var(--nvp)}
+.nv-pr{background:var(--nvprl);color:var(--nvpr)}
+.nv-ir{background:var(--nvirl);color:var(--nvir)}
+.nv-gr{background:var(--nvgrl);color:var(--nvgr)}
 
 /* Indicador */
 .td-ind{min-width:220px;max-width:280px}
@@ -158,11 +174,17 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .sel-e{border-radius:5px;padding:5px 8px;font-size:12px;font-family:inherit;
   border:1px solid var(--borde);cursor:pointer;outline:none;font-weight:500}
 
-/* Row colors */
-.row-sin_iniciar td{background:var(--rol)!important}
-.row-en_proceso  td{background:var(--aml)!important}
-.row-cumplida    td{background:var(--vdl)!important}
-.row-superada    td{background:var(--azl3)!important}
+/* Row colors — franja lateral de 3px + tinte de fondo muy sutil (en vez del pastel sólido
+   anterior, que competía visualmente con los badges .nv/.pct/.sem en tablas de 100+ filas).
+   Sin color-mix() para no depender de soporte de navegador. */
+.row-sin_iniciar td{background:rgba(183,28,28,.045)!important}
+.row-en_proceso  td{background:rgba(230,81,0,.045)!important}
+.row-cumplida    td{background:rgba(46,125,50,.045)!important}
+.row-superada    td{background:rgba(21,101,192,.045)!important}
+.row-sin_iniciar td:first-child{box-shadow:inset 3px 0 0 var(--ro)}
+.row-en_proceso  td:first-child{box-shadow:inset 3px 0 0 var(--am)}
+.row-cumplida    td:first-child{box-shadow:inset 3px 0 0 var(--vd)}
+.row-superada    td:first-child{box-shadow:inset 3px 0 0 var(--az3)}
 /* Resaltado temporal de indicador recién creado en "Mi Programa" — amarillo franco (no el
    dorado sutil --do, que se perdía contra el fondo rojizo de estado "sin_iniciar"; #FFEB3B es
    un amarillo estándar de "recién agregado", con buen contraste). Sin color-mix() para no
@@ -492,14 +514,14 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 </header>
 
 <nav class="tabs">
-  <button class="tab on" onclick="irTab('inv',this)">Investigación <span class="tab-n">37</span></button>
-  <button class="tab" onclick="irTab('ens',this)">Enseñanza <span class="tab-n">26</span></button>
-  <button class="tab" onclick="irTab('ext',this)">Extensión <span class="tab-n">42</span></button>
-  <button class="tab" onclick="irTab('seg',this)">Seguimiento de Indicadores Globales <span class="tab-n">105</span></button>
-  <button class="tab" onclick="irTab('res',this)">Resumen Ejecutivo <span class="tab-n">15</span></button>
-  <button class="tab" id="tab-cadena" style="display:none" onclick="irTab('cadena',this)">Cadena de Valor</button>
-  <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)">Indicadores de Mi Programa</button>
-  <button class="tab" onclick="irTab('mapa',this)">Mapa de Red <span class="tab-n">33</span></button>
+  <button class="tab on" onclick="irTab('inv',this)"><span class="material-symbols-outlined">science</span>Investigación <span class="tab-n">37</span></button>
+  <button class="tab" onclick="irTab('ens',this)"><span class="material-symbols-outlined">school</span>Enseñanza <span class="tab-n">26</span></button>
+  <button class="tab" onclick="irTab('ext',this)"><span class="material-symbols-outlined">handshake</span>Extensión <span class="tab-n">42</span></button>
+  <button class="tab" onclick="irTab('seg',this)"><span class="material-symbols-outlined">monitoring</span>Seguimiento de Indicadores Globales <span class="tab-n">105</span></button>
+  <button class="tab" onclick="irTab('res',this)"><span class="material-symbols-outlined">summarize</span>Resumen Ejecutivo <span class="tab-n">15</span></button>
+  <button class="tab" id="tab-cadena" style="display:none" onclick="irTab('cadena',this)"><span class="material-symbols-outlined">link</span>Cadena de Valor</button>
+  <button class="tab" id="tab-prog" style="display:none" onclick="irTab('prog',this)"><span class="material-symbols-outlined">checklist</span>Indicadores de Mi Programa</button>
+  <button class="tab" onclick="irTab('mapa',this)"><span class="material-symbols-outlined">hub</span>Mapa de Red <span class="tab-n">33</span></button>
 </nav>
 
 <div class="wrap">
