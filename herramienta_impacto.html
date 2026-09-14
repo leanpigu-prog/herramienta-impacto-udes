@@ -9,7 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root{
-  --az:#003087;--do:#C8A951;--azl:#e8eef8;--az2:#1a4a9f;
+  --az:#003087;--do:#C8A951;--do2:#8a6d00;--azl:#e8eef8;--az2:#1a4a9f;
   --vd:#2E7D32;--vdl:#E8F5E9;--am:#E65100;--aml:#FFF3E0;
   --ro:#B71C1C;--rol:#FFEBEE;--az3:#1565C0;--azl3:#E3F2FD;
   --gr:#546E7A;--grl:#ECEFF1;--borde:#DDE3ED;--bg:#F4F6FB;
@@ -36,25 +36,30 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .login-card button{background:var(--az);color:#fff;border:none;border-radius:7px;padding:11px;
   font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit}
 .login-card button:hover{background:var(--az2)}
-#login-error{color:var(--ro);font-size:12px;text-align:center;min-height:14px}
+#login-error{min-height:14px;font-size:11.5px;text-align:center}
+#login-error.login-msg-error{display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  color:var(--ro);background:var(--rol);border-radius:7px;padding:7px 12px;font-weight:500}
+#login-error.login-msg-info{color:var(--txt2);font-weight:500}
+#login-error .material-symbols-outlined{font-size:15px}
+.login-help{font-size:11.5px;color:var(--txt2);text-align:center;margin-top:-4px}
 
 /* Banner explicativo sobre el login */
 .login-wrap{display:flex;flex-direction:column;align-items:center;gap:22px;max-width:560px;width:100%;padding:0 20px}
 .login-intro{text-align:center;color:var(--txt)}
 .login-intro .eyebrow{display:inline-flex;align-items:center;gap:5px;background:var(--azl);color:var(--az);
-  border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+  border-radius:12px;padding:4px 12px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
 .login-intro h1{font-size:22px;font-weight:700;color:var(--az);margin-bottom:8px;line-height:1.25}
 .login-intro h1 .sigla{font-weight:500;color:var(--txt2);font-size:.75em}
 .login-intro p{font-size:13px;color:var(--txt2);line-height:1.55;max-width:480px;margin:0 auto 16px}
 .login-stats{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
 .login-stats .st{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px}
-.login-stats .st .material-symbols-outlined{font-size:20px;color:var(--do)}
+.login-stats .st .material-symbols-outlined{font-size:20px;color:var(--do2)}
 .login-stats .st b{font-size:16px;color:var(--az)}
-.login-stats .st span{font-size:10px;color:var(--txt2);text-align:center}
-#hdr-user{margin-left:14px;display:flex;align-items:center;gap:10px;font-size:11px;
+.login-stats .st span{font-size:11.5px;color:var(--txt2);text-align:center}
+#hdr-user{margin-left:14px;display:flex;align-items:center;gap:10px;font-size:11.5px;
   color:rgba(255,255,255,.85);white-space:nowrap}
 #hdr-user button{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:5px;
-  padding:3px 9px;font-size:10.5px;cursor:pointer;font-family:inherit}
+  padding:3px 9px;font-size:11.5px;cursor:pointer;font-family:inherit}
 #hdr-user button:hover{background:rgba(255,255,255,.15)}
 
 /* Header */
@@ -65,7 +70,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .hdr-sep{width:2px;height:28px;background:var(--do);border-radius:2px;flex-shrink:0}
 .hdr-ttl{font-size:11.5px;color:rgba(255,255,255,.85);line-height:1.35}
 .hdr-ttl strong{display:block;font-size:13px;color:#fff;font-weight:600}
-.hdr-auto{margin-left:auto;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.02em}
+.hdr-auto{margin-left:auto;font-size:11.5px;color:rgba(255,255,255,.6);letter-spacing:.02em}
 
 /* Tabs */
 .tabs{background:#fff;border-bottom:2px solid var(--borde);padding:0 24px;display:flex}
@@ -75,7 +80,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .tab:hover{color:var(--az)}
 .tab.on{color:var(--az);border-bottom-color:var(--az);font-weight:600}
 .tab-n{display:inline-block;background:var(--azl);color:var(--az);border-radius:10px;
-  font-size:10px;font-weight:700;padding:1px 6px;margin-left:5px;vertical-align:middle}
+  font-size:11.5px;font-weight:700;padding:1px 6px;margin-left:5px;vertical-align:middle}
 
 /* Iconos (Material Symbols Outlined) */
 .material-symbols-outlined{
@@ -105,7 +110,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .card.cp{border-top-color:var(--am)}
 .card.cs{border-top-color:var(--gr)}
 .card .n{font-size:28px;font-weight:700;line-height:1}
-.card .l{font-size:11px;color:var(--txt2);margin-top:3px;font-weight:500}
+.card .l{font-size:11.5px;color:var(--txt2);margin-top:3px;font-weight:500}
 .card.cv .n{color:var(--vd)}.card.cp .n{color:var(--am)}.card.cs .n{color:var(--gr)}
 
 /* Nota LB */
@@ -116,7 +121,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .tw{background:#fff;border-radius:10px;box-shadow:var(--sombra);overflow:auto;
   max-height:calc(100vh - 220px)}
 table.ti{width:100%;border-collapse:collapse;font-size:13px}
-table.ti thead th{background:var(--az);color:#fff;font-weight:600;font-size:11px;
+table.ti thead th{background:var(--az);color:#fff;font-weight:600;font-size:11.5px;
   text-transform:uppercase;letter-spacing:.05em;padding:9px 10px;white-space:nowrap;
   position:sticky;top:0;z-index:10}
 table.ti td{border-bottom:1px solid var(--borde);padding:7px 10px;vertical-align:middle}
@@ -125,7 +130,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 
 /* Nivel — pastilla horizontal compacta (una por fila, no rowspan: evita que una fila de detalle
    oculta/visible desincronice el conteo de filas que cubre y tape el contenido) */
-.nv{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
+.nv{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
   text-align:center;border-radius:4px;display:inline-block;
   padding:3px 7px;white-space:nowrap}
 .nv-i{background:var(--nvil);color:var(--nvi)}
@@ -137,10 +142,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 /* Indicador */
 .td-ind{min-width:220px;max-width:280px}
 .i-nom{font-weight:500;color:var(--txt);cursor:help;border-bottom:1px dashed #aab}
-.i-sub{display:block;font-size:10px;color:var(--txt2);margin-top:2px;font-style:italic}
+.i-sub{display:block;font-size:11.5px;color:var(--txt2);margin-top:2px;font-style:italic}
 .i-nom-tog{cursor:pointer}
 .chev{display:inline-block;width:10px;color:var(--az);font-weight:700}
-.badge-nuevo{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.02em;color:#7A6110;background:#FBF0C9;border:1px solid #D4AF37;border-radius:8px;padding:1px 6px;margin-left:4px;vertical-align:middle;cursor:help}
+.badge-nuevo{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.02em;color:#7A6110;background:#FBF0C9;border:1px solid #D4AF37;border-radius:8px;padding:1px 6px;margin-left:4px;vertical-align:middle;cursor:help}
 
 /* Detalle expandible por indicador */
 .detalle-row td{background:#F7F9FC!important;border-bottom:1px solid var(--borde);padding:10px 14px}
@@ -148,18 +153,18 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .det-item{font-size:11.5px;line-height:1.4;margin-bottom:6px}
 .det-desc-item{margin-bottom:10px}
 .det-desc-cell{vertical-align:top}
-.det-lbl{display:block;font-weight:700;color:var(--az);text-transform:uppercase;font-size:9.5px;letter-spacing:.04em;margin-bottom:1px}
+.det-lbl{display:block;font-weight:700;color:var(--az);text-transform:uppercase;font-size:10.5px;letter-spacing:.04em;margin-bottom:1px}
 .det-val{display:block;color:var(--txt2);text-align:justify}
 
 /* Unidad */
-.td-und{font-size:11px;color:var(--txt2);min-width:90px}
+.td-und{font-size:11.5px;color:var(--txt2);min-width:90px}
 
 /* Valores readonly */
 .td-val{font-size:13px;text-align:right;min-width:70px;color:var(--txt2)}
 .td-meta{font-size:12px;color:var(--txt2);min-width:110px}
 
 /* Función badge */
-.fn-b{display:inline-block;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap}
+.fn-b{display:inline-block;border-radius:4px;padding:2px 7px;font-size:11.5px;font-weight:700;white-space:nowrap}
 .fn-inv{background:#e8eeff;color:#3949AB}
 .fn-ens{background:#e8f5e9;color:#2E7D32}
 .fn-ext{background:#fff3e0;color:#E65100}
@@ -223,10 +228,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .prog-fn.fn-inv-b{border-left-color:#3949AB}
 .prog-fn.fn-ens-b{border-left-color:var(--vd)}
 .prog-fn.fn-ext-b{border-left-color:var(--am)}
-.prog-fn .pf-ttl{font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.prog-fn .pf-ttl{font-size:11.5px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
 .prog-fn .pf-bar{height:10px;background:#dee3ec;border-radius:5px;overflow:hidden;margin-bottom:6px}
 .prog-fn .pf-fill{height:10px;border-radius:5px;transition:width .4s}
-.prog-fn .pf-lbl{font-size:11px;color:var(--txt2);display:flex;justify-content:space-between}
+.prog-fn .pf-lbl{font-size:11.5px;color:var(--txt2);display:flex;justify-content:space-between}
 .prog-fn .pf-lbl strong{color:var(--txt);font-size:13px}
 
 /* Tabla de informe Seguimiento (readonly) */
@@ -235,7 +240,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .seg-ind-nom{font-weight:500;color:var(--txt);max-width:200px}
 .celda-prog{white-space:nowrap}
 .celda-prog .va{font-size:12px;font-weight:600;color:var(--txt);margin-right:2px}
-.celda-prog .meta{font-size:11px;color:var(--txt2);margin-left:2px}
+.celda-prog .meta{font-size:11.5px;color:var(--txt2);margin-left:2px}
 
 /* Toast */
 #toast{position:fixed;bottom:22px;right:22px;background:#1A2340;color:#fff;border-radius:8px;
@@ -273,6 +278,11 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 }
 
 @media(max-width:700px){.wrap{padding:10px}.tabs{padding:0 10px}.tab{padding:11px 14px}}
+@media (min-width:601px) and (max-width:900px){
+  /* Tablet: .login-wrap (max-width:560px) y .hdr ya caben sin ajuste estructural — bloque
+     explícito para que la franja 601-900px quede verificada a propósito, no como vacío accidental. */
+  .login-wrap{gap:24px}
+}
 
 #zona-mapa{
   --bg:#f3f6fb; --surface:#ffffff; --panel:#f8fafc; --border:#dbe3ee; --border-strong:#b8c5d6;
@@ -297,7 +307,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-mapa .legend-item.dim{opacity:.28;}
 #zona-mapa .swatch{width:9px; height:9px; border-radius:50%; flex:none; box-shadow:0 0 0 2px rgba(255,255,255,.8);}
 #zona-mapa .swatch.sq{border-radius:3px;}
-#zona-mapa .legend-title{font-size:10.5px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; padding:0 3px; width:100%; margin-top:2px;}
+#zona-mapa .legend-title{font-size:11.5px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; padding:0 3px; width:100%; margin-top:2px;}
 #zona-mapa .tabs{
   display:inline-flex; gap:4px; padding:4px; margin:2px 24px 0; border:1px solid var(--border); background:#e9eef5;
   border-radius:12px;
@@ -351,10 +361,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-prog .btn-cancelar:hover{border-color:var(--gr)}
 #zona-prog #prog-form-msg{font-size:12px;color:var(--vd)}
 #zona-prog .btn-del{background:none;border:1px solid var(--rol);color:var(--ro);border-radius:5px;
-  padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit}
+  padding:4px 9px;font-size:11.5px;cursor:pointer;font-family:inherit}
 #zona-prog .btn-del:hover{background:var(--rol)}
 #zona-prog .btn-edit{background:none;border:1px solid var(--borde);color:var(--txt2);border-radius:5px;
-  padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit;margin-right:5px}
+  padding:4px 9px;font-size:11.5px;cursor:pointer;font-family:inherit;margin-right:5px}
 #zona-prog .btn-edit:hover{border-color:var(--az)}
 
 /* Mi Programa: barra de acciones (antes formulario siempre visible) */
@@ -362,9 +372,9 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 /* Vista previa del título/subtítulo exacto que traerá el PDF, para verificarlo sin descargar */
 #zona-prog .pdf-preview-box{background:#fff;border:1px dashed var(--azl3);border-left:3px solid var(--az3);
   border-radius:6px;padding:8px 12px;margin:0 0 14px}
-#zona-prog .pdf-preview-lbl{font-size:10.5px;color:var(--txt2);margin-bottom:3px}
+#zona-prog .pdf-preview-lbl{font-size:11.5px;color:var(--txt2);margin-bottom:3px}
 #zona-prog .pdf-preview-titulo{font-size:13px;font-weight:700;color:var(--az)}
-#zona-prog .pdf-preview-sub{font-size:10px;color:#546E7A;margin-top:2px}
+#zona-prog .pdf-preview-sub{font-size:11.5px;color:#546E7A;margin-top:2px}
 
 /* Modal "+ Nuevo indicador" */
 .modal-overlay{
@@ -397,19 +407,19 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-cadena .cv-cadena-titulo{font-size:12px;font-weight:700;color:var(--txt);margin-bottom:8px}
 #zona-cadena .cv-etapas-mini{display:flex;align-items:stretch;gap:4px;flex-wrap:wrap}
 #zona-cadena .cv-etapa-mini{flex:1 1 160px;min-width:160px}
-#zona-cadena .cv-etapa-mini h5{font-size:10px;color:var(--txt2);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px;font-weight:600}
+#zona-cadena .cv-etapa-mini h5{font-size:11.5px;color:var(--txt2);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px;font-weight:600}
 #zona-cadena .cv-conector-mini{
   display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--do);font-weight:700;
   padding:14px 0 0;
 }
-#zona-cadena .cv-vacio{color:#b8bfc9;font-size:11px}
+#zona-cadena .cv-vacio{color:#b8bfc9;font-size:11.5px}
 #zona-cadena .cv-chips{display:flex;flex-direction:column;gap:5px}
 #zona-cadena .cv-chip{
   display:flex;align-items:stretch;gap:0;border-radius:8px;border:1px solid var(--borde);
   background:var(--bg);overflow:hidden;transition:all .15s ease;
 }
 #zona-cadena .cv-chip-nom{
-  flex:1;text-align:left;font-size:11px;font-family:inherit;padding:5px 8px;border:none;background:transparent;
+  flex:1;text-align:left;font-size:11.5px;font-family:inherit;padding:5px 8px;border:none;background:transparent;
   color:var(--txt2);cursor:pointer;
 }
 #zona-cadena .cv-chip-nom:hover{color:var(--az)}
@@ -426,9 +436,9 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-cadena .cv-chip-ref{border-style:dotted;border-color:#00897B}
 #zona-cadena .cv-chip-ref .cv-chip-nom{color:#00897B}
 #zona-cadena .cv-brecha-real{color:var(--ro);background:var(--rol);border:1px dashed var(--ro);
-  border-radius:4px;padding:3px 6px;font-size:10.5px;display:inline-block}
+  border-radius:4px;padding:3px 6px;font-size:11.5px;display:inline-block}
 #zona-cadena .cv-cadena-hub{border:1px dashed var(--do);background:#FFFBEF}
-#zona-cadena .cv-hub-nota{font-size:11px;color:var(--txt2);margin:0 0 8px;line-height:1.4}
+#zona-cadena .cv-hub-nota{font-size:11.5px;color:var(--txt2);margin:0 0 8px;line-height:1.4}
 @media(max-width:900px){
   #zona-cadena .cv-etapas-mini{flex-direction:column}
   #zona-cadena .cv-conector-mini{transform:rotate(90deg);padding:2px 0}
@@ -443,7 +453,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-mapa #stage{transform-origin:0 0; min-width:100%; min-height:100%;}
 #zona-mapa svg{margin:auto;}
 #zona-mapa svg text{font-family:inherit;}
-#zona-mapa .t-id{font-size:10.5px; font-weight:700; fill:var(--text);}
+#zona-mapa .t-id{font-size:11.5px; font-weight:700; fill:var(--text);}
 #zona-mapa .t-fun{font-size:14px; font-weight:800; letter-spacing:.02em; paint-order:stroke; stroke:#fff; stroke-width:4px; stroke-linejoin:round;}
 #zona-mapa .lbl-bg{fill:#fff; opacity:.9; rx:5; ry:5;}
 #zona-mapa .link{fill:none; stroke:#8ea1b7; stroke-width:1.05; opacity:.22; transition:opacity .15s,stroke .15s,stroke-width .15s;}
@@ -462,7 +472,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   border-radius:12px; padding:10px 12px; font-size:12px; color:var(--text); max-width:380px;
   box-shadow:0 12px 30px rgba(21,45,78,.18); display:none; z-index:50; line-height:1.5;
 }
-#zona-mapa footer{padding:1px 24px 16px; font-size:11px; color:var(--text-muted); text-align:center;}
+#zona-mapa footer{padding:1px 24px 16px; font-size:11.5px; color:var(--text-muted); text-align:center;}
 @media (max-width:760px){
   #zona-mapa .intro-card,#zona-mapa .tabs,#zona-mapa .toolbar,#zona-mapa #wrap{margin-left:12px; margin-right:12px;}
   #zona-mapa .quick-stats{padding-left:12px; padding-right:12px;}
@@ -478,8 +488,9 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 }
 @media (max-width:600px){
   .hdr{padding:0 12px; gap:10px;}
-  .hdr-auto{display:none;}
-  .hdr-ttl{font-size:10.5px;}
+  .hdr-sub{display:none;}
+  .hdr-auto{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px;}
+  .hdr-ttl{font-size:11.5px;}
   .hdr-ttl strong{font-size:12px;}
   .tab{padding:10px 12px; font-size:12px;}
   .login-card{padding:24px 20px; max-width:300px;}
@@ -512,18 +523,23 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
     <h2>Iniciar sesión</h2>
     <select id="login-user">
       <option value="">Selecciona tu usuario</option>
-      <option value="investigacion">Investigación</option>
-      <option value="ensenanza">Enseñanza</option>
-      <option value="extension">Extensión</option>
-      <option value="admin">Planeación (Admin)</option>
-      <option value="fis-bga">Fisioterapia — Bucaramanga (Director de Programa)</option>
-      <option value="to-cuc">Terapia Ocupacional — Cúcuta (Director de Programa)</option>
-      <option value="bac-vll">Bacteriología — Valledupar (Director de Programa)</option>
+      <optgroup label="Vicerrectorías / Admin">
+        <option value="investigacion">Investigación</option>
+        <option value="ensenanza">Enseñanza</option>
+        <option value="extension">Extensión</option>
+        <option value="admin">Planeación (Admin)</option>
+      </optgroup>
+      <optgroup label="Directores de Programa (piloto)">
+        <option value="fis-bga">Fisioterapia — Bucaramanga (Director de Programa)</option>
+        <option value="to-cuc">Terapia Ocupacional — Cúcuta (Director de Programa)</option>
+        <option value="bac-vll">Bacteriología — Valledupar (Director de Programa)</option>
+      </optgroup>
     </select>
     <input id="login-pass" type="password" placeholder="Contraseña" autocomplete="current-password"
       onkeydown="if(event.key==='Enter')intentarLogin()">
     <button onclick="intentarLogin()">Ingresar</button>
     <div id="login-error"></div>
+    <p class="login-help">¿Problemas para ingresar? Contacta a Planeación.</p>
   </div>
   </div>
 </div>
@@ -537,7 +553,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   <div class="hdr-sep"></div>
   <div class="hdr-ttl">
     <strong title="Sistema de Información Estratégico y CMI (Cuadro de Mando Integral) del Modelo de Impacto UDES">SIE-CMI Impacto UDES</strong>
-    Plan de Desarrollo 2024-2028
+    <span class="hdr-sub">Plan de Desarrollo 2024-2028</span>
   </div>
   <div class="hdr-auto" id="hdr-auto">Cambios guardados automáticamente</div>
   <div id="hdr-user"></div>
@@ -958,23 +974,34 @@ async function cargarCatalogoPrograma(){
   try{ hidratarCatalogo(await fetch(APPS_SCRIPT_URL).then(r=>r.json())); }catch(e){}
 }
 
+function setLoginMsg(msg, esError){
+  const el = document.getElementById('login-error');
+  if(!msg){ el.className=''; el.textContent=''; return; }
+  el.className = esError ? 'login-msg-error' : 'login-msg-info';
+  el.innerHTML = esError ? `<span class="material-symbols-outlined">error</span>${msg}` : msg;
+}
 async function intentarLogin(){
   const u = document.getElementById('login-user').value.trim().toLowerCase();
   const p = document.getElementById('login-pass').value;
-  const errEl = document.getElementById('login-error');
+  if(!u){ setLoginMsg('Selecciona tu usuario e ingresa tu contraseña.', true); return; }
   const cfg = USERS[u];
   if(cfg){
-    if(cfg.pass !== p){ errEl.textContent = 'Usuario o contraseña incorrectos'; return; }
+    if(cfg.pass !== p){ setLoginMsg('Contraseña incorrecta.', true); return; }
     sesion = {usuario:u, vr:cfg.vr, rol:cfg.rol, nombre:cfg.nombre, ts:Date.now()};
   } else {
-    errEl.textContent = 'Verificando…';
-    await cargarCatalogoPrograma();
+    setLoginMsg('Verificando…', false);
+    try{
+      await cargarCatalogoPrograma();
+    }catch(e){
+      setLoginMsg('No se pudo verificar tu usuario. Revisa tu conexión e inténtalo de nuevo.', true);
+      return;
+    }
     const prog = PROGRAMAS[u];
-    if(!prog || prog.clave !== p){ errEl.textContent = 'Usuario o contraseña incorrectos'; return; }
+    if(!prog || prog.clave !== p){ setLoginMsg('Usuario o contraseña incorrectos.', true); return; }
     sesion = {usuario:u, rol:'director_programa', programa:prog.programa, sedeCod:prog.sedeCod,
       sede:prog.sede, funciones:prog.funciones, nombre:prog.nombre_programa+' — '+prog.sede, ts:Date.now()};
   }
-  errEl.textContent = '';
+  setLoginMsg('', false);
   localStorage.setItem('imp_session', JSON.stringify(sesion));
   iniciarApp();
 }
@@ -1392,8 +1419,8 @@ function renderSeg(lista){
         rows+=`<td style="text-align:center">${pctHtml(pct26)}</td>`;
         rows+=`<td class="celda-prog">${barraHtml(va28,ind.m28)}</td>`;
         rows+=`<td style="text-align:center">${pctHtml(pct28)}</td>`;
-        rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
-        rows+=`<td style="font-size:11px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
+        rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11.5px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
+        rows+=`<td style="font-size:11.5px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
         rows+='</tr>';
         rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="12">`+
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(ind.desc)||'—'}</span></div>`+
@@ -1443,7 +1470,7 @@ function renderResumen(lista){
       rows+=`<td>${fmtM(ind.m25)}</td>`;
       rows+=`<td>${fmtM(ind.m28)}</td>`;
       rows+=`<td style="font-size:11.5px;color:var(--txt2)">${esc(ind.resp)||'—'}</td>`;
-      rows+=`<td style="font-size:11px;color:var(--txt2)">${detalleResumen(ind)}</td>`;
+      rows+=`<td style="font-size:11.5px;color:var(--txt2)">${detalleResumen(ind)}</td>`;
       rows+='</tr>';
     });
   });
