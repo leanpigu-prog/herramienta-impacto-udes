@@ -37,6 +37,19 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit}
 .login-card button:hover{background:var(--az2)}
 #login-error{color:var(--ro);font-size:12px;text-align:center;min-height:14px}
+
+/* Banner explicativo sobre el login */
+.login-wrap{display:flex;flex-direction:column;align-items:center;gap:22px;max-width:560px;width:100%;padding:0 20px}
+.login-intro{text-align:center;color:var(--txt)}
+.login-intro .eyebrow{display:inline-flex;align-items:center;gap:5px;background:var(--azl);color:var(--az);
+  border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+.login-intro h1{font-size:22px;font-weight:700;color:var(--az);margin-bottom:8px;line-height:1.25}
+.login-intro p{font-size:13px;color:var(--txt2);line-height:1.55;max-width:480px;margin:0 auto 16px}
+.login-stats{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+.login-stats .st{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px}
+.login-stats .st .material-symbols-outlined{font-size:20px;color:var(--do)}
+.login-stats .st b{font-size:16px;color:var(--az)}
+.login-stats .st span{font-size:10px;color:var(--txt2);text-align:center}
 #hdr-user{margin-left:14px;display:flex;align-items:center;gap:10px;font-size:11px;
   color:rgba(255,255,255,.85);white-space:nowrap}
 #hdr-user button{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:5px;
@@ -469,6 +482,10 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   .hdr-ttl strong{font-size:12px;}
   .tab{padding:10px 12px; font-size:12px;}
   .login-card{padding:24px 20px; max-width:300px;}
+  .login-wrap{gap:14px;padding:0 14px}
+  .login-intro h1{font-size:18px}
+  .login-intro p{font-size:12px}
+  .login-stats{gap:14px}
   table.ti{font-size:11.5px;}
   table.ti td{padding:5px 6px;}
   #zona-mapa #wrap{height:440px;}
@@ -479,8 +496,19 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 <body>
 
 <div id="login-overlay">
+  <div class="login-wrap">
+    <div class="login-intro">
+      <span class="eyebrow">Plan de Desarrollo 2024-2028</span>
+      <h1>Seguimiento de Impacto Institucional</h1>
+      <p>Consolida el avance de los indicadores estratégicos de Investigación, Enseñanza y Extensión de la UDES, alineados al Acuerdo 01/2025. Cada vicerrectoría registra sus resultados y el tablero calcula el cumplimiento en tiempo real.</p>
+      <div class="login-stats">
+        <div class="st"><span class="material-symbols-outlined">science</span><b>37</b><span>Investigación</span></div>
+        <div class="st"><span class="material-symbols-outlined">school</span><b>26</b><span>Enseñanza</span></div>
+        <div class="st"><span class="material-symbols-outlined">handshake</span><b>42</b><span>Extensión</span></div>
+      </div>
+    </div>
   <div class="login-card">
-    <h2>Seguimiento de Impacto Institucional UDES</h2>
+    <h2>Iniciar sesión</h2>
     <select id="login-user">
       <option value="">Selecciona tu usuario</option>
       <option value="investigacion">Investigación</option>
@@ -495,6 +523,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       onkeydown="if(event.key==='Enter')intentarLogin()">
     <button onclick="intentarLogin()">Ingresar</button>
     <div id="login-error"></div>
+  </div>
   </div>
 </div>
 
