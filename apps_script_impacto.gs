@@ -6,13 +6,17 @@
 //    - Hoja "Datos" (ya existe): id | funcion | lb | va26 | va28 | estado | observaciones | timestamp
 //    - Crear hoja nueva "Indicadores_Programa" con fila 1 (esquema completo, igual al catálogo
 //      institucional — permite que el director coloque su propia línea base y metas):
-//      id | id_padre | funcion | niv | programa | sede | director | nombre | desc | und | lb | m26 | va26 | m28 | va28 | evidencia | estado | timestamp
+//      id | id_padre | funcion | niv | programa | sede | director | nombre | desc | und | lb | m26 | va26 | m28 | va28 | evidencia | estado | lb2021 | timestamp
 //      MIGRACIÓN (si la hoja ya existía con el esquema viejo id|id_padre|funcion|programa|sede|
 //      director|nombre|desc|und|meta|valor_actual|evidencia|estado|timestamp): agregar las columnas
 //      nuevas (niv, lb, m26, va26, m28, va28) y, para cada fila existente, mover manualmente
 //      meta→m26 y valor_actual→va26, fijando niv según a qué indicador institucional aporta
 //      (columna id_padre). Ej. el registro piloto P_BACVLL_001 (id_padre=I01, nivel Insumos de esa
 //      matriz) queda niv="Insumos".
+//      MIGRACIÓN 2 (columna lb2021, "Línea Base 2021", agregada aparte de la "LB 2023" existente):
+//      si la hoja ya existía sin esta columna, agregarla manualmente en la fila 1 antes de
+//      "timestamp" (encabezado exacto "lb2021"); las filas existentes quedan con ese valor vacío
+//      hasta que el director lo capture desde la tabla de Mi Programa.
 //    - Crear hoja nueva "Programas" con fila 1:
 //      codigo | nombre_programa | sede | director | funciones | clave
 //      (piloto: 3 filas para Bacteriología — BAC-BGA/BAC-CUC/BAC-VLL, funciones="INV,ENS,EXT")
@@ -33,7 +37,7 @@ const SHEET_NAME          = 'Datos';
 const HEADERS             = ['id','funcion','lb','va26','va28','estado','observaciones','timestamp'];
 
 const SHEET_NAME_PROGRAMA = 'Indicadores_Programa';
-const HEADERS_PROGRAMA    = ['id','id_padre','funcion','niv','programa','sede','director','nombre','desc','und','lb','m26','va26','m28','va28','evidencia','estado','timestamp'];
+const HEADERS_PROGRAMA    = ['id','id_padre','funcion','niv','programa','sede','director','nombre','desc','und','lb','m26','va26','m28','va28','evidencia','estado','lb2021','timestamp'];
 
 const SHEET_NAME_CATALOGO = 'Programas';
 const HEADERS_CATALOGO    = ['codigo','nombre_programa','sede','director','funciones','clave'];

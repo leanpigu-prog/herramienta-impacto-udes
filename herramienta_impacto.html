@@ -636,6 +636,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
           <th style="text-align:left;min-width:200px">Indicador</th>
           <th>Unidad</th>
           <th style="text-align:right;background:#dbeafe">LB 2023</th>
+          <th style="text-align:right;background:#dbeafe">LB 2021</th>
           <th style="text-align:right;background:#dbeafe">Valor 2026</th>
           <th style="text-align:right">Meta 2026</th>
           <th style="text-align:center">% 2026</th>
@@ -960,7 +961,7 @@ function hidratarCatalogo(res){
     IND_PROGRAMA = res.data_programa.map(r=>({
       id:r.id, id_padre:r.id_padre, f:r.funcion, niv:r.niv, programa:r.programa, sede:r.sede,
       director:r.director, nombre:r.nombre, desc:r.desc, und:r.und,
-      lb:r.lb, m26:r.m26, va26:r.va26, m28:r.m28, va28:r.va28,
+      lb:r.lb, lb2021:r.lb2021, m26:r.m26, va26:r.va26, m28:r.m28, va28:r.va28,
       evidencia:r.evidencia, estado:r.estado
     }));
     migrarNivLegacy();
@@ -1779,7 +1780,7 @@ function renderTablaPrograma(){
   const propios = indicadoresPropios();
   const tbody = document.getElementById('prog-tbody');
   if(!propios.length){
-    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="16" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
     return;
   }
   const funciones = (sesion.funciones && sesion.funciones.length) ? sesion.funciones : ['INV','ENS','EXT'];
@@ -1787,7 +1788,7 @@ function renderTablaPrograma(){
   funciones.forEach(f=>{
     const indsF = propios.filter(p=>p.f===f);
     if(!indsF.length) return;
-    rows += `<tr class="seg-fn-hdr"><td colspan="15">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicador${indsF.length===1?'':'es'}</td></tr>`;
+    rows += `<tr class="seg-fn-hdr"><td colspan="16">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicador${indsF.length===1?'':'es'}</td></tr>`;
     // Los 4 niveles reconocidos, en orden; cualquier registro con un `niv` que no coincida con
     // ninguno (ej. cargado desde Sheets antes de migrar la hoja Indicadores_Programa al esquema
     // nuevo, sin columna niv todavía) cae en "Sin clasificar" — nunca desaparece de la tabla.
@@ -1816,6 +1817,8 @@ function renderTablaPrograma(){
         rows += `<td class="td-und">${esc(p.und)||'—'}</td>`;
         rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
           `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb2021||'')}" `+
+          `onchange="setValPrograma('${p.id}','lb2021',this.value)" title="Línea Base 2021"></td>`;
         rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va26||'')}" `+
           `onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026"></td>`;
         rows += `<td><input class="inp-v" type="text" value="${esc(p.m26||'')}" `+
@@ -1834,7 +1837,7 @@ function renderTablaPrograma(){
           ? `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')" title="Quitar de mis indicadores (también puedes hacerlo desde Cadena de Valor)">Quitar</button>`
           : `<button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button>`}</td>`;
         rows += `</tr>`;
-        rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="15">`+
+        rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="16">`+
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span></div>`+
           (padre ? `<div class="det-item"><span class="det-lbl">Indicador institucional relacionado</span>`+
             `<span class="det-val">${esc(padre.id)} · ${esc(padre.ind)}</span></div>` : '')+
@@ -1989,7 +1992,7 @@ function buildRowsPrograma(){
   return IND_PROGRAMA.filter(p=>p.programa && p.id).map(p=>({
     id: p.id, id_padre: p.id_padre, funcion: p.f, niv: p.niv, programa: p.programa, sede: p.sede,
     director: p.director, nombre: p.nombre, desc: p.desc, und: p.und,
-    lb: p.lb, m26: p.m26, va26: p.va26, m28: p.m28, va28: p.va28,
+    lb: p.lb, lb2021: p.lb2021, m26: p.m26, va26: p.va26, m28: p.m28, va28: p.va28,
     evidencia: p.evidencia, estado: p.estado
   }));
 }
@@ -2251,19 +2254,19 @@ function descargarPDFPrograma(){
   h+=`<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:4px">`;
   h+=`<thead><tr>`+
     `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador</th>`+
-    TH('Func.',34)+TH('Unidad',48)+TH('LB 2023',40)+TH('Meta 2026',44)+
+    TH('Func.',34)+TH('Unidad',48)+TH('LB 2023',40)+TH('LB 2021',40)+TH('Meta 2026',44)+
     `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2026</th>`+
     TH('% 26',34)+TH('Meta 2028',44)+
     `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2028</th>`+
     TH('% 28',34)+TH('Estado',54)+
     `</tr></thead><tbody>`;
   if(!propios.length){
-    h+=`<tr><td colspan="11" style="padding:10px;text-align:center;color:#999">Aún no hay indicadores propios registrados.</td></tr>`;
+    h+=`<tr><td colspan="12" style="padding:10px;text-align:center;color:#999">Aún no hay indicadores propios registrados.</td></tr>`;
   }
   CV_NIVELES.forEach(niv=>{
     const nivinds = propios.filter(p=>p.niv===niv);
     if(!nivinds.length) return;
-    h+=`<tr><td colspan="11" style="background:${NIV_COLOR_PROG[niv]}22;color:${NIV_COLOR_PROG[niv]};font-weight:700;font-size:8px;padding:3px 8px;text-transform:uppercase;border-top:2px solid ${NIV_COLOR_PROG[niv]}40">${niv}</td></tr>`;
+    h+=`<tr><td colspan="12" style="background:${NIV_COLOR_PROG[niv]}22;color:${NIV_COLOR_PROG[niv]};font-weight:700;font-size:8px;padding:3px 8px;text-transform:uppercase;border-top:2px solid ${NIV_COLOR_PROG[niv]}40">${niv}</td></tr>`;
     nivinds.forEach((p,ri)=>{
       const pct26 = calcPct(p.va26, p.m26);
       const pct28 = calcPct(p.va28, p.m28);
@@ -2274,6 +2277,7 @@ function descargarPDFPrograma(){
         `<td style="padding:3px 4px;text-align:center;color:#546E7A">${p.f}</td>`+
         `<td style="padding:3px 4px;text-align:center;color:#546E7A">${esc(p.und)||'—'}</td>`+
         TD(esc(p.lb)||'')+
+        TD(esc(p.lb2021)||'')+
         TD(esc(p.m26)||'')+
         TD(esc(p.va26)||'—','background:#EFF6FF;font-weight:600')+
         TD(`<span style="color:${pctClrProg(pct26)};font-weight:700">${pct26===null?'—':pct26+'%'}</span>`)+
