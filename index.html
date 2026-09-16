@@ -635,8 +635,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
           <th>Func.</th>
           <th style="text-align:left;min-width:200px">Indicador</th>
           <th>Unidad</th>
-          <th style="text-align:right;background:#dbeafe">LB 2023</th>
           <th style="text-align:right;background:#dbeafe">LB 2021</th>
+          <th style="text-align:right;background:#dbeafe">LB 2023</th>
           <th style="text-align:right;background:#dbeafe">Valor 2026</th>
           <th style="text-align:right">Meta 2026</th>
           <th style="text-align:center">% 2026</th>
@@ -1815,10 +1815,10 @@ function renderTablaPrograma(){
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
           `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔗 ':''}${esc(p.nombre)}</td>`;
         rows += `<td class="td-und">${esc(p.und)||'—'}</td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
-          `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
         rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb2021||'')}" `+
           `onchange="setValPrograma('${p.id}','lb2021',this.value)" title="Línea Base 2021"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
+          `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
         rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va26||'')}" `+
           `onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026"></td>`;
         rows += `<td><input class="inp-v" type="text" value="${esc(p.m26||'')}" `+
@@ -2254,7 +2254,7 @@ function descargarPDFPrograma(){
   h+=`<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:4px">`;
   h+=`<thead><tr>`+
     `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:left;min-width:150px">Indicador</th>`+
-    TH('Func.',34)+TH('Unidad',48)+TH('LB 2023',40)+TH('LB 2021',40)+TH('Meta 2026',44)+
+    TH('Func.',34)+TH('Unidad',48)+TH('LB 2021',40)+TH('LB 2023',40)+TH('Meta 2026',44)+
     `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2026</th>`+
     TH('% 26',34)+TH('Meta 2028',44)+
     `<th style="padding:3px 4px;background:#dbeafe;border-bottom:1px solid #ddd;text-align:center;min-width:44px">Val. 2028</th>`+
@@ -2276,8 +2276,8 @@ function descargarPDFPrograma(){
         `<td style="padding:3px 4px;vertical-align:top">${esc(p.nombre)}</td>`+
         `<td style="padding:3px 4px;text-align:center;color:#546E7A">${p.f}</td>`+
         `<td style="padding:3px 4px;text-align:center;color:#546E7A">${esc(p.und)||'—'}</td>`+
-        TD(esc(p.lb)||'')+
         TD(esc(p.lb2021)||'')+
+        TD(esc(p.lb)||'')+
         TD(esc(p.m26)||'')+
         TD(esc(p.va26)||'—','background:#EFF6FF;font-weight:600')+
         TD(`<span style="color:${pctClrProg(pct26)};font-weight:700">${pct26===null?'—':pct26+'%'}</span>`)+

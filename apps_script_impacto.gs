@@ -45,6 +45,9 @@ const HEADERS_CATALOGO    = ['codigo','nombre_programa','sede','director','funci
 // Lee una hoja completa y la devuelve como array de objetos, usando la fila 1 como cabeceras.
 // Si la hoja no existe todavía, devuelve [] en vez de fallar (permite desplegar el backend
 // antes de crear manualmente las hojas nuevas).
+// Todas las columnas son texto libre (aceptan cualquier valor) salvo 'timestamp', que sí es
+// fecha real. Si Sheets llegó a interpretar una celda de otra columna como fecha (autoformato
+// al escribir un valor que "parece" fecha), se devuelve vacío en vez de propagar el objeto Date.
 function readSheet(ss, sheetName, fallbackHeaders) {
   const ws = ss.getSheetByName(sheetName);
   if (!ws) return [];
@@ -53,7 +56,10 @@ function readSheet(ss, sheetName, fallbackHeaders) {
   const hdr = rows[0][0] ? rows[0] : fallbackHeaders;
   return rows.slice(1)
     .filter(r => r.some(v => v !== ''))
-    .map(r => Object.fromEntries(hdr.map((h, i) => [h, r[i]])));
+    .map(r => Object.fromEntries(hdr.map((h, i) => {
+      const v = r[i];
+      return [h, (h !== 'timestamp' && v instanceof Date) ? '' : v];
+    })));
 }
 
 // Hace upsert por id (columna 1) sobre una hoja dada. Crea la fila de cabeceras si hace falta.
@@ -119,4 +125,47 @@ function resp(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ================================================================
+// FUNCIÓN TEMPORAL DE MIGRACIÓN — ejecutar UNA SOLA VEZ desde el editor y luego borrarla.
+// IMPORTANTE: seleccionar "migrarEsquemaIndicadoresPrograma" en el desplegable de funciones
+// (junto al botón ▶) antes de ejecutar — si queda seleccionada otra función esto no corre.
+//
+// La hoja "Indicadores_Programa" real todavía tiene el esquema viejo (sin niv/lb/m26/va26/m28/
+// va28, con meta/valor_actual en su lugar), aunque HEADERS_PROGRAMA ya espera el esquema nuevo.
+// Esta función reescribe la hoja al esquema nuevo sin perder datos existentes:
+//   - id/id_padre/funcion/programa/sede/director/nombre/desc/und/evidencia/estado/timestamp: se
+//     copian igual.
+//   - meta -> m26, valor_actual -> va26 (mismo valor, solo renombrado de columna).
+//   - niv/lb/m28/va28: quedan vacíos (no existían antes).
+//   - lb2021: se limpia a vacío — los valores actuales son fechas corruptas producidas por el
+//     bug de autoformato de Sheets, no datos reales capturados por un director.
+// ================================================================
+function migrarEsquemaIndicadoresPrograma() {
+  const ESQUEMA_VIEJO = ['id','id_padre','funcion','programa','sede','director','nombre','desc','und','meta','valor_actual','evidencia','estado','lb2021','timestamp'];
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const ws = ss.getSheetByName(SHEET_NAME_PROGRAMA);
+  if (!ws) throw new Error('No existe la hoja ' + SHEET_NAME_PROGRAMA);
+  const all = ws.getDataRange().getValues();
+  const hdrActual = all[0].map(String);
+  if (JSON.stringify(hdrActual.slice(0, ESQUEMA_VIEJO.length)) !== JSON.stringify(ESQUEMA_VIEJO)) {
+    throw new Error('El encabezado actual no coincide con el esquema viejo esperado, no se migra. Encabezado actual: ' + hdrActual.join('|'));
+  }
+  const filas = all.slice(1).filter(r => r.some(v => v !== ''));
+  const nuevasFilas = filas.map(r => {
+    const o = Object.fromEntries(ESQUEMA_VIEJO.map((h, i) => [h, r[i]]));
+    return HEADERS_PROGRAMA.map(h => {
+      if (h === 'niv' || h === 'lb' || h === 'm28' || h === 'va28' || h === 'lb2021') return '';
+      if (h === 'm26') return o.meta;
+      if (h === 'va26') return o.valor_actual;
+      return o[h] ?? '';
+    });
+  });
+  ws.clearContents();
+  ws.getRange(1, 1, 1, HEADERS_PROGRAMA.length).setValues([HEADERS_PROGRAMA]);
+  if (nuevasFilas.length) {
+    ws.getRange(2, 1, nuevasFilas.length, HEADERS_PROGRAMA.length).setValues(nuevasFilas);
+  }
+  Logger.log('Migradas ' + nuevasFilas.length + ' filas. Nuevo encabezado: ' + HEADERS_PROGRAMA.join('|'));
 }
