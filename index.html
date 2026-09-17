@@ -1054,9 +1054,11 @@ function buildRows(){
     lb:     store[ind.id+'_lb']??'',
     va26:   store[ind.id+'_va26']??'',
     va28:   store[ind.id+'_va28']??'',
+    m26:    store[ind.id+'_m26']??'',
+    m28:    store[ind.id+'_m28']??'',
     estado: store[ind.id+'_e']??'',
     obs:    store[ind.id+'_o']??''
-  })).filter(r=>r.va26!==''||r.va28!==''||r.estado!==''||r.obs!=='');
+  })).filter(r=>r.va26!==''||r.va28!==''||r.m26!==''||r.m28!==''||r.estado!==''||r.obs!=='');
 }
 
 function cargarDeSheets(){
@@ -1070,6 +1072,8 @@ function cargarDeSheets(){
           if(row.lb)     store[row.id+'_lb']=String(row.lb);
           if(row.va26)   store[row.id+'_va26']=String(row.va26);
           if(row.va28)   store[row.id+'_va28']=String(row.va28);
+          if(row.m26)    store[row.id+'_m26']=String(row.m26);
+          if(row.m28)    store[row.id+'_m28']=String(row.m28);
           if(row.estado) store[row.id+'_e']=row.estado;
           if(row.obs)    store[row.id+'_o']=String(row.obs);
         });
@@ -1223,12 +1227,14 @@ function renderEd(lista, f){
         onchange="setVal('${ind.id}','lb',this.value)" placeholder="${esc(placeholderLB)}" title="${esc(titleLB)}"></td>`;
       rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(va26)}"
         onchange="setVal('${ind.id}','va26',this.value)" title="Valor real 2026"></td>`;
-      rows+=`<td class="td-meta">${fmtM(ind.m26)}</td>`;
-      rows+=`<td style="text-align:center" id="pct26-${ind.id}">${pctHtml(calcPct(va26,ind.m26))}</td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(getMeta(ind,'m26')??''))}"
+        onchange="setVal('${ind.id}','m26',this.value)" title="Meta 2026"></td>`;
+      rows+=`<td style="text-align:center" id="pct26-${ind.id}">${pctHtml(calcPct(va26,getMeta(ind,'m26')))}</td>`;
       rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(va28)}"
         onchange="setVal('${ind.id}','va28',this.value)" title="Valor real 2028"></td>`;
-      rows+=`<td class="td-meta">${fmtM(ind.m28)}</td>`;
-      rows+=`<td style="text-align:center" id="pct28-${ind.id}">${pctHtml(calcPct(va28,ind.m28))}</td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(getMeta(ind,'m28')??''))}"
+        onchange="setVal('${ind.id}','m28',this.value)" title="Meta 2028"></td>`;
+      rows+=`<td style="text-align:center" id="pct28-${ind.id}">${pctHtml(calcPct(va28,getMeta(ind,'m28')))}</td>`;
       rows+=`<td><select class="sel-e" onchange="setEst('${ind.id}',this.value)">
         ${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${est===k?'selected':''}>${l}</option>`).join('')}
       </select></td>`;
@@ -1405,8 +1411,8 @@ function renderSeg(lista){
         const va28 = store[ind.id+'_va28']||'';
         const est  = store[ind.id+'_e']||'';
         const obs  = store[ind.id+'_o']||'';
-        const pct26=calcPct(va26,ind.m26);
-        const pct28=calcPct(va28,ind.m28);
+        const pct26=calcPct(va26,getMeta(ind,'m26'));
+        const pct28=calcPct(va28,getMeta(ind,'m28'));
         rows+=`<tr class="${est?'row-'+est:''}" data-f="${f}">`;
         rows+=`<td style="padding:6px 8px"><span class="sem ${semCls(est)}"></span></td>`;
         rows+=`<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
@@ -1416,9 +1422,9 @@ function renderSeg(lista){
           `<span class="chev" id="chev-${ind.id}">▸</span> ${esc(ind.ind)} ${badgeNuevoSeg}</td>`;
         rows+=`<td class="td-und">${ind.und}</td>`;
         rows+=`<td class="td-val">${lbDisp!==''?`<span style="font-weight:500">${lbDisp}</span>`:'<span style="color:#aaa">—</span>'}</td>`;
-        rows+=`<td class="celda-prog">${barraHtml(va26,ind.m26)}</td>`;
+        rows+=`<td class="celda-prog">${barraHtml(va26,getMeta(ind,'m26'))}</td>`;
         rows+=`<td style="text-align:center">${pctHtml(pct26)}</td>`;
-        rows+=`<td class="celda-prog">${barraHtml(va28,ind.m28)}</td>`;
+        rows+=`<td class="celda-prog">${barraHtml(va28,getMeta(ind,'m28'))}</td>`;
         rows+=`<td style="text-align:center">${pctHtml(pct28)}</td>`;
         rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11.5px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
         rows+=`<td style="font-size:11.5px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
@@ -1484,6 +1490,10 @@ function detalleResumen(ind){
 }
 
 // ─── Helpers de datos ──────────────────────────────────────
+function getMeta(ind, campo){
+  const ov = store[ind.id+'_'+campo];
+  return (ov!==undefined && ov!=='') ? ov : ind[campo];
+}
 function calcPct(va, meta){
   const v=parseFloat(String(va).replace(',','.'));
   const m=parseFloat(String(meta).replace(',','.'));
@@ -2030,15 +2040,23 @@ function setVal(id, campo, val){
   if(!ind) return;
   if(campo==='va26'){
     const el=document.getElementById('pct26-'+id);
-    if(el) el.innerHTML=pctHtml(calcPct(val,ind.m26));
+    if(el) el.innerHTML=pctHtml(calcPct(val,getMeta(ind,'m26')));
     if(val!==''&&(store[id+'_lb']===undefined||store[id+'_lb']===''))
       toast('Sin línea base — el avance podría no calcularse correctamente');
   }
   if(campo==='va28'){
     const el=document.getElementById('pct28-'+id);
-    if(el) el.innerHTML=pctHtml(calcPct(val,ind.m28));
+    if(el) el.innerHTML=pctHtml(calcPct(val,getMeta(ind,'m28')));
     if(val!==''&&(store[id+'_lb']===undefined||store[id+'_lb']===''))
       toast('Sin línea base — el avance podría no calcularse correctamente');
+  }
+  if(campo==='m26'){
+    const el=document.getElementById('pct26-'+id);
+    if(el) el.innerHTML=pctHtml(calcPct(store[id+'_va26']??'', val));
+  }
+  if(campo==='m28'){
+    const el=document.getElementById('pct28-'+id);
+    if(el) el.innerHTML=pctHtml(calcPct(store[id+'_va28']??'', val));
   }
 }
 
@@ -2160,18 +2178,18 @@ function descargarPDF(){
         const va28=store[ind.id+'_va28']||'';
         const lb=store[ind.id+'_lb']!=null?store[ind.id+'_lb']:'';
         const est=store[ind.id+'_e']||'sin_iniciar';
-        const p26=calcPct(va26,ind.m26);
-        const p28=calcPct(va28,ind.m28);
+        const p26=calcPct(va26,getMeta(ind,'m26'));
+        const p28=calcPct(va28,getMeta(ind,'m28'));
         const bg=ri%2===0?'#fff':'#FAFAFA';
         const TD=(txt,extra)=>`<td style="padding:4px 5px;text-align:center;${extra||''}">${txt||'—'}</td>`;
         h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
           `<td style="padding:3px 4px;vertical-align:top">${ind.ind}</td>`+
           `<td style="padding:3px 4px;text-align:center;color:#546E7A">${ind.und}</td>`+
           TD(lb)+
-          TD(ind.m26)+
+          TD(getMeta(ind,'m26'))+
           TD(va26||'—','background:#EFF6FF;font-weight:600')+
           TD(`<span style="color:${pctClr(p26)};font-weight:700">${pctTxt(p26)}</span>`)+
-          TD(ind.m28)+
+          TD(getMeta(ind,'m28'))+
           TD(va28||'—','background:#EFF6FF;font-weight:600')+
           TD(`<span style="color:${pctClr(p28)};font-weight:700">${pctTxt(p28)}</span>`)+
           `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[est]}">${EST_LBL[est]||'—'}</td>`+

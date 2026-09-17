@@ -3,7 +3,11 @@
 // ================================================================
 // PASOS PARA ACTIVAR:
 // 1. En la Google Sheet "SeguimientoImpacto_UDES":
-//    - Hoja "Datos" (ya existe): id | funcion | lb | va26 | va28 | estado | observaciones | timestamp
+//    - Hoja "Datos" (ya existe): id | funcion | lb | va26 | va28 | m26 | m28 | estado | observaciones | timestamp
+//      MIGRACIÓN (2026-09-17, columnas m26/m28 nuevas): si la hoja ya existía con el esquema viejo
+//      de 8 columnas (id|funcion|lb|va26|va28|estado|observaciones|timestamp), correr UNA VEZ
+//      migrarEsquemaDatosM26M28() desde el editor de Apps Script (ver función al final de este
+//      archivo) antes de publicar esta versión.
 //    - Crear hoja nueva "Indicadores_Programa" con fila 1 (esquema completo, igual al catálogo
 //      institucional — permite que el director coloque su propia línea base y metas):
 //      id | id_padre | funcion | niv | programa | sede | director | nombre | desc | und | lb | m26 | va26 | m28 | va28 | evidencia | estado | lb2021 | timestamp
@@ -34,7 +38,7 @@
 const SHEET_ID = '15HpVcXgHatswxIAj62v8Hi7xlFsse09xaR9p6yNxozY';
 
 const SHEET_NAME          = 'Datos';
-const HEADERS             = ['id','funcion','lb','va26','va28','estado','observaciones','timestamp'];
+const HEADERS             = ['id','funcion','lb','va26','va28','m26','m28','estado','observaciones','timestamp'];
 
 const SHEET_NAME_PROGRAMA = 'Indicadores_Programa';
 const HEADERS_PROGRAMA    = ['id','id_padre','funcion','niv','programa','sede','director','nombre','desc','und','lb','m26','va26','m28','va28','evidencia','estado','lb2021','timestamp'];
@@ -168,4 +172,37 @@ function migrarEsquemaIndicadoresPrograma() {
     ws.getRange(2, 1, nuevasFilas.length, HEADERS_PROGRAMA.length).setValues(nuevasFilas);
   }
   Logger.log('Migradas ' + nuevasFilas.length + ' filas. Nuevo encabezado: ' + HEADERS_PROGRAMA.join('|'));
+}
+
+// ================================================================
+// FUNCIÓN TEMPORAL DE MIGRACIÓN (2026-09-17) — ejecutar UNA SOLA VEZ desde el editor y luego
+// borrarla. IMPORTANTE: seleccionar "migrarEsquemaDatosM26M28" en el desplegable de funciones
+// (junto al botón ▶) antes de ejecutar.
+//
+// La hoja "Datos" todavía tiene el esquema viejo de 8 columnas (sin m26/m28), aunque HEADERS ya
+// espera el esquema nuevo de 10. Esta función reescribe la hoja al esquema nuevo sin perder datos
+// existentes: id/funcion/lb/va26/va28/estado/observaciones/timestamp se copian igual; m26/m28
+// quedan vacíos (no existían antes, el VR los completa desde la herramienta).
+// ================================================================
+function migrarEsquemaDatosM26M28() {
+  const ESQUEMA_VIEJO = ['id','funcion','lb','va26','va28','estado','observaciones','timestamp'];
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const ws = ss.getSheetByName(SHEET_NAME);
+  if (!ws) throw new Error('No existe la hoja ' + SHEET_NAME);
+  const all = ws.getDataRange().getValues();
+  const hdrActual = all[0].map(String);
+  if (JSON.stringify(hdrActual) !== JSON.stringify(ESQUEMA_VIEJO)) {
+    throw new Error('El encabezado actual no coincide con el esquema viejo esperado, no se migra. Encabezado actual: ' + hdrActual.join('|'));
+  }
+  const filas = all.slice(1).filter(r => r.some(v => v !== ''));
+  const nuevasFilas = filas.map(r => {
+    const o = Object.fromEntries(ESQUEMA_VIEJO.map((h, i) => [h, r[i]]));
+    return HEADERS.map(h => (h === 'm26' || h === 'm28') ? '' : (o[h] ?? ''));
+  });
+  ws.clearContents();
+  ws.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+  if (nuevasFilas.length) {
+    ws.getRange(2, 1, nuevasFilas.length, HEADERS.length).setValues(nuevasFilas);
+  }
+  Logger.log('Migradas ' + nuevasFilas.length + ' filas. Nuevo encabezado: ' + HEADERS.join('|'));
 }
