@@ -1383,6 +1383,7 @@ function renderSeg(lista){
 
   document.getElementById('thead').innerHTML=`<tr>
     <th style="width:14px"></th>
+    <th style="width:48px;text-align:center">N°</th>
     <th style="min-width:70px">Nivel</th>
     <th>Func.</th>
     <th style="text-align:left;min-width:200px">Indicador</th>
@@ -1400,7 +1401,7 @@ function renderSeg(lista){
   let rows='';
   FUNCS.forEach(f=>{
     const indsF=lista.filter(i=>i.f===f);
-    rows+=`<tr class="seg-fn-hdr" data-f="${f}"><td colspan="12">${FUN_LBL[f].toUpperCase()}</td></tr>`;
+    rows+=`<tr class="seg-fn-hdr" data-f="${f}"><td colspan="13">${FUN_LBL[f].toUpperCase()}</td></tr>`;
     const grupos={};
     ORDEN_NIV.forEach(n=>{grupos[n]=indsF.filter(i=>i.niv===n);});
     ORDEN_NIV.forEach(niv=>{
@@ -1416,6 +1417,7 @@ function renderSeg(lista){
         const pct28=calcPct(va28,getMeta(ind,'m28'));
         rows+=`<tr class="${est?'row-'+est:''}" data-f="${f}">`;
         rows+=`<td style="padding:6px 8px"><span class="sem ${semCls(est)}"></span></td>`;
+        rows+=`<td style="text-align:center;font-size:11px;font-weight:700;color:var(--az);white-space:nowrap">${ind.id}</td>`;
         rows+=`<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
         rows+=`<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         const badgeNuevoSeg = ind.origen ? `<span class="badge-nuevo" title="${esc(ind.origen)}">Sugerido · Brecha CESU</span>` : '';
@@ -1430,7 +1432,7 @@ function renderSeg(lista){
         rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11.5px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
         rows+=`<td style="font-size:11.5px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
         rows+='</tr>';
-        rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="12">`+
+        rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="13">`+
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(ind.desc)||'—'}</span></div>`+
           detalleHtml(ind)+`</td></tr>`;
       });
