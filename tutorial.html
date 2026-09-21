@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Uso — Impacto UDES</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --az: #003087;
+  --az2: #1a4a9f;
+  --az3: #e8eef8;
+  --do: #C8A951;
+  --do2: #8a6d00;
+  --bg: #F4F7FB;
+  --sur: #ffffff;
+  --txt: #1A2340;
+  --txt2: #4A5568;
+  --borde: #DDE3ED;
+  --vd: #2E7D32;
+  --vdl: #E8F5E9;
+  --am: #E65100;
+  --aml: #FFF3E0;
+  --ro: #B71C1C;
+  --rol: #FFEBEE;
+  --gr: #546E7A;
+  --grl: #ECEFF1;
+  --sombra: 0 2px 12px rgba(0,48,135,.10);
+  --radio: 10px;
+  --sidebar-w: 240px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1e3d;
+    --sur: #162444;
+    --txt: #e8eef8;
+    --txt2: #94a3b8;
+    --borde: #253863;
+    --az3: #1a2d56;
+    --sombra: 0 2px 12px rgba(0,0,0,.35);
+    --grl: #1e2d45;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1e3d; --sur: #162444; --txt: #e8eef8; --txt2: #94a3b8;
+  --borde: #253863; --az3: #1a2d56; --sombra: 0 2px 12px rgba(0,0,0,.35); --grl: #1e2d45;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--az);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 10px rgba(0,0,0,.25);
+}
+.header-logo {
+  background: #fff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--az);
+  letter-spacing: .04em;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+.header-sep { width: 1px; height: 24px; background: rgba(255,255,255,.3); }
+.header-ttl { color: rgba(255,255,255,.9); font-size: 13px; font-weight: 500; }
+.header-ttl strong { color: #fff; font-weight: 700; display: block; font-size: 14px; }
+.header-badge {
+  margin-left: auto;
+  background: rgba(255,255,255,.15);
+  color: rgba(255,255,255,.9);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+
+/* ── LAYOUT ── */
+.layout {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--sur);
+  border-right: 1px solid var(--borde);
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 24px 0 40px;
+}
+.sidebar-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--txt2);
+  padding: 0 20px 12px;
+}
+.nav-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  transition: background .15s;
+  border-left: 3px solid transparent;
+  font-family: inherit;
+  color: var(--txt2);
+}
+.nav-step:hover { background: var(--az3); color: var(--az); }
+.nav-step.active {
+  background: var(--az3);
+  border-left-color: var(--az);
+  color: var(--az);
+}
+.nav-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--borde);
+  color: var(--txt2);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background .15s, color .15s;
+}
+.nav-step.active .nav-num { background: var(--az); color: #fff; }
+.nav-label { font-size: 12.5px; font-weight: 500; line-height: 1.35; }
+.nav-sub { font-size: 11px; color: var(--txt2); margin-top: 1px; }
+.nav-step.active .nav-sub { color: var(--az2); }
+
+.sidebar-divider { height: 1px; background: var(--borde); margin: 14px 20px; }
+
+.sidebar-info {
+  padding: 12px 20px;
+  font-size: 11.5px;
+  color: var(--txt2);
+  background: var(--az3);
+  margin: 0 12px;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+.sidebar-info a { color: var(--az); text-decoration: none; font-weight: 600; }
+
+/* ── CONTENT ── */
+.content { flex: 1; min-width: 0; padding: 36px 40px 80px; max-width: 860px; }
+
+.step-section { display: none; }
+.step-section.active { display: block; }
+
+/* Step header */
+.step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.step-big-num {
+  width: 48px; height: 48px;
+  background: var(--az);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step-heading h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--txt);
+  text-wrap: balance;
+  line-height: 1.2;
+}
+.step-heading p {
+  font-size: 13px;
+  color: var(--txt2);
+  margin-top: 3px;
+}
+.step-eyebrow {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--do2);
+  background: var(--az3);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 6px;
+}
+
+/* Content blocks */
+.step-intro {
+  background: var(--sur);
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--az);
+  border-radius: var(--radio);
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--txt2);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.step-intro strong { color: var(--txt); }
+
+/* Mockup area */
+.mockup {
+  background: var(--bg);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: var(--sombra);
+}
+.mockup-bar {
+  background: var(--az);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mockup-bar-title { color: rgba(255,255,255,.9); font-size: 11px; font-weight: 600; }
+.mockup-tabs {
+  background: #fff;
+  display: flex;
+  border-bottom: 2px solid var(--borde);
+  padding: 0 12px;
+  gap: 0;
+  overflow-x: auto;
+}
+.mtab {
+  padding: 8px 14px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--txt2);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+}
+.mtab.on { color: var(--az); border-bottom-color: var(--az); font-weight: 700; }
+.mtab.hl { color: var(--do2); border-bottom-color: var(--do); font-weight: 700; }
+.mockup-body { padding: 14px; }
+
+/* Mini table */
+.mini-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.mini-table thead th {
+  background: var(--az);
+  color: #fff;
+  padding: 6px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  text-align: left;
+  white-space: nowrap;
+}
+.mini-table tbody td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: middle;
+}
+.mini-table tbody tr:last-child td { border-bottom: none; }
+.mini-table tbody tr:hover td { background: var(--az3); }
+
+/* Badges */
+.nv {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.nv-ins { background: #E8EAF6; color: #3949AB; }
+.nv-pro { background: #E0F2F1; color: #00796B; }
+.nv-prd { background: #FFF8DE; color: #8a6d00; }
+.nv-imp { background: #FCE4EC; color: #8E244D; }
+.fn-b {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.fn-inv { background: #e8eeff; color: #3949AB; }
+.fn-ens { background: #e8f5e9; color: #2E7D32; }
+.fn-ext { background: #fff3e0; color: #E65100; }
+.sem {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.sem-ro { background: #B71C1C; }
+.sem-am { background: #E65100; }
+.sem-vd { background: #2E7D32; }
+.sem-gr { background: #9E9E9E; }
+
+.cod-ind { font-size: 10px; font-weight: 700; color: var(--az); }
+
+/* Cards row */
+.cards-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  flex-wrap: wrap;
+}
+.mini-card {
+  flex: 1;
+  min-width: 100px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  border-top: 3px solid var(--borde);
+}
+.mini-card.ct { border-top-color: var(--az); }
+.mini-card.cv { border-top-color: var(--vd); }
+.mini-card.ca { border-top-color: var(--am); }
+.mini-card.cg { border-top-color: var(--gr); }
+.mini-card .n { font-size: 22px; font-weight: 700; color: var(--az); line-height: 1; }
+.mini-card.cv .n { color: var(--vd); }
+.mini-card.ca .n { color: var(--am); }
+.mini-card.cg .n { color: var(--gr); }
+.mini-card .l { font-size: 10px; color: var(--txt2); margin-top: 2px; font-weight: 500; }
+
+/* Instruction list */
+.inst-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.inst-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--sur);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 13px 16px;
+}
+.inst-num {
+  width: 26px; height: 26px;
+  background: var(--az3);
+  color: var(--az);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.inst-text { font-size: 13.5px; color: var(--txt); line-height: 1.55; }
+.inst-text strong { color: var(--az); }
+.inst-text code {
+  background: var(--az3);
+  color: var(--az2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Tip box */
+.tip {
+  background: var(--aml);
+  border: 1px solid #FFCC80;
+  border-left: 4px solid var(--am);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: #5D3200;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.note {
+  background: var(--vdl);
+  border: 1px solid #A5D6A7;
+  border-left: 4px solid var(--vd);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: #1B4D1E;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.tip b, .note b { font-weight: 700; display: block; margin-bottom: 3px; }
+
+/* Cadena de Valor chips */
+.cv-grid { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+.cv-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sur);
+  border: 1.5px solid var(--borde);
+  border-radius: 20px;
+  padding: 4px 8px 4px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--txt);
+}
+.cv-chip.on { border-color: var(--vd); background: var(--vdl); color: var(--vd); }
+.cv-chip-add {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--az);
+  background: none;
+  color: var(--az);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.cv-chip.on .cv-chip-add { border-color: var(--vd); color: var(--vd); }
+.cv-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--txt2);
+  padding: 8px 12px 4px;
+}
+
+/* Fields table */
+.fields-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+.fields-table th {
+  background: var(--az);
+  color: #fff;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.fields-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: top;
+}
+.fields-table tr:last-child td { border-bottom: none; }
+.fields-table tbody tr:nth-child(even) td { background: var(--az3); }
+.fields-table .f-name { font-weight: 700; color: var(--az); white-space: nowrap; }
+.fields-table .f-desc { color: var(--txt2); font-size: 12.5px; }
+.fields-table .f-ej { font-size: 11.5px; color: var(--gr); margin-top: 3px; }
+
+/* Modal mockup */
+.modal-mock {
+  background: rgba(0,48,135,.12);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+.modal-card {
+  background: var(--sur);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+.modal-ttl { font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 14px; border-bottom: 1px solid var(--borde); padding-bottom: 10px; }
+.modal-field { margin-bottom: 10px; }
+.modal-label { font-size: 10.5px; font-weight: 700; color: var(--txt2); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+.modal-input {
+  width: 100%;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--txt2);
+  background: var(--bg);
+}
+.modal-input.active { border-color: var(--az); outline: 2px solid rgba(0,48,135,.15); }
+.modal-actions { display: flex; gap: 8px; margin-top: 14px; }
+.btn-pri {
+  flex: 1;
+  background: var(--az);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn-sec {
+  flex: 1;
+  background: none;
+  color: var(--txt2);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Prog bar */
+.barra { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.barra-track { flex: 1; height: 6px; background: var(--borde); border-radius: 3px; overflow: hidden; }
+.barra-fill { height: 100%; border-radius: 3px; background: var(--vd); }
+.pct-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: var(--vdl);
+  color: var(--vd);
+}
+
+/* Responsive */
+@media (max-width: 680px) {
+  .layout { flex-direction: column; }
+  .sidebar { position: static; height: auto; width: 100%; border-right: none; border-bottom: 1px solid var(--borde); padding: 12px 0; }
+  .nav-step { padding: 8px 16px; }
+  .content { padding: 20px 16px 60px; }
+  .cards-row { gap: 6px; }
+  .mini-card { min-width: 80px; }
+}
+
+/* ── STICKY BAR ── */
+.sticky-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--az);
+  border-top: 2px solid var(--do);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 500;
+  box-shadow: 0 -4px 16px rgba(0,48,135,.22);
+}
+.sticky-bar-label {
+  color: rgba(255,255,255,.75);
+  font-size: 12px;
+  font-weight: 500;
+  flex: 1;
+}
+.sticky-bar-label strong { color: #fff; }
+.btn-bar-dl {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--do);
+  color: #fff;
+  border: none; border-radius: 7px;
+  padding: 9px 18px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.btn-bar-dl:hover { background: #b8943f; }
+.btn-bar-tool {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,.4);
+  border-radius: 7px;
+  padding: 9px 18px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.btn-bar-tool:hover { background: rgba(255,255,255,.25); }
+/* push content above bar */
+.layout { padding-bottom: 60px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-logo">UDES<br>IMPACTO</div>
+  <div class="header-sep"></div>
+  <div class="header-ttl">
+    <strong>Guía de Uso — SIE-CMI Impacto</strong>
+    Plan de Desarrollo 2024-2028
+  </div>
+  <div class="header-badge">Manual del Director</div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Pasos del proceso</div>
+
+    <button class="nav-step active" onclick="irPaso(1,this)">
+      <div class="nav-num">1</div>
+      <div>
+        <div class="nav-label">Revisar indicadores globales</div>
+        <div class="nav-sub">Seguimiento · 105 indicadores</div>
+      </div>
+    </button>
+
+    <button class="nav-step" onclick="irPaso(2,this)">
+      <div class="nav-num">2</div>
+      <div>
+        <div class="nav-label">Seleccionar en Cadena de Valor</div>
+        <div class="nav-sub">Adoptar indicadores compatibles</div>
+      </div>
+    </button>
+
+    <button class="nav-step" onclick="irPaso(3,this)">
+      <div class="nav-num">3</div>
+      <div>
+        <div class="nav-label">Registrar datos del programa</div>
+        <div class="nav-sub">Líneas base, valores y metas</div>
+      </div>
+    </button>
+
+    <button class="nav-step" onclick="irPaso(4,this)">
+      <div class="nav-num">4</div>
+      <div>
+        <div class="nav-label">Crear indicador propio</div>
+        <div class="nav-sub">Indicador vinculado a la cadena</div>
+      </div>
+    </button>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-info">
+      <strong>¿Necesitas ayuda?</strong><br>
+      Contacta a Planeación Institucional UDES o escribe a <a href="mailto:udesdata@gmail.com">udesdata@gmail.com</a>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- ─── PASO 1 ─── -->
+    <section class="step-section active" id="paso-1">
+      <div class="step-header">
+        <div class="step-big-num">1</div>
+        <div class="step-heading">
+          <div class="step-eyebrow">Punto de partida</div>
+          <h2>Revisar los indicadores globales</h2>
+          <p>Antes de seleccionar tus indicadores, explora el catálogo institucional completo.</p>
+        </div>
+      </div>
+
+      <div class="step-intro">
+        La pestaña <strong>Seguimiento de Indicadores Globales</strong> muestra los <strong>105 indicadores</strong> oficiales del Modelo de Impacto UDES 2024-2028, organizados por función sustantiva (Investigación, Enseñanza y Extensión) y por nivel de la cadena de valor (Insumos → Procesos → Productos → Impacto Real).
+      </div>
+
+      <!-- Mockup tab -->
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-bar-title">SIE-CMI Impacto UDES · Plan de Desarrollo 2024-2028</div>
+        </div>
+        <div class="mockup-tabs" style="background:var(--sur)">
+          <div class="mtab hl">Seguimiento de Indicadores Globales &nbsp;<span style="background:var(--az);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700">105</span></div>
+          <div class="mtab">Cadena de Valor</div>
+          <div class="mtab">Indicadores de Mi Programa</div>
+          <div class="mtab">Mapa de Red</div>
+        </div>
+        <div class="cards-row">
+          <div class="mini-card ct"><div class="n">105</div><div class="l">Total indicadores</div></div>
+          <div class="mini-card cv"><div class="n" style="color:var(--vd)">3</div><div class="l">Cumplidos / Superados</div></div>
+          <div class="mini-card ca"><div class="n" style="color:var(--am)">8</div><div class="l">En seguimiento</div></div>
+          <div class="mini-card cg"><div class="n" style="color:var(--gr)">94</div><div class="l">Sin dato registrado</div></div>
+        </div>
+        <div class="mockup-body" style="padding-top:0">
+          <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--az);background:var(--az3);padding:6px 10px;border-radius:6px;margin-bottom:8px">INVESTIGACIÓN</div>
+          <div style="overflow-x:auto">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>N°</th><th>Nivel</th><th>Func.</th><th>Indicador</th><th>Unidad</th><th>LB 2023</th><th>Val. 2026 · Meta</th><th>% 2026</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="sem sem-vd"></span></td>
+                <td><span class="cod-ind">I01</span></td>
+                <td><span class="nv nv-ins">Insumos</span></td>
+                <td><span class="fn-b fn-inv">INV</span></td>
+                <td style="font-size:12px">▸ Estudiantes en semilleros</td>
+                <td>Número</td>
+                <td>287</td>
+                <td><div class="barra"><div class="barra-track"><div class="barra-fill" style="width:97%"></div></div><span style="font-size:10px;white-space:nowrap">300 · 310</span></div></td>
+                <td><span class="pct-badge">97%</span></td>
+              </tr>
+              <tr>
+                <td><span class="sem sem-gr"></span></td>
+                <td><span class="cod-ind">I02</span></td>
+                <td><span class="nv nv-ins">Insumos</span></td>
+                <td><span class="fn-b fn-inv">INV</span></td>
+                <td style="font-size:12px">▸ Estudiantes en proyectos</td>
+                <td>Número</td>
+                <td>—</td>
+                <td><div class="barra"><div class="barra-track"><div class="barra-fill" style="width:0%"></div></div><span style="font-size:10px;color:var(--txt2)">— · —</span></div></td>
+                <td><span style="font-size:11px;color:var(--txt2)">—</span></td>
+              </tr>
+              <tr>
+                <td><span class="sem sem-am"></span></td>
+                <td><span class="cod-ind">I10</span></td>
+                <td><span class="nv nv-pro">Procesos</span></td>
+                <td><span class="fn-b fn-inv">INV</span></td>
+                <td style="font-size:12px">▸ Proyectos formulados</td>
+                <td>Número</td>
+                <td>45</td>
+                <td><div class="barra"><div class="barra-track"><div class="barra-fill" style="width:56%;background:var(--am)"></div></div><span style="font-size:10px;white-space:nowrap">45 · 80</span></div></td>
+                <td><span class="pct-badge" style="background:var(--aml);color:var(--am)">56%</span></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>¿Qué significan los colores del semáforo?</b>
+        <span class="sem sem-vd"></span> <strong>Verde</strong> = Cumplido / Superado &nbsp;·&nbsp;
+        <span class="sem sem-am"></span> <strong>Naranja</strong> = En proceso &nbsp;·&nbsp;
+        <span class="sem sem-ro"></span> <strong>Rojo</strong> = Sin iniciar &nbsp;·&nbsp;
+        <span class="sem sem-gr"></span> <strong>Gris</strong> = Sin dato
+      </div>
+
+      <ul class="inst-list">
+        <li class="inst-item">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Inicia sesión en <strong>herramienta-impacto-udes.vercel.app</strong> con el usuario y clave de tu programa.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Haz clic en la pestaña <strong>Seguimiento de Indicadores Globales</strong> (la primera que aparece en el menú superior).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Observa las <strong>4 tarjetas resumen</strong> en la parte superior: Total, Cumplidos/Superados, En seguimiento y Sin dato registrado. Te dan un panorama rápido del estado institucional.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">4</div>
+          <div class="inst-text">Revisa la tabla: la columna <code>N°</code> muestra el código del indicador (ej. <code>I01</code>, <code>E05</code>, <code>X22</code>). La columna <strong>Nivel</strong> indica el eslabón de la cadena de valor (Insumos, Procesos, Productos o Impacto Real).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">5</div>
+          <div class="inst-text">Haz clic en <strong>▸</strong> junto al nombre de cualquier indicador para expandir su descripción detallada, fuente de datos, responsable y ODS relacionados.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">6</div>
+          <div class="inst-text">Usa el filtro <strong>Generar boletín</strong> para ver solo los indicadores de Investigación, Enseñanza o Extensión, según la función de tu programa.</div>
+        </li>
+      </ul>
+
+      <div class="tip">
+        <b>Consejo antes de continuar</b>
+        Anota los códigos de los indicadores (I01…X42) que consideres relevantes para tu programa. Los encontrarás en la Cadena de Valor en el siguiente paso.
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:8px">
+        <button onclick="irPaso(2,document.querySelectorAll('.nav-step')[1])" style="background:var(--az);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">
+          Siguiente: Cadena de Valor →
+        </button>
+      </div>
+    </section>
+
+    <!-- ─── PASO 2 ─── -->
+    <section class="step-section" id="paso-2">
+      <div class="step-header">
+        <div class="step-big-num">2</div>
+        <div class="step-heading">
+          <div class="step-eyebrow">Selección</div>
+          <h2>Seleccionar indicadores en la Cadena de Valor</h2>
+          <p>Elige los indicadores institucionales que aplican a tu programa y adóptalos con un clic.</p>
+        </div>
+      </div>
+
+      <div class="step-intro">
+        La pestaña <strong>Cadena de Valor</strong> organiza los 105 indicadores como fichas (<em>chips</em>) agrupadas por nivel: Insumos, Procesos, Productos e Impacto Real. Desde aquí puedes <strong>adoptar</strong> los indicadores compatibles con tu programa — aparecerán automáticamente en tu tabla "Indicadores de Mi Programa".
+      </div>
+
+      <!-- Mockup cadena de valor -->
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-bar-title">SIE-CMI Impacto UDES</div>
+        </div>
+        <div class="mockup-tabs" style="background:var(--sur)">
+          <div class="mtab">Seguimiento de Indicadores Globales</div>
+          <div class="mtab hl">Cadena de Valor</div>
+          <div class="mtab">Indicadores de Mi Programa</div>
+        </div>
+        <div class="mockup-body">
+          <div class="cv-section-title">INSUMOS</div>
+          <div class="cv-grid">
+            <div class="cv-chip on">
+              <span class="nv nv-ins" style="font-size:8px;padding:1px 4px">I01</span>
+              Estudiantes en semilleros
+              <button class="cv-chip-add" style="border-color:var(--vd);color:var(--vd)">✓</button>
+            </div>
+            <div class="cv-chip on">
+              <span class="nv nv-ins" style="font-size:8px;padding:1px 4px">I03</span>
+              Profesores en investigación
+              <button class="cv-chip-add" style="border-color:var(--vd);color:var(--vd)">✓</button>
+            </div>
+            <div class="cv-chip">
+              <span class="nv nv-ins" style="font-size:8px;padding:1px 4px">I07</span>
+              Presupuesto ACTI
+              <button class="cv-chip-add">+</button>
+            </div>
+            <div class="cv-chip">
+              <span class="nv nv-ins" style="font-size:8px;padding:1px 4px">E01</span>
+              Tasa de permanencia
+              <button class="cv-chip-add">+</button>
+            </div>
+          </div>
+          <div class="cv-section-title">PROCESOS</div>
+          <div class="cv-grid">
+            <div class="cv-chip">
+              <span class="nv nv-pro" style="font-size:8px;padding:1px 4px">I10</span>
+              Proyectos formulados
+              <button class="cv-chip-add">+</button>
+            </div>
+            <div class="cv-chip on">
+              <span class="nv nv-pro" style="font-size:8px;padding:1px 4px">E07</span>
+              Movilidad estudiantil
+              <button class="cv-chip-add" style="border-color:var(--vd);color:var(--vd)">✓</button>
+            </div>
+            <div class="cv-chip">
+              <span class="nv nv-pro" style="font-size:8px;padding:1px 4px">X05</span>
+              Alianzas institucionales
+              <button class="cv-chip-add">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>¿Adoptado o libre?</b>
+        Los indicadores con <strong>✓ (verde)</strong> ya están en tu tabla "Mi Programa". Los que tienen <strong>+</strong> aún no has adoptado. Haz clic en <strong>+</strong> para adoptarlo o en <strong>✓</strong> para quitarlo.
+      </div>
+
+      <ul class="inst-list">
+        <li class="inst-item">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Haz clic en la pestaña <strong>Cadena de Valor</strong> del menú superior.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Observa la organización por niveles: <strong>Insumos → Procesos → Productos → Impacto Real</strong>. Cada ficha muestra el código (ej. <code>I01</code>) y el nombre del indicador.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Identifica los indicadores que aplican a tu programa según su función (INV, ENS o EXT) y el eslabón de la cadena que corresponde a tu quehacer académico.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">4</div>
+          <div class="inst-text">Haz clic en el botón <strong>+</strong> de la ficha para <strong>adoptar</strong> el indicador. La ficha cambia a verde (<strong>✓</strong>) y el indicador aparece automáticamente en la pestaña "Indicadores de Mi Programa".</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">5</div>
+          <div class="inst-text">Para <strong>quitar</strong> un indicador que adoptaste por error, haz clic en el <strong>✓</strong> verde de esa ficha. Se eliminará de tu tabla sin borrar el registro institucional.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">6</div>
+          <div class="inst-text">Repite el proceso hasta completar todos los indicadores que apliquen a tu programa. <strong>No hay un mínimo obligatorio</strong>, pero se recomienda seleccionar al menos 3 por función sustantiva del programa.</div>
+        </li>
+      </ul>
+
+      <div class="tip">
+        <b>Criterio de selección recomendado</b>
+        Adopta un indicador si tu programa genera o puede generar evidencia directa de ese resultado. Si el indicador depende de otra unidad o vicerrectoría, no es necesario adoptarlo — aparecerá en el seguimiento global.
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <button onclick="irPaso(1,document.querySelectorAll('.nav-step')[0])" style="background:none;color:var(--az);border:1.5px solid var(--az);border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">← Anterior</button>
+        <button onclick="irPaso(3,document.querySelectorAll('.nav-step')[2])" style="background:var(--az);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Siguiente: Registrar datos →</button>
+      </div>
+    </section>
+
+    <!-- ─── PASO 3 ─── -->
+    <section class="step-section" id="paso-3">
+      <div class="step-header">
+        <div class="step-big-num">3</div>
+        <div class="step-heading">
+          <div class="step-eyebrow">Seguimiento del programa</div>
+          <h2>Registrar datos en "Indicadores de Mi Programa"</h2>
+          <p>Ingresa las líneas base y las metas propias de tu programa para cada corte.</p>
+        </div>
+      </div>
+
+      <div class="step-intro">
+        La pestaña <strong>Indicadores de Mi Programa</strong> es la primera que ves al iniciar sesión. Aquí aparecen todos los indicadores que adoptaste desde la Cadena de Valor (marcados con 🔗) y cualquier indicador propio que hayas creado. Tu tarea es completar los campos de cada fila con los datos históricos y las metas de tu programa.
+      </div>
+
+      <!-- Mockup tabla Mi Programa -->
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-bar-title">Indicadores de Mi Programa · Terapia Ocupacional — Cúcuta</div>
+        </div>
+        <div class="mockup-body" style="padding:8px;overflow-x:auto">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th></th><th>N°</th><th>Nivel</th><th>Func.</th><th>Indicador</th><th>Unidad</th>
+                <th style="background:#1a3f8f">LB 2021</th>
+                <th style="background:#1a3f8f">LB 2023</th>
+                <th style="background:#1a3f8f">Valor 2026</th>
+                <th>Meta 2026</th><th>% 2026</th>
+                <th style="background:#1a3f8f">Valor 2028</th>
+                <th>Meta 2028</th><th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="sem sem-vd"></span></td>
+                <td><span class="cod-ind">I01</span></td>
+                <td><span class="nv nv-ins">Insumos</span></td>
+                <td><span class="fn-b fn-inv">INV</span></td>
+                <td style="font-size:11.5px">🔗 Estudiantes en semilleros</td>
+                <td>Número</td>
+                <td style="background:#f0f5ff"><input style="width:58px;border:1px solid var(--borde);border-radius:4px;padding:3px 5px;font-size:11.5px;text-align:right;font-family:inherit" value="12"></td>
+                <td style="background:#f0f5ff"><input style="width:58px;border:1px solid var(--borde);border-radius:4px;padding:3px 5px;font-size:11.5px;text-align:right;font-family:inherit" value="15"></td>
+                <td style="background:#f0f5ff"><input style="width:58px;border:1px solid #003087;border-radius:4px;padding:3px 5px;font-size:11.5px;text-align:right;font-family:inherit;outline:2px solid rgba(0,48,135,.15)" value="20"></td>
+                <td><input style="width:58px;border:1px solid var(--borde);border-radius:4px;padding:3px 5px;font-size:11.5px;text-align:right;font-family:inherit" value="18"></td>
+                <td><span class="pct-badge">111%</span></td>
+                <td style="background:#f0f5ff"><input style="width:58px;border:1px solid var(--borde);border-radius:4px;padding:3px 5px;font-size:11.5px;text-align:right;font-family:inherit" placeholder=""></td>
+                <td><input style="width:58px;border:1px solid var(--borde);border-radius:4px;padding:3px 5px;font-size:11.5px;text-align:right;font-family:inherit" value="25"></td>
+                <td><select style="border:1px solid var(--borde);border-radius:4px;padding:3px 5px;font-size:11px;font-family:inherit"><option>Cumplida</option></select></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>Los datos se guardan automáticamente.</b>
+        Cada vez que escribes en un campo y presionas Enter o haces clic en otro lugar, el sistema guarda el valor. No es necesario hacer clic en ningún botón "Guardar".
+      </div>
+
+      <!-- Tabla de campos -->
+      <p style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px">Descripción de cada campo a completar:</p>
+      <table class="fields-table">
+        <thead>
+          <tr><th>Campo</th><th>Qué ingresar</th><th>Ejemplo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="f-name">LB 2021</td>
+            <td class="f-desc">Valor real del indicador en tu programa durante el año 2021. Es la línea base histórica inicial.</td>
+            <td class="f-ej">12 (estudiantes vinculados en 2021)</td>
+          </tr>
+          <tr>
+            <td class="f-name">LB 2023</td>
+            <td class="f-desc">Valor real en 2023. Es la línea base de referencia oficial del PDI 2024-2028.</td>
+            <td class="f-ej">15</td>
+          </tr>
+          <tr>
+            <td class="f-name">Valor 2026</td>
+            <td class="f-desc">Valor real alcanzado por tu programa al corte del año 2026.</td>
+            <td class="f-ej">20</td>
+          </tr>
+          <tr>
+            <td class="f-name">Meta 2026</td>
+            <td class="f-desc">Meta que tu programa se propone alcanzar en el corte 2026. La defines tú como director.</td>
+            <td class="f-ej">18</td>
+          </tr>
+          <tr>
+            <td class="f-name">% 2026</td>
+            <td class="f-desc">Se calcula automáticamente: Valor 2026 ÷ Meta 2026 × 100. No se ingresa manualmente.</td>
+            <td class="f-ej">111% (automático)</td>
+          </tr>
+          <tr>
+            <td class="f-name">Valor 2028</td>
+            <td class="f-desc">Valor real al cierre del PDI en 2028 (se registrará cuando llegue el corte).</td>
+            <td class="f-ej">(por registrar)</td>
+          </tr>
+          <tr>
+            <td class="f-name">Meta 2028</td>
+            <td class="f-desc">Meta que tu programa se propone alcanzar al final del PDI (2028).</td>
+            <td class="f-ej">25</td>
+          </tr>
+          <tr>
+            <td class="f-name">Estado</td>
+            <td class="f-desc">Estado actual del indicador. Selecciona de la lista: Sin iniciar / En proceso / Cumplida / Superada.</td>
+            <td class="f-ej">Cumplida</td>
+          </tr>
+          <tr>
+            <td class="f-name">Evidencia</td>
+            <td class="f-desc">Documento, sistema o fuente que respalda el valor registrado.</td>
+            <td class="f-ej">Acta semillero SIGIIP, periodo 2024-1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ul class="inst-list">
+        <li class="inst-item">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Al iniciar sesión, la pestaña <strong>Indicadores de Mi Programa</strong> se abre automáticamente. Verás todos los indicadores que adoptaste en el Paso 2.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">2</div>
+          <div class="inst-text">Para cada indicador (fila), haz clic en el campo <strong>LB 2021</strong> e ingresa el valor histórico de tu programa en ese año.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">3</div>
+          <div class="inst-text">Luego ingresa el valor en <strong>LB 2023</strong>, que es la línea base oficial del Plan de Desarrollo.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">4</div>
+          <div class="inst-text">En <strong>Meta 2026</strong> y <strong>Meta 2028</strong>, define las metas específicas que tu programa se compromete a alcanzar en cada corte.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">5</div>
+          <div class="inst-text">Cuando llegue el corte 2026, regresa a esta tabla y registra el <strong>Valor 2026</strong> real. El porcentaje de avance se calculará automáticamente.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">6</div>
+          <div class="inst-text">Actualiza el campo <strong>Estado</strong> y escribe en <strong>Evidencia</strong> el documento que respalda el valor (acta, reporte, sistema de información).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">7</div>
+          <div class="inst-text">Haz clic en <strong>▸</strong> junto al nombre del indicador para expandir el detalle y ver la descripción completa, la fórmula de cálculo y el código institucional relacionado.</div>
+        </li>
+      </ul>
+
+      <div class="tip">
+        <b>Campos en fondo azul claro</b>
+        Los campos con fondo azul claro (LB 2021, LB 2023, Valor 2026, Valor 2028) son los datos reales que registra tu programa. Los campos sin fondo son las metas que tú defines. La diferencia es importante: los reales se usan para medir, las metas para comparar.
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <button onclick="irPaso(2,document.querySelectorAll('.nav-step')[1])" style="background:none;color:var(--az);border:1.5px solid var(--az);border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">← Anterior</button>
+        <button onclick="irPaso(4,document.querySelectorAll('.nav-step')[3])" style="background:var(--az);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Siguiente: Crear indicador →</button>
+      </div>
+    </section>
+
+    <!-- ─── PASO 4 ─── -->
+    <section class="step-section" id="paso-4">
+      <div class="step-header">
+        <div class="step-big-num">4</div>
+        <div class="step-heading">
+          <div class="step-eyebrow">Indicadores propios</div>
+          <h2>Crear un indicador propio vinculado a la cadena</h2>
+          <p>Si tu programa tiene un resultado específico no cubierto por los 105 institucionales, puedes crearlo aquí.</p>
+        </div>
+      </div>
+
+      <div class="step-intro">
+        Además de adoptar indicadores institucionales, puedes <strong>crear indicadores propios</strong> que sean únicos de tu programa. Estos deben estar vinculados a un eslabón de la cadena de valor (Insumos, Procesos, Productos o Impacto Real) para mantener coherencia con el Modelo de Impacto UDES.
+      </div>
+
+      <!-- Modal mockup -->
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-bar-title">Indicadores de Mi Programa</div>
+        </div>
+        <div class="mockup-body">
+          <div style="text-align:right;margin-bottom:12px">
+            <button style="background:var(--az);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">+ Nuevo indicador</button>
+          </div>
+          <div class="modal-mock">
+            <div class="modal-card">
+              <div class="modal-ttl">Nuevo indicador del programa</div>
+              <div class="modal-field">
+                <div class="modal-label">Nombre del indicador *</div>
+                <input class="modal-input active" value="Tesis de grado con componente de extensión comunitaria" readonly>
+              </div>
+              <div class="modal-field">
+                <div class="modal-label">Descripción / Cómo se calcula</div>
+                <input class="modal-input" value="N° de trabajos de grado que incluyen intervención en comunidades..." readonly>
+              </div>
+              <div style="display:flex;gap:10px">
+                <div class="modal-field" style="flex:1">
+                  <div class="modal-label">Unidad de medida *</div>
+                  <input class="modal-input" value="Número" readonly>
+                </div>
+                <div class="modal-field" style="flex:1">
+                  <div class="modal-label">Función sustantiva *</div>
+                  <select class="modal-input" style="cursor:pointer">
+                    <option>EXT — Extensión</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-field">
+                <div class="modal-label">Eslabón de la cadena de valor *</div>
+                <select class="modal-input" style="cursor:pointer">
+                  <option>Productos</option>
+                </select>
+              </div>
+              <div class="modal-actions">
+                <button class="btn-sec">Cancelar</button>
+                <button class="btn-pri">Guardar indicador</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>Diferencia entre indicador adoptado e indicador propio</b>
+        Los indicadores adoptados (con 🔗) vienen del catálogo de 105 y su nombre y descripción no se pueden cambiar. Los indicadores propios (sin 🔗) los defines tú: nombre, descripción, unidad y eslabón de la cadena. Ambos tipos se pueden registrar y hacer seguimiento igual.
+      </div>
+
+      <ul class="inst-list">
+        <li class="inst-item">
+          <div class="inst-num">1</div>
+          <div class="inst-text">Desde la pestaña <strong>Indicadores de Mi Programa</strong>, haz clic en el botón <strong>+ Nuevo indicador</strong> (parte superior de la tabla).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">2</div>
+          <div class="inst-text">En el formulario que aparece, escribe el <strong>nombre del indicador</strong>. Sé específico: debe describir exactamente qué mide (ej. "Tesis de grado con componente de extensión comunitaria").</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">3</div>
+          <div class="inst-text">En <strong>Descripción / Cómo se calcula</strong>, escribe la fórmula o el método de medición. Esto ayuda a que cualquier persona que lea el indicador entienda qué se está midiendo y cómo.</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">4</div>
+          <div class="inst-text">Selecciona la <strong>Unidad de medida</strong> (Número, Porcentaje, Puntaje 1-5, etc.) y la <strong>Función sustantiva</strong> a la que pertenece tu indicador (INV, ENS o EXT).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">5</div>
+          <div class="inst-text">Selecciona el <strong>Eslabón de la cadena de valor</strong> que mejor describe este indicador: <strong>Insumos</strong> (recursos disponibles), <strong>Procesos</strong> (actividades realizadas), <strong>Productos</strong> (resultados directos) o <strong>Impacto Real</strong> (cambios en la sociedad).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">6</div>
+          <div class="inst-text">Haz clic en <strong>Guardar indicador</strong>. El nuevo indicador aparecerá en la tabla sin el ícono 🔗 (indicando que es propio del programa, no del catálogo institucional).</div>
+        </li>
+        <li class="inst-item">
+          <div class="inst-num">7</div>
+          <div class="inst-text">Ahora puedes completar sus campos: LB 2021, LB 2023, metas y valores reales, igual que con los indicadores adoptados (ver Paso 3).</div>
+        </li>
+      </ul>
+
+      <!-- Niveles de la cadena -->
+      <p style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px">¿Qué eslabón de la cadena corresponde a mi indicador?</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:20px">
+        <div style="background:var(--sur);border:1px solid var(--borde);border-top:3px solid #3949AB;border-radius:8px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#3949AB;margin-bottom:5px">Insumos</div>
+          <p style="font-size:12px;color:var(--txt2)">Recursos que el programa tiene disponibles: estudiantes, docentes, grupos, presupuesto, infraestructura.</p>
+        </div>
+        <div style="background:var(--sur);border:1px solid var(--borde);border-top:3px solid #00796B;border-radius:8px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#00796B;margin-bottom:5px">Procesos</div>
+          <p style="font-size:12px;color:var(--txt2)">Actividades que el programa realiza: proyectos formulados, prácticas, convenios, eventos, movilidad.</p>
+        </div>
+        <div style="background:var(--sur);border:1px solid var(--borde);border-top:3px solid #8a6d00;border-radius:8px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8a6d00;margin-bottom:5px">Productos</div>
+          <p style="font-size:12px;color:var(--txt2)">Resultados directos: publicaciones, graduados, patentes, intervenciones, certificaciones, tesis.</p>
+        </div>
+        <div style="background:var(--sur);border:1px solid var(--borde);border-top:3px solid #8E244D;border-radius:8px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8E244D;margin-bottom:5px">Impacto Real</div>
+          <p style="font-size:12px;color:var(--txt2)">Cambios sostenibles en la comunidad, el sector o la sociedad derivados de los productos del programa.</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        <b>Recomendación clave</b>
+        Antes de crear un indicador propio, verifica que no exista ya en el catálogo de 105 (Paso 1). Si existe uno similar, es mejor adoptarlo desde la Cadena de Valor para que tu programa contribuya al seguimiento institucional.
+      </div>
+
+      <div style="background:var(--sur);border:1px solid var(--do);border-radius:10px;padding:18px 20px;margin-top:4px">
+        <div style="font-size:13px;font-weight:700;color:var(--do2);margin-bottom:6px">¡Proceso completo!</div>
+        <p style="font-size:13px;color:var(--txt2);line-height:1.6">
+          Has revisado los indicadores globales, seleccionado los compatibles con tu programa, registrado tus datos históricos y metas, y aprendido a crear indicadores propios. Recuerda actualizar los valores reales en cada corte (2026 y 2028) para mantener el seguimiento al día.
+        </p>
+      </div>
+
+      <div style="display:flex;justify-content:flex-start;margin-top:16px">
+        <button onclick="irPaso(3,document.querySelectorAll('.nav-step')[2])" style="background:none;color:var(--az);border:1.5px solid var(--az);border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">← Anterior</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Sticky bottom bar -->
+<div class="sticky-bar">
+  <span class="sticky-bar-label"><strong>SIE-CMI Impacto UDES</strong> &nbsp;·&nbsp; Tutorial de uso para directores de programa</span>
+  <a href="manual_director.docx" download="Manual_Director_SIE_CMI_UDES.docx" class="btn-bar-dl">
+    &#8659; Descargar manual
+  </a>
+  <a href="https://herramienta-impacto-udes.vercel.app/" target="_blank" rel="noopener" class="btn-bar-tool">
+    Ir a la herramienta &#8594;
+  </a>
+</div>
+
+<script>
+function irPaso(n, btn) {
+  document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-step').forEach(b => b.classList.remove('active'));
+  document.getElementById('paso-' + n).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
