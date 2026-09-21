@@ -713,6 +713,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 <div id="zona-cadena" style="display:none">
   <div class="wrap">
     <div class="cv-toolbar"><button type="button" class="btn" onclick="verTodasCadenas()">Ver todas</button></div>
+    <div id="cv-banner-readonly" class="nota" style="display:none;background:#EFF6FF;border-left:3px solid var(--az);padding:8px 12px;margin-bottom:12px"><b>Vista de consulta.</b> Aquí puedes explorar cómo se organizan los indicadores institucionales por eslabón y dimensión. Solo los directores de programa pueden adoptar indicadores para su programa.</div>
     <p class="nota"><b>¿Qué es una cadena de valor?</b> Es un modelo que organiza los indicadores institucionales en
       eslabones sucesivos para verificar que cada resultado tenga un antecedente medible, sin dejar ningún eslabón
       desconectado (Departamento Nacional de Planeación, <i>Guía para la construcción y estandarización de la
@@ -1031,7 +1032,9 @@ function aplicarRestriccionTabs(){
   const tabProg = document.getElementById('tab-prog');
   if(tabProg) tabProg.style.display = sesion.rol === 'director_programa' ? '' : 'none';
   const tabCadena = document.getElementById('tab-cadena');
-  if(tabCadena) tabCadena.style.display = sesion.rol === 'director_programa' ? '' : 'none';
+  if(tabCadena) tabCadena.style.display = ''; // visible para todos los roles
+  const cvBanner = document.getElementById('cv-banner-readonly');
+  if(cvBanner) cvBanner.style.display = sesion.rol !== 'director_programa' ? '' : 'none';
   if(sesion.rol === 'admin') return;
   document.querySelectorAll('.tab').forEach(b=>{
     const m = b.getAttribute('onclick').match(/irTab\('(\w+)'/);
@@ -1739,8 +1742,10 @@ function chipIndicador(i, adoptadosIds){
   return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}${interp}${refCruzada}" data-id="${i.id}">`+
     `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}', this)" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}${esc(tituloInterp)}${esc(tituloRef)}">`+
     `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}${i._interpretativo?' 🔗':''}${i._refCruzada?' 🔁':''}</button>`+
-    `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
-    `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`+
+    (sesion && sesion.rol==='director_programa' ?
+      `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
+      `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`
+    : '')+
     `</span>`;
 }
 
