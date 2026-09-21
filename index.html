@@ -345,8 +345,19 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-prog .prog-form-card{
   background:#fff;border-radius:10px;box-shadow:var(--sombra);padding:16px 18px;margin-bottom:16px;
 }
-#zona-prog .prog-form-card h3{font-size:14px;color:var(--az);margin-bottom:10px}
-#zona-prog .prog-form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 14px}
+#zona-prog .prog-form-card h3{font-size:15px;font-weight:700;color:var(--az);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--borde)}
+#zona-prog .prog-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+#zona-prog .prog-full-grid{grid-column:1/-1}
+#modal-nuevo-indicador .prog-form-card h3{font-size:15px;font-weight:700;color:var(--az);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--borde)}
+#modal-nuevo-indicador .prog-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+#modal-nuevo-indicador .prog-full-grid{grid-column:1/-1}
+#modal-nuevo-indicador label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
+#modal-nuevo-indicador input[type=text],#modal-nuevo-indicador select,#modal-nuevo-indicador textarea{border:1px solid var(--borde);border-radius:6px;padding:7px 9px;font-size:12.5px;font-family:inherit;color:var(--txt);background:#fff;width:100%}
+#modal-nuevo-indicador input:focus,#modal-nuevo-indicador select:focus,#modal-nuevo-indicador textarea:focus{outline:none;border-color:var(--az)}
+#modal-nuevo-indicador .prog-form-actions{display:flex;align-items:center;gap:10px;margin-top:12px}
+#modal-nuevo-indicador .btn-cancelar{background:#fff;border:1px solid var(--borde);color:var(--txt2);border-radius:6px;padding:9px 14px;font-size:12.5px;font-family:inherit;cursor:pointer}
+#modal-nuevo-indicador .btn-cancelar:hover{border-color:var(--gr)}
+#modal-nuevo-indicador .prog-full{margin-top:10px;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
 #zona-prog label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
 #zona-prog label.prog-full{margin-top:10px}
 #zona-prog input[type=text],#zona-prog select,#zona-prog textarea{
@@ -662,14 +673,17 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <h3 id="prog-form-title">Nuevo indicador de programa</h3>
       <input type="hidden" id="prog-edit-id" value="">
       <div class="prog-form-grid">
-        <label>Función
+        <label class="prog-full-grid">Nombre del indicador propio *
+          <input type="text" id="prog-nombre" placeholder="Ej. Brigadas de bacteriología clínica en zona rural">
+        </label>
+        <label>Función sustantiva
           <select id="prog-f">
-            <option value="INV">Investigación</option>
-            <option value="ENS">Enseñanza</option>
-            <option value="EXT">Extensión</option>
+            <option value="INV">INV — Investigación</option>
+            <option value="ENS">ENS — Enseñanza</option>
+            <option value="EXT">EXT — Extensión</option>
           </select>
         </label>
-        <label>Nivel
+        <label>Eslabón de la cadena (Nivel)
           <select id="prog-niv">
             <option value="Insumos">Insumos</option>
             <option value="Procesos">Procesos</option>
@@ -677,10 +691,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
             <option value="Impacto Real">Impacto Real</option>
           </select>
         </label>
-        <label>Nombre del indicador propio
-          <input type="text" id="prog-nombre" placeholder="Ej. Brigadas de bacteriología clínica en zona rural">
-        </label>
-        <label>Unidad de medida
+        <label class="prog-full-grid">Unidad de medida
           <input type="text" id="prog-und" placeholder="Ej. Número, Porcentaje...">
         </label>
       </div>
@@ -690,7 +701,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <p class="nota" style="margin-top:10px">La línea base, las metas 2026/2028, los valores reales y la evidencia se registran después, directamente en la tabla — igual que en Seguimiento. Al guardar, tu nuevo indicador aparecerá resaltado en <b style="color:#8a6d00">amarillo</b> unos segundos en la tabla para que lo encuentres fácil.</p>
       <div class="prog-form-actions">
         <button class="btn-pdf" onclick="guardarIndicadorPrograma()">Guardar indicador</button>
-        <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cerrarModalPrograma()">Cancelar edición</button>
+        <button class="btn-cancelar" id="prog-btn-cancelar" onclick="cerrarModalPrograma()">Cancelar</button>
         <span id="prog-form-msg"></span>
       </div>
     </div>
