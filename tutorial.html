@@ -612,7 +612,15 @@ body {
   <aside class="sidebar">
     <div class="sidebar-title">Pasos del proceso</div>
 
-    <button class="nav-step active" onclick="irPaso(1,this)">
+    <button class="nav-step active" onclick="irPaso(0,this)" style="border-left-color:var(--do)">
+      <div class="nav-num" style="background:var(--do)">▶</div>
+      <div>
+        <div class="nav-label">Videos de demostración</div>
+        <div class="nav-sub">Ver antes de comenzar</div>
+      </div>
+    </button>
+
+    <button class="nav-step" onclick="irPaso(1,this)">
       <div class="nav-num">1</div>
       <div>
         <div class="nav-label">Revisar indicadores globales</div>
@@ -655,8 +663,41 @@ body {
   <!-- CONTENT -->
   <main class="content">
 
+    <!-- ─── VIDEOS ─── -->
+    <section class="step-section active" id="paso-0">
+      <div class="step-header">
+        <div class="step-big-num" style="background:var(--do);font-size:22px">▶</div>
+        <div class="step-heading">
+          <div class="step-eyebrow">Material de apoyo</div>
+          <h2>Videos de demostración</h2>
+          <p>Mira los siguientes videos antes de explorar los pasos del tutorial.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--az);margin-bottom:8px">Video 1 — Introducción a la herramienta</div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;box-shadow:var(--sombra)">
+            <iframe src="https://www.loom.com/embed/012c91596641458089a06e401b3cd631"
+              frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+              style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--az);margin-bottom:8px">Video 2 — Registro de indicadores</div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;box-shadow:var(--sombra)">
+            <iframe src="https://www.loom.com/embed/97f08145b17b40fea5caa20330f4d690"
+              frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+              style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:20px">
+        <button onclick="irPaso(1,document.querySelectorAll('.nav-step')[0])" style="background:var(--az);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Continuar al Paso 1 →</button>
+      </div>
+    </section>
+
     <!-- ─── PASO 1 ─── -->
-    <section class="step-section active" id="paso-1">
+    <section class="step-section" id="paso-1">
       <div class="step-header">
         <div class="step-big-num">1</div>
         <div class="step-heading">
