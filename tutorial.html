@@ -544,6 +544,20 @@ body {
   .content { padding: 20px 16px 60px; }
   .cards-row { gap: 6px; }
   .mini-card { min-width: 80px; }
+  /* Videos: 1 column on mobile */
+  .videos-grid { grid-template-columns: 1fr; }
+  /* Sticky bar: hide label, keep buttons */
+  .sticky-bar-label { display: none; }
+  .sticky-bar { justify-content: center; gap: 8px; padding: 8px 12px; }
+  .btn-bar-dl, .btn-bar-tool { padding: 8px 14px; font-size: 12px; }
+}
+
+/* ── VIDEOS GRID ── */
+.videos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 8px;
 }
 
 /* ── STICKY BAR ── */
@@ -593,6 +607,10 @@ body {
 .btn-bar-tool:hover { background: rgba(255,255,255,.25); }
 /* push content above bar */
 .layout { padding-bottom: 60px; }
+
+@media (max-width: 800px) {
+  .videos-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -673,7 +691,7 @@ body {
           <p>Mira los siguientes videos antes de explorar los pasos del tutorial.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px">
+      <div class="videos-grid">
         <div>
           <div style="font-size:12px;font-weight:600;color:var(--az);margin-bottom:8px">Video 1 — Introducción a la herramienta</div>
           <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;box-shadow:var(--sombra)">
