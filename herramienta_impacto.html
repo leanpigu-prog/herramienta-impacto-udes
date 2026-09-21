@@ -1821,7 +1821,7 @@ function renderTablaPrograma(){
         const soloLectura = !!p.id_padre;
         rows += `<tr class="${p.estado?'row-'+p.estado:''}${soloLectura?' row-adoptado':''}" id="rowprog-${p.id}">`;
         rows += `<td style="padding:6px 8px"><span class="sem ${semCls(p.estado)}"></span></td>`;
-        rows += `<td style="text-align:center;font-size:11px;font-weight:700;color:var(--az);white-space:nowrap">${padre ? padre.id : ''}</td>`;
+        rows += `<td style="text-align:center;font-size:11px;font-weight:700;color:var(--az);white-space:nowrap">${p.id_padre ? String(p.id_padre).trim() : ''}</td>`;
         rows += `<td><span class="nv ${CSS_NIV[niv]||'nv-gr'}" title="${niv==='Sin clasificar'?'Falta clasificar el nivel (edítalo con el botón Editar)':''}">${niv}</span></td>`;
         rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
