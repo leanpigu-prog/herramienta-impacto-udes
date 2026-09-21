@@ -66,37 +66,131 @@ function readSheet(ss, sheetName, fallbackHeaders) {
     })));
 }
 
+// Calcula el siguiente id consecutivo con un prefijo dado (ej. 'P_BACVLL_' -> 'P_BACVLL_004'),
+// leyendo el snapshot `all` ya tomado bajo LockService (ver doPost) — nunca se calcula solo con
+// datos del navegador, así dos dispositivos nunca pueden calcular el mismo id (2026-09-21,
+// corrige colisión reportada: crear un indicador propio desde 2 equipos a la vez podía pisar uno).
+function siguienteIdConPrefijo(all, prefijo) {
+  let n = 1;
+  for (let i = 1; i < all.length; i++) {
+    const id = String(all[i][0] || '');
+    if (id.startsWith(prefijo)) {
+      const num = parseInt(id.slice(prefijo.length), 10);
+      if (!isNaN(num) && num >= n) n = num + 1;
+    }
+  }
+  return prefijo + String(n).padStart(3, '0');
+}
+
 // Hace upsert por id (columna 1) sobre una hoja dada. Crea la fila de cabeceras si hace falta.
+// Debe llamarse siempre con el LockService ya tomado (ver doPost) — lee y escribe el rango
+// completo de la hoja de una sola vez (no una llamada a la API de Sheets por fila) para que:
+// (a) sea seguro frente a escrituras concurrentes (todo el ciclo lectura-modificación-escritura
+//     ocurre dentro de una sola ejecución con el lock tomado), y
+// (b) sea rápido incluso con payloads de varias filas (antes: 1 llamada a Sheets por fila).
+//
+// Campos de control que puede traer cada `row` (no se escriben en el Sheet, `headers` no los
+// incluye):
+//   _baseTimestamp: timestamp que el cliente tenía cargado para este id. Si no coincide con el
+//     timestamp actual de la fila en el Sheet, alguien más escribió después — no se sobreescribe,
+//     se reporta en `conflictos` con el valor vigente del servidor (2026-09-21, a pedido de la
+//     usuaria: "avisar y no sobrescribir a ciegas" en vez de "gana el último que guarda").
+//   _prefijoId / _tempId: si `row[idField]` viene vacío, se asigna un id nuevo con
+//     siguienteIdConPrefijo() y se reporta en `asignaciones[_tempId] = idNuevo`.
 function upsertRows(ws, headers, rows, idField) {
   if (!ws) throw new Error('La hoja de destino no existe. Créala primero en el Spreadsheet.');
-  const all = ws.getDataRange().getValues();
+  let all = ws.getDataRange().getValues();
   if (all.length === 0 || all[0][0] !== headers[0]) {
     ws.getRange(1, 1, 1, headers.length).setValues([headers]);
-    all.length = 0; // forzar reindexación
+    all = [headers];
   }
+  const idxTimestamp = headers.indexOf('timestamp');
+  const conflictos = [];
+  const asignaciones = {};
+  const guardados = [];
+  const nuevasFilas = [];
+  let huboActualizacionEnSitio = false;
+  const totalFilasOriginal = all.length;
+
   rows.forEach(row => {
-    const ts = new Date().toISOString();
-    const fila = headers.map(h => h === 'timestamp' ? ts : (row[h] ?? ''));
-    const idx = all.findIndex((r, i) => i > 0 && String(r[0]) === String(row[idField]));
-    if (idx > 0) {
-      ws.getRange(idx + 1, 1, 1, fila.length).setValues([fila]);
-    } else {
-      ws.appendRow(fila);
+    let idActual = row[idField];
+    if ((!idActual || String(idActual).trim() === '') && row._prefijoId) {
+      idActual = siguienteIdConPrefijo(all, row._prefijoId);
+      if (row._tempId) asignaciones[row._tempId] = idActual;
     }
+
+    const idx = all.findIndex((r, i) => i > 0 && String(r[0]) === String(idActual));
+    const filaExistente = idx > 0 ? all[idx] : null;
+
+    if (filaExistente && row._baseTimestamp && idxTimestamp >= 0) {
+      const valorTsServidor = filaExistente[idxTimestamp];
+      const tsServidor = valorTsServidor ? new Date(valorTsServidor).toISOString() : '';
+      if (tsServidor && tsServidor !== row._baseTimestamp) {
+        conflictos.push({
+          id: idActual,
+          servidor: Object.fromEntries(headers.map((h, i) => [h, filaExistente[i]]))
+        });
+        return; // no se aplica este cambio puntual — el resto del payload sigue su curso
+      }
+    }
+
+    const ts = new Date().toISOString();
+    const fila = headers.map(h => h === 'timestamp' ? ts : (h === idField ? idActual : (row[h] ?? '')));
+    if (idx > 0) {
+      all[idx] = fila;
+      huboActualizacionEnSitio = true;
+    } else if (idx === -1) {
+      nuevasFilas.push(fila);
+      // Se añade también a `all` (no solo a nuevasFilas) para que si el MISMO lote trae más de un
+      // indicador nuevo con el mismo `_prefijoId` (ej. el usuario crea dos indicadores propios
+      // seguidos, antes de que el autosave de 3s del primero alcance a viajar), el siguiente
+      // siguienteIdConPrefijo() de este mismo bucle ya vea este id como ocupado y no lo repita.
+      all.push(fila);
+    }
+    guardados.push({ id: idActual, timestamp: ts });
   });
+
+  if (huboActualizacionEnSitio) {
+    ws.getRange(1, 1, totalFilasOriginal, headers.length).setValues(all.slice(0, totalFilasOriginal));
+  }
+  if (nuevasFilas.length) {
+    ws.getRange(totalFilasOriginal + 1, 1, nuevasFilas.length, headers.length).setValues(nuevasFilas);
+  }
+  return { conflictos, asignaciones, guardados };
+}
+
+const CACHE_KEY_DATOS = 'doGet_datos_v1';
+const CACHE_TTL_SEGUNDOS = 20; // corto a propósito: prioriza frescura sobre ahorro de cuota
+
+function invalidarCache() {
+  CacheService.getScriptCache().remove(CACHE_KEY_DATOS);
 }
 
 // GET → devuelve los 3 datasets combinados: indicadores institucionales (Datos), indicadores
 // de programa (Indicadores_Programa) y el catálogo de programas/directores (Programas).
+// Cacheado 20s (CacheService, por script, compartido entre todos los dispositivos/usuarios) para
+// que varios equipos entrando casi al mismo tiempo no disparen una relectura completa de las 3
+// hojas cada uno — se invalida en cuanto cualquier doPost escribe algo (ver invalidarCache()).
 function doGet(e) {
   try {
+    const cache = CacheService.getScriptCache();
+    const cacheado = cache.get(CACHE_KEY_DATOS);
+    if (cacheado) return resp(JSON.parse(cacheado));
+
     const ss = SpreadsheetApp.openById(SHEET_ID);
-    return resp({
+    const payload = {
       ok: true,
       data: readSheet(ss, SHEET_NAME, HEADERS),
       data_programa: readSheet(ss, SHEET_NAME_PROGRAMA, HEADERS_PROGRAMA),
       programas: readSheet(ss, SHEET_NAME_CATALOGO, HEADERS_CATALOGO)
-    });
+    };
+    try {
+      cache.put(CACHE_KEY_DATOS, JSON.stringify(payload), CACHE_TTL_SEGUNDOS);
+    } catch (errCache) {
+      // Si el payload supera el límite de tamaño de CacheService (100KB), simplemente no se
+      // cachea esta vez — no debe romper la respuesta al cliente.
+    }
+    return resp(payload);
   } catch (err) {
     return resp({ ok: false, error: err.message });
   }
@@ -105,23 +199,37 @@ function doGet(e) {
 // POST → guarda / actualiza registros (upsert por id). payload.entity decide la hoja destino:
 //   'indicador_programa' → Indicadores_Programa (id_padre vincula con un id de IND del front)
 //   default / 'indicador_vr' → Datos (comportamiento original, sin cambios)
+// Protegido con LockService (2026-09-21): antes, dos doPost casi simultáneos podían leer la hoja
+// en el mismo instante y el que terminara de escribir último pisaba silenciosamente al primero
+// (carrera lectura-modificación-escritura clásica). Con el lock, las escrituras quedan
+// serializadas — la segunda espera a que la primera termine y lee el estado ya actualizado.
 function doPost(e) {
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(30000);
+  } catch (errLock) {
+    return resp({ ok: false, error: 'No se pudo obtener el bloqueo de escritura (demasiadas solicitudes simultáneas). Intenta guardar de nuevo en unos segundos.' });
+  }
   try {
     const payload = JSON.parse(e.postData.contents);
     if (payload.action !== 'upsert') return resp({ ok: false, error: 'acción desconocida' });
 
     const ss = SpreadsheetApp.openById(SHEET_ID);
+    let resultado;
     if (payload.entity === 'indicador_programa') {
-      upsertRows(ss.getSheetByName(SHEET_NAME_PROGRAMA), HEADERS_PROGRAMA, payload.rows, 'id');
+      resultado = upsertRows(ss.getSheetByName(SHEET_NAME_PROGRAMA), HEADERS_PROGRAMA, payload.rows, 'id');
     } else {
       // renombrar 'obs' -> 'observaciones' para que coincida con HEADERS, igual que antes
       const rows = payload.rows.map(r => ({ ...r, observaciones: r.obs ?? r.observaciones }));
-      upsertRows(ss.getSheetByName(SHEET_NAME), HEADERS, rows, 'id');
+      resultado = upsertRows(ss.getSheetByName(SHEET_NAME), HEADERS, rows, 'id');
     }
+    invalidarCache();
 
-    return resp({ ok: true });
+    return resp({ ok: true, conflictos: resultado.conflictos, asignaciones: resultado.asignaciones, guardados: resultado.guardados });
   } catch (err) {
     return resp({ ok: false, error: err.message });
+  } finally {
+    lock.releaseLock();
   }
 }
 

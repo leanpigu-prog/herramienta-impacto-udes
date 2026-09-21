@@ -886,6 +886,15 @@ let tabActual = 'inv';
 let mapaRenderizado = false;
 let tabInicial = 'inv';
 
+// Sincronización concurrente (2026-09-21): en vez de reenviar todo el catálogo en cada autosave,
+// se guarda solo lo tocado desde la última sincronización exitosa (idsSucios/idsSuciosPrograma),
+// y cada fila viaja con el timestamp que el cliente tenía cargado (baseTimestamps/
+// baseTimestampsPrograma) para que el servidor detecte si alguien más la cambió mientras tanto.
+let idsSucios = new Set();
+let idsSuciosPrograma = new Set();
+let baseTimestamps = {};
+let baseTimestampsPrograma = {};
+
 // Líneas base 2023 reales de Enseñanza, tomadas de UDES_Matriz_Impacto_Institucional_vr7.xlsx
 // (hoja "2. ENSEÑANZA"), verificadas 2026-09-11 contra los 26 indicadores ENS vigentes por
 // coincidencia exacta de texto (ratio 1.0). Solo las 13 filas con un valor real y un match
@@ -1048,18 +1057,26 @@ function iniciarApp(){
   cargarDeSheets();
 }
 
+function filaInstitucional(id){
+  return {
+    id,
+    funcion: (IND.find(i=>i.id===id)||{}).f||'',
+    lb:     store[id+'_lb']??'',
+    va26:   store[id+'_va26']??'',
+    va28:   store[id+'_va28']??'',
+    m26:    store[id+'_m26']??'',
+    m28:    store[id+'_m28']??'',
+    estado: store[id+'_e']??'',
+    obs:    store[id+'_o']??''
+  };
+}
+
 function buildRows(){
-  return IND.map(ind=>({
-    id:     ind.id,
-    funcion: ind.f,
-    lb:     store[ind.id+'_lb']??'',
-    va26:   store[ind.id+'_va26']??'',
-    va28:   store[ind.id+'_va28']??'',
-    m26:    store[ind.id+'_m26']??'',
-    m28:    store[ind.id+'_m28']??'',
-    estado: store[ind.id+'_e']??'',
-    obs:    store[ind.id+'_o']??''
-  })).filter(r=>r.va26!==''||r.va28!==''||r.m26!==''||r.m28!==''||r.estado!==''||r.obs!=='');
+  return [...idsSucios].map(id=>{
+    const r = filaInstitucional(id);
+    if(baseTimestamps[id]) r._baseTimestamp = baseTimestamps[id];
+    return r;
+  });
 }
 
 function cargarDeSheets(){
@@ -1077,6 +1094,7 @@ function cargarDeSheets(){
           if(row.m28)    store[row.id+'_m28']=String(row.m28);
           if(row.estado) store[row.id+'_e']=row.estado;
           if(row.obs)    store[row.id+'_o']=String(row.obs);
+          if(row.timestamp) baseTimestamps[row.id]=new Date(row.timestamp).toISOString();
         });
         localStorage.setItem('imp_store',JSON.stringify(store));
         hdr.textContent='Datos cargados desde Sheets ✓';
@@ -1084,6 +1102,11 @@ function cargarDeSheets(){
         hdr.textContent='Cambios guardados automáticamente';
       }
       hidratarCatalogo(res);
+      if(res.ok && res.data_programa){
+        res.data_programa.forEach(row=>{
+          if(row.timestamp) baseTimestampsPrograma[row.id]=new Date(row.timestamp).toISOString();
+        });
+      }
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
       irTab(tabInicial, document.querySelector(`.tab[onclick*="'${tabInicial}'"]`));
     })
@@ -1526,7 +1549,12 @@ function esc(s){
 // Cada registro se vincula a un indicador institucional existente vía id_padre.
 function indicadoresPropios(){
   const prefijo = 'P_' + sesion.programa + sesion.sedeCod + '_';
-  return IND_PROGRAMA.filter(p=>p.id && p.id.startsWith(prefijo) && p.estado!=='eliminado');
+  // Un indicador recién creado muestra primero un id temporal 'TMP_...' (ver
+  // generarIdTemporalPrograma) mientras el servidor asigna, bajo bloqueo, el id definitivo con
+  // el prefijo real — debe seguir listado aquí durante esa ventana o desaparecería de "Mi
+  // Programa" hasta que llegue la respuesta de red (2026-09-21).
+  return IND_PROGRAMA.filter(p=>p.id && p.estado!=='eliminado' &&
+    (p.id.startsWith(prefijo) || (p.id.startsWith('TMP_') && p.programa===sesion.programa && p.sede===sesion.sede)));
 }
 
 function renderMiPrograma(){
@@ -1791,7 +1819,8 @@ function toggleAdopcionIndicador(idPadre){
     const padre = IND.find(i=>i.id===idPadre);
     if(!padre) return;
     persistirIndicadorPrograma({
-      id: generarIdPrograma(),
+      id: generarIdTemporalPrograma(),
+      _prefijoId: 'P_' + sesion.programa + sesion.sedeCod + '_',
       id_padre: idPadre,
       f: padre.f,
       niv: padre.niv.indexOf('Impacto Real')===0 ? 'Impacto Real' : padre.niv,
@@ -1887,6 +1916,7 @@ function setValPrograma(id, campo, val){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
   p[campo] = val;
+  idsSuciosPrograma.add(id);
   savePrograma();
   if(campo==='va26'||campo==='m26'){
     const el=document.getElementById('pctprog26-'+id);
@@ -1902,6 +1932,7 @@ function setEstPrograma(id, val){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
   p.estado = val;
+  idsSuciosPrograma.add(id);
   savePrograma();
   const fila=document.getElementById('rowprog-'+id);
   if(fila) fila.className=val?'row-'+val:'';
@@ -1946,6 +1977,10 @@ function cerrarModalPrograma(){
   cancelarEdicionPrograma();
 }
 
+// Fallback solo para uso sin conexión: si no hay red, no hay otro dispositivo escribiendo al
+// mismo tiempo, así que calcular el id localmente no puede colisionar. Con conexión, el id real
+// lo asigna el servidor bajo bloqueo (ver generarIdTemporalPrograma + apps_script_impacto.gs),
+// que es lo que evita la colisión cuando sí hay varios equipos activos a la vez (2026-09-21).
 function generarIdPrograma(){
   const prefijo = 'P_' + sesion.programa + sesion.sedeCod + '_';
   let n = 1;
@@ -1956,6 +1991,13 @@ function generarIdPrograma(){
     }
   });
   return prefijo + String(n).padStart(3,'0');
+}
+
+// Id local provisional para un indicador de programa nuevo: permite mostrar la fila en pantalla
+// de inmediato (offline-first) mientras el servidor asigna, bajo bloqueo, el id real consecutivo
+// (ver buildRowsPrograma/savePrograma). Se reemplaza en cuanto llega la respuesta del servidor.
+function generarIdTemporalPrograma(){
+  return 'TMP_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
 
 function guardarIndicadorPrograma(){
@@ -1971,7 +2013,7 @@ function guardarIndicadorPrograma(){
   const editId = document.getElementById('prog-edit-id').value;
   const existente = editId ? IND_PROGRAMA.find(p=>p.id===editId) : null;
   const registro = {
-    id: editId || generarIdPrograma(),
+    id: editId || generarIdTemporalPrograma(),
     id_padre: existente ? existente.id_padre : '', // solo se completa al adoptar desde Cadena de Valor
     f: f,
     niv: niv,
@@ -1983,6 +2025,7 @@ function guardarIndicadorPrograma(){
     und: document.getElementById('prog-und').value.trim(),
     estado: existente ? existente.estado : 'sin_iniciar'
   };
+  if(!editId) registro._prefijoId = 'P_' + sesion.programa + sesion.sedeCod + '_';
   persistirIndicadorPrograma(registro);
   // Solo se resalta cuando es un indicador nuevo y libre (sin id_padre): ni al editar uno
   // existente ni al adoptar desde Cadena de Valor (eso pasa por toggleAdopcionIndicador, que
@@ -1998,6 +2041,7 @@ function persistirIndicadorPrograma(registro){
   const idx = IND_PROGRAMA.findIndex(p=>p.id===registro.id);
   if(idx>=0) IND_PROGRAMA[idx] = {...IND_PROGRAMA[idx], ...registro};
   else IND_PROGRAMA.push(registro);
+  idsSuciosPrograma.add(registro.id);
   savePrograma();
   renderTablaPrograma();
 }
@@ -2018,18 +2062,64 @@ function eliminarIndicadorPrograma(id){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
   p.estado = 'eliminado'; // borrado suave: no quita la fila del Sheet, se filtra en el front
+  idsSuciosPrograma.add(id);
   savePrograma();
   renderTablaPrograma();
   toast('Indicador eliminado');
 }
 
-function buildRowsPrograma(){
-  return IND_PROGRAMA.filter(p=>p.programa && p.id).map(p=>({
-    id: p.id, id_padre: p.id_padre, funcion: p.f, niv: p.niv, programa: p.programa, sede: p.sede,
+// Campos "de contenido" de un indicador de programa (sin id ni metadatos de control), usados
+// tanto para armar el payload como para comparar si algo cambió mientras una solicitud viajaba.
+function filaPrograma(id){
+  const p = IND_PROGRAMA.find(x=>x.id===id);
+  if(!p) return null;
+  return {
+    id_padre: p.id_padre, funcion: p.f, niv: p.niv, programa: p.programa, sede: p.sede,
     director: p.director, nombre: p.nombre, desc: p.desc, und: p.und,
     lb: p.lb, lb2021: p.lb2021, m26: p.m26, va26: p.va26, m28: p.m28, va28: p.va28,
     evidencia: p.evidencia, estado: p.estado
-  }));
+  };
+}
+
+function buildRowsPrograma(){
+  return [...idsSuciosPrograma].map(id=>{
+    const p = IND_PROGRAMA.find(x=>x.id===id);
+    if(!p || !p.programa) return null;
+    const esTemporal = id.startsWith('TMP_');
+    const row = { id: esTemporal ? '' : p.id, ...filaPrograma(id) };
+    if(esTemporal){
+      row._prefijoId = p._prefijoId || ('P_' + p.programa + (sesion.sedeCod||'') + '_');
+      row._tempId = id;
+    } else if(baseTimestampsPrograma[id]){
+      row._baseTimestamp = baseTimestampsPrograma[id];
+    }
+    return row;
+  }).filter(Boolean);
+}
+
+// Sustituye el id temporal (asignado en el navegador, solo para mostrar la fila de inmediato)
+// por el id real y consecutivo que asignó el servidor bajo bloqueo — así dos equipos creando un
+// indicador propio a la vez nunca terminan con el mismo id (2026-09-21). Si el usuario siguió
+// editando esa fila mientras la solicitud viajaba, la marca de "sucio" se traslada al id real en
+// vez de perderse, para que esa edición nueva se reenvíe en el próximo autosave.
+function remapIdPrograma(tempId, realId, sigueSucio){
+  const p = IND_PROGRAMA.find(x=>x.id===tempId);
+  if(!p) return;
+  p.id = realId;
+  delete p._prefijoId;
+  idsSuciosPrograma.delete(tempId);
+  if(sigueSucio) idsSuciosPrograma.add(realId);
+}
+
+function aplicarConflictoPrograma(c){
+  const row = c.servidor || {};
+  const p = IND_PROGRAMA.find(x=>x.id===c.id);
+  if(p){
+    ['id_padre','niv','nombre','desc','und','lb','lb2021','m26','va26','m28','va28','evidencia','estado']
+      .forEach(campo=>{ if(row[campo]!==undefined) p[campo]=row[campo]; });
+  }
+  if(row.timestamp) baseTimestampsPrograma[c.id]=new Date(row.timestamp).toISOString();
+  toast(`El indicador "${p?p.nombre:c.id}" fue actualizado por otra persona — se muestra el valor más reciente`);
 }
 
 function savePrograma(){
@@ -2047,7 +2137,33 @@ function savePrograma(){
     })
     .then(r=>r.json())
     .then(res=>{
-      hdr.textContent=res.ok?'Guardado en Sheets ✓':'Error al guardar en Sheets';
+      if(res.ok){
+        // Igual que en save(): solo se limpia el id de "sucio" si nadie lo volvió a tocar
+        // mientras la solicitud viajaba (2026-09-21).
+        rows.forEach(r=>{
+          if(r._tempId) return; // las filas temporales se resuelven con remapIdPrograma abajo
+          const { id, _baseTimestamp, ...enviado } = r;
+          if(JSON.stringify(filaPrograma(id)) === JSON.stringify(enviado)) idsSuciosPrograma.delete(id);
+        });
+        Object.entries(res.asignaciones||{}).forEach(([tempId, realId])=>{
+          const rEnviado = rows.find(r=>r._tempId===tempId);
+          let sigueSucio = false;
+          if(rEnviado){
+            const { id, _baseTimestamp, _prefijoId, _tempId, ...enviado } = rEnviado;
+            sigueSucio = JSON.stringify(filaPrograma(tempId)) !== JSON.stringify(enviado);
+          }
+          remapIdPrograma(tempId, realId, sigueSucio);
+        });
+        (res.guardados||[]).forEach(g=>{ baseTimestampsPrograma[g.id]=g.timestamp; });
+        (res.conflictos||[]).forEach(aplicarConflictoPrograma);
+        localStorage.setItem('imp_ind_programa', JSON.stringify(IND_PROGRAMA));
+        if((res.asignaciones && Object.keys(res.asignaciones).length) || (res.conflictos && res.conflictos.length)){
+          renderTablaPrograma();
+        }
+        hdr.textContent = (res.conflictos&&res.conflictos.length) ? 'Guardado con avisos ⚠' : 'Guardado en Sheets ✓';
+      } else {
+        hdr.textContent='Error al guardar en Sheets';
+      }
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
     })
     .catch(()=>{
@@ -2060,6 +2176,7 @@ function savePrograma(){
 // ─── Guardar en store ──────────────────────────────────────
 function setVal(id, campo, val){
   store[id+'_'+campo]=val;
+  idsSucios.add(id);
   save();
   const ind = IND.find(i=>i.id===id);
   if(!ind) return;
@@ -2087,6 +2204,7 @@ function setVal(id, campo, val){
 
 function setEst(id, val){
   store[id+'_e']=val;
+  idsSucios.add(id);
   save();
   const fila=document.getElementById('row-'+id);
   if(fila) fila.className=val?'row-'+val:'';
@@ -2107,6 +2225,24 @@ function setEst(id, val){
   q('.card.cs .n')&&(q('.card.cs .n').textContent=sinD);
 }
 
+// Aplica un conflicto reportado por el servidor: un indicador que otro equipo/pestaña ya había
+// actualizado con datos más recientes. No se sobreescribe a ciegas (decisión de la usuaria,
+// 2026-09-21) — se toma el valor vigente del servidor como nuevo estado local y se avisa.
+function aplicarConflictoInstitucional(c){
+  const row = c.servidor || {};
+  if(row.lb!==undefined)     store[c.id+'_lb']=String(row.lb??'');
+  if(row.va26!==undefined)   store[c.id+'_va26']=String(row.va26??'');
+  if(row.va28!==undefined)   store[c.id+'_va28']=String(row.va28??'');
+  if(row.m26!==undefined)    store[c.id+'_m26']=String(row.m26??'');
+  if(row.m28!==undefined)    store[c.id+'_m28']=String(row.m28??'');
+  if(row.estado!==undefined) store[c.id+'_e']=row.estado||'';
+  if(row.observaciones!==undefined) store[c.id+'_o']=String(row.observaciones??'');
+  if(row.timestamp) baseTimestamps[c.id]=new Date(row.timestamp).toISOString();
+  localStorage.setItem('imp_store', JSON.stringify(store));
+  const ind = IND.find(i=>i.id===c.id);
+  toast(`"${ind?ind.ind:c.id}" fue actualizado por otra persona — se muestra el valor más reciente`);
+}
+
 function save(){
   localStorage.setItem('imp_store', JSON.stringify(store));
   const hdr=document.getElementById('hdr-auto');
@@ -2122,7 +2258,22 @@ function save(){
     })
     .then(r=>r.json())
     .then(res=>{
-      hdr.textContent=res.ok?'Guardado en Sheets ✓':'Error al guardar en Sheets';
+      if(res.ok){
+        // Solo se limpia el id de "sucio" si nadie volvió a tocarlo mientras la solicitud viajaba
+        // — si el usuario editó de nuevo durante ese viaje, se deja marcado para reenviarlo en el
+        // próximo autosave (ya con el timestamp fresco que llega en res.guardados), evitando que
+        // esa edición nueva se pierda silenciosamente (2026-09-21).
+        rows.forEach(r=>{
+          const { id, _baseTimestamp, ...enviado } = r;
+          if(JSON.stringify(filaInstitucional(id)) === JSON.stringify({ id, ...enviado })) idsSucios.delete(id);
+        });
+        (res.guardados||[]).forEach(g=>{ baseTimestamps[g.id]=g.timestamp; });
+        (res.conflictos||[]).forEach(aplicarConflictoInstitucional);
+        if(res.conflictos && res.conflictos.length) irTab(tabActual, document.querySelector('.tab.on'));
+        hdr.textContent = (res.conflictos&&res.conflictos.length) ? 'Guardado con avisos ⚠' : 'Guardado en Sheets ✓';
+      } else {
+        hdr.textContent='Error al guardar en Sheets';
+      }
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
     })
     .catch(()=>{
