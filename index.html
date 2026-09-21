@@ -631,6 +631,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <table class="ti" id="tabla-prog">
         <thead><tr>
           <th style="width:14px"></th>
+          <th style="width:48px;text-align:center">N°</th>
           <th style="min-width:70px">Nivel</th>
           <th>Func.</th>
           <th style="text-align:left;min-width:200px">Indicador</th>
@@ -1790,7 +1791,7 @@ function renderTablaPrograma(){
   const propios = indicadoresPropios();
   const tbody = document.getElementById('prog-tbody');
   if(!propios.length){
-    tbody.innerHTML = `<tr><td colspan="16" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center;color:var(--txt2);padding:18px">Aún no has registrado indicadores propios.</td></tr>`;
     return;
   }
   const funciones = (sesion.funciones && sesion.funciones.length) ? sesion.funciones : ['INV','ENS','EXT'];
@@ -1798,7 +1799,7 @@ function renderTablaPrograma(){
   funciones.forEach(f=>{
     const indsF = propios.filter(p=>p.f===f);
     if(!indsF.length) return;
-    rows += `<tr class="seg-fn-hdr"><td colspan="16">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicador${indsF.length===1?'':'es'}</td></tr>`;
+    rows += `<tr class="seg-fn-hdr"><td colspan="17">${FUN_LBL[f].toUpperCase()} — ${indsF.length} indicador${indsF.length===1?'':'es'}</td></tr>`;
     // Los 4 niveles reconocidos, en orden; cualquier registro con un `niv` que no coincida con
     // ninguno (ej. cargado desde Sheets antes de migrar la hoja Indicadores_Programa al esquema
     // nuevo, sin columna niv todavía) cae en "Sin clasificar" — nunca desaparece de la tabla.
@@ -1820,6 +1821,7 @@ function renderTablaPrograma(){
         const soloLectura = !!p.id_padre;
         rows += `<tr class="${p.estado?'row-'+p.estado:''}${soloLectura?' row-adoptado':''}" id="rowprog-${p.id}">`;
         rows += `<td style="padding:6px 8px"><span class="sem ${semCls(p.estado)}"></span></td>`;
+        rows += `<td style="text-align:center;font-size:11px;font-weight:700;color:var(--az);white-space:nowrap">${p.id_padre ? String(p.id_padre).trim() : ''}</td>`;
         rows += `<td><span class="nv ${CSS_NIV[niv]||'nv-gr'}" title="${niv==='Sin clasificar'?'Falta clasificar el nivel (edítalo con el botón Editar)':''}">${niv}</span></td>`;
         rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
@@ -1847,7 +1849,7 @@ function renderTablaPrograma(){
           ? `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')" title="Quitar de mis indicadores (también puedes hacerlo desde Cadena de Valor)">Quitar</button>`
           : `<button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button>`}</td>`;
         rows += `</tr>`;
-        rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="16">`+
+        rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="17">`+
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span></div>`+
           (padre ? `<div class="det-item"><span class="det-lbl">Indicador institucional relacionado</span>`+
             `<span class="det-val">${esc(padre.id)} · ${esc(padre.ind)}</span></div>` : '')+
