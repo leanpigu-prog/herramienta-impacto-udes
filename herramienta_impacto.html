@@ -345,8 +345,19 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 #zona-prog .prog-form-card{
   background:#fff;border-radius:10px;box-shadow:var(--sombra);padding:16px 18px;margin-bottom:16px;
 }
-#zona-prog .prog-form-card h3{font-size:14px;color:var(--az);margin-bottom:10px}
-#zona-prog .prog-form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 14px}
+#zona-prog .prog-form-card h3{font-size:15px;font-weight:700;color:var(--az);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--borde)}
+#zona-prog .prog-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+#zona-prog .prog-full-grid{grid-column:1/-1}
+#modal-nuevo-indicador .prog-form-card h3{font-size:15px;font-weight:700;color:var(--az);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--borde)}
+#modal-nuevo-indicador .prog-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+#modal-nuevo-indicador .prog-full-grid{grid-column:1/-1}
+#modal-nuevo-indicador label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
+#modal-nuevo-indicador input[type=text],#modal-nuevo-indicador select,#modal-nuevo-indicador textarea{border:1px solid var(--borde);border-radius:6px;padding:7px 9px;font-size:12.5px;font-family:inherit;color:var(--txt);background:#fff;width:100%}
+#modal-nuevo-indicador input:focus,#modal-nuevo-indicador select:focus,#modal-nuevo-indicador textarea:focus{outline:none;border-color:var(--az)}
+#modal-nuevo-indicador .prog-form-actions{display:flex;align-items:center;gap:10px;margin-top:12px}
+#modal-nuevo-indicador .btn-cancelar{background:#fff;border:1px solid var(--borde);color:var(--txt2);border-radius:6px;padding:9px 14px;font-size:12.5px;font-family:inherit;cursor:pointer}
+#modal-nuevo-indicador .btn-cancelar:hover{border-color:var(--gr)}
+#modal-nuevo-indicador .prog-full{margin-top:10px;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
 #zona-prog label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt2);font-weight:500}
 #zona-prog label.prog-full{margin-top:10px}
 #zona-prog input[type=text],#zona-prog select,#zona-prog textarea{
@@ -428,7 +439,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   background:#fff;color:var(--txt2);cursor:pointer;transition:all .15s ease;
 }
 #zona-cadena .cv-chip-add:hover{background:var(--azl);color:var(--az)}
-#zona-cadena .cv-chip.cv-chip-on{border-color:var(--vd)}
+#zona-cadena .cv-chip.cv-chip-on{border-color:var(--vd);background:var(--vdl)}
+#zona-cadena .cv-chip.cv-chip-on .cv-chip-nom{color:var(--vd)}
 #zona-cadena .cv-chip.cv-chip-on .cv-chip-add{background:var(--vdl);color:var(--vd)}
 #zona-cadena .cv-chip-sug{border-left:3px solid #D4AF37}
 #zona-cadena .cv-chip-interp{border-style:dashed;border-color:#8E24AA}
@@ -528,6 +540,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
         <option value="ensenanza">Enseñanza</option>
         <option value="extension">Extensión</option>
         <option value="admin">Planeación (Admin)</option>
+        <option value="cvudes">Centro Virtual UDES</option>
       </optgroup>
       <optgroup label="Directores de Programa (piloto)">
         <option value="fis-bga">Fisioterapia — Bucaramanga (Director de Programa)</option>
@@ -662,14 +675,17 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <h3 id="prog-form-title">Nuevo indicador de programa</h3>
       <input type="hidden" id="prog-edit-id" value="">
       <div class="prog-form-grid">
-        <label>Función
+        <label class="prog-full-grid">Nombre del indicador propio *
+          <input type="text" id="prog-nombre" placeholder="Ej. Brigadas de bacteriología clínica en zona rural">
+        </label>
+        <label>Función sustantiva
           <select id="prog-f">
-            <option value="INV">Investigación</option>
-            <option value="ENS">Enseñanza</option>
-            <option value="EXT">Extensión</option>
+            <option value="INV">INV — Investigación</option>
+            <option value="ENS">ENS — Enseñanza</option>
+            <option value="EXT">EXT — Extensión</option>
           </select>
         </label>
-        <label>Nivel
+        <label>Eslabón de la cadena (Nivel)
           <select id="prog-niv">
             <option value="Insumos">Insumos</option>
             <option value="Procesos">Procesos</option>
@@ -677,10 +693,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
             <option value="Impacto Real">Impacto Real</option>
           </select>
         </label>
-        <label>Nombre del indicador propio
-          <input type="text" id="prog-nombre" placeholder="Ej. Brigadas de bacteriología clínica en zona rural">
-        </label>
-        <label>Unidad de medida
+        <label class="prog-full-grid">Unidad de medida
           <input type="text" id="prog-und" placeholder="Ej. Número, Porcentaje...">
         </label>
       </div>
@@ -690,7 +703,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
       <p class="nota" style="margin-top:10px">La línea base, las metas 2026/2028, los valores reales y la evidencia se registran después, directamente en la tabla — igual que en Seguimiento. Al guardar, tu nuevo indicador aparecerá resaltado en <b style="color:#8a6d00">amarillo</b> unos segundos en la tabla para que lo encuentres fácil.</p>
       <div class="prog-form-actions">
         <button class="btn-pdf" onclick="guardarIndicadorPrograma()">Guardar indicador</button>
-        <button class="btn-cancelar" id="prog-btn-cancelar" style="display:none" onclick="cerrarModalPrograma()">Cancelar edición</button>
+        <button class="btn-cancelar" id="prog-btn-cancelar" onclick="cerrarModalPrograma()">Cancelar</button>
         <span id="prog-form-msg"></span>
       </div>
     </div>
@@ -700,6 +713,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 <div id="zona-cadena" style="display:none">
   <div class="wrap">
     <div class="cv-toolbar"><button type="button" class="btn" onclick="verTodasCadenas()">Ver todas</button></div>
+    <div id="cv-banner-readonly" class="nota" style="display:none;background:#EFF6FF;border-left:3px solid var(--az);padding:8px 12px;margin-bottom:12px"><b>Vista de consulta.</b> Aquí puedes explorar cómo se organizan los indicadores institucionales por eslabón y dimensión. Solo los directores de programa pueden adoptar indicadores para su programa.</div>
     <p class="nota"><b>¿Qué es una cadena de valor?</b> Es un modelo que organiza los indicadores institucionales en
       eslabones sucesivos para verificar que cada resultado tenga un antecedente medible, sin dejar ningún eslabón
       desconectado (Departamento Nacional de Planeación, <i>Guía para la construcción y estandarización de la
@@ -923,7 +937,8 @@ const USERS = {
   investigacion: {pass:'Udes2026*', vr:'INV', rol:'vr',    nombre:'Vicerrectoría de Investigación'},
   ensenanza:     {pass:'Udes2026*', vr:'ENS', rol:'vr',    nombre:'Vicerrectoría de Enseñanza'},
   extension:     {pass:'Udes2026*', vr:'EXT', rol:'vr',    nombre:'Vicerrectoría de Extensión'},
-  admin:         {pass:'Udes2026*', vr:'',    rol:'admin', nombre:'Planeación (Admin)'}
+  admin:         {pass:'Udes2026*', vr:'',    rol:'admin', nombre:'Planeación (Admin)'},
+  cvudes:        {pass:'Udes2026*', vr:'',    rol:'admin', nombre:'Centro Virtual UDES'}
 };
 let sesion = null;
 
@@ -1026,7 +1041,9 @@ function aplicarRestriccionTabs(){
   const tabProg = document.getElementById('tab-prog');
   if(tabProg) tabProg.style.display = sesion.rol === 'director_programa' ? '' : 'none';
   const tabCadena = document.getElementById('tab-cadena');
-  if(tabCadena) tabCadena.style.display = sesion.rol === 'director_programa' ? '' : 'none';
+  if(tabCadena) tabCadena.style.display = ''; // visible para todos los roles
+  const cvBanner = document.getElementById('cv-banner-readonly');
+  if(cvBanner) cvBanner.style.display = sesion.rol !== 'director_programa' ? '' : 'none';
   if(sesion.rol === 'admin') return;
   document.querySelectorAll('.tab').forEach(b=>{
     const m = b.getAttribute('onclick').match(/irTab\('(\w+)'/);
@@ -1409,6 +1426,7 @@ function renderSeg(lista){
 
   document.getElementById('thead').innerHTML=`<tr>
     <th style="width:14px"></th>
+    <th style="width:48px;text-align:center">N°</th>
     <th style="min-width:70px">Nivel</th>
     <th>Func.</th>
     <th style="text-align:left;min-width:200px">Indicador</th>
@@ -1426,7 +1444,7 @@ function renderSeg(lista){
   let rows='';
   FUNCS.forEach(f=>{
     const indsF=lista.filter(i=>i.f===f);
-    rows+=`<tr class="seg-fn-hdr" data-f="${f}"><td colspan="12">${FUN_LBL[f].toUpperCase()}</td></tr>`;
+    rows+=`<tr class="seg-fn-hdr" data-f="${f}"><td colspan="13">${FUN_LBL[f].toUpperCase()}</td></tr>`;
     const grupos={};
     ORDEN_NIV.forEach(n=>{grupos[n]=indsF.filter(i=>i.niv===n);});
     ORDEN_NIV.forEach(niv=>{
@@ -1442,6 +1460,7 @@ function renderSeg(lista){
         const pct28=calcPct(va28,getMeta(ind,'m28'));
         rows+=`<tr class="${est?'row-'+est:''}" data-f="${f}">`;
         rows+=`<td style="padding:6px 8px"><span class="sem ${semCls(est)}"></span></td>`;
+        rows+=`<td style="text-align:center;font-size:11px;font-weight:700;color:var(--az);white-space:nowrap">${ind.id}</td>`;
         rows+=`<td><span class="nv ${CSS_NIV[niv]}">${niv}</span></td>`;
         rows+=`<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         const badgeNuevoSeg = ind.origen ? `<span class="badge-nuevo" title="${esc(ind.origen)}">Sugerido · Brecha CESU</span>` : '';
@@ -1456,7 +1475,7 @@ function renderSeg(lista){
         rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11.5px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
         rows+=`<td style="font-size:11.5px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
         rows+='</tr>';
-        rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="12">`+
+        rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="13">`+
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(ind.desc)||'—'}</span></div>`+
           detalleHtml(ind)+`</td></tr>`;
       });
@@ -1754,8 +1773,10 @@ function chipIndicador(i, adoptadosIds){
   return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}${interp}${refCruzada}" data-id="${i.id}">`+
     `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}', this)" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}${esc(tituloInterp)}${esc(tituloRef)}">`+
     `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}${i._interpretativo?' 🔗':''}${i._refCruzada?' 🔁':''}</button>`+
-    `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
-    `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`+
+    (sesion && sesion.rol==='director_programa' ?
+      `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
+      `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`
+    : '')+
     `</span>`;
 }
 
