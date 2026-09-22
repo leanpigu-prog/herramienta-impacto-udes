@@ -439,6 +439,11 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   background:#fff;color:var(--txt2);cursor:pointer;transition:all .15s ease;
 }
 #zona-cadena .cv-chip-add:hover{background:var(--azl);color:var(--az)}
+#zona-cadena .cv-chip-pdf{
+  flex:0 0 auto;width:24px;font-size:11px;font-family:inherit;border:none;border-left:1px solid var(--borde);
+  background:#fff;color:var(--txt2);cursor:pointer;transition:all .15s ease;
+}
+#zona-cadena .cv-chip-pdf:hover{background:var(--azl);color:var(--az)}
 #zona-cadena .cv-chip.cv-chip-on{border-color:var(--vd);background:var(--vdl)}
 #zona-cadena .cv-chip.cv-chip-on .cv-chip-nom{color:var(--vd)}
 #zona-cadena .cv-chip.cv-chip-on .cv-chip-add{background:var(--vdl);color:var(--vd)}
@@ -1775,6 +1780,7 @@ function chipIndicador(i, adoptadosIds){
   return `<span class="cv-chip${adoptado?' cv-chip-on':''}${sug}${interp}${refCruzada}" data-id="${i.id}">`+
     `<button type="button" class="cv-chip-nom" onclick="seleccionarCadena('${i.id}', this)" title="${esc(i.ind)}${i.origen?' — Sugerido · Brecha CESU':''}${esc(tituloInterp)}${esc(tituloRef)}">`+
     `<span class="nv ${nivCls}" style="font-size:8px;padding:1px 4px">${i.id}</span> ${esc(truncar(i.ind,34))}${i.origen?' ★':''}${i._interpretativo?' 🔗':''}${i._refCruzada?' 🔁':''}</button>`+
+    `<button type="button" class="cv-chip-pdf" onclick="generarFichaPDF('${i.id}')" title="Descargar ficha metodológica">📄</button>`+
     (sesion && sesion.rol==='director_programa' ?
       `<button type="button" class="cv-chip-add" onclick="toggleAdopcionIndicador('${i.id}')" `+
       `title="${adoptado?'Quitar de mis indicadores':'Agregar a mis indicadores'}">${adoptado?'✓':'+'}</button>`
@@ -1928,6 +1934,7 @@ function renderTablaPrograma(){
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span></div>`+
           (padre ? `<div class="det-item"><span class="det-lbl">Indicador institucional relacionado</span>`+
             `<span class="det-val">${esc(padre.id)} · ${esc(padre.ind)}</span></div>` : '')+
+          (padre ? `<div style="text-align:right;margin-top:6px"><button class="btn-pdf" onclick="generarFichaPDF('${padre.id}')">📄 Descargar ficha metodológica</button></div>` : '')+
           `</td></tr>`;
       });
     });
