@@ -540,12 +540,12 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
         <option value="ensenanza">Enseñanza</option>
         <option value="extension">Extensión</option>
         <option value="admin">Planeación (Admin)</option>
-        <option value="cvudes">Centro Virtual UDES</option>
       </optgroup>
       <optgroup label="Directores de Programa (piloto)">
         <option value="fis-bga">Fisioterapia — Bucaramanga (Director de Programa)</option>
         <option value="to-cuc">Terapia Ocupacional — Cúcuta (Director de Programa)</option>
         <option value="bac-vll">Bacteriología — Valledupar (Director de Programa)</option>
+        <option value="miudes-inst">Programa MIUDES — Institucional (Director de Programa)</option>
       </optgroup>
     </select>
     <input id="login-pass" type="password" placeholder="Contraseña" autocomplete="current-password"
@@ -937,8 +937,7 @@ const USERS = {
   investigacion: {pass:'Udes2026*', vr:'INV', rol:'vr',    nombre:'Vicerrectoría de Investigación'},
   ensenanza:     {pass:'Udes2026*', vr:'ENS', rol:'vr',    nombre:'Vicerrectoría de Enseñanza'},
   extension:     {pass:'Udes2026*', vr:'EXT', rol:'vr',    nombre:'Vicerrectoría de Extensión'},
-  admin:         {pass:'Udes2026*', vr:'',    rol:'admin', nombre:'Planeación (Admin)'},
-  cvudes:        {pass:'Udes2026*', vr:'',    rol:'admin', nombre:'Centro Virtual UDES'}
+  admin:         {pass:'Udes2026*', vr:'',    rol:'admin', nombre:'Planeación (Admin)'}
 };
 let sesion = null;
 
