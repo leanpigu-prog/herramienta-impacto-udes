@@ -155,6 +155,22 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .det-desc-cell{vertical-align:top}
 .det-lbl{display:block;font-weight:700;color:var(--az);text-transform:uppercase;font-size:10.5px;letter-spacing:.04em;margin-bottom:1px}
 .det-val{display:block;color:var(--txt2);text-align:justify}
+.res-wrap{grid-column:1/-1;margin-top:8px}
+.res-hint{font-size:11px;color:var(--txt2);margin:2px 0 6px}
+.res-scroll{overflow-x:auto}
+.res-grid{border-collapse:collapse;font-size:11.5px;background:#fff}
+.res-grid th,.res-grid td{border:1px solid var(--borde);padding:3px 5px;text-align:center}
+.res-grid th{background:#EEF2F8;color:var(--az);font-weight:700}
+.res-lbl{text-align:left!important;font-weight:600;color:var(--az);white-space:nowrap}
+.res-inp{width:74px}
+.res-na{background:#ECEFF1!important}
+.res-na input{background:#ECEFF1;color:#90A4AE}
+.cons-card{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:10px 14px;margin:0 0 12px}
+.cons-hdr{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:8px;font-size:13px}
+.cons-pdf{margin-left:auto;font-size:12px;color:var(--txt2);cursor:pointer}
+.cons-cod{font-weight:700;color:var(--az);white-space:nowrap}
+.cons-nom{text-align:left!important;min-width:220px}
+.cons-num{font-weight:600;white-space:nowrap}
 
 /* Unidad */
 .td-und{font-size:11.5px;color:var(--txt2);min-width:90px}
@@ -188,6 +204,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .pct-r{background:var(--rol);color:var(--ro)}
 .pct-n{background:var(--grl);color:var(--gr)}
 .pct-az{background:var(--azl3);color:var(--az3)}
+.pct-t{background:#E0F2F1;color:#00695C}
 
 /* Estado */
 .sel-e{border-radius:5px;padding:5px 8px;font-size:12px;font-family:inherit;
@@ -204,6 +221,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .row-en_proceso  td:first-child{box-shadow:inset 3px 0 0 var(--am)}
 .row-cumplida    td:first-child{box-shadow:inset 3px 0 0 var(--vd)}
 .row-superada    td:first-child{box-shadow:inset 3px 0 0 var(--az3)}
+.row-completo    td{background:rgba(0,137,123,.06)!important}
+.row-completo    td:first-child{box-shadow:inset 3px 0 0 #00897B}
 /* Resaltado temporal de indicador recién creado en "Mi Programa" — amarillo franco (no el
    dorado sutil --do, que se perdía contra el fondo rojizo de estado "sin_iniciar"; #FFEB3B es
    un amarillo estándar de "recién agregado", con buen contraste). Sin color-mix() para no
@@ -214,7 +233,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 /* Semáforo circular (Seguimiento) */
 .sem{width:13px;height:13px;border-radius:50%;display:inline-block;vertical-align:middle;flex-shrink:0}
 .sem-g{background:var(--vd)}.sem-a{background:var(--am)}.sem-r{background:var(--ro)}
-.sem-az{background:var(--az3)}.sem-gr{background:#9E9E9E}
+.sem-az{background:var(--az3)}.sem-gr{background:#9E9E9E}.sem-t{background:#00897B}
 
 /* Barra de progreso inline */
 .barra-wrap{display:inline-block;width:64px;height:6px;background:#dee3ec;border-radius:4px;vertical-align:middle;margin:0 4px;flex-shrink:0}
@@ -267,7 +286,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
   .wrap{padding:10px!important;max-width:none!important}
   .tw{max-height:none!important;overflow:visible!important;box-shadow:none!important;border-radius:0!important}
   table.ti thead th{background:var(--az)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .nv,.seg-fn-hdr td,.row-cumplida td,.row-superada td,.row-en_proceso td,.row-sin_iniciar td{
+  .nv,.seg-fn-hdr td,.row-cumplida td,.row-superada td,.row-completo td,.row-en_proceso td,.row-sin_iniciar td{
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
   .barra-fill,.barra-g,.barra-a,.barra-r,.sem-g,.sem-a,.sem-r,.sem-az{
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -651,6 +670,8 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
     <div class="prog-toolbar"><button class="btn-pdf" onclick="abrirModalPrograma()">+ Nuevo indicador</button><button class="btn-pdf" id="btn-descargar-pdf-prog" onclick="descargarPDFPrograma()">&#11123; Descargar PDF</button></div>
     <div id="prog-pdf-preview" class="pdf-preview-box"></div>
 
+    <div id="prog-consolidado"></div>
+
     <div class="tw">
       <table class="ti" id="tabla-prog">
         <thead><tr>
@@ -901,7 +922,7 @@ const FUN_LBL   = {INV:'Investigación',ENS:'Enseñanza',EXT:'Extensión'};
 const FUN_CSS   = {INV:'fn-inv',ENS:'fn-ens',EXT:'fn-ext'};
 const ESTADOS   = {'':['Sin dato',''],sin_iniciar:['Sin iniciar','var(--ro)'],
   en_proceso:['En proceso','var(--am)'],cumplida:['Cumplida','var(--vd)'],
-  superada:['Superada','var(--az3)']};
+  superada:['Superada','var(--az3)'],completo:['Completo','#00897B']};
 
 // ─── Store ─────────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzt3ppkbH2Qj5Ly_otck0zyfirv2fn7dnE9GO1kcAejhvXXryk4tO9TTFCmwWHuvZ73CA/exec';
@@ -1002,6 +1023,8 @@ function hidratarCatalogo(res){
     migrarNivLegacy();
     localStorage.setItem('imp_ind_programa', JSON.stringify(IND_PROGRAMA));
   }
+  backendConResultados = res.data_resultados !== undefined;
+  if(backendConResultados) mezclarResultadosServidor(res.data_resultados);
   catalogoCargado = true;
 }
 
@@ -1081,6 +1104,7 @@ function iniciarApp(){
   const gp = localStorage.getItem('imp_ind_programa');
   if(gp) try{IND_PROGRAMA=JSON.parse(gp);}catch(e){}
   migrarNivLegacy();
+  cargarResultadosLocales();
   cargarDeSheets();
 }
 
@@ -1134,11 +1158,13 @@ function cargarDeSheets(){
           if(row.timestamp) baseTimestampsPrograma[row.id]=new Date(row.timestamp).toISOString();
         });
       }
+      migrarEstadosAuto();
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
       irTab(tabInicial, document.querySelector(`.tab[onclick*="'${tabInicial}'"]`));
     })
     .catch(()=>{
       hdr.textContent='Sin conexión — datos locales';
+      migrarEstadosAuto();
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
       irTab(tabInicial, document.querySelector(`.tab[onclick*="'${tabInicial}'"]`));
     });
@@ -1274,20 +1300,20 @@ function renderEd(lista, f){
       rows+=`<td class="td-und">${ind.und}</td>`;
       const placeholderLB = lbVal !== '' ? '—' : (ind.lbRef!=null ? `Sugerido: ${ind.lbRef}` : '—');
       const titleLB = ind.lbRef!=null ? `Línea Base 2023 (sugerida por matriz vr7: ${ind.lbRef}, sin confirmar)` : 'Línea Base 2023';
-      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(lbVal))}"
-        onchange="setVal('${ind.id}','lb',this.value)" placeholder="${esc(placeholderLB)}" title="${esc(titleLB)}"></td>`;
-      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(va26)}"
-        onchange="setVal('${ind.id}','va26',this.value)" title="Valor real 2026"></td>`;
-      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(getMeta(ind,'m26')??''))}"
-        onchange="setVal('${ind.id}','m26',this.value)" title="Meta 2026"></td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(ind.und,lbVal)))}"
+        onchange="setVal('${ind.id}','lb',this.value)${mon(ind.und)}" placeholder="${esc(placeholderLB)}" title="${esc(titleLB)}"></td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(ind.und,va26)))}"
+        onchange="setVal('${ind.id}','va26',this.value)${mon(ind.und)}" title="Valor real 2026"></td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(ind.und,getMeta(ind,'m26')??'')))}"
+        onchange="setVal('${ind.id}','m26',this.value)${mon(ind.und)}" title="Meta 2026"></td>`;
       rows+=`<td style="text-align:center" id="pct26-${ind.id}">${pctHtml(calcPct(va26,getMeta(ind,'m26')))}</td>`;
-      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(va28)}"
-        onchange="setVal('${ind.id}','va28',this.value)" title="Valor real 2028"></td>`;
-      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(getMeta(ind,'m28')??''))}"
-        onchange="setVal('${ind.id}','m28',this.value)" title="Meta 2028"></td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(ind.und,va28)))}"
+        onchange="setVal('${ind.id}','va28',this.value)${mon(ind.und)}" title="Valor real 2028"></td>`;
+      rows+=`<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(ind.und,getMeta(ind,'m28')??'')))}"
+        onchange="setVal('${ind.id}','m28',this.value)${mon(ind.und)}" title="Meta 2028"></td>`;
       rows+=`<td style="text-align:center" id="pct28-${ind.id}">${pctHtml(calcPct(va28,getMeta(ind,'m28')))}</td>`;
       rows+=`<td><select class="sel-e" onchange="setEst('${ind.id}',this.value)">
-        ${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${est===k?'selected':''}>${l}</option>`).join('')}
+        ${Object.entries(ESTADOS).filter(([k])=>k!=='completo').map(([k,[l]])=>`<option value="${k}" ${est===k?'selected':''}>${l}</option>`).join('')}
       </select></td>`;
       rows+=`<td><input class="inp-obs" type="text" value="${esc(obs)}"
         placeholder="Observación..." onchange="setVal('${ind.id}','o',this.value)"></td>`;
@@ -1372,7 +1398,7 @@ function toggleDetalle(id){
 
 // ─── Dashboard de Seguimiento (tab SEG — solo lectura visual) ─
 function semCls(est){
-  return est==='cumplida'?'sem-g':est==='superada'?'sem-az':est==='en_proceso'?'sem-a':est==='sin_iniciar'?'sem-r':'sem-gr';
+  return est==='cumplida'?'sem-g':est==='superada'?'sem-az':est==='completo'?'sem-t':est==='en_proceso'?'sem-a':est==='sin_iniciar'?'sem-r':'sem-gr';
 }
 function barraCls(pct){
   if(pct===null) return 'barra-gr';
@@ -1482,7 +1508,7 @@ function renderSeg(lista){
         rows+=`<td style="text-align:center">${pctHtml(pct26)}</td>`;
         rows+=`<td class="celda-prog">${barraHtml(va28,getMeta(ind,'m28'))}</td>`;
         rows+=`<td style="text-align:center">${pctHtml(pct28)}</td>`;
-        rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11.5px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
+        rows+=`<td><span class="pct ${est?'pct-'+{'cumplida':'g','superada':'az','completo':'t','en_proceso':'a','sin_iniciar':'r'}[est]||'n':'pct-n'}" style="font-size:11.5px">${ESTADOS[est]?ESTADOS[est][0]:'Sin dato'}</span></td>`;
         rows+=`<td style="font-size:11.5px;color:var(--txt2)">${esc(obs)||'—'}</td>`;
         rows+='</tr>';
         rows+=`<tr class="detalle-row" id="det-${ind.id}" style="display:none"><td colspan="13">`+
@@ -1545,6 +1571,374 @@ function detalleResumen(ind){
   return parts.length?parts.join('<br>'):'—';
 }
 
+// ─── Registro por año (Mi Programa) + consolidado por ventana + formato moneda ───────────────
+// Cierra el feedback de la Dirección de Fisioterapia-Bucaramanga (2026-09-23): resultados por año
+// (2021-2028) distinguiendo "sin dato" de "no aplica medición", cálculo sobre la ventana de tiempo
+// que pida la autoevaluación/acreditación, número + proporción a la vez y formato pesos (I07).
+// Solo aplica a Mi Programa; los Vicerrectores siguen con Valor 2026/2028. Los valores 2026/2028 de
+// la cuadrícula se espejan con `va26`/`va28` del indicador (en ambos sentidos), así que el flujo
+// anterior no cambia. Persistencia: hoja "Resultados_Programa" (una fila por indicador-año).
+// ==RES-PURE-BEGIN==
+const ANIO_INI = 2021, ANIO_FIN = 2028;
+const ANIOS_HIST = Array.from({length: ANIO_FIN - ANIO_INI + 1}, (_, i) => ANIO_INI + i);
+const METODOS_VENTANA = {suma:'Suma', prom:'Promedio', ultimo:'Último valor'};
+
+// 'dual' = número y proporción a la vez; 'moneda' = pesos; 'pct' = porcentaje/proporción única;
+// 'num' = resto. Otras alternativas ("Puntaje o posición", "Índice o …") NO son número/proporción.
+function modoRegistro(und){
+  const u = String(und||'').trim().toLowerCase();
+  if(/^pesos/.test(u)) return 'moneda';
+  if(/(número|numero|n°\s*proyectos)\s+o\s+proporci[oó]n/.test(u)) return 'dual';
+  if(/^(%|porcentaje)/.test(u) || /^proporci[oó]n/.test(u)) return 'pct';
+  return 'num';
+}
+function esMoneda(und){ return modoRegistro(und) === 'moneda'; }
+
+// Acepta "1500000", "1.500.000", "$ 1.500.000" o "1500000,5" y devuelve el número sin formato
+// ("1500000" / "1500000.5"), que es lo que se guarda y lo que lee calcPct(). Si no es numérico
+// devuelve el texto tal cual, para no perder lo que escribió el usuario.
+function normalizarPesos(v){
+  const s = String(v==null ? '' : v).trim();
+  if(s === '') return '';
+  const t = s.replace(/[$\s]/g, '');
+  if(!/^[0-9.,]+$/.test(t)) return s;
+  let n;
+  if(t.indexOf(',') !== -1) n = t.replace(/\./g, '').replace(',', '.');
+  else if(/^[0-9]{1,3}(\.[0-9]{3})+$/.test(t)) n = t.replace(/\./g, '');
+  else n = t;
+  return isNaN(parseFloat(n)) ? s : n;
+}
+function formatoPesos(raw){
+  const n = parseFloat(raw);
+  if(isNaN(n)) return raw==null ? '' : String(raw);
+  return '$ ' + n.toLocaleString('es-CO', {maximumFractionDigits: 2});
+}
+function vDisp(und, v){
+  if(v==null) return '';
+  return esMoneda(und) && String(v) !== '' ? formatoPesos(v) : v;
+}
+function mon(und){ return esMoneda(und) ? ';pesosEnInput(this)' : ''; }
+function pesosEnInput(el){ el.value = formatoPesos(normalizarPesos(el.value)); }
+
+function numVal(x){
+  const n = parseFloat(String(x==null ? '' : x).replace(',', '.'));
+  return isNaN(n) ? null : n;
+}
+
+// Método por defecto según la unidad; el director puede cambiarlo por indicador.
+function aggDefault(und){
+  const u = String(und||'').toLowerCase();
+  const modo = modoRegistro(und);
+  if(modo === 'dual') return 'suma';
+  if(/\/semestre/.test(u)) return 'prom';
+  if(/\/año/.test(u) || modo === 'moneda') return 'suma';
+  if(modo === 'pct' || /puntaje|índice|indice|%/.test(u)) return 'prom';
+  return 'ultimo';
+}
+
+// celdas: {año: {num, prop, na}}. Ignora años vacíos y los marcados "no aplica" (na='1').
+// aplicables = años de la ventana que sí se miden; conDato = los que además traen valor.
+// Con 'suma' el número se suma y la proporción se promedia (promedio simple, no ponderado).
+function agregarVentana(celdas, desde, hasta, metodo){
+  const nums = [], props = [];
+  let aplicables = 0, conDato = 0, ultNum = null, ultProp = null;
+  for(let a = desde; a <= hasta; a++){
+    const c = celdas[a] || {};
+    if(String(c.na) === '1') continue;
+    aplicables++;
+    const n = numVal(c.num), p = numVal(c.prop);
+    if(n !== null){ nums.push(n); ultNum = n; }
+    if(p !== null){ props.push(p); ultProp = p; }
+    if(n !== null || p !== null) conDato++;
+  }
+  const suma = arr => arr.reduce((x, y) => x + y, 0);
+  const prom = arr => arr.length ? suma(arr) / arr.length : null;
+  let num, prop;
+  if(metodo === 'ultimo'){ num = ultNum; prop = ultProp; }
+  else if(metodo === 'prom'){ num = prom(nums); prop = prom(props); }
+  else { num = nums.length ? suma(nums) : null; prop = prom(props); }
+  return {num, prop, conDato, aplicables};
+}
+function fmtRes(modo, v){
+  if(v === null || v === undefined) return '—';
+  if(modo === 'moneda') return formatoPesos(v);
+  return (Math.round(v * 100) / 100).toLocaleString('es-CO');
+}
+// Estado automático (Mi Programa). "Completo" = información completa a corte 2026, sin exigir
+// Valor 2027 ni Valor 2028 ("por el momento", 2026-09-23): editar CAMPOS_COMPLETO para ajustarlo.
+const CAMPOS_COMPLETO = [
+  {k:'lb',        lbl:'Línea base 2023'},
+  {k:'m26',       lbl:'Meta 2026'},
+  {k:'m28',       lbl:'Meta 2028'},
+  {k:'va26',      lbl:'Valor 2026'},
+  {k:'evidencia', lbl:'Evidencia (enlace http:// o https://)', enlace:true}
+];
+function esEnlace(s){ return /^https?:\/\/\S+/i.test(String(s==null ? '' : s).trim()); }
+function tieneValor(v){ return String(v==null ? '' : v).trim() !== ''; }
+function faltantesCompleto(p){
+  return CAMPOS_COMPLETO.filter(c => c.enlace ? !esEnlace(p[c.k]) : !tieneValor(p[c.k])).map(c => c.lbl);
+}
+// Hay avance registrado: Valor 2026/2028 o cualquier celda anual con dato y sin "No aplica".
+// Línea base y metas solas no cuentan como avance.
+function tieneCifra(p, celdas){
+  if(tieneValor(p.va26) || tieneValor(p.va28)) return true;
+  return Object.keys(celdas || {}).some(a => {
+    const c = celdas[a] || {};
+    return String(c.na) !== '1' && (tieneValor(c.num) || tieneValor(c.prop));
+  });
+}
+// Cumplida/Superada nunca se tocan; En proceso puesto a mano tampoco se baja. Completo es un
+// estado derivado: sube solo desde ''/Sin iniciar/En proceso y baja si deja de estar completo.
+function estadoAutoPrograma(p, celdas){
+  const est = p.estado || '';
+  const completo = faltantesCompleto(p).length === 0;
+  const cifra = tieneCifra(p, celdas);
+  if(completo && ['', 'sin_iniciar', 'en_proceso', 'completo'].indexOf(est) !== -1) return 'completo';
+  if(est === 'completo') return cifra ? 'en_proceso' : 'sin_iniciar';
+  if(cifra && (est === '' || est === 'sin_iniciar')) return 'en_proceso';
+  return est;
+}
+// ==RES-PURE-END==
+
+let RESULTADOS = [];                 // {clave,id_indicador,programa,sede,anio,num,prop,na,timestamp}
+let idsSuciosResultados = new Set(); // claves pendientes de subir a Sheets
+let backendConResultados = false;    // true solo si el GET trae data_resultados (Apps Script nuevo)
+let ventana = {desde: 2021, hasta: 2025, metodos: {}, enPdf: false};
+try{
+  const v = JSON.parse(localStorage.getItem('imp_ventana') || 'null');
+  if(v && v.desde && v.hasta) ventana = Object.assign(ventana, v);
+}catch(e){}
+
+function cargarResultadosLocales(){
+  try{ const r = JSON.parse(localStorage.getItem('imp_resultados_programa') || '[]'); if(Array.isArray(r)) RESULTADOS = r; }catch(e){}
+  try{ const s = JSON.parse(localStorage.getItem('imp_resultados_sucios') || '[]'); if(Array.isArray(s)) idsSuciosResultados = new Set(s); }catch(e){}
+}
+function guardarLocalResultados(){
+  try{
+    localStorage.setItem('imp_resultados_programa', JSON.stringify(RESULTADOS));
+    localStorage.setItem('imp_resultados_sucios', JSON.stringify([...idsSuciosResultados]));
+  }catch(e){}
+}
+function saveResultados(){
+  guardarLocalResultados();
+  clearTimeout(saveResultados._t);
+  saveResultados._t = setTimeout(enviarResultados, 3000);
+}
+// Solo sube si el backend ya soporta la hoja: un Apps Script viejo trataría esta entidad como
+// "Datos" y escribiría filas basura allí.
+function enviarResultados(){
+  if(!backendConResultados || !idsSuciosResultados.size) return;
+  const rows = [...idsSuciosResultados]
+    .map(c => RESULTADOS.find(r => r.clave === c))
+    .filter(r => r && String(r.id_indicador).indexOf('TMP_') !== 0)
+    .map(r => ({clave:r.clave, id_indicador:r.id_indicador, programa:r.programa, sede:r.sede, anio:r.anio, num:r.num, prop:r.prop, na:r.na}));
+  if(!rows.length) return;
+  fetch(APPS_SCRIPT_URL, {method:'POST', body:JSON.stringify({action:'upsert', entity:'resultado_programa', rows})})
+    .then(r => r.json())
+    .then(res => {
+      if(!res.ok) return;
+      rows.forEach(e => {
+        const act = RESULTADOS.find(x => x.clave === e.clave);
+        if(act && act.num === e.num && act.prop === e.prop && String(act.na) === String(e.na)) idsSuciosResultados.delete(e.clave);
+      });
+      guardarLocalResultados();
+    })
+    .catch(() => {});
+}
+// Trae del servidor los resultados de ESTE programa. Lo que el navegador tiene pendiente de subir
+// gana sobre lo del servidor; lo local que el servidor aún no tiene se marca para subirlo.
+function mezclarResultadosServidor(filas){
+  if(!sesion || sesion.rol !== 'director_programa') return;
+  const prefijo = 'P_' + sesion.programa + sesion.sedeCod + '_';
+  (filas || []).filter(r => String(r.id_indicador).indexOf(prefijo) === 0).forEach(r => {
+    if(idsSuciosResultados.has(r.clave)) return;
+    const nuevo = {clave:String(r.clave), id_indicador:String(r.id_indicador), programa:String(r.programa||''), sede:String(r.sede||''),
+      anio:String(r.anio), num:String(r.num==null?'':r.num), prop:String(r.prop==null?'':r.prop), na:String(r.na==null?'':r.na), timestamp:r.timestamp||''};
+    const i = RESULTADOS.findIndex(x => x.clave === nuevo.clave);
+    if(i === -1) RESULTADOS.push(nuevo); else RESULTADOS[i] = nuevo;
+  });
+  const enServidor = new Set((filas || []).map(r => String(r.clave)));
+  RESULTADOS.forEach(r => {
+    if(String(r.id_indicador).indexOf(prefijo) === 0 && !enServidor.has(r.clave)) idsSuciosResultados.add(r.clave);
+  });
+  guardarLocalResultados();
+  enviarResultados();
+}
+function renombrarResultados(tempId, realId){
+  RESULTADOS.forEach(r => {
+    if(r.id_indicador !== tempId) return;
+    if(idsSuciosResultados.delete(r.clave)) idsSuciosResultados.add(realId + '|' + r.anio);
+    r.id_indicador = realId;
+    r.clave = realId + '|' + r.anio;
+  });
+  guardarLocalResultados();
+}
+
+// Celdas de un indicador de programa: filas anuales + respaldo con va26/va28 cuando el año
+// no tiene fila propia (datos capturados antes de existir la cuadrícula).
+function celdasDe(p){
+  const m = {};
+  ANIOS_HIST.forEach(a => { const r = RESULTADOS.find(x => x.clave === p.id + '|' + a); if(r) m[a] = r; });
+  [[2026, 'va26'], [2028, 'va28']].forEach(([a, k]) => {
+    if(!m[a] && p[k] !== undefined && String(p[k]).trim() !== '') m[a] = {num:p[k], prop:'', na:''};
+  });
+  return m;
+}
+function escribirRes(p, anio, campo, val){
+  const clave = p.id + '|' + anio;
+  let r = RESULTADOS.find(x => x.clave === clave);
+  if(!r){
+    r = {clave, id_indicador:p.id, programa:p.programa||'', sede:p.sede||'', anio:String(anio), num:'', prop:'', na:'', timestamp:''};
+    RESULTADOS.push(r);
+  }
+  r[campo] = val;
+  idsSuciosResultados.add(clave);
+  saveResultados();
+}
+function setResultado(id, anio, campo, val){
+  const p = IND_PROGRAMA.find(x => x.id === id);
+  if(!p) return;
+  if((campo === 'num' || campo === 'prop') && esMoneda(p.und)) val = normalizarPesos(val);
+  if(campo === 'na') val = val ? '1' : '';
+  escribirRes(p, anio, campo, val);
+  if(campo === 'na'){
+    ['num', 'prop'].forEach(c => { const el = document.getElementById('res-' + id + '-' + anio + '-' + c); if(el){ el.disabled = !!val; el.parentNode.className = val ? 'res-na' : ''; } });
+  }
+  const k = anio === 2026 ? 'va26' : anio === 2028 ? 'va28' : null;
+  if(campo === 'num' && k){
+    p[k] = val;
+    idsSuciosPrograma.add(id);
+    savePrograma();
+    const sfx = anio === 2026 ? '26' : '28';
+    const pc = document.getElementById('pctprog' + sfx + '-' + id);
+    if(pc) pc.innerHTML = pctHtml(calcPct(val, anio === 2026 ? p.m26 : p.m28));
+    const inp = document.querySelector('#rowprog-' + CSS.escape(id) + ' input[title="Valor real ' + anio + '"]');
+    if(inp) inp.value = vDisp(p.und, val);
+  }
+  if(actualizarEstadoPrograma(p)) savePrograma();
+  renderConsolidado();
+}
+
+function tituloEstadoPrograma(p){
+  const f = faltantesCompleto(p);
+  return f.length ? 'Para quedar Completo falta: ' + f.join(', ') : 'Información completa (a corte 2026)';
+}
+function aplicarClaseEstado(fila, val){
+  if(!fila) return;
+  Object.keys(ESTADOS).forEach(k => { if(k) fila.classList.remove('row-' + k); });
+  if(val) fila.classList.add('row-' + val);
+}
+// Recalcula el estado de un indicador de programa según lo registrado. Devuelve true si cambió;
+// quien llama decide cuándo guardar (savePrograma).
+function actualizarEstadoPrograma(p){
+  const nuevo = estadoAutoPrograma(p, celdasDe(p));
+  const fila = document.getElementById('rowprog-' + p.id);
+  const sel = fila ? fila.querySelector('select.sel-e') : null;
+  if(sel) sel.title = tituloEstadoPrograma(p);
+  if(nuevo === (p.estado || '')) return false;
+  p.estado = nuevo;
+  idsSuciosPrograma.add(p.id);
+  aplicarClaseEstado(fila, nuevo);
+  if(sel) sel.value = nuevo;
+  const n = document.getElementById('n-completos');
+  if(n) n.textContent = indicadoresPropios().filter(x => x.estado === 'completo').length;
+  return true;
+}
+// Corrección única al cargar: aplica las reglas a lo que ya estaba guardado. Idempotente.
+function migrarEstadosAuto(){
+  if(!sesion) return;
+  if(sesion.rol === 'director_programa'){
+    let cambios = 0;
+    indicadoresPropios().forEach(p => { if(actualizarEstadoPrograma(p)) cambios++; });
+    if(cambios) savePrograma();
+    return;
+  }
+  let cv = 0;
+  IND.forEach(i => {
+    if(sesion.rol !== 'admin' && i.f !== sesion.vr) return;
+    const e = store[i.id + '_e'] || '';
+    if((e === '' || e === 'sin_iniciar') && (tieneValor(store[i.id + '_va26']) || tieneValor(store[i.id + '_va28']))){
+      store[i.id + '_e'] = 'en_proceso';
+      idsSucios.add(i.id);
+      cv++;
+    }
+  });
+  if(cv) save();
+}
+
+function gridAnualHtml(p){
+  const modo = modoRegistro(p.und);
+  const cel = celdasDe(p);
+  const celda = (a, campo) => {
+    const c = cel[a] || {};
+    const na = String(c.na) === '1';
+    const v = campo === 'num' ? vDisp(p.und, c.num || '') : (c.prop || '');
+    return `<td class="${na ? 'res-na' : ''}"><input id="res-${p.id}-${a}-${campo}" class="inp-v res-inp" type="text" value="${esc(String(v))}" ${na ? 'disabled' : ''} `+
+      `onchange="setResultado('${p.id}',${a},'${campo}',this.value)${campo === 'num' ? mon(p.und) : ''}"></td>`;
+  };
+  const lblNum = modo === 'dual' ? 'Número' : modo === 'moneda' ? 'Monto (COP)' : modo === 'pct' ? 'Valor (%)' : 'Valor';
+  let filas = `<tr><td class="res-lbl">${lblNum}</td>${ANIOS_HIST.map(a => celda(a, 'num')).join('')}</tr>`;
+  if(modo === 'dual') filas += `<tr><td class="res-lbl">Proporción</td>${ANIOS_HIST.map(a => celda(a, 'prop')).join('')}</tr>`;
+  filas += `<tr><td class="res-lbl">No aplica</td>${ANIOS_HIST.map(a =>
+    `<td><input type="checkbox" ${String((cel[a]||{}).na) === '1' ? 'checked' : ''} onchange="setResultado('${p.id}',${a},'na',this.checked)" title="Este año no corresponde medir este indicador"></td>`).join('')}</tr>`;
+  return `<div class="det-item res-wrap"><span class="det-lbl">Registro por año</span>`+
+    `<div class="res-hint">Casilla vacía = sin dato. «No aplica» = el indicador no se mide ese año (no cuenta como faltante en el consolidado).${modo === 'dual' ? ' Registre número y proporción por separado.' : ''}</div>`+
+    `<div class="res-scroll"><table class="res-grid"><thead><tr><th></th>${ANIOS_HIST.map(a => `<th>${a}</th>`).join('')}</tr></thead><tbody>${filas}</tbody></table></div></div>`;
+}
+
+function filasConsolidado(){
+  return indicadoresPropios().map(p => {
+    const modo = modoRegistro(p.und);
+    const metodo = ventana.metodos[p.id] || aggDefault(p.und);
+    return {p, modo, metodo, res: agregarVentana(celdasDe(p), Number(ventana.desde), Number(ventana.hasta), metodo)};
+  });
+}
+function guardarVentana(){ try{ localStorage.setItem('imp_ventana', JSON.stringify(ventana)); }catch(e){} }
+function cambiarVentana(lado, val){
+  ventana[lado] = Number(val);
+  if(ventana.desde > ventana.hasta){ if(lado === 'desde') ventana.hasta = ventana.desde; else ventana.desde = ventana.hasta; }
+  guardarVentana(); renderConsolidado();
+}
+function cambiarMetodoVentana(id, m){ ventana.metodos[id] = m; guardarVentana(); renderConsolidado(); }
+function cambiarEnPdf(chk){ ventana.enPdf = !!chk; guardarVentana(); }
+
+function renderConsolidado(){
+  const cont = document.getElementById('prog-consolidado');
+  if(!cont) return;
+  if(!sesion || sesion.rol !== 'director_programa'){ cont.innerHTML = ''; return; }
+  const filas = filasConsolidado();
+  if(!filas.length){ cont.innerHTML = ''; return; }
+  const opts = sel => ANIOS_HIST.map(a => `<option value="${a}" ${a === Number(sel) ? 'selected' : ''}>${a}</option>`).join('');
+  const rows = filas.map(({p, modo, metodo, res}) =>
+    `<tr><td class="cons-cod">${esc(p.id_padre || '—')}</td><td class="cons-nom">${esc(p.nombre)}</td><td>${esc(p.und) || '—'}</td>`+
+    `<td><select class="sel-e" onchange="cambiarMetodoVentana('${p.id}',this.value)">${Object.entries(METODOS_VENTANA).map(([k, l]) => `<option value="${k}" ${metodo === k ? 'selected' : ''}>${l}</option>`).join('')}</select></td>`+
+    `<td class="cons-num">${fmtRes(modo, res.num)}</td><td class="cons-num">${modo === 'dual' ? fmtRes(modo, res.prop) : '—'}</td>`+
+    `<td class="cons-num">${res.conDato} de ${res.aplicables}</td></tr>`).join('');
+  cont.innerHTML = `<div class="cons-card"><div class="cons-hdr"><b>Consolidado por ventana de tiempo</b>`+
+    `<span>Desde <select class="sel-e" onchange="cambiarVentana('desde',this.value)">${opts(ventana.desde)}</select> hasta <select class="sel-e" onchange="cambiarVentana('hasta',this.value)">${opts(ventana.hasta)}</select></span>`+
+    `<label class="cons-pdf"><input type="checkbox" ${ventana.enPdf ? 'checked' : ''} onchange="cambiarEnPdf(this.checked)"> Incluir en el PDF</label></div>`+
+    `<div class="res-scroll"><table class="res-grid cons-tabla"><thead><tr><th>N°</th><th style="text-align:left">Indicador</th><th>Unidad</th><th>Método</th><th>Resultado</th><th>Proporción</th><th>Años con dato</th></tr></thead><tbody>${rows}</tbody></table></div>`+
+    `<div class="res-hint">Calculado con lo registrado en «Registro por año» (clic en el nombre del indicador). Los años marcados «No aplica» se excluyen. El promedio de proporciones/porcentajes es simple, no ponderado.`+
+    `${backendConResultados ? '' : ' <b>Sincronización pendiente:</b> los resultados por año se guardan solo en este navegador hasta que se actualice el Apps Script.'}</div></div>`;
+}
+
+function consolidadoPdfHtml(){
+  if(!ventana.enPdf) return '';
+  const filas = filasConsolidado();
+  if(!filas.length) return '';
+  const td = (t, extra) => `<td style="padding:3px 4px;text-align:center;${extra || ''}">${t}</td>`;
+  const rows = filas.map(({p, modo, metodo, res}, i) =>
+    `<tr style="background:${i % 2 ? '#FAFAFA' : '#fff'};border-bottom:1px solid #eee">`+
+    td(esc(p.id_padre || '—'), 'font-weight:700;color:#003087;white-space:nowrap')+
+    `<td style="padding:3px 4px;vertical-align:top">${esc(p.nombre)}</td>`+
+    td(METODOS_VENTANA[metodo])+td(fmtRes(modo, res.num), 'font-weight:600;background:#EFF6FF')+
+    td(modo === 'dual' ? fmtRes(modo, res.prop) : '—', 'background:#EFF6FF')+td(res.conDato + ' de ' + res.aplicables)+`</tr>`).join('');
+  const th = (t, extra) => `<th style="padding:3px 4px;background:#F3F4F6;border-bottom:1px solid #ddd;text-align:center;${extra || ''}">${t}</th>`;
+  return `<div style="background:#003087;color:#fff;font-size:9.5px;font-weight:700;padding:4px 8px;border-radius:4px 4px 0 0;margin-top:12px">Consolidado ${ventana.desde}–${ventana.hasta}</div>`+
+    `<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:4px"><thead><tr>${th('Cód.')}${th('Indicador', 'text-align:left')}${th('Método')}${th('Resultado')}${th('Proporción')}${th('Años con dato')}</tr></thead><tbody>${rows}</tbody></table>`+
+    `<div style="font-size:7.5px;color:#777;margin-bottom:4px">Años marcados «No aplica» excluidos. Promedio de proporciones/porcentajes simple, no ponderado.</div>`;
+}
+
 // ─── Helpers de datos ──────────────────────────────────────
 function getMeta(ind, campo){
   const ov = store[ind.id+'_'+campo];
@@ -1591,6 +1985,7 @@ function renderMiPrograma(){
   document.getElementById('prog-info').innerHTML =
     `<div class="cards">
        <div class="card ct"><div class="n">${indicadoresPropios().length}</div><div class="l">Indicadores propios registrados</div></div>
+       <div class="card ct"><div class="n" id="n-completos">${indicadoresPropios().filter(p=>p.estado==='completo').length}</div><div class="l">Indicadores completos</div></div>
      </div>
      <div class="nota" style="margin-bottom:14px">Programa: <b>${esc(sesion.nombre)}</b></div>`;
   // Vista previa del título/subtítulo exacto que traerá el PDF (misma fuente de verdad que
@@ -1875,6 +2270,7 @@ function toggleAdopcionIndicador(idPadre){
 // Misma estructura visual/de columnas que Seguimiento (Nivel, Función, LB, Valor/Meta 2026-2028,
 // %, Estado) pero editable: el director coloca su propia línea base y metas, no solo el valor real.
 function renderTablaPrograma(){
+  renderConsolidado();
   const propios = indicadoresPropios();
   const tbody = document.getElementById('prog-tbody');
   if(!propios.length){
@@ -1914,21 +2310,21 @@ function renderTablaPrograma(){
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
           `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔗 ':''}${esc(p.nombre)}</td>`;
         rows += `<td class="td-und">${esc(p.und)||'—'}</td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb2021||'')}" `+
-          `onchange="setValPrograma('${p.id}','lb2021',this.value)" title="Línea Base 2021"></td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.lb||'')}" `+
-          `onchange="setValPrograma('${p.id}','lb',this.value)" title="Línea Base 2023"></td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va26||'')}" `+
-          `onchange="setValPrograma('${p.id}','va26',this.value)" title="Valor real 2026"></td>`;
-        rows += `<td><input class="inp-v" type="text" value="${esc(p.m26||'')}" `+
-          `onchange="setValPrograma('${p.id}','m26',this.value)" title="Meta 2026 (definida por el programa)"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.lb2021||'')))}" `+
+          `onchange="setValPrograma('${p.id}','lb2021',this.value)${mon(p.und)}" title="Línea Base 2021"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.lb||'')))}" `+
+          `onchange="setValPrograma('${p.id}','lb',this.value)${mon(p.und)}" title="Línea Base 2023"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.va26||'')))}" `+
+          `onchange="setValPrograma('${p.id}','va26',this.value)${mon(p.und)}" title="Valor real 2026"></td>`;
+        rows += `<td><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.m26||'')))}" `+
+          `onchange="setValPrograma('${p.id}','m26',this.value)${mon(p.und)}" title="Meta 2026 (definida por el programa)"></td>`;
         rows += `<td style="text-align:center" id="pctprog26-${p.id}">${pctHtml(pct26)}</td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(p.va28||'')}" `+
-          `onchange="setValPrograma('${p.id}','va28',this.value)" title="Valor real 2028"></td>`;
-        rows += `<td><input class="inp-v" type="text" value="${esc(p.m28||'')}" `+
-          `onchange="setValPrograma('${p.id}','m28',this.value)" title="Meta 2028 (definida por el programa)"></td>`;
+        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.va28||'')))}" `+
+          `onchange="setValPrograma('${p.id}','va28',this.value)${mon(p.und)}" title="Valor real 2028"></td>`;
+        rows += `<td><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.m28||'')))}" `+
+          `onchange="setValPrograma('${p.id}','m28',this.value)${mon(p.und)}" title="Meta 2028 (definida por el programa)"></td>`;
         rows += `<td style="text-align:center" id="pctprog28-${p.id}">${pctHtml(pct28)}</td>`;
-        rows += `<td><select class="sel-e" onchange="setEstPrograma('${p.id}',this.value)">`+
+        rows += `<td><select class="sel-e" title="${esc(tituloEstadoPrograma(p))}" onchange="setEstPrograma('${p.id}',this.value)">`+
           `${Object.entries(ESTADOS).map(([k,[l]])=>`<option value="${k}" ${p.estado===k?'selected':''}>${l}</option>`).join('')}</select></td>`;
         rows += `<td><input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" `+
           `placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)"></td>`;
@@ -1941,6 +2337,7 @@ function renderTablaPrograma(){
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span></div>`+
           (padre ? `<div class="det-item"><span class="det-lbl">Indicador institucional relacionado</span>`+
             `<span class="det-val">${esc(padre.id)} · ${esc(padre.ind)}</span></div>` : '')+
+          gridAnualHtml(p)+
           (padre ? `<div style="text-align:left;margin-top:6px"><button class="btn-pdf" onclick="generarFichaPDF('${padre.id}')">📄 Descargar ficha metodológica</button></div>` : '')+
           `</td></tr>`;
       });
@@ -1952,7 +2349,17 @@ function renderTablaPrograma(){
 function setValPrograma(id, campo, val){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
+  if(esMoneda(p.und) && ['lb2021','lb','va26','m26','va28','m28'].indexOf(campo)!==-1) val = normalizarPesos(val);
   p[campo] = val;
+  if(campo==='va26'||campo==='va28'){
+    const anio = campo==='va26' ? 2026 : 2028;
+    if(val!=='' || RESULTADOS.some(r=>r.clave===id+'|'+anio)){
+      escribirRes(p, anio, 'num', val);
+      const g = document.getElementById('res-'+id+'-'+anio+'-num');
+      if(g) g.value = vDisp(p.und, val);
+      renderConsolidado();
+    }
+  }
   idsSuciosPrograma.add(id);
   savePrograma();
   if(campo==='va26'||campo==='m26'){
@@ -1963,16 +2370,28 @@ function setValPrograma(id, campo, val){
     const el=document.getElementById('pctprog28-'+id);
     if(el) el.innerHTML=pctHtml(calcPct(p.va28,p.m28));
   }
+  if(actualizarEstadoPrograma(p)) savePrograma();
 }
 
 function setEstPrograma(id, val){
   const p = IND_PROGRAMA.find(x=>x.id===id);
   if(!p) return;
+  if(val==='completo'){
+    const falta = faltantesCompleto(p);
+    if(falta.length){
+      toast('No se puede marcar Completo. Falta: ' + falta.join(', '));
+      const s = document.querySelector('#rowprog-' + CSS.escape(id) + ' select.sel-e');
+      if(s) s.value = p.estado || '';
+      return;
+    }
+  }
   p.estado = val;
   idsSuciosPrograma.add(id);
   savePrograma();
   const fila=document.getElementById('rowprog-'+id);
-  if(fila) fila.className=val?'row-'+val:'';
+  aplicarClaseEstado(fila, val);
+  const n = document.getElementById('n-completos');
+  if(n) n.textContent = indicadoresPropios().filter(x => x.estado === 'completo').length;
 }
 
 function limpiarFormPrograma(){
@@ -2143,6 +2562,7 @@ function remapIdPrograma(tempId, realId, sigueSucio){
   const p = IND_PROGRAMA.find(x=>x.id===tempId);
   if(!p) return;
   p.id = realId;
+  renombrarResultados(tempId, realId);
   delete p._prefijoId;
   idsSuciosPrograma.delete(tempId);
   if(sigueSucio) idsSuciosPrograma.add(realId);
@@ -2212,11 +2632,21 @@ function savePrograma(){
 
 // ─── Guardar en store ──────────────────────────────────────
 function setVal(id, campo, val){
+  const _ind0 = IND.find(i=>i.id===id);
+  if(_ind0 && esMoneda(_ind0.und) && ['lb','va26','va28','m26','m28'].indexOf(campo)!==-1) val = normalizarPesos(val);
   store[id+'_'+campo]=val;
   idsSucios.add(id);
   save();
   const ind = IND.find(i=>i.id===id);
   if(!ind) return;
+  if((campo==='va26'||campo==='va28') && String(val).trim()!==''){
+    const e0 = store[id+'_e'] || '';
+    if(e0==='' || e0==='sin_iniciar'){
+      setEst(id,'en_proceso');
+      const sel0 = document.querySelector('#row-'+id+' select.sel-e');
+      if(sel0) sel0.value = 'en_proceso';
+    }
+  }
   if(campo==='va26'){
     const el=document.getElementById('pct26-'+id);
     if(el) el.innerHTML=pctHtml(calcPct(val,getMeta(ind,'m26')));
@@ -2401,8 +2831,8 @@ function descargarPDF(){
   const funciones=f?[f]:['INV','ENS','EXT'];
   const FUN_COLOR={INV:'#1565C0',ENS:'#2E7D32',EXT:'#E65100'};
   const NIV_COLOR={Insumos:'#5C6BC0',Procesos:'#E65100',Productos:'#2E7D32','Impacto Real':'#AD1457','Impacto Real (Sugerido)':'#AD1457'};
-  const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada'};
-  const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0'};
+  const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada',completo:'Completo'};
+  const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0',completo:'#00897B'};
 
   const lista=IND.filter(i=>!f||i.f===f);
   const total=lista.length;
@@ -2465,12 +2895,12 @@ function descargarPDF(){
         h+=`<tr style="background:${bg};border-bottom:1px solid #eee">`+
           `<td style="padding:3px 4px;text-align:center;vertical-align:top;font-weight:700;color:#003087;white-space:nowrap">${ind.id}</td>`+`<td style="padding:3px 4px;vertical-align:top">${ind.ind}</td>`+
           `<td style="padding:3px 4px;text-align:center;color:#546E7A">${ind.und}</td>`+
-          TD(lb)+
-          TD(getMeta(ind,'m26'))+
-          TD(va26||'—','background:#EFF6FF;font-weight:600')+
+          TD(vDisp(ind.und,lb))+
+          TD(vDisp(ind.und,getMeta(ind,'m26')))+
+          TD(vDisp(ind.und,va26)||'—','background:#EFF6FF;font-weight:600')+
           TD(`<span style="color:${pctClr(p26)};font-weight:700">${pctTxt(p26)}</span>`)+
-          TD(getMeta(ind,'m28'))+
-          TD(va28||'—','background:#EFF6FF;font-weight:600')+
+          TD(vDisp(ind.und,getMeta(ind,'m28')))+
+          TD(vDisp(ind.und,va28)||'—','background:#EFF6FF;font-weight:600')+
           TD(`<span style="color:${pctClr(p28)};font-weight:700">${pctTxt(p28)}</span>`)+
           `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[est]}">${EST_LBL[est]||'—'}</td>`+
           `</tr>`;
@@ -2604,8 +3034,8 @@ function descargarPDFPrograma(){
   const logoSrc=(document.querySelector('.hdr-logo-img')||{}).src||'';
   const fecha=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
   const {titulo, subtitulo} = tituloPDFPrograma();
-  const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada'};
-  const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0'};
+  const EST_LBL={sin_iniciar:'Sin iniciar',en_proceso:'En proceso',cumplida:'Cumplida',superada:'Superada',completo:'Completo'};
+  const EST_CLR={sin_iniciar:'#B71C1C',en_proceso:'#E65100',cumplida:'#2E7D32',superada:'#1565C0',completo:'#00897B'};
 
   const card=(color,n,lbl)=>
     `<div style="flex:1;border-left:3px solid ${color};background:${color}18;padding:7px 10px;border-radius:0 4px 4px 0">`+
@@ -2624,6 +3054,7 @@ function descargarPDFPrograma(){
 
   h+=`<div style="display:flex;gap:8px;margin-bottom:12px">`+
     card('#003087',propios.length,'Indicadores propios')+
+    card('#00897B',propios.filter(p=>p.estado==='completo').length,'Completos')+
     card('#2E7D32',cumplidos,'Cumplidos / Superados')+
     card('#E65100',enProceso,'En proceso')+
     `</div>`;
@@ -2655,19 +3086,20 @@ function descargarPDFPrograma(){
         `<td style="padding:3px 4px;text-align:center;vertical-align:top;font-weight:700;color:#003087;white-space:nowrap">${esc(p.id_padre||'')||'—'}</td>`+`<td style="padding:3px 4px;vertical-align:top">${esc(p.nombre)}</td>`+
         `<td style="padding:3px 4px;text-align:center;color:#546E7A">${p.f}</td>`+
         `<td style="padding:3px 4px;text-align:center;color:#546E7A">${esc(p.und)||'—'}</td>`+
-        TD(esc(p.lb2021)||'')+
-        TD(esc(p.lb)||'')+
-        TD(esc(p.m26)||'')+
-        TD(esc(p.va26)||'—','background:#EFF6FF;font-weight:600')+
+        TD(esc(vDisp(p.und,p.lb2021))||'')+
+        TD(esc(vDisp(p.und,p.lb))||'')+
+        TD(esc(vDisp(p.und,p.m26))||'')+
+        TD(esc(vDisp(p.und,p.va26))||'—','background:#EFF6FF;font-weight:600')+
         TD(`<span style="color:${pctClrProg(pct26)};font-weight:700">${pct26===null?'—':pct26+'%'}</span>`)+
-        TD(esc(p.m28)||'')+
-        TD(esc(p.va28)||'—','background:#EFF6FF;font-weight:600')+
+        TD(esc(vDisp(p.und,p.m28))||'')+
+        TD(esc(vDisp(p.und,p.va28))||'—','background:#EFF6FF;font-weight:600')+
         TD(`<span style="color:${pctClrProg(pct28)};font-weight:700">${pct28===null?'—':pct28+'%'}</span>`)+
         `<td style="padding:3px 4px;text-align:center;font-weight:600;font-size:8px;white-space:nowrap;color:${EST_CLR[p.estado]||'#666'}">${EST_LBL[p.estado]||'—'}</td>`+
         `</tr>`;
     });
   });
   h+=`</tbody></table>`;
+  h+=consolidadoPdfHtml();
   h+=`<div style="margin-top:8px;font-size:8px;color:#999;text-align:right;border-top:1px solid #eee;padding-top:4px">Universidad de Santander UDES · Planeación Institucional · ${fecha}</div>`;
   h+=`</div>`;
 

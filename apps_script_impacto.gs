@@ -43,6 +43,13 @@ const HEADERS             = ['id','funcion','lb','va26','va28','m26','m28','esta
 const SHEET_NAME_PROGRAMA = 'Indicadores_Programa';
 const HEADERS_PROGRAMA    = ['id','id_padre','funcion','niv','programa','sede','director','nombre','desc','und','lb','m26','va26','m28','va28','evidencia','estado','lb2021','timestamp'];
 
+// Registro anual por indicador de programa (2021-2028), formato largo: una fila = una celda
+// indicador-año. clave = '<id_indicador>|<anio>'. num = valor principal (o monto/porcentaje);
+// prop = proporción (solo indicadores "Número o proporción"); na = '1' si ese año no aplica
+// medición. Se sobrescribe la fila completa (último guarda gana) para poder borrar valores.
+const SHEET_NAME_RESULTADOS = 'Resultados_Programa';
+const HEADERS_RESULTADOS    = ['clave','id_indicador','programa','sede','anio','num','prop','na','timestamp'];
+
 const SHEET_NAME_CATALOGO = 'Programas';
 const HEADERS_CATALOGO    = ['codigo','nombre_programa','sede','director','funciones','clave'];
 
@@ -189,15 +196,16 @@ function upsertRows(ws, headers, rows, idField) {
   return { conflictos, asignaciones, guardados };
 }
 
-const CACHE_KEY_DATOS = 'doGet_datos_v1';
+const CACHE_KEY_DATOS = 'doGet_datos_v2'; // v2: incluye data_resultados
 const CACHE_TTL_SEGUNDOS = 20; // corto a propósito: prioriza frescura sobre ahorro de cuota
 
 function invalidarCache() {
   CacheService.getScriptCache().remove(CACHE_KEY_DATOS);
 }
 
-// GET → devuelve los 3 datasets combinados: indicadores institucionales (Datos), indicadores
-// de programa (Indicadores_Programa) y el catálogo de programas/directores (Programas).
+// GET → devuelve los datasets combinados: indicadores institucionales (Datos), indicadores
+// de programa (Indicadores_Programa), resultados anuales por programa (Resultados_Programa,
+// `data_resultados`) y el catálogo de programas/directores (Programas).
 // Cacheado 20s (CacheService, por script, compartido entre todos los dispositivos/usuarios) para
 // que varios equipos entrando casi al mismo tiempo no disparen una relectura completa de las 3
 // hojas cada uno — se invalida en cuanto cualquier doPost escribe algo (ver invalidarCache()).
@@ -212,6 +220,7 @@ function doGet(e) {
       ok: true,
       data: readSheet(ss, SHEET_NAME, HEADERS),
       data_programa: readSheet(ss, SHEET_NAME_PROGRAMA, HEADERS_PROGRAMA),
+      data_resultados: readSheet(ss, SHEET_NAME_RESULTADOS, HEADERS_RESULTADOS),
       programas: readSheet(ss, SHEET_NAME_CATALOGO, HEADERS_CATALOGO)
     };
     try {
@@ -248,6 +257,10 @@ function doPost(e) {
     let resultado;
     if (payload.entity === 'indicador_programa') {
       resultado = upsertRows(ss.getSheetByName(SHEET_NAME_PROGRAMA), HEADERS_PROGRAMA, payload.rows, 'id');
+    } else if (payload.entity === 'resultado_programa') {
+      let wsRes = ss.getSheetByName(SHEET_NAME_RESULTADOS);
+      if (!wsRes) wsRes = ss.insertSheet(SHEET_NAME_RESULTADOS); // se crea sola la primera vez
+      resultado = upsertRows(wsRes, HEADERS_RESULTADOS, payload.rows, 'clave');
     } else {
       // renombrar 'obs' -> 'observaciones' para que coincida con HEADERS, igual que antes
       const rows = payload.rows.map(r => ({ ...r, observaciones: r.obs ?? r.observaciones }));
