@@ -164,6 +164,25 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .res-na{background:#ECEFF1!important}
 .res-na input.res-inp{background:#ECEFF1;color:#90A4AE}
 .res-fmt{display:block;margin-top:3px;font-size:11px;max-width:112px}
+/* Mi Programa: tabla compacta que aprovecha todo el ancho de la pantalla (sin barra lateral con los 8 años) */
+#zona-prog .wrap{max-width:none;padding:18px 14px 40px}
+#zona-prog table.ti{font-size:12px}
+#zona-prog table.ti thead th{padding:8px 3px;font-size:10.5px;letter-spacing:.02em}
+#zona-prog table.ti td{padding:5px 3px}
+#zona-prog .td-ind{min-width:140px;max-width:190px}
+#zona-prog #prog-thead th:nth-child(2){width:36px}
+#zona-prog .td-und{min-width:0;max-width:86px;font-size:11px;white-space:normal}
+#zona-prog .tw input.inp-v,#zona-prog .tw input.res-inp{width:66px;padding:4px 2px;font-size:11.5px}
+#zona-prog .res-cel{min-width:0}
+#zona-prog .tw input.in-mon{font-size:9px;letter-spacing:-.3px;padding:4px 0}
+#zona-prog .res-fmt{max-width:84px}
+#zona-prog .tw input.inp-obs{width:90px;padding:4px 5px;font-size:11.5px}
+#zona-prog .tw select.sel-e{padding:4px 1px;font-size:11.5px;max-width:98px}
+#zona-prog .pct{min-width:36px;padding:2px 4px;font-size:11px}
+#zona-prog .nv{padding:2px 5px;font-size:9.5px;letter-spacing:0}
+#zona-prog .fn-b{padding:2px 5px;font-size:10.5px}
+#zona-prog #tabla-prog td:last-child{white-space:normal!important}
+#zona-prog #tabla-prog td:last-child button{display:block;width:100%;margin:0 0 3px 0!important}
 /* Unidad */
 .td-und{font-size:11.5px;color:var(--txt2);min-width:90px}
 
@@ -1585,13 +1604,14 @@ function normalizarPesos(v){
 function formatoPesos(raw){
   const n = parseFloat(raw);
   if(isNaN(n)) return raw==null ? '' : String(raw);
-  return '$ ' + n.toLocaleString('es-CO', {maximumFractionDigits: 2});
+  return '$' + n.toLocaleString('es-CO', {maximumFractionDigits: 2});
 }
 function vDisp(und, v){
   if(v==null) return '';
   return esMoneda(und) && String(v) !== '' ? formatoPesos(v) : v;
 }
 function mon(und){ return esMoneda(und) ? ';pesosEnInput(this)' : ''; }
+function cm(und){ return esMoneda(und) ? ' in-mon' : ''; }
 function pesosEnInput(el){ el.value = formatoPesos(normalizarPesos(el.value)); }
 
 function numVal(x){
@@ -1867,7 +1887,7 @@ function celdaAnioHtml(p, a, cel, fmt){
   const ins = campos.map(campo => {
     const v = campo === 'num' ? vDisp(p.und, c.num || '') : (c.prop || '');
     const ph = fmt === 'ambos' ? (campo === 'num' ? 'N°' : '%') : '';
-    return `<input id="res-${p.id}-${a}-${campo}" class="inp-v res-inp" type="text" value="${esc(String(v))}" placeholder="${ph}" `+
+    return `<input id="res-${p.id}-${a}-${campo}" class="inp-v res-inp${campo === 'num' ? cm(p.und) : ''}" type="text" value="${esc(String(v))}" placeholder="${ph}" `+
       `title="${campo === 'num' ? 'Número' : 'Proporción'} ${a}" ${na ? 'disabled' : ''} `+
       `onchange="setResultado('${p.id}',${a},'${campo}',this.value)${campo === 'num' ? mon(p.und) : ''}">`;
   }).join('');
@@ -1879,8 +1899,8 @@ function theadPrograma(anios){
   const th = (txt, st) => `<th style="${st || ''}">${txt}</th>`;
   return `<tr>`+th('', 'width:14px')+th('N°', 'width:48px;text-align:center')+th('Nivel', 'min-width:70px')+th('Func.')+
     th('Indicador', 'text-align:left;min-width:200px')+th('Unidad')+
-    th('LB 2021', 'text-align:right;background:#dbeafe')+th('LB 2023', 'text-align:right;background:#dbeafe')+
-    anios.map(a => th(a, 'text-align:center;background:#dbeafe;min-width:92px')).join('')+
+    th('LB 2021', 'text-align:center;background:#dbeafe;color:#0b2a6b')+th('LB 2023', 'text-align:center;background:#dbeafe;color:#0b2a6b')+
+    anios.map(a => th(a, 'text-align:center;background:#dbeafe;color:#0b2a6b')).join('')+
     th('Meta 2026', 'text-align:right')+th('% 2026', 'text-align:center')+
     th('Meta 2028', 'text-align:right')+th('% 2028', 'text-align:center')+
     th('Estado')+th('Evidencia', 'text-align:left')+th('')+`</tr>`;
@@ -2279,15 +2299,15 @@ function renderTablaPrograma(){
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
           `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔗 ':''}${esc(p.nombre)}</td>`;
         rows += `<td class="td-und">${esc(p.und)||'—'}${selectorFormatoHtml(p)}</td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.lb2021||'')))}" `+
+        rows += `<td style="background:#f0f5ff"><input class="inp-v${cm(p.und)}" type="text" value="${esc(String(vDisp(p.und,p.lb2021||'')))}" `+
           `onchange="setValPrograma('${p.id}','lb2021',this.value)${mon(p.und)}" title="Línea Base 2021"></td>`;
-        rows += `<td style="background:#f0f5ff"><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.lb||'')))}" `+
+        rows += `<td style="background:#f0f5ff"><input class="inp-v${cm(p.und)}" type="text" value="${esc(String(vDisp(p.und,p.lb||'')))}" `+
           `onchange="setValPrograma('${p.id}','lb',this.value)${mon(p.und)}" title="Línea Base 2023"></td>`;
         rows += anios.map(a => celdaAnioHtml(p, a, cel, fmt)).join('');
-        rows += `<td><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.m26||'')))}" `+
+        rows += `<td><input class="inp-v${cm(p.und)}" type="text" value="${esc(String(vDisp(p.und,p.m26||'')))}" `+
           `onchange="setValPrograma('${p.id}','m26',this.value)${mon(p.und)}" title="Meta 2026 (definida por el programa)"></td>`;
         rows += `<td style="text-align:center" id="pctprog26-${p.id}">${pctHtml(pct26)}</td>`;
-        rows += `<td><input class="inp-v" type="text" value="${esc(String(vDisp(p.und,p.m28||'')))}" `+
+        rows += `<td><input class="inp-v${cm(p.und)}" type="text" value="${esc(String(vDisp(p.und,p.m28||'')))}" `+
           `onchange="setValPrograma('${p.id}','m28',this.value)${mon(p.und)}" title="Meta 2028 (definida por el programa)"></td>`;
         rows += `<td style="text-align:center" id="pctprog28-${p.id}">${pctHtml(pct28)}</td>`;
         rows += `<td><select class="sel-e" title="${esc(tituloEstadoPrograma(p))}" onchange="setEstPrograma('${p.id}',this.value)">`+
