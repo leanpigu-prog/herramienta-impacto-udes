@@ -1941,7 +1941,7 @@ function renderTablaPrograma(){
           `<div class="det-item det-desc-item"><span class="det-lbl">Descripción / Cómo se calcula</span><span class="det-val">${esc(p.desc)||'—'}</span></div>`+
           (padre ? `<div class="det-item"><span class="det-lbl">Indicador institucional relacionado</span>`+
             `<span class="det-val">${esc(padre.id)} · ${esc(padre.ind)}</span></div>` : '')+
-          (padre ? `<div style="text-align:right;margin-top:6px"><button class="btn-pdf" onclick="generarFichaPDF('${padre.id}')">📄 Descargar ficha metodológica</button></div>` : '')+
+          (padre ? `<div style="text-align:left;margin-top:6px"><button class="btn-pdf" onclick="generarFichaPDF('${padre.id}')">📄 Descargar ficha metodológica</button></div>` : '')+
           `</td></tr>`;
       });
     });
