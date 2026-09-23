@@ -51,7 +51,10 @@ const HEADERS_CATALOGO    = ['codigo','nombre_programa','sede','director','funci
 // antes de crear manualmente las hojas nuevas).
 // Todas las columnas son texto libre (aceptan cualquier valor) salvo 'timestamp', que sí es
 // fecha real. Si Sheets llegó a interpretar una celda de otra columna como fecha (autoformato
-// al escribir un valor que "parece" fecha), se devuelve vacío en vez de propagar el objeto Date.
+// al escribir un valor que "parece" fecha), se devuelve la fecha formateada como string
+// (yyyy-MM-dd) en vez de propagar el objeto Date — así el valor no desaparece y el director
+// puede corregirlo. upsertRows() fuerza formato '@' (texto) después de cada escritura para
+// prevenir que Sheets vuelva a auto-convertir.
 function readSheet(ss, sheetName, fallbackHeaders) {
   const ws = ss.getSheetByName(sheetName);
   if (!ws) return [];
@@ -62,7 +65,9 @@ function readSheet(ss, sheetName, fallbackHeaders) {
     .filter(r => r.some(v => v !== ''))
     .map(r => Object.fromEntries(hdr.map((h, i) => {
       const v = r[i];
-      return [h, (h !== 'timestamp' && v instanceof Date) ? '' : v];
+      return [h, (h !== 'timestamp' && v instanceof Date)
+        ? Utilities.formatDate(v, 'America/Bogota', 'yyyy-MM-dd')
+        : v];
     })));
 }
 
@@ -89,12 +94,15 @@ function siguienteIdConPrefijo(all, prefijo) {
 //     ocurre dentro de una sola ejecución con el lock tomado), y
 // (b) sea rápido incluso con payloads de varias filas (antes: 1 llamada a Sheets por fila).
 //
+// Al finalizar, fuerza formato '@' (texto sin formato) en todas las columnas de datos para que
+// Sheets nunca vuelva a auto-convertir un valor numérico o de texto a fecha.
+//
 // Campos de control que puede traer cada `row` (no se escriben en el Sheet, `headers` no los
 // incluye):
 //   _baseTimestamp: timestamp que el cliente tenía cargado para este id. Si no coincide con el
-//     timestamp actual de la fila en el Sheet, alguien más escribió después — no se sobreescribe,
-//     se reporta en `conflictos` con el valor vigente del servidor (2026-09-21, a pedido de la
-//     usuaria: "avisar y no sobrescribir a ciegas" en vez de "gana el último que guarda").
+//     timestamp actual de la fila en el Sheet (otro dispositivo ya guardó), se hace MERGE a
+//     nivel de campo: se parte del estado del servidor y se aplican encima los campos no-vacíos
+//     del cliente — así ambos dispositivos conservan sus cambios (2026-09-23, multi-dispositivo).
 //   _prefijoId / _tempId: si `row[idField]` viene vacío, se asigna un id nuevo con
 //     siguienteIdConPrefijo() y se reporta en `asignaciones[_tempId] = idNuevo`.
 function upsertRows(ws, headers, rows, idField) {
@@ -126,11 +134,21 @@ function upsertRows(ws, headers, rows, idField) {
       const valorTsServidor = filaExistente[idxTimestamp];
       const tsServidor = valorTsServidor ? new Date(valorTsServidor).toISOString() : '';
       if (tsServidor && tsServidor !== row._baseTimestamp) {
-        conflictos.push({
-          id: idActual,
-          servidor: Object.fromEntries(headers.map((h, i) => [h, filaExistente[i]]))
+        // Merge a nivel de campo: aplicar los campos no-vacíos del cliente sobre el estado del
+        // servidor — así dos dispositivos editando campos distintos del mismo indicador conservan
+        // ambos cambios (multi-dispositivo, 2026-09-23). Si ambos editaron el mismo campo, gana
+        // el que guarda último (last-write-wins por campo).
+        headers.forEach((h, i) => {
+          if (h === idField || h === 'timestamp') return;
+          const clientVal = row[h];
+          if (clientVal !== undefined && clientVal !== null && String(clientVal).trim() !== '') {
+            all[idx][i] = clientVal;
+          }
         });
-        return; // no se aplica este cambio puntual — el resto del payload sigue su curso
+        all[idx][idxTimestamp] = new Date().toISOString();
+        huboActualizacionEnSitio = true;
+        guardados.push({ id: idActual, timestamp: all[idx][idxTimestamp] });
+        return; // procesado como merge exitoso, no como conflicto
       }
     }
 
@@ -156,6 +174,18 @@ function upsertRows(ws, headers, rows, idField) {
   if (nuevasFilas.length) {
     ws.getRange(totalFilasOriginal + 1, 1, nuevasFilas.length, headers.length).setValues(nuevasFilas);
   }
+
+  // Forzar formato "Texto sin formato" en las columnas de datos (no timestamp) para que Sheets
+  // no vuelva a auto-convertir valores a fecha en futuras ediciones directas del Sheet.
+  const lastRow = ws.getLastRow();
+  if (lastRow > 1) {
+    headers.forEach((h, i) => {
+      if (h !== 'timestamp') {
+        ws.getRange(1, i + 1, lastRow, 1).setNumberFormat('@');
+      }
+    });
+  }
+
   return { conflictos, asignaciones, guardados };
 }
 

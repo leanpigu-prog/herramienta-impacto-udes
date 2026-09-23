@@ -263,7 +263,7 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 /* Impresión */
 @media print{
   .hdr{position:relative!important;box-shadow:none!important;height:auto!important;padding:10px 20px!important}
-  .tabs,.barra-controles,.hdr-auto,.hdr-sep{display:none!important}
+  .tabs,.barra-controles,.hdr-auto,.hdr-sep,#btn-guardar{display:none!important}
   .wrap{padding:10px!important;max-width:none!important}
   .tw{max-height:none!important;overflow:visible!important;box-shadow:none!important;border-radius:0!important}
   table.ti thead th{background:var(--az)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -574,6 +574,12 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
     <span class="hdr-sub">Plan de Desarrollo 2024-2028</span>
   </div>
   <div class="hdr-auto" id="hdr-auto">Cambios guardados automáticamente</div>
+  <button id="btn-guardar" onclick="guardarAhora()"
+    style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);
+           color:#fff;border-radius:5px;padding:4px 12px;font-size:12px;
+           cursor:pointer;font-family:inherit;flex-shrink:0;white-space:nowrap">
+    💾 Guardar
+  </button>
   <div id="hdr-user"></div>
 </header>
 
@@ -2311,6 +2317,73 @@ function save(){
       setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
     });
   },3000);
+}
+
+// Botón "💾 Guardar": guarda inmediatamente sin esperar el autosave de 3 segundos.
+// Envía los cambios pendientes de ambas pestañas (indicadores institucionales + Mi Programa).
+function guardarAhora(){
+  const btn=document.getElementById('btn-guardar');
+  const hdr=document.getElementById('hdr-auto');
+  if(btn){btn.disabled=true;btn.textContent='Guardando…';}
+  // Cancela los timers de debounce pendientes
+  clearTimeout(save._t); save._t=null;
+  clearTimeout(savePrograma._t); savePrograma._t=null;
+  const rowsInst=buildRows();
+  const rowsProg=buildRowsPrograma();
+  const promises=[];
+  if(rowsInst.length){
+    hdr.textContent='Sincronizando con Sheets...';
+    promises.push(
+      fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'upsert',rows:rowsInst})})
+        .then(r=>r.json())
+        .then(res=>{
+          if(res.ok){
+            rowsInst.forEach(r=>{
+              const{id,_baseTimestamp,...enviado}=r;
+              if(JSON.stringify(filaInstitucional(id))===JSON.stringify({id,...enviado})) idsSucios.delete(id);
+            });
+            (res.guardados||[]).forEach(g=>{baseTimestamps[g.id]=g.timestamp;});
+            (res.conflictos||[]).forEach(aplicarConflictoInstitucional);
+          }
+        })
+    );
+  }
+  if(rowsProg.length){
+    promises.push(
+      fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify({action:'upsert',entity:'indicador_programa',rows:rowsProg})})
+        .then(r=>r.json())
+        .then(res=>{
+          if(res.ok){
+            rowsProg.forEach(r=>{
+              if(r._tempId) return;
+              const{id,_baseTimestamp,...enviado}=r;
+              if(JSON.stringify(filaPrograma(id))===JSON.stringify(enviado)) idsSuciosPrograma.delete(id);
+            });
+            Object.entries(res.asignaciones||{}).forEach(([tempId,realId])=>{
+              const rEnv=rowsProg.find(r=>r._tempId===tempId);
+              let sig=false;
+              if(rEnv){const{id,_baseTimestamp,_prefijoId,_tempId,...env}=rEnv;sig=JSON.stringify(filaPrograma(tempId))!==JSON.stringify(env);}
+              remapIdPrograma(tempId,realId,sig);
+            });
+            (res.guardados||[]).forEach(g=>{baseTimestampsPrograma[g.id]=g.timestamp;});
+            (res.conflictos||[]).forEach(aplicarConflictoPrograma);
+          }
+        })
+    );
+  }
+  Promise.allSettled(promises).then(results=>{
+    const hayError=results.some(r=>r.status==='rejected');
+    localStorage.setItem('imp_store',JSON.stringify(store));
+    localStorage.setItem('imp_ind_programa',JSON.stringify(IND_PROGRAMA));
+    hdr.textContent=hayError?'Error al guardar en Sheets':'Guardado en Sheets ✓';
+    if(btn){btn.disabled=false;btn.textContent='💾 Guardar';}
+    setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2500);
+    if(!rowsInst.length&&!rowsProg.length){
+      hdr.textContent='Sin cambios pendientes';
+      if(btn){btn.disabled=false;btn.textContent='💾 Guardar';}
+      setTimeout(()=>hdr.textContent='Cambios guardados automáticamente',2000);
+    }
+  });
 }
 
 function toast(m){
