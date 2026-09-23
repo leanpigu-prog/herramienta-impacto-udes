@@ -1933,7 +1933,8 @@ function renderTablaPrograma(){
         rows += `<td><input class="inp-obs" type="text" value="${esc(p.evidencia||'')}" `+
           `placeholder="Evidencia..." onchange="setValPrograma('${p.id}','evidencia',this.value)"></td>`;
         rows += `<td style="white-space:nowrap">${soloLectura
-          ? `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')" title="Quitar de mis indicadores (también puedes hacerlo desde Cadena de Valor)">Quitar</button>`
+          ? `<button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')" title="Quitar de mis indicadores (también puedes hacerlo desde Cadena de Valor)">Quitar</button>`+
+            (padre ? `<button class="btn-pdf" style="margin-left:4px;padding:3px 8px;font-size:11px" onclick="generarFichaPDF('${padre.id}')" title="Descargar ficha metodológica del indicador institucional relacionado">📄</button>` : '')
           : `<button class="btn-edit" onclick="editarIndicadorPrograma('${p.id}')">Editar</button><button class="btn-del" onclick="eliminarIndicadorPrograma('${p.id}')">Eliminar</button>`}</td>`;
         rows += `</tr>`;
         rows += `<tr class="detalle-row" id="det-${p.id}" style="display:none"><td colspan="17">`+
