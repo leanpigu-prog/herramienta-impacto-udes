@@ -357,3 +357,107 @@ function migrarEsquemaDatosM26M28() {
   }
   Logger.log('Migradas ' + nuevasFilas.length + ' filas. Nuevo encabezado: ' + HEADERS.join('|'));
 }
+
+
+// ================================================================
+// LIMPIEZA DE IDS DUPLICADOS EN "Indicadores_Programa" — funciones de un solo uso.
+//
+// Antes del bloqueo de concurrencia (2026-09-21) dos guardados simultáneos podían crear filas con
+// el mismo id (caso real: P_FISBGA_082, el I08 de Fisioterapia-Bucaramanga, y P_TOCUC_022). El
+// front ya tolera esos duplicados (usa la fila más reciente), pero esta limpieza deja la hoja sana.
+//
+// CÓMO USARLA (desde el editor de Apps Script, desplegable de funciones junto al botón ▶):
+//   1) Seleccionar "repararIdsDuplicadosSoloInforme" y ejecutar. NO modifica nada: solo escribe en
+//      el "Registro de ejecución" qué filas se conservarían y cuáles se borrarían.
+//   2) Si el informe es correcto, seleccionar "repararIdsDuplicadosAplicar" y ejecutar.
+//
+// Regla (idéntica a la del front, depurarDuplicadosPorId): de cada grupo de filas con el mismo id
+// se conserva la de timestamp más reciente (sin timestamp = la más vieja; empate = la que está más
+// abajo) y se borran las demás. Antes de borrar, las filas eliminadas se copian a la hoja
+// "Duplicados_Respaldo" (con fecha y número de fila original) para poder recuperarlas.
+// Se ejecuta con el LockService tomado, así que no choca con guardados en curso.
+// ================================================================
+const SHEET_NAME_RESPALDO_DUP = 'Duplicados_Respaldo';
+function repararIdsDuplicadosSoloInforme() { return limpiarIdsDuplicados_(false); }
+function repararIdsDuplicadosAplicar()     { return limpiarIdsDuplicados_(true); }
+
+function limpiarIdsDuplicados_(aplicar) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    const ws = ss.getSheetByName(SHEET_NAME_PROGRAMA);
+    if (!ws) throw new Error('No existe la hoja ' + SHEET_NAME_PROGRAMA);
+
+    const all = ws.getDataRange().getValues();
+    if (all.length < 2) { Logger.log('La hoja no tiene datos.'); return {duplicados: 0}; }
+    const encabezados = all[0];
+    const idxTs = encabezados.indexOf('timestamp');
+    const idxEstado = encabezados.indexOf('estado');
+    const idxPadre = encabezados.indexOf('id_padre');
+    const ts = v => {
+      if (v instanceof Date) return v.getTime();
+      const n = Date.parse(v);
+      return isNaN(n) ? 0 : n;
+    };
+    const fmtTs = v => (v instanceof Date ? v.toISOString() : String(v || '')) || '(sin fecha)';
+    const desc = i => 'fila ' + (i + 1) + ' [' + (idxEstado >= 0 ? all[i][idxEstado] : '?') + ', ' +
+      (idxPadre >= 0 ? all[i][idxPadre] : '') + ', ' + (idxTs >= 0 ? fmtTs(all[i][idxTs]) : '?') + ']';
+
+    const grupos = {};
+    for (let i = 1; i < all.length; i++) {
+      const id = String(all[i][0]).trim();
+      if (!id) continue;
+      (grupos[id] = grupos[id] || []).push(i);
+    }
+
+    const aBorrar = [];
+    const lineas = [];
+    Object.keys(grupos).forEach(id => {
+      const filas = grupos[id];
+      if (filas.length < 2) return;
+      let mejor = filas[0];
+      filas.forEach(i => {
+        const tsI = idxTs >= 0 ? ts(all[i][idxTs]) : 0;
+        const tsM = idxTs >= 0 ? ts(all[mejor][idxTs]) : 0;
+        if (tsI >= tsM) mejor = i;
+      });
+      const borrar = filas.filter(i => i !== mejor);
+      borrar.forEach(i => aBorrar.push(i));
+      lineas.push(id + ' -> se conserva ' + desc(mejor) + ' | se borra ' + borrar.map(desc).join(' ; '));
+    });
+
+    const resumen = {
+      modo: aplicar ? 'APLICAR' : 'SOLO INFORME (no se modificó nada)',
+      filasEnHoja: all.length - 1,
+      idsDuplicados: lineas.length,
+      filasAEliminar: aBorrar.length
+    };
+    Logger.log('=== Limpieza de ids duplicados: ' + resumen.modo + ' ===');
+    Logger.log('Filas en la hoja: ' + resumen.filasEnHoja + ' | ids duplicados: ' + resumen.idsDuplicados +
+      ' | filas a eliminar: ' + resumen.filasAEliminar);
+    lineas.forEach(l => Logger.log(l));
+
+    if (!aBorrar.length) { Logger.log('No hay duplicados: no se hace nada.'); return resumen; }
+    if (!aplicar) {
+      Logger.log('Para borrar estas filas ejecuta "repararIdsDuplicadosAplicar". (Se guardará un respaldo en "' + SHEET_NAME_RESPALDO_DUP + '".)');
+      return resumen;
+    }
+
+    // Respaldo antes de borrar
+    let wsResp = ss.getSheetByName(SHEET_NAME_RESPALDO_DUP);
+    if (!wsResp) wsResp = ss.insertSheet(SHEET_NAME_RESPALDO_DUP);
+    if (wsResp.getLastRow() === 0) wsResp.getRange(1, 1, 1, encabezados.length + 2).setValues([['fecha_limpieza', 'fila_original'].concat(encabezados)]);
+    const ahora = new Date().toISOString();
+    const filasResp = aBorrar.slice().sort((a, b) => a - b).map(i => [ahora, i + 1].concat(all[i]));
+    wsResp.getRange(wsResp.getLastRow() + 1, 1, filasResp.length, filasResp[0].length).setValues(filasResp);
+
+    // Borrado de abajo hacia arriba para no desplazar los números de fila pendientes
+    aBorrar.slice().sort((a, b) => b - a).forEach(i => ws.deleteRow(i + 1));
+    invalidarCache();
+    Logger.log('Listo: se eliminaron ' + aBorrar.length + ' fila(s). Respaldo en la hoja "' + SHEET_NAME_RESPALDO_DUP + '".');
+    return resumen;
+  } finally {
+    lock.releaseLock();
+  }
+}
