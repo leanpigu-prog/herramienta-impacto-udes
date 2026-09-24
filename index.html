@@ -1570,13 +1570,13 @@ function detalleResumen(ind){
 
 // ─── Registro por año (Mi Programa) + consolidado por ventana + formato moneda ───────────────
 // Cierra el feedback de la Dirección de Fisioterapia-Bucaramanga (2026-09-23): resultados por año
-// (2021-2028) distinguiendo "sin dato" de "no aplica medición", cálculo sobre la ventana de tiempo
+// (2022-2028; 2021 es la línea base) distinguiendo "sin dato" de "no aplica medición", cálculo sobre la ventana de tiempo
 // que pida la autoevaluación/acreditación, número + proporción a la vez y formato pesos (I07).
 // Solo aplica a Mi Programa; los Vicerrectores siguen con Valor 2026/2028. Los valores 2026/2028 de
 // la cuadrícula se espejan con `va26`/`va28` del indicador (en ambos sentidos), así que el flujo
 // anterior no cambia. Persistencia: hoja "Resultados_Programa" (una fila por indicador-año).
 // ==RES-PURE-BEGIN==
-const ANIO_INI = 2021, ANIO_FIN = 2028;
+const ANIO_INI = 2022, ANIO_FIN = 2028;
 const ANIOS_HIST = Array.from({length: ANIO_FIN - ANIO_INI + 1}, (_, i) => ANIO_INI + i);
 
 // 'dual' = número y proporción a la vez; 'moneda' = pesos; 'pct' = porcentaje/proporción única;
@@ -1684,11 +1684,13 @@ function depurarDuplicadosPorId(filas){
 let RESULTADOS = [];                 // {clave,id_indicador,programa,sede,anio,num,prop,na,timestamp}
 let idsSuciosResultados = new Set(); // claves pendientes de subir a Sheets
 let backendConResultados = false;    // true solo si el GET trae data_resultados (Apps Script nuevo)
-let ventana = {desde: 2021, hasta: 2028};
+let ventana = {desde: ANIO_INI, hasta: ANIO_FIN};
 try{
   const v = JSON.parse(localStorage.getItem('imp_ventana') || 'null');
   if(v && v.desde && v.hasta) ventana = Object.assign(ventana, v);
 }catch(e){}
+ventana.desde = Math.min(ANIO_FIN, Math.max(ANIO_INI, Number(ventana.desde)));
+ventana.hasta = Math.min(ANIO_FIN, Math.max(ventana.desde, Number(ventana.hasta)));
 
 function cargarResultadosLocales(){
   try{ const r = JSON.parse(localStorage.getItem('imp_resultados_programa') || '[]'); if(Array.isArray(r)) RESULTADOS = r; }catch(e){}
