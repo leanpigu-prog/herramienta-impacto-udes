@@ -160,9 +160,12 @@ table.ti tbody tr:hover td{background:var(--azl)!important}
 .res-hint-inline{font-size:11.5px;color:var(--txt2)}
 .res-cel{background:#f0f5ff;min-width:92px;text-align:center}
 .res-cel input.res-inp{display:block;width:72px;margin:0 auto 2px}
-.res-aplica{display:block;font-size:10px;color:var(--txt2);cursor:pointer;white-space:nowrap}
-.res-na{background:#ECEFF1!important}
-.res-na input.res-inp{background:#ECEFF1;color:#90A4AE}
+.btn-na{display:block;margin-top:3px;padding:2px 6px;font-size:10.5px;font-weight:600;color:var(--az);background:#fff;border:1px solid var(--borde);border-radius:5px;cursor:pointer;white-space:nowrap}
+.btn-na:hover{border-color:var(--az)}
+.res-na{background:#ECEFF1!important;color:#90A4AE;font-size:11px;font-weight:600;text-align:center;vertical-align:middle}
+.pop-na{position:absolute;z-index:1000;background:#fff;border:1px solid var(--borde);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.18);padding:8px 10px;min-width:124px}
+.pop-na-t{font-size:11px;font-weight:700;color:var(--az);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}
+.pop-na-i{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt);padding:2px 0;cursor:pointer}
 .res-fmt{display:block;margin-top:3px;font-size:11px;max-width:112px}
 /* Mi Programa: tabla compacta que aprovecha todo el ancho de la pantalla (sin barra lateral con los 8 años) */
 #zona-prog .wrap{max-width:none;padding:18px 14px 40px}
@@ -1775,6 +1778,10 @@ function escribirRes(p, anio, campo, val){
   let r = RESULTADOS.find(x => x.clave === clave);
   if(!r){
     r = {clave, id_indicador:p.id, programa:p.programa||'', sede:p.sede||'', anio:String(anio), num:'', prop:'', na:'', timestamp:''};
+    // Dato heredado (va26/va28 capturado antes de existir la fila anual): se traslada a la fila nueva
+    // para que no quede oculto al marcar/desmarcar N/A ni al cambiar el formato.
+    const kLegado = anio === 2026 ? 'va26' : anio === 2028 ? 'va28' : null;
+    if(kLegado && tieneValor(p[kLegado])) r[campoPrincipalDe(formatoDe(p))] = String(p[kLegado]);
     RESULTADOS.push(r);
   }
   r[campo] = val;
@@ -1788,12 +1795,8 @@ function setResultado(id, anio, campo, val){
   if(campo === 'na') val = val ? '1' : '';
   escribirRes(p, anio, campo, val);
   if(campo === 'na'){
-    ['num', 'prop'].forEach(c => {
-      const el = document.getElementById('res-' + id + '-' + anio + '-' + c);
-      if(el){ el.disabled = !!val; const td = el.closest('td'); if(td) td.classList.toggle('res-na', !!val); }
-    });
-    const chk = document.getElementById('res-' + id + '-' + anio + '-na');
-    if(chk) chk.checked = !!val;
+    refrescarCeldaAnio(p, anio);
+    actualizarBotonNA(p);
   }
   const k = anio === 2026 ? 'va26' : anio === 2028 ? 'va28' : null;
   if(k && campo === campoPrincipalDe(formatoDe(p))){
@@ -1882,18 +1885,66 @@ function selectorFormatoHtml(p){
 // Celda de un año: 1 casilla (número o proporción) o 2 (ambos) + marca "N/A" (el indicador no se mide ese año).
 function celdaAnioHtml(p, a, cel, fmt){
   const c = cel[a] || {};
-  const na = String(c.na) === '1';
+  if(String(c.na) === '1'){
+    return `<td id="celda-${p.id}-${a}" class="res-cel res-na" title="No aplica este año. Se cambia con el botón «⊘ Años» de la fila">N/A</td>`;
+  }
   const campos = fmt === 'ambos' ? ['num', 'prop'] : [fmt === 'prop' ? 'prop' : 'num'];
   const ins = campos.map(campo => {
     const v = campo === 'num' ? vDisp(p.und, c.num || '') : (c.prop || '');
     const ph = fmt === 'ambos' ? (campo === 'num' ? 'N°' : '%') : '';
     return `<input id="res-${p.id}-${a}-${campo}" class="inp-v res-inp${campo === 'num' ? cm(p.und) : ''}" type="text" value="${esc(String(v))}" placeholder="${ph}" `+
-      `title="${campo === 'num' ? 'Número' : 'Proporción'} ${a}" ${na ? 'disabled' : ''} `+
+      `title="${campo === 'num' ? 'Número' : 'Proporción'} ${a}" `+
       `onchange="setResultado('${p.id}',${a},'${campo}',this.value)${campo === 'num' ? mon(p.und) : ''}">`;
   }).join('');
-  return `<td class="res-cel ${na ? 'res-na' : ''}">${ins}`+
-    `<label class="res-aplica" title="Marca si este año NO aplica para el indicador"><input id="res-${p.id}-${a}-na" type="checkbox" ${na ? 'checked' : ''} `+
-    `onchange="setResultado('${p.id}',${a},'na',this.checked)"> N/A</label></td>`;
+  return `<td id="celda-${p.id}-${a}" class="res-cel">${ins}</td>`;
+}
+// Años en que el indicador no aplica: un solo botón por fila con una lista de años (en vez de una
+// casilla en cada celda).
+function etiquetaBotonNA(p){
+  const cel = celdasDe(p);
+  const n = ANIOS_HIST.filter(a => String((cel[a] || {}).na) === '1').length;
+  return '⊘ Años' + (n ? ' (' + n + ')' : '');
+}
+function botonNAHtml(p){
+  return `<button type="button" class="btn-na" id="btn-na-${p.id}" title="Marcar los años en que este indicador no aplica" onclick="abrirPopoverNA('${p.id}',this)">${etiquetaBotonNA(p)}</button>`;
+}
+function actualizarBotonNA(p){
+  const b = document.getElementById('btn-na-' + p.id);
+  if(b) b.textContent = etiquetaBotonNA(p);
+}
+function refrescarCeldaAnio(p, a){
+  const td = document.getElementById('celda-' + p.id + '-' + a);
+  if(td) td.outerHTML = celdaAnioHtml(p, a, celdasDe(p), formatoDe(p));   // año fuera del filtro: no hay celda
+}
+function cerrarPopoverNA(){
+  const el = document.getElementById('pop-na');
+  if(el) el.remove();
+  document.removeEventListener('mousedown', clicFueraPopoverNA, true);
+  document.removeEventListener('keydown', teclaPopoverNA, true);
+}
+function clicFueraPopoverNA(e){
+  const el = document.getElementById('pop-na');
+  if(el && !el.contains(e.target) && !(e.target.closest && e.target.closest('.btn-na'))) cerrarPopoverNA();
+}
+function teclaPopoverNA(e){ if(e.key === 'Escape') cerrarPopoverNA(); }
+function abrirPopoverNA(id, btn){
+  const abierto = document.getElementById('pop-na');
+  const mismo = abierto && abierto.dataset.id === id;
+  cerrarPopoverNA();
+  if(mismo) return;
+  const p = IND_PROGRAMA.find(x => x.id === id);
+  if(!p) return;
+  const cel = celdasDe(p);
+  const pop = document.createElement('div');
+  pop.id = 'pop-na'; pop.className = 'pop-na'; pop.dataset.id = id;
+  pop.innerHTML = `<div class="pop-na-t">No aplica en:</div>` + ANIOS_HIST.map(a =>
+    `<label class="pop-na-i"><input type="checkbox" ${String((cel[a] || {}).na) === '1' ? 'checked' : ''} onchange="setResultado('${id}',${a},'na',this.checked)"> ${a}</label>`).join('');
+  document.body.appendChild(pop);
+  const r = btn.getBoundingClientRect();
+  pop.style.top = (window.scrollY + r.bottom + 4) + 'px';
+  pop.style.left = Math.max(4, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8)) + 'px';
+  document.addEventListener('mousedown', clicFueraPopoverNA, true);
+  document.addEventListener('keydown', teclaPopoverNA, true);
 }
 function theadPrograma(anios){
   const th = (txt, st) => `<th style="${st || ''}">${txt}</th>`;
@@ -1920,7 +1971,7 @@ function renderFiltroAnios(){
   cont.innerHTML = `<div class="cons-card"><div class="cons-hdr"><b>Años a mostrar y a incluir en el PDF</b>`+
     `<span>Desde <select class="sel-e" onchange="cambiarVentana('desde',this.value)">${opts(ventana.desde)}</select> `+
     `hasta <select class="sel-e" onchange="cambiarVentana('hasta',this.value)">${opts(ventana.hasta)}</select></span>`+
-    `<span class="res-hint-inline">Casilla vacía = sin dato. Marca «N/A» en el año en que el indicador no se mide.</span></div></div>`;
+    `<span class="res-hint-inline">Casilla vacía = sin dato. Usa «⊘ Años» en cada indicador para marcar los años en que no se mide.</span></div></div>`;
 }
 
 // ─── Helpers de datos ──────────────────────────────────────
@@ -2254,6 +2305,7 @@ function toggleAdopcionIndicador(idPadre){
 // Misma estructura visual/de columnas que Seguimiento (Nivel, Función, LB, Valor/Meta 2026-2028,
 // %, Estado) pero editable: el director coloca su propia línea base y metas, no solo el valor real.
 function renderTablaPrograma(){
+  cerrarPopoverNA();
   renderFiltroAnios();
   const anios = aniosVisibles();
   const NCOLS = 15 + anios.length;
@@ -2298,7 +2350,7 @@ function renderTablaPrograma(){
         rows += `<td><span class="fn-b ${FUN_CSS[f]}">${f}</span></td>`;
         rows += `<td class="td-ind i-nom-tog" onclick="toggleDetalle('${p.id}')" title="${esc(p.desc||'')}">`+
           `<span class="chev" id="chev-${p.id}">▸</span> ${soloLectura?'🔗 ':''}${esc(p.nombre)}</td>`;
-        rows += `<td class="td-und">${esc(p.und)||'—'}${selectorFormatoHtml(p)}</td>`;
+        rows += `<td class="td-und">${esc(p.und)||'—'}${selectorFormatoHtml(p)}${botonNAHtml(p)}</td>`;
         rows += `<td style="background:#f0f5ff"><input class="inp-v${cm(p.und)}" type="text" value="${esc(String(vDisp(p.und,p.lb2021||'')))}" `+
           `onchange="setValPrograma('${p.id}','lb2021',this.value)${mon(p.und)}" title="Línea Base 2021"></td>`;
         rows += `<td style="background:#f0f5ff"><input class="inp-v${cm(p.und)}" type="text" value="${esc(String(vDisp(p.und,p.lb||'')))}" `+
