@@ -1000,10 +1000,12 @@ function migrarNivLegacy(){
 function hidratarCatalogo(res){
   if(!res || !res.ok) return;
   (res.programas||[]).forEach(p=>{
-    const partes = String(p.codigo||'').split('-');
-    PROGRAMAS[String(p.codigo||'').toLowerCase()] = {
-      codigo: p.codigo, programa: partes[0]||p.codigo, sedeCod: partes[1]||'',
-      sede: p.sede, nombre_programa: p.nombre_programa, director: p.director, clave: p.clave,
+    const codigo = String(p.codigo||'').trim();
+    const partes = codigo.split('-');
+    PROGRAMAS[codigo.toLowerCase()] = {
+      codigo: codigo, programa: partes[0]||codigo, sedeCod: partes[1]||'',
+      sede: p.sede, nombre_programa: p.nombre_programa, director: p.director,
+      clave: String(p.clave==null?'':p.clave).trim(),
       funciones: String(p.funciones||'').split(',').map(s=>s.trim()).filter(Boolean)
     };
   });
@@ -1027,7 +1029,15 @@ function hidratarCatalogo(res){
 
 async function cargarCatalogoPrograma(){
   if(catalogoCargado) return;
-  try{ hidratarCatalogo(await fetch(APPS_SCRIPT_URL).then(r=>r.json())); }catch(e){}
+  let ultimoError;
+  for(let i=0;i<2;i++){
+    try{
+      hidratarCatalogo(await fetch(APPS_SCRIPT_URL).then(r=>r.json()));
+      if(catalogoCargado) return;
+      ultimoError = new Error('Respuesta inválida del servidor');
+    }catch(e){ ultimoError = e; }
+  }
+  throw ultimoError;
 }
 
 function setLoginMsg(msg, esError){
@@ -1049,11 +1059,11 @@ async function intentarLogin(){
     try{
       await cargarCatalogoPrograma();
     }catch(e){
-      setLoginMsg('No se pudo verificar tu usuario. Revisa tu conexión e inténtalo de nuevo.', true);
+      setLoginMsg('No se pudo cargar el catálogo de usuarios (problema de conexión o bloqueo de red). Revisa tu conexión e inténtalo de nuevo; tu clave no ha sido evaluada.', true);
       return;
     }
     const prog = PROGRAMAS[u];
-    if(!prog || prog.clave !== p){ setLoginMsg('Usuario o contraseña incorrectos.', true); return; }
+    if(!prog || !prog.clave || prog.clave !== p.trim()){ setLoginMsg('Usuario o contraseña incorrectos.', true); return; }
     sesion = {usuario:u, rol:'director_programa', programa:prog.programa, sedeCod:prog.sedeCod,
       sede:prog.sede, funciones:prog.funciones, nombre:prog.nombre_programa+' — '+prog.sede, ts:Date.now()};
   }
