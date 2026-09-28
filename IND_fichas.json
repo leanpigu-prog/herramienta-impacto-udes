@@ -1,0 +1,983 @@
+{
+  "I01": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Estudiantes vinculados a semilleros», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Registro de estudiantes activos en semilleros. Unidad de medida: Número. Fuente de datos: SIGIIP.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I02": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Estudiantes vinculados a Proyectos», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Registro de estudiantes participando en proyectos de investigación / Número de trabajos de grado en los diferentes niveles de formación en modalidad de investigación. Unidad de medida: Número. Fuente de datos: SIGIIP.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I03": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Profesores en actividades de formación investigativa», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Profesores realizando cursos de investigación, maestrías de investigación o doctorados / Profesores que dirigen o tutorean trabajos de grado en modalidad de investigación. Unidad de medida: Número. Fuente de datos: MASTER/SIGIIP.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I04": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Profesores en actividades de investigación», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Registro de profesores con actividades de investigación en su plan de trabajo. Unidad de medida: Número. Fuente de datos: MASTER.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I05": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Semilleros de investigación activos», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Semilleros de investigación formalizados y avalados en la VI. Unidad de medida: Número. Fuente de datos: SIGIIP.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I06": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Grupos de investigación activos», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Grupos de investigación avalados por la UDES. Unidad de medida: Número. Fuente de datos: INSTITULAC-UDES.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I07": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Presupuesto anual de actividades de investigación (investigación, desarrollo experimental, formación investigativa, servicios técnicos derivados de investigación). Unidad de medida: Pesos/año. Fuente de datos: VAF.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I08": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Tasa de Inserción Científica Avanzada», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Fórmula de cálculo: (N° Est. Posgrado Co-investigadores / N° Total Est.Posgrado activos) × 100. Unidad de medida: Porcentaje. Fuente de datos: SIGIIP.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I09": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Efectividad en Propiedad Intelectual», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Patentes, registros de software o secretos industriales derivados de tesis de posgrado. Impacto en Guías Clínicas: Protocolos u hojas de ruta modificadas en hospitales por residentes médicos. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP / Sistema de Propiedad Intelectual.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I10": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Proyectos formulados/presentados a convocatorias internas», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de proyectos presentados a convocatorias INTERNAS en relación con el número de proyectos formulados en el Banco de Proyectos. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I11": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Proyectos formulados/presentados a convocatorias externas», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de proyectos presentados a convocatorias EXTERNAS en relación con el número de proyectos formulados en el Banco de Proyectos. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I12": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Proyectos formulados/presentados en colaboración internacional», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de proyectos presentados en colaboración en relación con el número de proyectos formulados en el Banco de Proyectos. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I13": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Estudiantes de semillero reconocidos en eventos de investigación», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de estudiantes que logran reconocimiento en eventos institucionales, departamentales, nacionales e internacionales de Red Colsi u otras organizaciones académicas. Unidad de medida: Número o proporción. Fuente de datos: Coordinación de Grupos y Semilleros VI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I14": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Jóvenes investigadores en formación», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Jóvenes investigadores en formación en ambientes de investigación UDES. Unidad de medida: Número. Fuente de datos: VI.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I15": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Profesores reconocidos y categorizados ante MinCiencias», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de profesores categorizados en MinCiencias como Investigadores Junior, Asociado, Senior o Emérito en convocatoria MinCiencias. Unidad de medida: Número o proporción. Fuente de datos: INSTITULAC-UDES.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I16": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Grupos reconocidos y categorizados ante MinCiencias en A1 y A», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de grupos categorizados en A1 y A en convocatoria MinCiencias. Unidad de medida: Número o proporción. Fuente de datos: INSTITULAC-UDES.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I17": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Fórmula de cálculo: (N° de proyectos finalizados con impacto verificado en el sector externo que requirieron el uso crítico de infraestructura UDES / Total de proyectos finalizados que utilizaron la infraestructura en el periodo t) × 100. Unidad de medida: Porcentaje. Fuente de datos: SIGIIP.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "El criterio de 'uso crítico de infraestructura UDES' que determina qué proyectos se cuentan en el numerador no tiene todavía un umbral objetivo definido (por ejemplo, horas mínimas de uso o nivel de dependencia del proyecto respecto al recurso); pendiente de que la Vicerrectoría de Investigación lo precise.",
+    "notaMetodologica": ""
+  },
+  "I18": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Proyectos en ejecución/ejecutados en convocatorias internas», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de proyectos en ejecución/ejecutados en relación con los proyectos presentados en convocatorias INTERNAS. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I19": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Proyectos en ejecución/ejecutados en convocatorias externas», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de proyectos en ejecución/ejecutados en relación con los proyectos presentados en convocatorias EXTERNAS. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I20": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de proyectos en ejecución/ejecutados en relación con los proyectos presentados en convocatorias de COLABORACIÓN interinstitucional/internacional/intersectorial. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP / DRNI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I21": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de artículos científicos, desarrollos experimentales, capítulos de libro, libros derivados de investigación en relación con los proyectos ejecutados. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I22": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Productos de Apropiación social del conocimiento derivados de la ejecución de proyectos UDES», dentro de la dimensión 'Apropiación social del conocimiento' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de eventos científicos, material de divulgación de resultados, actividades de socialización a autoridades gubernamentales, comunidades y públicos de interés, conformación y participación en redes de conocimiento. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I23": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de magísteres (en investigación) y doctores formados. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I24": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Productos de creación artística/cultural derivados de la ejecución de proyectos UDES», dentro de la dimensión 'Apropiación social del conocimiento' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de obras, diseños y procesos de nuevo conocimiento, que impliquen aportes nuevos originales e inéditos al arte, a la arquitectura, al diseño, a la cultura y al conocimiento en general. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I25": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Servicios y consultorías derivados de la ejecución de proyectos UDES», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de servicios y consultorías técnicas y científicas desarrolladas tanto al interior de la UDES como en el sector productivo. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP / Vicerrectoría de Extensión.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I26": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de productos tecnológicos validados y certificados, productos empresariales, regulaciones, normas, reglamentos o legislaciones, así como conceptos e informes técnicos derivados de la ejecución de proyectos UDES. Unidad de medida: Número o proporción. Fuente de datos: SIGIIP / Vicerrectoría de Extensión.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I27": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores vinculados al SNCTI», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de graduados UDES que participaron en semilleros de investigación o programa de jóvenes investigadores que se encuentran vinculados al SNCTI en la ventana de 2 o más años posteriores a su egreso. Unidad de medida: Proporción. Fuente de datos: VI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Formación investigativa' (reclasificado desde la dimensión oficial 'Formación investigativa': Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación investigativa ya cubre en Insumos/Procesos/Productos.): I01 – Estudiantes vinculados a semilleros (Insumos); I02 – Estudiantes vinculados a Proyectos (Insumos); I03 – Profesores en actividades de formación investigativa (Insumos); I05 – Semilleros de investigación activos (Insumos); I08 – Tasa de Inserción Científica Avanzada (Insumos); I13 – Estudiantes de semillero reconocidos en eventos de investigación (Procesos); I14 – Jóvenes investigadores en formación (Procesos); I23 – Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I28": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Productos de I+D+i+c que aportan a los focos de investigación UDES (Salud Planetaria, Seguridad Alimentaria, Transición energética)», dentro de la dimensión 'Apropiación social del conocimiento' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de productos (en todas sus tipologías del modelo de reconocimiento MinCiencias) que aportan a los focos con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada. Unidad de medida: Proporción. Fuente de datos: VI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Apropiación social del conocimiento': Mide el efecto externo de los productos I+D+i+c que esta dimensión ya produce en Productos.): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I29": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Productos de I+D+i+c transferidos a los sectores de aplicación (local, regional, nacional e internacional)», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proporción de productos que se han transferido a través de servicios, consultorías, licencias o capacitaciones al sector externo con respecto al número total de productos I+D+i+c en la misma ventana de tiempo analizada. Unidad de medida: Proporción. Fuente de datos: VI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Investigación, creación e innovación': Transferencia y Uso del Conocimiento se integra dentro de Investigación, creación e innovación (modelo abril 2026).): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I30": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Políticas públicas que involucran o se sustentan en productos de I+D+i+c derivados de proyectos UDES», dentro de la dimensión 'Apropiación social del conocimiento' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Políticas públicas a nivel local, regional, nacional e internacional que citan productos de I+D+i+c UDES. Unidad de medida: Número. Fuente de datos: VI.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Apropiación social del conocimiento': Mide el efecto externo de los productos I+D+i+c que esta dimensión ya produce en Productos.): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I31": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Métricas cienciométricas y posicionamiento en rankings», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Índices, indicadores y posicionamientos en sistemas de rankings cienciométricos (Scimago, WoS, QS, THE, Google Scholar, entre otros). Unidad de medida: Índices e indicadores específicos de los diferentes rankings y agencias cienciométricas. Fuente de datos: VI.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Investigación, creación e innovación': Rankings y liderazgo científico son la proyección externa de la capacidad instalada (profesores/grupos categorizados).): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I32": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Productos de I+D+i+c que aportan a las metas de los ODS en Colombia, LAC y global», dentro de la dimensión 'Apropiación social del conocimiento' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de productos de I+D+i+c derivados de proyectos UDES que evidencian aportes a los ODS en función de las metas establecidas para Colombia y el mundo. Unidad de medida: Número o proporción. Fuente de datos: VI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Apropiación social del conocimiento': Mide el efecto externo de los productos I+D+i+c que esta dimensión ya produce en Productos.): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I33": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Emprendimientos de base científica/tecnológica derivados de productos de I+D+i+c desarrollados en proyectos UDES», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de empresas creadas de base científica o tecnológica, spin-offs, startups, o número de empresas ya constituidas que innovan con productos o servicios derivados de la investigación UDES. Unidad de medida: Número o proporción. Fuente de datos: VI.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Investigación, creación e innovación': Transferencia y Uso del Conocimiento se integra dentro de Investigación, creación e innovación (modelo abril 2026).): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I34": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Desempeño académico de estudiantes en actividades de formación investigativa (semilleros y jóvenes investigadores)», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Resultados de aprendizaje demostrados en pruebas de desempeño académico institucionales (CMIRA) y nacionales (SABER-PRO) de estudiantes que participaron en semilleros de investigación en relación con los que no participaron. Unidad de medida: Resultados estandarizadossegún prueba. Fuente de datos: VI.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Formación investigativa' (reclasificado desde la dimensión oficial 'Formación investigativa': Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación investigativa ya cubre en Insumos/Procesos/Productos.): I01 – Estudiantes vinculados a semilleros (Insumos); I02 – Estudiantes vinculados a Proyectos (Insumos); I03 – Profesores en actividades de formación investigativa (Insumos); I05 – Semilleros de investigación activos (Insumos); I08 – Tasa de Inserción Científica Avanzada (Insumos); I13 – Estudiantes de semillero reconocidos en eventos de investigación (Procesos); I14 – Jóvenes investigadores en formación (Procesos); I23 – Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I35": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Desempeño profesional de graduados que participaron en actividades de formación investigativa (semilleros y jóvenes investigadores)», dentro de la dimensión 'Formación investigativa' de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Desempeño profesional comparado de graduados que participaron en semilleros de investigación y jóvenes investigadores. Unidad de medida: Resultados evidenciados en estudios de graduados. Fuente de datos: VI.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Formación investigativa' (reclasificado desde la dimensión oficial 'Formación investigativa': Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación investigativa ya cubre en Insumos/Procesos/Productos.): I01 – Estudiantes vinculados a semilleros (Insumos); I02 – Estudiantes vinculados a Proyectos (Insumos); I03 – Profesores en actividades de formación investigativa (Insumos); I05 – Semilleros de investigación activos (Insumos); I08 – Tasa de Inserción Científica Avanzada (Insumos); I13 – Estudiantes de semillero reconocidos en eventos de investigación (Procesos); I14 – Jóvenes investigadores en formación (Procesos); I23 – Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I36": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Índice de liderazgo y transferencia de la comunidad científica», dentro de la dimensión 'Investigación, creación e innovación' de la función de Investigación.",
+    "metodoCalculo": "Fórmula de cálculo: (N° de investigadores UDES que lideran redes internacionales, patentes concedidas o consultorías de política pública / Total de investigadores clasificados en el año t) × 100. Unidad de medida: Porcentaje. Fuente de datos: VI.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2028: VI).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Investigación, creación e innovación' (reclasificado desde la dimensión oficial 'Investigación, creación e innovación': Rankings y liderazgo científico son la proyección externa de la capacidad instalada (profesores/grupos categorizados).): I04 – Profesores en actividades de investigación (Insumos); I06 – Grupos de investigación activos (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I07 – Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI) (Insumos); I09 – Efectividad en Propiedad Intelectual (Insumos); I10 – Proyectos formulados/presentados a convocatorias internas (Procesos); I11 – Proyectos formulados/presentados a convocatorias externas (Procesos); I12 – Proyectos formulados/presentados en colaboración internacional (Procesos); I15 – Profesores reconocidos y categorizados ante MinCiencias (Procesos); I16 – Grupos reconocidos y categorizados ante MinCiencias en A1 y A (Procesos); I17 – Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica (Procesos); I18 – Proyectos en ejecución/ejecutados en convocatorias internas (Productos); I19 – Proyectos en ejecución/ejecutados en convocatorias externas (Productos); I20 – Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I21 – Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES (Productos); I25 – Servicios y consultorías derivados de la ejecución de proyectos UDES (Productos); I26 – Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "I37": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar», dentro de la dimensión Por definir de la función de Investigación.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar. Unidad de medida: Puntaje 1-5. Fuente de datos: Encuesta institucional de percepción / Informes de autoevaluación institucional.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Indicador transversal (nodo central): no tiene un antecedente propio dentro de esta función porque su naturaleza es transversal a Investigación, Enseñanza y Extensión, incluyendo Bienestar Institucional. Se conecta con los 32 indicadores oficiales de Impacto Real a través del nodo central del Mapa de Red de la herramienta.",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E01": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Profesores con título de Maestría y Doctorado», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje del cuerpo docente con título de especialización, maestría o doctorado. Unidad de medida: % docentes. Fuente de datos: Sistema de información UDES.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: 72%; meta 2028: 75%).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E02": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Perfil Profesor de Posgrados», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: (N° Profesores con Ph.D. o Subespecialidad / Total Profesores Posgrado) × 100. Unidad de medida: % docentes. Fuente de datos: Sistema de información UDES.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥+2% vs LB; meta 2028: ≥+3% vs LB).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E03": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE)», dentro de la dimensión 'Permanencia' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de estudiantes que participan en programas de tutoría académica, asesorías psicopedagógicas, nivelación y apoyo integral por período académico. Unidad de medida: N° estudiantes/semestre. Fuente de datos: Informes de desarrollo estudiantil / Informes Bienestar.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: +20% vs LB; meta 2028: +50% vs LB).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E04": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Tasa de retención estudiantil», dentro de la dimensión 'Permanencia' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de estudiantes que permanecen en el programa de un semestre a otro. Unidad de medida: % retención. Fuente de datos: Sistema SPADIES / Sistema de información UDES.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: +1 pp vs LB; meta 2028: +2 pp vs LB).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E05": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Tasa de deserción acumulada», dentro de la dimensión 'Permanencia' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje acumulado de estudiantes que abandonan el programa antes de graduarse. Unidad de medida: % deserción. Fuente de datos: SPADIES – MEN / UDES.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Reducir 2%; meta 2028: Reducir 2%).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E06": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de estudiantes y docentes en intercambios nacionales e internacionales por período. Unidad de medida: N° personas/año. Fuente de datos: Dirección de Relaciones Nacionales e Internacionales.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: +20% anual; meta 2028: Triplicar vs LB).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E07": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Autoevaluación y evaluación profesoral», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de profesores evaluados por estudiantes, pares académicos y autoevaluación con resultados documentados y planes de mejoramiento implementados por período. Unidad de medida: % docentes evaluados o Puntaje promedio. Fuente de datos: Sistema de evaluación profesoral UDES.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: 100% / ≥4.0; meta 2028: 100% / ≥4.3).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E10": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Tasa de graduación oportuna», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de estudiantes que se gradúan respecto a los que ingresaron en la cohorte. Unidad de medida: % graduación. Fuente de datos: SNIES – MEN / Sistema de Información UDES.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: +2 pp vs LB; meta 2028: +2 pp vs LB).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E11": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Resultados Saber Pro», dentro de la dimensión 'Aprendizaje' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Desempeño promedio de los estudiantes UDES en Pruebas Saber Pro vs. referente nacional. Unidad de medida: Puntaje o posición nacional. Fuente de datos: ICFES – Saber Pro.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: Sobre la media nacional; meta 2028: Sobre la media nacional).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E12": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Programas académicos con acreditación CNA», dentro de la dimensión 'Aprendizaje' de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: Número de programas académicos con acreditación de alta calidad vigente del CNA / N° de programas acreditables. Unidad de medida: Proporción de acreditados de acreditables. Fuente de datos: CNA – MEN.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Se compara contra las metas institucionales (meta 2026: 0.22; meta 2028: 0.25).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E13": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Oferta de educación continuada y posgrado», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de programas de educación continua, diplomados y posgrados activos. Unidad de medida: N° programas. Fuente de datos: Sistema UDES / OLE.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: +10% anual; meta 2028: +30% vs LB).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E14": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Innovaciones pedagógicas implementadas y documentadas», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de innovaciones pedagógicas (estrategias didácticas, metodologías activas, uso de TIC en aula, proyectos interdisciplinares) formalmente documentadas, evaluadas y socializadas. Unidad de medida: N° innovaciones/año. Fuente de datos: Repositorio institucional / Sistema de información desarrollo profesoral.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥10/año; meta 2028: ≥25/año).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E16": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Valor agregado académico», dentro de la dimensión 'Aprendizaje' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Incremento en el desempeño académico de los estudiantes medido por la diferencia entre resultados Saber Pro y Saber 11, ajustado por características socioeconómicas de entrada. Unidad de medida: Puntos de diferencia o categoría MEN. Fuente de datos: ICFES Saber Pro y Saber 11 / Modelo valor agregado MEN.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Categoría Media-Alta; meta 2028: Categoría Alta).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Aprendizaje': E01 – Profesores con título de Maestría y Doctorado (Insumos); E07 – Autoevaluación y evaluación profesoral (Procesos); E11 – Resultados Saber Pro (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E17": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Tasa de empleabilidad de graduados», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de graduados que se encuentran vinculados laboralmente en cargos relacionados con su área de formación dentro de los 12 meses posteriores a su graduación. Unidad de medida: % empleabilidad pertinente. Fuente de datos: Seguimiento a graduados UDES / OLE.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 80%; meta 2028: ≥ 85%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Experiencia del Estudiante': E01 – Profesores con título de Maestría y Doctorado (Insumos); E06 – Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización (Procesos); E10 – Tasa de graduación oportuna (Productos); E12 – Programas académicos con acreditación CNA (Productos); E13 – Oferta de educación continuada y posgrado (Productos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos); E26 – Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E18": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Percepción de empleadores sobre graduados», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Calificación promedio dada por empleadores a las competencias de los graduados UDES. Unidad de medida: Puntaje 1–5. Fuente de datos: Encuesta sistemática a empleadores seguimiento graduados o encuentas con fines de acreditación.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Práctica Profesional': E01 – Profesores con título de Maestría y Doctorado (Insumos); E02 – Perfil Profesor de Posgrados (Insumos); E07 – Autoevaluación y evaluación profesoral (Procesos); E24 – Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos (Procesos); E25 – Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto (Procesos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E19": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Graduados en cargos de liderazgo», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de graduados que ocupan cargos directivos o de toma de decisiones. Unidad de medida: % graduados. Fuente de datos: OLE / Encuesta egresados.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: +3 pp vs LB; meta 2028: +5 pp vs LB).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Práctica Profesional': E01 – Profesores con título de Maestría y Doctorado (Insumos); E02 – Perfil Profesor de Posgrados (Insumos); E07 – Autoevaluación y evaluación profesoral (Procesos); E24 – Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos (Procesos); E25 – Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto (Procesos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E20": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Impacto de la internacionalización», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Evidencias del impacto de la internacionalización en las trayectorias de los graduados. Unidad de medida: N° evidencias de impacto/año. Fuente de datos: Repositorio institucional / Publicaciones / Informes de movilidad / Encuestas de impacto / Convenios.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥15 evidencias; meta 2028: ≥40 evidencias).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Experiencia del Estudiante' (reclasificado desde la dimensión oficial 'Experiencia del Estudiante': El impacto de la internacionalización tiene su antecedente directo en E06 (Movilidad académica), dentro de esta dimensión.): E01 – Profesores con título de Maestría y Doctorado (Insumos); E06 – Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización (Procesos); E10 – Tasa de graduación oportuna (Productos); E12 – Programas académicos con acreditación CNA (Productos); E13 – Oferta de educación continuada y posgrado (Productos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos); E26 – Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E21": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Reconocimientos a graduados UDES», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de distinciones, premios o reconocimientos públicos recibidos por graduados. Unidad de medida: N° reconocimientos/año. Fuente de datos: Informes de gestión / Medios.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Registro sistemático; meta 2028: Banco de casos).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Experiencia del Estudiante': E01 – Profesores con título de Maestría y Doctorado (Insumos); E06 – Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización (Procesos); E10 – Tasa de graduación oportuna (Productos); E12 – Programas académicos con acreditación CNA (Productos); E13 – Oferta de educación continuada y posgrado (Productos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos); E26 – Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E22": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Tasa de vinculación efectiva en prácticas empresariales», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de estudiantes habilitados para práctica que realizan su práctica empresarial en organizaciones del sector productivo formal, con evaluación satisfactoria por parte del empleador. Unidad de medida: % estudiantes en práctica. Fuente de datos: Convenios activos empresa–universidad Evaluaciones de desempeño del practicante.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 80%; meta 2028: ≥ 90%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Práctica Profesional': E01 – Profesores con título de Maestría y Doctorado (Insumos); E02 – Perfil Profesor de Posgrados (Insumos); E07 – Autoevaluación y evaluación profesoral (Procesos); E24 – Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos (Procesos); E25 – Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto (Procesos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E23": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar», dentro de la dimensión Por definir de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar. Unidad de medida: Puntaje 1-5. Fuente de datos: Encuesta institucional de percepción / Informes de autoevaluación institucional.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4,0; meta 2028: ≥ 4,0).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Indicador transversal (nodo central): no tiene un antecedente propio dentro de esta función porque su naturaleza es transversal a Investigación, Enseñanza y Extensión, incluyendo Bienestar Institucional. Se conecta con los 32 indicadores oficiales de Impacto Real a través del nodo central del Mapa de Red de la herramienta.",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E24": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: (N° de sesiones realizadas con participación de representantes de estamentos / N° total de sesiones ejecutadas) × 100. Unidad de medida: Porcentaje. Fuente de datos: Actas del máximo órgano de gobierno / Informes de seguimiento a la implementación de decisiones.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: 1; meta 2028: 1).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E25": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: (N° de planes de mejoramiento derivados de la autoevaluación institucional con evidencia documentada / N° total de planes de mejoramiento formulados) × 100. Unidad de medida: Porcentaje. Fuente de datos: Informes de autoevaluación institucional / Planes de mejoramiento y reportes de seguimiento.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": "La definición metodológica rigurosa de 'efecto' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "E26": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto», dentro de la dimensión 'Experiencia del Estudiante' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de programas o proyectos académicos de carácter inter o transdisciplinar implementados en el periodo, con evidencia de la necesidad del contexto que atienden y de los resultados obtenidos. Unidad de medida: N° programas o proyectos/año. Fuente de datos: Actos de creación y aprobación de programas y proyectos / Informes de gestión académica / Estudios de contexto.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E27": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Incidencia de la estabilidad y renovación de la planta profesoral en los resultados institucionales de docencia, investigación y extensión», dentro de la dimensión 'Práctica Profesional' de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Relación entre los indicadores de estabilidad y renovación de la planta profesoral (permanencia, tipo de vinculación, relevo generacional) y los resultados institucionales de docencia, investigación y extensión en el periodo. Unidad de medida: Índice o Análisis de correlación. Fuente de datos: Sistema de información de talento humano / Informes de gestión de las tres funciones sustantivas.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Práctica Profesional': E01 – Profesores con título de Maestría y Doctorado (Insumos); E02 – Perfil Profesor de Posgrados (Insumos); E07 – Autoevaluación y evaluación profesoral (Procesos); E24 – Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos (Procesos); E25 – Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto (Procesos); E14 – Innovaciones pedagógicas implementadas y documentadas (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E28": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Efecto de los mecanismos de permanencia estudiantil en las tasas de permanencia y graduación», dentro de la dimensión 'Permanencia' de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: N° de estudiantes que permanecieron y se graduaron luego de aplicárseles mecanismos de permanencia (Programas de acompañamiento institucional, transferencias, homologaciones) / N° de estudiantes a los que se les aplicaron mecanismos de permanencia (Programas de acompañamiento institucional, transferencias, homologaciones) × 100. Unidad de medida: Porcentaje. Fuente de datos: Sistema de información académica / SPADIES / Informes de permanencia y graduación.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: 1).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Permanencia': E01 – Profesores con título de Maestría y Doctorado (Insumos); E03 – Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE) (Procesos); E04 – Tasa de retención estudiantil (Procesos); E05 – Tasa de deserción acumulada (Procesos); E10 – Tasa de graduación oportuna (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": "La definición metodológica rigurosa de 'efecto' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "E29": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Efecto de becas o estímulos en la permanencia y graduación de estudiantes, desagregado por tipo de beca», dentro de la dimensión 'Permanencia' de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: N° de estudiantes que reciben becas o estímulos y permanecieron y se graduaron / N° de estudiantes que recibieron becas o estímulos × 100. Unidad de medida: Porcentaje. Fuente de datos: Registros de becas y estímulos / Sistema de información académica / Caracterización estudiantil.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Permanencia': E01 – Profesores con título de Maestría y Doctorado (Insumos); E03 – Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE) (Procesos); E04 – Tasa de retención estudiantil (Procesos); E05 – Tasa de deserción acumulada (Procesos); E10 – Tasa de graduación oportuna (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": "La definición metodológica rigurosa de 'efecto' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "E30": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Capacitación pedagógica recibidas por profesores», dentro de la dimensión Por definir de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Horas de formación docente en didáctica, metodologías activas, evaluación del aprendizaje, uso de TIC en el aula, y competencias pedagógicas por docente por año académico. Unidad de medida: N° de horas de capacitación pedagógica por profesor/año. Fuente de datos: Por definir.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E31": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Índice de eficiencia del impacto institucional en la gestión estratégica», dentro de la dimensión Por definir de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: Metas de impacto del PDI alcanzadas con nivel satisfactorio / Presupuesto institucional total invertido en las funciones sustantivas en el periodo. Unidad de medida: Índice. Fuente de datos: Por definir.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E32": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Índice de inserción científica Global», dentro de la dimensión Por definir de la función de Enseñanza.",
+    "metodoCalculo": "Fórmula de cálculo: N° de tesis de posgrado sustentadas que cuentan con co-director internacional o publicación conjunta en Scopus-WoS / Total de tesis de posgrado aprobadas en el período) * 100. Unidad de medida: Porcentaje. Fuente de datos: Por definir.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "E33": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Programas con resultados de aprendizaje vinculados a ODS verificables en microcurrículo», dentro de la dimensión Por definir de la función de Enseñanza.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de programas con resultados de aprendizaje vinculados a ODS verificables en microcurrículos. Unidad de medida: Porcentaje. Fuente de datos: Por definir.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X01": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Convenios activos con sector externo», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de convenios vigentes con entidades públicas, empresas, comunidades y ONG para desarrollo regional. Unidad de medida: N° convenios. Fuente de datos: Sistema de convenios UDES / Jurídica.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 20% activos/año; meta 2028: +50% vs LB).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X02": {
+    "objetivo": "Cuantificar los recursos y condiciones de partida disponibles en relación con «Presupuesto destinado a extensión», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje del presupuesto institucional asignado a proyectos de extensión y proyección social. Unidad de medida: % presupuesto. Fuente de datos: Presupuesto institucional.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: +5% anual; meta 2028: Aumentar 20%).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X03": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Municipios o territorios con presencia UDES», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de municipios donde la UDES desarrolla actividades de extensión contribuyendo al desarrollo regional. Unidad de medida: N° municipios. Fuente de datos: Informes territoriales / Actas.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: +2 municipios/año; meta 2028: ≥ 5 municipios al 2028).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X04": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Profesores vinculados a extensión», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de profesores vinculados a programas /proyectos de extensión. Unidad de medida: N° profesores/año. Fuente de datos: Informes de nómina.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 100/año; meta 2028: ≥ 100/año).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X05": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Estudiantes y graduados vinculados a proyectos», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: Número de estudiantes de semilleros/proyectos de grado y graduados vinculados a programas/proyectos de extensión (Gestión del conocimiento). Unidad de medida: N° personas/año. Fuente de datos: Registros académicos / Informes.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 20/año; meta 2028: ≥ 60 acumulados).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X06": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Emprendimientos identificados/apoyados», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de emprendimientos sociales, ambientales o productivos identificados, asesorados o apoyados (Innovación y emprendimiento). Unidad de medida: N° emprendimientos. Fuente de datos: Informes de proyectos / Registro.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 10/año; meta 2028: ≥ 40 acumulados).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X07": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Proyectos de proyección social activos», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de proyectos de extensión y proyección social en ejecución vinculando ámbitos sociales y productivos. Unidad de medida: N° proyectos/año. Fuente de datos: Informes de gestión extensión.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: +20% anual; meta 2028: Duplicar vs LB).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X08": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Ingresos por servicios de extensión», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Ingresos generados por asesorías, consultorías y servicios especializados al sector productivo. Unidad de medida: COP millones/año. Fuente de datos: Estados financieros UDES.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: +10% anual; meta 2028: +30% vs LB).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X09": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Percepción de apoyo institucional», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Percepción de apoyo institucional que personas/grupos tienen frente a problemáticas desde el proyecto (Colaboración productiva). Unidad de medida: Puntaje 1-5. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X10": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Aliados con acciones ejecutadas», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de aliados institucionales con acciones ejecutadas / Número de aliados proyectados (Desarrollo redes). Unidad de medida: % cumplimiento. Fuente de datos: Informes de proyectos / Convenios.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 70%; meta 2028: ≥ 85%).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X11": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «Tecnologías en inventario DTT con TRL validado», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de productos tecnológicos con evidencias verificadas, TRL determinado y registro en el Inventario Institucional (DESARROLLATEC). Unidad de medida: N° tecnologías. Fuente de datos: Inventario institucional DTT (Excel/macros) / evidencias TRL.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X12": {
+    "objetivo": "Monitorear el avance de las actividades en ejecución en relación con «% de tecnologías que aumentan TRL en el periodo», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: (N° tecnologías con aumento de TRL / N° tecnologías con TRL medido) × 100. Requiere medición periódica y trazabilidad. Unidad de medida: % tecnologías. Fuente de datos: Informe anual DTT / Indicadores aumento de TRL.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X13": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Espacios de participación y transferencia social del conocimiento», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de espacios de participación, transferencia social del conocimiento desarrollados a partir del proyecto (Desarrollo Regional), incluyendo ferias, ruedas de negocio, jornadas de salud, foros ciudadanos y eventos de impacto social organizados por la UDES con el entorno. (Integra el indicador 'Eventos de vinculación con el entorno'). Unidad de medida: N° espacios/año. Fuente de datos: Informes de proyectos / Actas.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 10/año; meta 2028: ≥ 20/año).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X14": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Publicaciones derivadas de proyectos de extensión», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Artículos, capítulos, libros sobre experiencias, sistematizaciones o resultados de proyectos de extensión. Unidad de medida: N° publicaciones/año. Fuente de datos: Base de datos bibliográfica UDES.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 3/año; meta 2028: ≥ 10 acumuladas).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X15": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Nuevos proyectos de investigación surgidos», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: Número de nuevos proyectos de investigación (interna/externa) que surgen del proyecto/programa, sometidos y avalados (Innovación). Unidad de medida: N° proyectos. Fuente de datos: Sistema de proyectos UDES.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 3/año; meta 2028: ≥ 10 acumulados).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X16": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Proyectos de aula desarrollados», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: Número de proyectos de aula desarrollados durante el proceso de implementación del proyecto/programa (Innovación). Unidad de medida: N° proyectos. Fuente de datos: Informes de proyectos.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 5/año; meta 2028: ≥ 20 acumulados).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X17": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Resultados de investigación transferidos», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de resultados de investigación transferidos/transferibles desde proyectos de extensión (Desarrollo Regional). Unidad de medida: N° resultados. Fuente de datos: Informes de proyectos / Documentos técnicos.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 5/año; meta 2028: ≥ 15 acumulados).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X18": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Beneficiarios directos de proyectos», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de personas, familias u organizaciones del ámbito social y productivo atendidas directamente. Unidad de medida: N° beneficiarios/año. Fuente de datos: Informes de proyectos / Actas.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Mantener o aumentar ≥ 5%/año; meta 2028: Triplicar vs LB).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X19": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Programas de educación continuada ofertados», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Diplomados, cursos de actualización ejecutados para fortalecimiento de capacidades sociales y productivas. Unidad de medida: N° programas/año. Fuente de datos: Sistema UDES / Certificados.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Mantener o aumentar ≥ 5%/año; meta 2028: +40% vs LB).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X20": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Personas/grupos que lideran procesos territoriales», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de personas, grupos, instituciones que lideran procesos en los territorios de aplicación (Vinculación social). Unidad de medida: % participantes. Fuente de datos: Informes de proyectos / Seguimiento.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Mantener o aumentar ≥ 5%/año; meta 2028: ≥ 35%).",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X21": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Activos de propiedad intelectual asociados a tecnologías DTT», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de activos de PI (divulgaciones, solicitudes, registros, concesiones) vinculados a productos del inventario DTT institucional. Unidad de medida: N° activos PI. Fuente de datos: Sistema/expedientes PI / Estatuto PI / registros institucionales.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual, con corte a diciembre de cada vigencia (a confirmar con el responsable).",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X22": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Percepción de cambios favorables en problemáticas atendidas», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de participantes que perciben cambios concretos favorables en las dinámicas o problemáticas atendidas (Solución de problemas). Unidad de medida: % participantes. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 65%; meta 2028: ≥ 80%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": ""
+  },
+  "X23": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Satisfacción en resolución intersectorial de problemas», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Nivel de satisfacción de los participantes o comunidad frente a la resolución interinstitucional e intersectorial de problemas desde el proyecto (Colaboración sector productivo). Unidad de medida: Puntaje 1-5. Fuente de datos: Encuesta de satisfacción / Cuestionario.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Mesosocial Intersectorial': X02 – Presupuesto destinado a extensión (Insumos); X08 – Ingresos por servicios de extensión (Procesos); X09 – Percepción de apoyo institucional (Procesos); X10 – Aliados con acciones ejecutadas (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X24": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Fortalecimiento de capacidades para convivencia pacífica», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de personas, familias, grupos que expresan cambios positivos en áreas de fortalecimiento de capacidades para convivencia pacífica (Promoción convivencia pacífica). Unidad de medida: % participantes. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 60%; meta 2028: ≥ 75%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": ""
+  },
+  "X25": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Cambios positivos en prácticas de cuidado y organización», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de participantes que expresan cambios positivos en prácticas de cuidado del entorno, organización o trabajo (Vinculación ámbito social). Unidad de medida: % participantes. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 60%; meta 2028: ≥ 75%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": ""
+  },
+  "X26": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Nuevas oportunidades educativas/laborales encontradas», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de participantes que encontraron nuevas oportunidades educativas, laborales, ocupacionales a partir de su participación. Unidad de medida: % participantes. Fuente de datos: Cuestionario de percepción / Seguimiento.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 40%; meta 2028: ≥ 60%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": ""
+  },
+  "X27": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Apreciación sobre aportes al bienestar», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Apreciación de los participantes sobre los aportes, aplicaciones o efectos de los resultados sobre el bienestar (Solución problemas). Unidad de medida: Puntaje 1-5. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": "La definición metodológica rigurosa de 'efecto' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "X28": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Valoración ampliación acciones interinstitucionales», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Valoración de actores clave frente a ampliación/funcionamiento de acciones interinstitucionales (Desarrollo redes). Unidad de medida: Puntaje 1-5. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Mesosocial Intersectorial': X02 – Presupuesto destinado a extensión (Insumos); X08 – Ingresos por servicios de extensión (Procesos); X09 – Percepción de apoyo institucional (Procesos); X10 – Aliados con acciones ejecutadas (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": ""
+  },
+  "X29": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Pertinencia de la intervención intersectorial», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Apreciación de participantes sobre pertinencia de intervención intersectorial en cambios incorporados (Adaptabilidad). Unidad de medida: Puntaje 1-5. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Mesosocial Intersectorial': X02 – Presupuesto destinado a extensión (Insumos); X08 – Ingresos por servicios de extensión (Procesos); X09 – Percepción de apoyo institucional (Procesos); X10 – Aliados con acciones ejecutadas (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": "La definición metodológica rigurosa de 'pertinencia' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "X30": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Calidad de servicios interinstitucionales», dentro de la dimensión 'Mesosocial Intersectorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Apreciación frente a calidad de servicios interinstitucionales promovidos desde el proyecto (Fomento innovación). Unidad de medida: Puntaje 1-5. Fuente de datos: Cuestionario de percepción.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: ≥ 4.0; meta 2028: ≥ 4.3).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Mesosocial Intersectorial': X02 – Presupuesto destinado a extensión (Insumos); X08 – Ingresos por servicios de extensión (Procesos); X09 – Percepción de apoyo institucional (Procesos); X10 – Aliados con acciones ejecutadas (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos).",
+    "notaConceptual": "Esta cifra depende de un instrumento de percepción (cuestionario) cuyas categorías de respuesta y el umbral que clasifica una respuesta como favorable/positiva (o su ubicación exacta en la escala) aún no están estandarizados a nivel institucional; se recomienda que la Vicerrectoría de Extensión defina y documente el instrumento antes de comparar resultados entre periodos o proyectos.",
+    "notaMetodologica": ""
+  },
+  "X31": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Proyectos alineados a ODS y Plan Regional», dentro de la dimensión 'Macrosocial Contextual' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Porcentaje de proyectos que responden a ODS o prioridades del Plan de Desarrollo Departamental. Unidad de medida: % proyectos. Fuente de datos: Informes de proyectos.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: ≥ 60%; meta 2028: ≥ 80%).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Macrosocial Contextual': X02 – Presupuesto destinado a extensión (Insumos); X10 – Aliados con acciones ejecutadas (Procesos); X17 – Resultados de investigación transferidos (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X32": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Conservación y sostenibilidad ambiental», dentro de la dimensión 'Macrosocial Contextual' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Proyectos con impacto documentado en conservación, restauración o educación ambiental. Unidad de medida: N° proyectos. Fuente de datos: Informes UDES Verde / Entidades ambientales.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: ≥ 2/año; meta 2028: ≥ 6 acumulados).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Macrosocial Contextual': X02 – Presupuesto destinado a extensión (Insumos); X10 – Aliados con acciones ejecutadas (Procesos); X17 – Resultados de investigación transferidos (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X33": {
+    "objetivo": "Cuantificar los resultados y productos concretos generados en relación con «Acuerdos de transferencia tecnológica formalizados (DTT)», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número de acuerdos de transferencia (licencias, cesiones, co-desarrollo, contratos con cláusula de explotación) firmados en el periodo. Unidad de medida: N° acuerdos/año. Fuente de datos: Contratos/actas / Sistema de convenios.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual.",
+    "cadenaValor": "",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X34": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Ingresos por transferencia tecnológica (licencias/regalías)», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Ingresos anuales derivados de licencias, regalías o cesiones de tecnologías desarrolladas por la UDES a través de la Coordinación DTT. Unidad de medida: COP millones/año. Fuente de datos: Estados financieros / Contratos de licenciamiento / Reportes de regalías.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual.",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X35": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Índice de sinergia territorial e innovación abierta», dentro de la dimensión 'Macrosocial Contextual' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: (Alianzas interinstitucionales con proyectos cofinanciados que aportaron a las metas de los Planes de Desarrollo Municipal y Departamental / Total de convenios activos con el Estado, empresa o cooperación internacional) × 100. Unidad de medida: Porcentaje. Fuente de datos: Sistema de convenios UDES / Informes de proyectos.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Macrosocial Contextual': X02 – Presupuesto destinado a extensión (Insumos); X10 – Aliados con acciones ejecutadas (Procesos); X17 – Resultados de investigación transferidos (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X36": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Tasa de sostenibilidad y apropiación comunitaria», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: (Programas de extensión que continúan operando de manera autónoma por la comunidad/sector productivo post-intervención UDES / Total de proyectos de proyección social finalizados en los últimos 4 años) × 100. Unidad de medida: Porcentaje. Fuente de datos: Informes de proyectos / Seguimiento post-intervención.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X37": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Índice de retorno de pertinencia posgradual y movilidad profesional», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: (Graduados de posgrado que lideran procesos de transformación institucional o innovación en sus organizaciones en los primeros cinco años de grado / Total de graduados de posgrado de la cohorte x encuestados) × 100. Unidad de medida: Porcentaje. Fuente de datos: Encuesta a graduados UDES / Sistema institucional de seguimiento a graduados.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Línea base y metas pendientes de definir por el responsable.",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Institucional Formativo': X01 – Convenios activos con sector externo (Insumos); X03 – Municipios o territorios con presencia UDES (Procesos); X04 – Profesores vinculados a extensión (Procesos); X05 – Estudiantes y graduados vinculados a proyectos (Procesos); X06 – Emprendimientos identificados/apoyados (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos); X14 – Publicaciones derivadas de proyectos de extensión (Productos); X15 – Nuevos proyectos de investigación surgidos (Productos); X17 – Resultados de investigación transferidos (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": "La definición metodológica rigurosa de 'pertinencia' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "X38": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Percepción de la comunidad institucional sobre la coherencia entre la identidad declarada y los resultados de docencia, investigación, extensión y bienestar», dentro de la dimensión Por definir de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Calificación promedio obtenida en la encuesta institucional aplicada a estudiantes, profesores, personal administrativo y graduados sobre la coherencia entre la identidad declarada y los resultados de las funciones sustantivas y el bienestar. Unidad de medida: Puntaje 1-5. Fuente de datos: Encuesta institucional de percepción / Informes de autoevaluación institucional.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Indicador transversal (nodo central): no tiene un antecedente propio dentro de esta función porque su naturaleza es transversal a Investigación, Enseñanza y Extensión, incluyendo Bienestar Institucional. Se conecta con los 32 indicadores oficiales de Impacto Real a través del nodo central del Mapa de Red de la herramienta.",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X39": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Proyectos de extensión con componente de patrimonio cultural/artístico y su impacto documentado», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Número y proporción de proyectos de extensión con componente de patrimonio cultural o artístico que cuentan con evidencia documentada de su impacto social, cultural y artístico en el territorio. Unidad de medida: N° proyectos o proporción. Fuente de datos: Banco de proyectos de extensión / Informes de impacto / Registros de actividades culturales y artísticas.",
+    "interpretacion": "Combina un valor absoluto y su proporción frente a un universo de referencia; ambas lecturas se reportan juntas para no perder el tamaño real detrás del porcentaje. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  },
+  "X40": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Índice de impacto de los programas de bienestar institucional en la calidad de vida de estudiantes, profesores y personal administrativo», dentro de la dimensión 'Microsocial Territorial' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Índice compuesto construido a partir de la medición de calidad de vida percibida y de la participación en políticas, programas y actividades de bienestar, aplicado a estudiantes, profesores y personal administrativo. Unidad de medida: Índice o Puntaje 1-5. Fuente de datos: Encuesta de calidad de vida y clima institucional / Registros de participación en programas de bienestar.",
+    "interpretacion": "Escala de percepción/calificación (ver rango de la unidad, ej. 1 a 5): valores más altos reflejan mejor percepción o satisfacción. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Microsocial Territorial': X01 – Convenios activos con sector externo (Insumos); X07 – Proyectos de proyección social activos (Procesos); X11 – Tecnologías en inventario DTT con TRL validado (Procesos); X12 – % de tecnologías que aumentan TRL en el periodo (Procesos); X16 – Proyectos de aula desarrollados (Productos); X18 – Beneficiarios directos de proyectos (Productos); X19 – Programas de educación continuada ofertados (Productos); X20 – Personas/grupos que lideran procesos territoriales (Productos); X21 – Activos de propiedad intelectual asociados a tecnologías DTT (Productos); X33 – Acuerdos de transferencia tecnológica formalizados (DTT) (Productos).",
+    "notaConceptual": "El instrumento y la metodología para medir 'calidad de vida percibida' (dimensiones, preguntas, ponderación) están pendientes de ser definidos y documentados por Bienestar Institucional, responsable co-titular de este indicador.",
+    "notaMetodologica": ""
+  },
+  "X41": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Efecto de los programas de acompañamiento psicosocial y académico en la permanencia y graduación oportuna», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Registro/conteo directo a partir de: Diferencia en las tasas de permanencia y graduación oportuna entre estudiantes que participaron en los programas de acompañamiento académico, psicosocial y económico y quienes no participaron. Unidad de medida: Puntos porcentuales de diferencia. Fuente de datos: Registros de los programas de acompañamiento / Sistema de información académica / SPADIES.",
+    "interpretacion": "Valor absoluto (conteo), acumulado o por periodo según se indique en la unidad de medida. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual (se recomienda revisar periodicidad con el responsable; los indicadores de percepción suelen medirse 1 vez al año).",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Institucional Formativo': X01 – Convenios activos con sector externo (Insumos); X03 – Municipios o territorios con presencia UDES (Procesos); X04 – Profesores vinculados a extensión (Procesos); X05 – Estudiantes y graduados vinculados a proyectos (Procesos); X06 – Emprendimientos identificados/apoyados (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos); X14 – Publicaciones derivadas de proyectos de extensión (Productos); X15 – Nuevos proyectos de investigación surgidos (Productos); X17 – Resultados de investigación transferidos (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": "La definición metodológica rigurosa de 'efecto' para este indicador (método de atribución causal, grupo de comparación, línea base) depende de un modelo institucional de evaluación de impacto que la dependencia responsable aún tiene pendiente de formalizar. Mientras tanto, se reporta la medición operativa implícita en la fórmula/descripción del indicador, sin inferencia causal validada."
+  },
+  "X42": {
+    "objetivo": "Evidenciar el efecto o cambio de mediano/largo plazo atribuible en relación con «Participación de egresados en programas de educación continua o posgrado UDES derivada de las estrategias de vinculación con egresados», dentro de la dimensión 'Institucional Formativo' de la función de Extensión.",
+    "metodoCalculo": "Fórmula de cálculo: (N° de egresados que se matriculan en programas de educación continua o posgrado UDES a partir de las estrategias de vinculación / N° total de egresados alcanzados por dichas estrategias) × 100. Unidad de medida: Porcentaje o N° egresados/año. Fuente de datos: Sistema de información de egresados / Registros de matrícula de educación continua y posgrado.",
+    "interpretacion": "Se expresa en porcentaje: valores más cercanos a la meta (o a 100%, según el caso) indican mejor desempeño. Se compara contra las metas institucionales (meta 2026: Por definir; meta 2028: Por definir).",
+    "periodicidad": "Anual.",
+    "cadenaValor": "Antecedentes en la cadena de valor institucional, dimensión 'Institucional Formativo': X01 – Convenios activos con sector externo (Insumos); X03 – Municipios o territorios con presencia UDES (Procesos); X04 – Profesores vinculados a extensión (Procesos); X05 – Estudiantes y graduados vinculados a proyectos (Procesos); X06 – Emprendimientos identificados/apoyados (Procesos); X13 – Espacios de participación y transferencia social del conocimiento (Productos); X14 – Publicaciones derivadas de proyectos de extensión (Productos); X15 – Nuevos proyectos de investigación surgidos (Productos); X17 – Resultados de investigación transferidos (Productos).",
+    "notaConceptual": "",
+    "notaMetodologica": ""
+  }
+}

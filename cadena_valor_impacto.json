@@ -1,0 +1,2132 @@
+{
+  "I27": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Formación investigativa",
+    "dimensionOriginal": "Formación investigativa",
+    "reclasificado": true,
+    "notaReclasificacion": "Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación investigativa ya cubre en Insumos/Procesos/Productos.",
+    "antecedentes": [
+      {
+        "id": "I01",
+        "niv": "Insumos",
+        "nombre": "Estudiantes vinculados a semilleros"
+      },
+      {
+        "id": "I02",
+        "niv": "Insumos",
+        "nombre": "Estudiantes vinculados a Proyectos"
+      },
+      {
+        "id": "I03",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de formación investigativa"
+      },
+      {
+        "id": "I05",
+        "niv": "Insumos",
+        "nombre": "Semilleros de investigación activos"
+      },
+      {
+        "id": "I08",
+        "niv": "Insumos",
+        "nombre": "Tasa de Inserción Científica Avanzada"
+      },
+      {
+        "id": "I13",
+        "niv": "Procesos",
+        "nombre": "Estudiantes de semillero reconocidos en eventos de investigación"
+      },
+      {
+        "id": "I14",
+        "niv": "Procesos",
+        "nombre": "Jóvenes investigadores en formación"
+      },
+      {
+        "id": "I23",
+        "niv": "Productos",
+        "nombre": "Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I28": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Apropiación social del conocimiento",
+    "reclasificado": true,
+    "notaReclasificacion": "Mide el efecto externo de los productos I+D+i+c que esta dimensión ya produce en Productos.",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I29": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Investigación, creación e innovación",
+    "reclasificado": true,
+    "notaReclasificacion": "Transferencia y Uso del Conocimiento se integra dentro de Investigación, creación e innovación (modelo abril 2026).",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I30": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Apropiación social del conocimiento",
+    "reclasificado": true,
+    "notaReclasificacion": "Mide el efecto externo de los productos I+D+i+c que esta dimensión ya produce en Productos.",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I31": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Investigación, creación e innovación",
+    "reclasificado": true,
+    "notaReclasificacion": "Rankings y liderazgo científico son la proyección externa de la capacidad instalada (profesores/grupos categorizados).",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I32": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Apropiación social del conocimiento",
+    "reclasificado": true,
+    "notaReclasificacion": "Mide el efecto externo de los productos I+D+i+c que esta dimensión ya produce en Productos.",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I33": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Investigación, creación e innovación",
+    "reclasificado": true,
+    "notaReclasificacion": "Transferencia y Uso del Conocimiento se integra dentro de Investigación, creación e innovación (modelo abril 2026).",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I34": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Formación investigativa",
+    "dimensionOriginal": "Formación investigativa",
+    "reclasificado": true,
+    "notaReclasificacion": "Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación investigativa ya cubre en Insumos/Procesos/Productos.",
+    "antecedentes": [
+      {
+        "id": "I01",
+        "niv": "Insumos",
+        "nombre": "Estudiantes vinculados a semilleros"
+      },
+      {
+        "id": "I02",
+        "niv": "Insumos",
+        "nombre": "Estudiantes vinculados a Proyectos"
+      },
+      {
+        "id": "I03",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de formación investigativa"
+      },
+      {
+        "id": "I05",
+        "niv": "Insumos",
+        "nombre": "Semilleros de investigación activos"
+      },
+      {
+        "id": "I08",
+        "niv": "Insumos",
+        "nombre": "Tasa de Inserción Científica Avanzada"
+      },
+      {
+        "id": "I13",
+        "niv": "Procesos",
+        "nombre": "Estudiantes de semillero reconocidos en eventos de investigación"
+      },
+      {
+        "id": "I14",
+        "niv": "Procesos",
+        "nombre": "Jóvenes investigadores en formación"
+      },
+      {
+        "id": "I23",
+        "niv": "Productos",
+        "nombre": "Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I35": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Formación investigativa",
+    "dimensionOriginal": "Formación investigativa",
+    "reclasificado": true,
+    "notaReclasificacion": "Mide el efecto de semilleros/jóvenes investigadores, la misma actividad que Formación investigativa ya cubre en Insumos/Procesos/Productos.",
+    "antecedentes": [
+      {
+        "id": "I01",
+        "niv": "Insumos",
+        "nombre": "Estudiantes vinculados a semilleros"
+      },
+      {
+        "id": "I02",
+        "niv": "Insumos",
+        "nombre": "Estudiantes vinculados a Proyectos"
+      },
+      {
+        "id": "I03",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de formación investigativa"
+      },
+      {
+        "id": "I05",
+        "niv": "Insumos",
+        "nombre": "Semilleros de investigación activos"
+      },
+      {
+        "id": "I08",
+        "niv": "Insumos",
+        "nombre": "Tasa de Inserción Científica Avanzada"
+      },
+      {
+        "id": "I13",
+        "niv": "Procesos",
+        "nombre": "Estudiantes de semillero reconocidos en eventos de investigación"
+      },
+      {
+        "id": "I14",
+        "niv": "Procesos",
+        "nombre": "Jóvenes investigadores en formación"
+      },
+      {
+        "id": "I23",
+        "niv": "Productos",
+        "nombre": "Productos de formación en investigación de alto nivel (Maestrías/Doctorados) derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I36": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Investigación, creación e innovación",
+    "dimensionOriginal": "Investigación, creación e innovación",
+    "reclasificado": true,
+    "notaReclasificacion": "Rankings y liderazgo científico son la proyección externa de la capacidad instalada (profesores/grupos categorizados).",
+    "antecedentes": [
+      {
+        "id": "I04",
+        "niv": "Insumos",
+        "nombre": "Profesores en actividades de investigación"
+      },
+      {
+        "id": "I06",
+        "niv": "Insumos",
+        "nombre": "Grupos de investigación activos"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I07",
+        "niv": "Insumos",
+        "nombre": "Presupuesto UDES para Actividades de Ciencia, Tecnología e Innovación (ACTI)"
+      },
+      {
+        "id": "I09",
+        "niv": "Insumos",
+        "nombre": "Efectividad en Propiedad Intelectual"
+      },
+      {
+        "id": "I10",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias internas"
+      },
+      {
+        "id": "I11",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados a convocatorias externas"
+      },
+      {
+        "id": "I12",
+        "niv": "Procesos",
+        "nombre": "Proyectos formulados/presentados en colaboración internacional"
+      },
+      {
+        "id": "I15",
+        "niv": "Procesos",
+        "nombre": "Profesores reconocidos y categorizados ante MinCiencias"
+      },
+      {
+        "id": "I16",
+        "niv": "Procesos",
+        "nombre": "Grupos reconocidos y categorizados ante MinCiencias en A1 y A"
+      },
+      {
+        "id": "I17",
+        "niv": "Procesos",
+        "nombre": "Índice de proyectos consolidados de alto impacto soportados en infraestructura científica y tecnológica"
+      },
+      {
+        "id": "I18",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias internas"
+      },
+      {
+        "id": "I19",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en convocatorias externas"
+      },
+      {
+        "id": "I20",
+        "niv": "Productos",
+        "nombre": "Proyectos en ejecución/ejecutados en colaboración interinstitucional/internacional/Intersectorial"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I21",
+        "niv": "Productos",
+        "nombre": "Productos de nuevo conocimiento derivado de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I25",
+        "niv": "Productos",
+        "nombre": "Servicios y consultorías derivados de la ejecución de proyectos UDES"
+      },
+      {
+        "id": "I26",
+        "niv": "Productos",
+        "nombre": "Productos de desarrollo tecnológico derivados de la ejecución de proyectos UDES"
+      }
+    ]
+  },
+  "I37": {
+    "tipo": "hub"
+  },
+  "E16": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Aprendizaje",
+    "dimensionOriginal": "Aprendizaje",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E07",
+        "niv": "Procesos",
+        "nombre": "Autoevaluación y evaluación profesoral"
+      },
+      {
+        "id": "E11",
+        "niv": "Productos",
+        "nombre": "Resultados Saber Pro"
+      }
+    ]
+  },
+  "E17": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Experiencia del Estudiante",
+    "dimensionOriginal": "Experiencia del Estudiante",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E06",
+        "niv": "Procesos",
+        "nombre": "Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización"
+      },
+      {
+        "id": "E10",
+        "niv": "Productos",
+        "nombre": "Tasa de graduación oportuna"
+      },
+      {
+        "id": "E12",
+        "niv": "Productos",
+        "nombre": "Programas académicos con acreditación CNA"
+      },
+      {
+        "id": "E13",
+        "niv": "Productos",
+        "nombre": "Oferta de educación continuada y posgrado"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      },
+      {
+        "id": "E26",
+        "niv": "Productos",
+        "nombre": "Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto"
+      }
+    ]
+  },
+  "E18": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Práctica Profesional",
+    "dimensionOriginal": "Práctica Profesional",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E02",
+        "niv": "Insumos",
+        "nombre": "Perfil Profesor de Posgrados"
+      },
+      {
+        "id": "E07",
+        "niv": "Procesos",
+        "nombre": "Autoevaluación y evaluación profesoral"
+      },
+      {
+        "id": "E24",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos"
+      },
+      {
+        "id": "E25",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      }
+    ]
+  },
+  "E19": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Práctica Profesional",
+    "dimensionOriginal": "Práctica Profesional",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E02",
+        "niv": "Insumos",
+        "nombre": "Perfil Profesor de Posgrados"
+      },
+      {
+        "id": "E07",
+        "niv": "Procesos",
+        "nombre": "Autoevaluación y evaluación profesoral"
+      },
+      {
+        "id": "E24",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos"
+      },
+      {
+        "id": "E25",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      }
+    ]
+  },
+  "E20": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Experiencia del Estudiante",
+    "dimensionOriginal": "Experiencia del Estudiante",
+    "reclasificado": true,
+    "notaReclasificacion": "El impacto de la internacionalización tiene su antecedente directo en E06 (Movilidad académica), dentro de esta dimensión.",
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E06",
+        "niv": "Procesos",
+        "nombre": "Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización"
+      },
+      {
+        "id": "E10",
+        "niv": "Productos",
+        "nombre": "Tasa de graduación oportuna"
+      },
+      {
+        "id": "E12",
+        "niv": "Productos",
+        "nombre": "Programas académicos con acreditación CNA"
+      },
+      {
+        "id": "E13",
+        "niv": "Productos",
+        "nombre": "Oferta de educación continuada y posgrado"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      },
+      {
+        "id": "E26",
+        "niv": "Productos",
+        "nombre": "Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto"
+      }
+    ]
+  },
+  "E21": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Experiencia del Estudiante",
+    "dimensionOriginal": "Experiencia del Estudiante",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E06",
+        "niv": "Procesos",
+        "nombre": "Movilidad académica (saliente y entrante) Productos derivados del procesos de internacionalización"
+      },
+      {
+        "id": "E10",
+        "niv": "Productos",
+        "nombre": "Tasa de graduación oportuna"
+      },
+      {
+        "id": "E12",
+        "niv": "Productos",
+        "nombre": "Programas académicos con acreditación CNA"
+      },
+      {
+        "id": "E13",
+        "niv": "Productos",
+        "nombre": "Oferta de educación continuada y posgrado"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      },
+      {
+        "id": "E26",
+        "niv": "Productos",
+        "nombre": "Número de programas o proyectos académicos inter/transdisciplinares implementados en respuesta a necesidades del contexto"
+      }
+    ]
+  },
+  "E22": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Práctica Profesional",
+    "dimensionOriginal": "Práctica Profesional",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E02",
+        "niv": "Insumos",
+        "nombre": "Perfil Profesor de Posgrados"
+      },
+      {
+        "id": "E07",
+        "niv": "Procesos",
+        "nombre": "Autoevaluación y evaluación profesoral"
+      },
+      {
+        "id": "E24",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos"
+      },
+      {
+        "id": "E25",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      }
+    ]
+  },
+  "E23": {
+    "tipo": "hub"
+  },
+  "E27": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Práctica Profesional",
+    "dimensionOriginal": "Práctica Profesional",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E02",
+        "niv": "Insumos",
+        "nombre": "Perfil Profesor de Posgrados"
+      },
+      {
+        "id": "E07",
+        "niv": "Procesos",
+        "nombre": "Autoevaluación y evaluación profesoral"
+      },
+      {
+        "id": "E24",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de sesiones del máximo órgano de gobierno académico (Consejo Superior) con participación de representantes de estamentos"
+      },
+      {
+        "id": "E25",
+        "niv": "Procesos",
+        "nombre": "Porcentaje de planes de mejoramiento derivados de autoevaluación institucional con seguimiento documentado a su efecto"
+      },
+      {
+        "id": "E14",
+        "niv": "Productos",
+        "nombre": "Innovaciones pedagógicas implementadas y documentadas"
+      }
+    ]
+  },
+  "E28": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Permanencia",
+    "dimensionOriginal": "Permanencia",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E03",
+        "niv": "Procesos",
+        "nombre": "Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE)"
+      },
+      {
+        "id": "E04",
+        "niv": "Procesos",
+        "nombre": "Tasa de retención estudiantil"
+      },
+      {
+        "id": "E05",
+        "niv": "Procesos",
+        "nombre": "Tasa de deserción acumulada"
+      },
+      {
+        "id": "E10",
+        "niv": "Productos",
+        "nombre": "Tasa de graduación oportuna"
+      }
+    ]
+  },
+  "E29": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Permanencia",
+    "dimensionOriginal": "Permanencia",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "E01",
+        "niv": "Insumos",
+        "nombre": "Profesores con título de Maestría y Doctorado"
+      },
+      {
+        "id": "E03",
+        "niv": "Procesos",
+        "nombre": "Estudiantes beneficiados por el programa de acompañamiento institucional (PAIPE)"
+      },
+      {
+        "id": "E04",
+        "niv": "Procesos",
+        "nombre": "Tasa de retención estudiantil"
+      },
+      {
+        "id": "E05",
+        "niv": "Procesos",
+        "nombre": "Tasa de deserción acumulada"
+      },
+      {
+        "id": "E10",
+        "niv": "Productos",
+        "nombre": "Tasa de graduación oportuna"
+      }
+    ]
+  },
+  "X22": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X23": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Mesosocial Intersectorial",
+    "dimensionOriginal": "Mesosocial Intersectorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X08",
+        "niv": "Procesos",
+        "nombre": "Ingresos por servicios de extensión"
+      },
+      {
+        "id": "X09",
+        "niv": "Procesos",
+        "nombre": "Percepción de apoyo institucional"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      }
+    ]
+  },
+  "X24": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X25": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X26": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X27": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X28": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Mesosocial Intersectorial",
+    "dimensionOriginal": "Mesosocial Intersectorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X08",
+        "niv": "Procesos",
+        "nombre": "Ingresos por servicios de extensión"
+      },
+      {
+        "id": "X09",
+        "niv": "Procesos",
+        "nombre": "Percepción de apoyo institucional"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      }
+    ]
+  },
+  "X29": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Mesosocial Intersectorial",
+    "dimensionOriginal": "Mesosocial Intersectorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X08",
+        "niv": "Procesos",
+        "nombre": "Ingresos por servicios de extensión"
+      },
+      {
+        "id": "X09",
+        "niv": "Procesos",
+        "nombre": "Percepción de apoyo institucional"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      }
+    ]
+  },
+  "X30": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Mesosocial Intersectorial",
+    "dimensionOriginal": "Mesosocial Intersectorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X08",
+        "niv": "Procesos",
+        "nombre": "Ingresos por servicios de extensión"
+      },
+      {
+        "id": "X09",
+        "niv": "Procesos",
+        "nombre": "Percepción de apoyo institucional"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      }
+    ]
+  },
+  "X31": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Macrosocial Contextual",
+    "dimensionOriginal": "Macrosocial Contextual",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X17",
+        "niv": "Productos",
+        "nombre": "Resultados de investigación transferidos"
+      }
+    ]
+  },
+  "X32": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Macrosocial Contextual",
+    "dimensionOriginal": "Macrosocial Contextual",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X17",
+        "niv": "Productos",
+        "nombre": "Resultados de investigación transferidos"
+      }
+    ]
+  },
+  "X34": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X35": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Macrosocial Contextual",
+    "dimensionOriginal": "Macrosocial Contextual",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X02",
+        "niv": "Insumos",
+        "nombre": "Presupuesto destinado a extensión"
+      },
+      {
+        "id": "X10",
+        "niv": "Procesos",
+        "nombre": "Aliados con acciones ejecutadas"
+      },
+      {
+        "id": "X17",
+        "niv": "Productos",
+        "nombre": "Resultados de investigación transferidos"
+      }
+    ]
+  },
+  "X36": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X37": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Institucional Formativo",
+    "dimensionOriginal": "Institucional Formativo",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X03",
+        "niv": "Procesos",
+        "nombre": "Municipios o territorios con presencia UDES"
+      },
+      {
+        "id": "X04",
+        "niv": "Procesos",
+        "nombre": "Profesores vinculados a extensión"
+      },
+      {
+        "id": "X05",
+        "niv": "Procesos",
+        "nombre": "Estudiantes y graduados vinculados a proyectos"
+      },
+      {
+        "id": "X06",
+        "niv": "Procesos",
+        "nombre": "Emprendimientos identificados/apoyados"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      },
+      {
+        "id": "X14",
+        "niv": "Productos",
+        "nombre": "Publicaciones derivadas de proyectos de extensión"
+      },
+      {
+        "id": "X15",
+        "niv": "Productos",
+        "nombre": "Nuevos proyectos de investigación surgidos"
+      },
+      {
+        "id": "X17",
+        "niv": "Productos",
+        "nombre": "Resultados de investigación transferidos"
+      }
+    ]
+  },
+  "X38": {
+    "tipo": "hub"
+  },
+  "X39": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X40": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Microsocial Territorial",
+    "dimensionOriginal": "Microsocial Territorial",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X07",
+        "niv": "Procesos",
+        "nombre": "Proyectos de proyección social activos"
+      },
+      {
+        "id": "X11",
+        "niv": "Procesos",
+        "nombre": "Tecnologías en inventario DTT con TRL validado"
+      },
+      {
+        "id": "X12",
+        "niv": "Procesos",
+        "nombre": "% de tecnologías que aumentan TRL en el periodo"
+      },
+      {
+        "id": "X16",
+        "niv": "Productos",
+        "nombre": "Proyectos de aula desarrollados"
+      },
+      {
+        "id": "X18",
+        "niv": "Productos",
+        "nombre": "Beneficiarios directos de proyectos"
+      },
+      {
+        "id": "X19",
+        "niv": "Productos",
+        "nombre": "Programas de educación continuada ofertados"
+      },
+      {
+        "id": "X20",
+        "niv": "Productos",
+        "nombre": "Personas/grupos que lideran procesos territoriales"
+      },
+      {
+        "id": "X21",
+        "niv": "Productos",
+        "nombre": "Activos de propiedad intelectual asociados a tecnologías DTT"
+      },
+      {
+        "id": "X33",
+        "niv": "Productos",
+        "nombre": "Acuerdos de transferencia tecnológica formalizados (DTT)"
+      }
+    ]
+  },
+  "X41": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Institucional Formativo",
+    "dimensionOriginal": "Institucional Formativo",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X03",
+        "niv": "Procesos",
+        "nombre": "Municipios o territorios con presencia UDES"
+      },
+      {
+        "id": "X04",
+        "niv": "Procesos",
+        "nombre": "Profesores vinculados a extensión"
+      },
+      {
+        "id": "X05",
+        "niv": "Procesos",
+        "nombre": "Estudiantes y graduados vinculados a proyectos"
+      },
+      {
+        "id": "X06",
+        "niv": "Procesos",
+        "nombre": "Emprendimientos identificados/apoyados"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      },
+      {
+        "id": "X14",
+        "niv": "Productos",
+        "nombre": "Publicaciones derivadas de proyectos de extensión"
+      },
+      {
+        "id": "X15",
+        "niv": "Productos",
+        "nombre": "Nuevos proyectos de investigación surgidos"
+      },
+      {
+        "id": "X17",
+        "niv": "Productos",
+        "nombre": "Resultados de investigación transferidos"
+      }
+    ]
+  },
+  "X42": {
+    "tipo": "con_antecedentes",
+    "dimensionEfectiva": "Institucional Formativo",
+    "dimensionOriginal": "Institucional Formativo",
+    "reclasificado": false,
+    "notaReclasificacion": null,
+    "antecedentes": [
+      {
+        "id": "X01",
+        "niv": "Insumos",
+        "nombre": "Convenios activos con sector externo"
+      },
+      {
+        "id": "X03",
+        "niv": "Procesos",
+        "nombre": "Municipios o territorios con presencia UDES"
+      },
+      {
+        "id": "X04",
+        "niv": "Procesos",
+        "nombre": "Profesores vinculados a extensión"
+      },
+      {
+        "id": "X05",
+        "niv": "Procesos",
+        "nombre": "Estudiantes y graduados vinculados a proyectos"
+      },
+      {
+        "id": "X06",
+        "niv": "Procesos",
+        "nombre": "Emprendimientos identificados/apoyados"
+      },
+      {
+        "id": "X13",
+        "niv": "Productos",
+        "nombre": "Espacios de participación y transferencia social del conocimiento"
+      },
+      {
+        "id": "X14",
+        "niv": "Productos",
+        "nombre": "Publicaciones derivadas de proyectos de extensión"
+      },
+      {
+        "id": "X15",
+        "niv": "Productos",
+        "nombre": "Nuevos proyectos de investigación surgidos"
+      },
+      {
+        "id": "X17",
+        "niv": "Productos",
+        "nombre": "Resultados de investigación transferidos"
+      }
+    ]
+  }
+}
